@@ -29,6 +29,7 @@ main(
     SodiumCompiler compiler;
 
     compiler.ParseSQLXFile(argv[1]);
+
     compiler.DumpDllFile();
 
     return 0;
