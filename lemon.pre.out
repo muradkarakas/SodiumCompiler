@@ -1,0 +1,236 @@
+State 0:
+          start ::= * expressions
+
+               PRE_END_OF_FILE shift-reduce 25     expression ::= PRE_END_OF_FILE
+             PRE_COMMENT_START shift        23     
+     PRE_VARIABLE_TYPE_VARCHAR shift        6      
+        PRE_VARIABLE_TYPE_BOOL shift        5      
+      PRE_VARIABLE_TYPE_NUMBER shift        4      
+        PRE_VARIABLE_TYPE_DATE shift        3      
+       PRE_VARIABLE_TYPE_REDIS shift        13     
+        PRE_VARIABLE_TYPE_VOID shift        2      
+                         start accept
+                   expressions shift        1      
+                    expression shift        1        /* because expression==expressions */
+                       comment shift        1        /* because comment==expression */
+                       globals shift        1        /* because globals==expression */
+
+State 1:
+     (20) start ::= expressions *
+          expressions ::= expressions * expression
+
+                             $ reduce       20     start ::= expressions
+               PRE_END_OF_FILE shift-reduce 25     expression ::= PRE_END_OF_FILE
+             PRE_COMMENT_START shift        23     
+     PRE_VARIABLE_TYPE_VARCHAR shift        6      
+        PRE_VARIABLE_TYPE_BOOL shift        5      
+      PRE_VARIABLE_TYPE_NUMBER shift        4      
+        PRE_VARIABLE_TYPE_DATE shift        3      
+       PRE_VARIABLE_TYPE_REDIS shift        13     
+        PRE_VARIABLE_TYPE_VOID shift        2      
+                    expression shift-reduce 21     expressions ::= expressions expression
+                       comment shift-reduce 21     expressions ::= expressions expression  /* because comment==expression */
+                       globals shift-reduce 21     expressions ::= expressions expression  /* because globals==expression */
+
+State 2:
+          globals ::= PRE_VARIABLE_TYPE_VOID * funcdechead
+
+                PRE_IDENTIFIER shift-reduce 19     identifier ::= PRE_IDENTIFIER
+                    identifier shift-reduce 11     funcdecid ::= identifier
+                   funcdechead shift-reduce 8      globals ::= PRE_VARIABLE_TYPE_VOID funcdechead
+                     funcdecid shift        10     
+
+State 3:
+          globals ::= PRE_VARIABLE_TYPE_DATE * identifier PRE_SEMICOLON
+          globals ::= PRE_VARIABLE_TYPE_DATE * funcdechead
+
+                PRE_IDENTIFIER shift-reduce 19     identifier ::= PRE_IDENTIFIER
+                    identifier shift        19     
+                   funcdechead shift-reduce 7      globals ::= PRE_VARIABLE_TYPE_DATE funcdechead
+                     funcdecid shift        10     
+
+State 4:
+          globals ::= PRE_VARIABLE_TYPE_NUMBER * identifier PRE_SEMICOLON
+          globals ::= PRE_VARIABLE_TYPE_NUMBER * funcdechead
+
+                PRE_IDENTIFIER shift-reduce 19     identifier ::= PRE_IDENTIFIER
+                    identifier shift        20     
+                   funcdechead shift-reduce 6      globals ::= PRE_VARIABLE_TYPE_NUMBER funcdechead
+                     funcdecid shift        10     
+
+State 5:
+          globals ::= PRE_VARIABLE_TYPE_BOOL * identifier PRE_SEMICOLON
+          globals ::= PRE_VARIABLE_TYPE_BOOL * funcdechead
+
+                PRE_IDENTIFIER shift-reduce 19     identifier ::= PRE_IDENTIFIER
+                    identifier shift        21     
+                   funcdechead shift-reduce 9      globals ::= PRE_VARIABLE_TYPE_BOOL funcdechead
+                     funcdecid shift        10     
+
+State 6:
+          globals ::= PRE_VARIABLE_TYPE_VARCHAR * identifier PRE_SEMICOLON
+          globals ::= PRE_VARIABLE_TYPE_VARCHAR * funcdechead
+
+                PRE_IDENTIFIER shift-reduce 19     identifier ::= PRE_IDENTIFIER
+                    identifier shift        22     
+                   funcdechead shift-reduce 5      globals ::= PRE_VARIABLE_TYPE_VARCHAR funcdechead
+                     funcdecid shift        10     
+
+State 7:
+          parameterlist ::= openparenthesis * parameters closeparenthesis
+
+     PRE_VARIABLE_TYPE_VARCHAR shift        16     
+      PRE_VARIABLE_TYPE_NUMBER shift        15     
+        PRE_VARIABLE_TYPE_DATE shift        14     
+                    parameters shift        8      
+                     parameter shift        8        /* because parameter==parameters */
+                     {default} reduce       31     parameter ::=
+
+State 8:
+          parameterlist ::= openparenthesis parameters * closeparenthesis
+          parameters ::= parameters * comma parameter
+
+               PRE_CLOSE_PARAN shift-reduce 33     closeparenthesis ::= PRE_CLOSE_PARAN
+                     PRE_COMMA shift-reduce 34     comma ::= PRE_COMMA
+              closeparenthesis shift-reduce 28     parameterlist ::= openparenthesis parameters closeparenthesis
+                         comma shift        11     
+
+State 9:
+          htsqlfunctionbody ::= PRE_FUNCTION_BEGIN * function_body_lines PRE_FUNCTION_END
+          htsqlfunctionbody ::= PRE_FUNCTION_BEGIN * PRE_FUNCTION_END
+
+              PRE_FUNCTION_END shift-reduce 13     htsqlfunctionbody ::= PRE_FUNCTION_BEGIN PRE_FUNCTION_END
+        PRE_FUNCTION_BODY_LINE shift-reduce 15     function_body_line ::= PRE_FUNCTION_BODY_LINE
+            function_body_line shift        12       /* because function_body_line==function_body_lines */
+           function_body_lines shift        12     
+
+State 10:
+          funcdechead ::= funcdecid * parameterlist htsqlfunctionbody
+
+                PRE_OPEN_PARAN shift-reduce 32     openparenthesis ::= PRE_OPEN_PARAN
+                 parameterlist shift        17     
+               openparenthesis shift        7      
+
+State 11:
+          parameters ::= parameters comma * parameter
+
+     PRE_VARIABLE_TYPE_VARCHAR shift        16     
+      PRE_VARIABLE_TYPE_NUMBER shift        15     
+        PRE_VARIABLE_TYPE_DATE shift        14     
+                     parameter shift-reduce 29     parameters ::= parameters comma parameter
+                     {default} reduce       31     parameter ::=
+
+State 12:
+          htsqlfunctionbody ::= PRE_FUNCTION_BEGIN function_body_lines * PRE_FUNCTION_END
+          function_body_lines ::= function_body_lines * function_body_line
+
+              PRE_FUNCTION_END shift-reduce 12     htsqlfunctionbody ::= PRE_FUNCTION_BEGIN function_body_lines PRE_FUNCTION_END
+        PRE_FUNCTION_BODY_LINE shift-reduce 15     function_body_line ::= PRE_FUNCTION_BODY_LINE
+            function_body_line shift-reduce 14     function_body_lines ::= function_body_lines function_body_line
+
+State 13:
+          globals ::= PRE_VARIABLE_TYPE_REDIS * identifier PRE_SEMICOLON
+
+                PRE_IDENTIFIER shift-reduce 19     identifier ::= PRE_IDENTIFIER
+                    identifier shift        18     
+
+State 14:
+          parameter ::= PRE_VARIABLE_TYPE_DATE * identifier
+
+                PRE_IDENTIFIER shift-reduce 19     identifier ::= PRE_IDENTIFIER
+                    identifier shift-reduce 18     parameter ::= PRE_VARIABLE_TYPE_DATE identifier
+
+State 15:
+          parameter ::= PRE_VARIABLE_TYPE_NUMBER * identifier
+
+                PRE_IDENTIFIER shift-reduce 19     identifier ::= PRE_IDENTIFIER
+                    identifier shift-reduce 17     parameter ::= PRE_VARIABLE_TYPE_NUMBER identifier
+
+State 16:
+          parameter ::= PRE_VARIABLE_TYPE_VARCHAR * identifier
+
+                PRE_IDENTIFIER shift-reduce 19     identifier ::= PRE_IDENTIFIER
+                    identifier shift-reduce 16     parameter ::= PRE_VARIABLE_TYPE_VARCHAR identifier
+
+State 17:
+          funcdechead ::= funcdecid parameterlist * htsqlfunctionbody
+
+            PRE_FUNCTION_BEGIN shift        9      
+             htsqlfunctionbody shift-reduce 10     funcdechead ::= funcdecid parameterlist htsqlfunctionbody
+
+State 18:
+          globals ::= PRE_VARIABLE_TYPE_REDIS identifier * PRE_SEMICOLON
+
+                 PRE_SEMICOLON shift-reduce 4      globals ::= PRE_VARIABLE_TYPE_REDIS identifier PRE_SEMICOLON
+
+State 19:
+          globals ::= PRE_VARIABLE_TYPE_DATE identifier * PRE_SEMICOLON
+     (11) funcdecid ::= identifier *
+
+                 PRE_SEMICOLON shift-reduce 3      globals ::= PRE_VARIABLE_TYPE_DATE identifier PRE_SEMICOLON
+                     {default} reduce       11     funcdecid ::= identifier
+
+State 20:
+          globals ::= PRE_VARIABLE_TYPE_NUMBER identifier * PRE_SEMICOLON
+     (11) funcdecid ::= identifier *
+
+                 PRE_SEMICOLON shift-reduce 2      globals ::= PRE_VARIABLE_TYPE_NUMBER identifier PRE_SEMICOLON
+                     {default} reduce       11     funcdecid ::= identifier
+
+State 21:
+          globals ::= PRE_VARIABLE_TYPE_BOOL identifier * PRE_SEMICOLON
+     (11) funcdecid ::= identifier *
+
+                 PRE_SEMICOLON shift-reduce 1      globals ::= PRE_VARIABLE_TYPE_BOOL identifier PRE_SEMICOLON
+                     {default} reduce       11     funcdecid ::= identifier
+
+State 22:
+          globals ::= PRE_VARIABLE_TYPE_VARCHAR identifier * PRE_SEMICOLON
+     (11) funcdecid ::= identifier *
+
+                 PRE_SEMICOLON shift-reduce 0      globals ::= PRE_VARIABLE_TYPE_VARCHAR identifier PRE_SEMICOLON
+                     {default} reduce       11     funcdecid ::= identifier
+
+State 23:
+          comment ::= PRE_COMMENT_START * PRE_COMMENT_END
+
+               PRE_COMMENT_END shift-reduce 26     comment ::= PRE_COMMENT_START PRE_COMMENT_END
+
+----------------------------------------------------
+Symbols:
+    0: $:
+    1: PRE_END_OF_FILE
+    2: PRE_COMMENT_START
+    3: PRE_COMMENT_END
+    4: PRE_VARIABLE_TYPE_VARCHAR
+    5: PRE_SEMICOLON
+    6: PRE_VARIABLE_TYPE_BOOL
+    7: PRE_VARIABLE_TYPE_NUMBER
+    8: PRE_VARIABLE_TYPE_DATE
+    9: PRE_VARIABLE_TYPE_REDIS
+   10: PRE_VARIABLE_TYPE_VOID
+   11: PRE_FUNCTION_BEGIN
+   12: PRE_FUNCTION_END
+   13: PRE_FUNCTION_BODY_LINE
+   14: PRE_IDENTIFIER
+   15: PRE_OPEN_PARAN
+   16: PRE_CLOSE_PARAN
+   17: PRE_COMMA
+   18: error:
+   19: function_body_line: PRE_FUNCTION_BODY_LINE
+   20: function_body_lines: PRE_FUNCTION_BODY_LINE
+   21: start: PRE_END_OF_FILE PRE_COMMENT_START PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_BOOL PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_VARIABLE_TYPE_REDIS PRE_VARIABLE_TYPE_VOID
+   22: expressions: PRE_END_OF_FILE PRE_COMMENT_START PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_BOOL PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_VARIABLE_TYPE_REDIS PRE_VARIABLE_TYPE_VOID
+   23: expression: PRE_END_OF_FILE PRE_COMMENT_START PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_BOOL PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_VARIABLE_TYPE_REDIS PRE_VARIABLE_TYPE_VOID
+   24: comment: PRE_COMMENT_START
+   25: globals: PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_BOOL PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_VARIABLE_TYPE_REDIS PRE_VARIABLE_TYPE_VOID
+   26: identifier: PRE_IDENTIFIER
+   27: funcdechead: PRE_IDENTIFIER
+   28: funcdecid: PRE_IDENTIFIER
+   29: parameterlist: PRE_OPEN_PARAN
+   30: htsqlfunctionbody: PRE_FUNCTION_BEGIN
+   31: openparenthesis: PRE_OPEN_PARAN
+   32: parameters: <lambda> PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_COMMA
+   33: closeparenthesis: PRE_CLOSE_PARAN
+   34: comma: PRE_COMMA
+   35: parameter: <lambda> PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE

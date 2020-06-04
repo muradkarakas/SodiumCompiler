@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\sqlx">
+      <UniqueIdentifier>{bb4c6a65-707c-4276-bf0b-652a72db4a2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sqlx\preParser">
+      <UniqueIdentifier>{798cc214-a604-4b4c-86e2-8af753da8b48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sqlx\preParser\lemon">
+      <UniqueIdentifier>{46fec3dd-2d6e-4f54-83c0-e8809d32d364}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sqlx\preParser\lexer">
+      <UniqueIdentifier>{84c9a184-5330-4f75-ba4e-ce932b9a1849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sqlx\Compiler">
+      <UniqueIdentifier>{145def49-86ea-4d88-b907-7e73c3443990}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lexer.pre.c">
+      <Filter>Source Files\sqlx\preParser\lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="lemon.pre.c">
+      <Filter>Source Files\sqlx\preParser\lemon</Filter>
+    </ClCompile>
+    <ClCompile Include="pre.parser.imp.c">
+      <Filter>Source Files\sqlx\preParser</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SodiumLLVM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SodiumCompiler.cpp">
+      <Filter>Source Files\sqlx\Compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="SymbolTable.cpp">
+      <Filter>Source Files\sqlx\Compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files\sqlx\Compiler</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lemon.pre.yy">
+      <Filter>Source Files\sqlx\preParser\lemon</Filter>
+    </None>
+    <None Include="lemon.pre.out">
+      <Filter>Source Files\sqlx\preParser\lemon</Filter>
+    </None>
+    <None Include="lexer.pre.ll">
+      <Filter>Source Files\sqlx\preParser\lexer</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lemon.pre.h">
+      <Filter>Source Files\sqlx\preParser\lemon</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pre.parser.imp.h">
+      <Filter>Source Files\sqlx\preParser</Filter>
+    </ClInclude>
+    <ClInclude Include="SodiumCompiler.h">
+      <Filter>Source Files\sqlx\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="SymbolTable.h">
+      <Filter>Source Files\sqlx\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Source Files\sqlx\Compiler</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SodiumCompiler.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="favicon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
