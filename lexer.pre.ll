@@ -12,11 +12,16 @@
      *	https://choosealicense.com/licenses/gpl-3.0/
      */
 
+
 #include "pch.h"
 #include "lemon.pre.h"
 #include "SodiumCompiler.h"
 
 %}
+
+%top{
+#include <stdint.h>
+}
 
 %option extra-type="SodiumCompiler *"
 %option reentrant

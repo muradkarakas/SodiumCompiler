@@ -1,0 +1,2715 @@
+State 0:
+          start ::= * expressions
+
+              HTML_END_OF_FILE shift-reduce 97     endoffile ::= HTML_END_OF_FILE
+         TAG_DOCTYPE_HTSQL_DTD shift-reduce 0      tagdoctype ::= TAG_DOCTYPE_HTSQL_DTD
+              TAG_DOCTYPE_HTML shift-reduce 1      tagdoctype ::= TAG_DOCTYPE_HTML
+                         SPACE shift-reduce 349    space ::= SPACE
+                 TAG_HTML_OPEN shift-reduce 86     taghtmlopen ::= TAG_HTML_OPEN
+                         start accept
+                   expressions shift        55     
+                    expression shift        55       /* because expression==expressions */
+                    tagdoctype shift        73     
+                       taghtml shift        55       /* because taghtml==expressions */
+                         space shift        55       /* because space==expression */
+                     endoffile shift        55       /* because endoffile==expression */
+               taghtmlfullopen shift        19     
+                   taghtmlopen shift        39     
+
+State 1:
+          taginputfullopen ::= taginputopen taginputproperties * tagclosechar
+          taginputfullopen ::= taginputopen taginputproperties * taginputshortclose
+          taginputproperties ::= taginputproperties * taginputproperty
+
+                         SPACE shift        205    
+               TAG_SHORT_CLOSE shift-reduce 41     taginputshortclose ::= TAG_SHORT_CLOSE
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        112      /* because space==spaces */
+                  tagclosechar shift-reduce 174    taginputfullopen ::= taginputopen taginputproperties tagclosechar
+                        spaces shift        112    
+            taginputshortclose shift-reduce 175    taginputfullopen ::= taginputopen taginputproperties taginputshortclose
+              taginputproperty shift-reduce 176    taginputproperties ::= taginputproperties taginputproperty
+          taginputcheckedvalue shift        243    
+        taginputuncheckedvalue shift        222    
+     taginputpropertyinputname shift        221    
+  taginputpropertysequencename shift        220    
+taginputpropertysequenceschemaname shift        219    
+taginputpropertymasteritemname shift        218    
+     taginputpropertyinputtype shift        217    
+    taginputpropertyinputvalue shift        216    
+  taginputpropertydefaultvalue shift        215    
+    taginputpropertycolumnname shift        214    
+    taginputpropertyformatmask shift        213    
+      taginputpropertydatatype shift        212    
+     taginputpropertymaxlength shift        211    
+ taginputpropertyinsertallowed shift        210    
+ taginputpropertyupdateallowed shift        209    
+  taginputpropertydatalistname shift        208    
+taginputpropertylookupitemname shift        207    
+taginputpropertylookupitemblockname shift        206    
+
+State 2:
+          tagbody ::= tagbodyfullopen * tagbodyblockclosefull
+          tagbody ::= tagbodyfullopen * tagbodycontents tagbodyblockclosefull
+
+                         SPACE shift-reduce 349    space ::= SPACE
+             TAG_DATALIST_OPEN shift-reduce 4      tagdatalistopen ::= TAG_DATALIST_OPEN
+           TAG_CONNECTION_OPEN shift-reduce 9      tagconnectionopen ::= TAG_CONNECTION_OPEN
+         TAG_CONTROLBLOCK_OPEN shift-reduce 142    tagcontrolblockopen ::= TAG_CONTROLBLOCK_OPEN
+            TAG_DATABLOCK_OPEN shift-reduce 19     tagdatablockopen ::= TAG_DATABLOCK_OPEN
+                TAG_TABLE_OPEN shift-reduce 68     tagtableopen ::= TAG_TABLE_OPEN
+          TAG_BODY_BLOCK_CLOSE shift-reduce 88     tagbodyblockclose ::= TAG_BODY_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 346    htmltext ::= HTMLTEXT
+                         space shift        4        /* because space==tagbodycontents */
+               tagbodycontents shift        4      
+                tagbodycontent shift        4        /* because tagbodycontent==tagbodycontents */
+                        htsqls shift        4        /* because htsqls==tagbodycontent */
+                      tagtable shift        4        /* because tagtable==tagbodycontent */
+                      htmltext shift        4        /* because htmltext==tagbodycontent */
+                 tagconnection shift        4        /* because tagconnection==htsqls */
+                  tagdatablock shift        4        /* because tagdatablock==htsqls */
+               tagcontrolblock shift        4        /* because tagcontrolblock==htsqls */
+                   tagdatalist shift        4        /* because tagdatalist==htsqls */
+           tagdatalistfullopen shift        111    
+               tagdatalistopen shift        51     
+         tagconnectionfullopen shift        109    
+             tagconnectionopen shift        26     
+       tagcontrolblockfullopen shift        16     
+           tagcontrolblockopen shift        106    
+          tagdatablockfullopen shift        15     
+              tagdatablockopen shift        8      
+              tagtablefullopen shift        18     
+                  tagtableopen shift        47     
+         tagbodyblockclosefull shift-reduce 319    tagbody ::= tagbodyfullopen tagbodyblockclosefull
+             tagbodyblockclose shift        86     
+
+State 3:
+          taginputfullopen ::= taginputopen * taginputproperties tagclosechar
+          taginputfullopen ::= taginputopen * taginputproperties taginputshortclose
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        112      /* because space==spaces */
+                        spaces shift        112    
+            taginputproperties shift        1      
+              taginputproperty shift        1        /* because taginputproperty==taginputproperties */
+          taginputcheckedvalue shift        243    
+        taginputuncheckedvalue shift        222    
+     taginputpropertyinputname shift        221    
+  taginputpropertysequencename shift        220    
+taginputpropertysequenceschemaname shift        219    
+taginputpropertymasteritemname shift        218    
+     taginputpropertyinputtype shift        217    
+    taginputpropertyinputvalue shift        216    
+  taginputpropertydefaultvalue shift        215    
+    taginputpropertycolumnname shift        214    
+    taginputpropertyformatmask shift        213    
+      taginputpropertydatatype shift        212    
+     taginputpropertymaxlength shift        211    
+ taginputpropertyinsertallowed shift        210    
+ taginputpropertyupdateallowed shift        209    
+  taginputpropertydatalistname shift        208    
+taginputpropertylookupitemname shift        207    
+taginputpropertylookupitemblockname shift        206    
+
+State 4:
+          tagbodycontents ::= tagbodycontents * tagbodycontent
+          tagbody ::= tagbodyfullopen tagbodycontents * tagbodyblockclosefull
+
+                         SPACE shift-reduce 349    space ::= SPACE
+             TAG_DATALIST_OPEN shift-reduce 4      tagdatalistopen ::= TAG_DATALIST_OPEN
+           TAG_CONNECTION_OPEN shift-reduce 9      tagconnectionopen ::= TAG_CONNECTION_OPEN
+         TAG_CONTROLBLOCK_OPEN shift-reduce 142    tagcontrolblockopen ::= TAG_CONTROLBLOCK_OPEN
+            TAG_DATABLOCK_OPEN shift-reduce 19     tagdatablockopen ::= TAG_DATABLOCK_OPEN
+                TAG_TABLE_OPEN shift-reduce 68     tagtableopen ::= TAG_TABLE_OPEN
+          TAG_BODY_BLOCK_CLOSE shift-reduce 88     tagbodyblockclose ::= TAG_BODY_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 346    htmltext ::= HTMLTEXT
+                         space shift-reduce 107    tagbodycontents ::= tagbodycontents tagbodycontent  /* because space==tagbodycontent */
+                tagbodycontent shift-reduce 107    tagbodycontents ::= tagbodycontents tagbodycontent
+                        htsqls shift-reduce 107    tagbodycontents ::= tagbodycontents tagbodycontent  /* because htsqls==tagbodycontent */
+                      tagtable shift-reduce 107    tagbodycontents ::= tagbodycontents tagbodycontent  /* because tagtable==tagbodycontent */
+                      htmltext shift-reduce 107    tagbodycontents ::= tagbodycontents tagbodycontent  /* because htmltext==tagbodycontent */
+                 tagconnection shift-reduce 107    tagbodycontents ::= tagbodycontents tagbodycontent  /* because tagconnection==htsqls */
+                  tagdatablock shift-reduce 107    tagbodycontents ::= tagbodycontents tagbodycontent  /* because tagdatablock==htsqls */
+               tagcontrolblock shift-reduce 107    tagbodycontents ::= tagbodycontents tagbodycontent  /* because tagcontrolblock==htsqls */
+                   tagdatalist shift-reduce 107    tagbodycontents ::= tagbodycontents tagbodycontent  /* because tagdatalist==htsqls */
+           tagdatalistfullopen shift        111    
+               tagdatalistopen shift        51     
+         tagconnectionfullopen shift        109    
+             tagconnectionopen shift        26     
+       tagcontrolblockfullopen shift        16     
+           tagcontrolblockopen shift        106    
+          tagdatablockfullopen shift        15     
+              tagdatablockopen shift        8      
+              tagtablefullopen shift        18     
+                  tagtableopen shift        47     
+         tagbodyblockclosefull shift-reduce 320    tagbody ::= tagbodyfullopen tagbodycontents tagbodyblockclosefull
+             tagbodyblockclose shift        86     
+
+State 5:
+          taghead ::= tagheadfullopen * tagheadblockclosefull
+          taghead ::= tagheadfullopen * tagheadcontents tagheadblockclosefull
+
+                TAG_TITLE_OPEN shift-reduce 270    tagtitleopen ::= TAG_TITLE_OPEN
+                 TAG_LINK_OPEN shift-reduce 278    taglinkopen ::= TAG_LINK_OPEN
+                 TAG_META_OPEN shift-reduce 286    tagmetaopen ::= TAG_META_OPEN
+                TAG_STYLE_OPEN shift-reduce 294    tagstyleopen ::= TAG_STYLE_OPEN
+               TAG_SCRIPT_OPEN shift-reduce 305    tagscriptopen ::= TAG_SCRIPT_OPEN
+          TAG_HEAD_BLOCK_CLOSE shift-reduce 331    tagheadblockclose ::= TAG_HEAD_BLOCK_CLOSE
+               tagheadcontents shift        6      
+                tagheadcontent shift        6        /* because tagheadcontent==tagheadcontents */
+                      tagtitle shift        6        /* because tagtitle==tagheadcontent */
+                     tagscript shift        6        /* because tagscript==tagheadcontent */
+                      tagstyle shift        6        /* because tagstyle==tagheadcontent */
+                       taglink shift        6        /* because taglink==tagheadcontent */
+                       tagmeta shift        6        /* because tagmeta==tagheadcontent */
+              tagtitlefullopen shift        35     
+                  tagtitleopen shift        42     
+               taglinkfullopen shift        83     
+                   taglinkopen shift        67     
+               tagmetafullopen shift        81     
+                   tagmetaopen shift        66     
+              tagstylefullopen shift        32     
+                  tagstyleopen shift        41     
+             tagscriptfullopen shift        31     
+                 tagscriptopen shift        27     
+         tagheadblockclosefull shift-reduce 325    taghead ::= tagheadfullopen tagheadblockclosefull
+             tagheadblockclose shift        119    
+
+State 6:
+          tagheadcontents ::= tagheadcontents * tagheadcontent
+          taghead ::= tagheadfullopen tagheadcontents * tagheadblockclosefull
+
+                TAG_TITLE_OPEN shift-reduce 270    tagtitleopen ::= TAG_TITLE_OPEN
+                 TAG_LINK_OPEN shift-reduce 278    taglinkopen ::= TAG_LINK_OPEN
+                 TAG_META_OPEN shift-reduce 286    tagmetaopen ::= TAG_META_OPEN
+                TAG_STYLE_OPEN shift-reduce 294    tagstyleopen ::= TAG_STYLE_OPEN
+               TAG_SCRIPT_OPEN shift-reduce 305    tagscriptopen ::= TAG_SCRIPT_OPEN
+          TAG_HEAD_BLOCK_CLOSE shift-reduce 331    tagheadblockclose ::= TAG_HEAD_BLOCK_CLOSE
+                tagheadcontent shift-reduce 100    tagheadcontents ::= tagheadcontents tagheadcontent
+                      tagtitle shift-reduce 100    tagheadcontents ::= tagheadcontents tagheadcontent  /* because tagtitle==tagheadcontent */
+                     tagscript shift-reduce 100    tagheadcontents ::= tagheadcontents tagheadcontent  /* because tagscript==tagheadcontent */
+                      tagstyle shift-reduce 100    tagheadcontents ::= tagheadcontents tagheadcontent  /* because tagstyle==tagheadcontent */
+                       taglink shift-reduce 100    tagheadcontents ::= tagheadcontents tagheadcontent  /* because taglink==tagheadcontent */
+                       tagmeta shift-reduce 100    tagheadcontents ::= tagheadcontents tagheadcontent  /* because tagmeta==tagheadcontent */
+              tagtitlefullopen shift        35     
+                  tagtitleopen shift        42     
+               taglinkfullopen shift        83     
+                   taglinkopen shift        67     
+               tagmetafullopen shift        81     
+                   tagmetaopen shift        66     
+              tagstylefullopen shift        32     
+                  tagstyleopen shift        41     
+             tagscriptfullopen shift        31     
+                 tagscriptopen shift        27     
+         tagheadblockclosefull shift-reduce 326    taghead ::= tagheadfullopen tagheadcontents tagheadblockclosefull
+             tagheadblockclose shift        119    
+
+State 7:
+          tagdatablockfullopen ::= tagdatablockopen tagdatablockproperties * tagclosechar
+          tagdatablockproperties ::= tagdatablockproperties * tagdatablockproperty
+
+                         SPACE shift        148    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift-reduce 18     tagdatablockfullopen ::= tagdatablockopen tagdatablockproperties tagclosechar
+          tagdatablockproperty shift-reduce 161    tagdatablockproperties ::= tagdatablockproperties tagdatablockproperty
+tagdatablockpropertyjoincondition shift        182    
+tagdatablockpropertyconnectionname shift        181    
+tagdatablockpropertyautogeneratedcolumns shift        180    
+tagdatablockpropertyrecordcount shift        179    
+tagdatablockpropertysourcename shift        178    
+tagdatablockpropertyschemaname shift        177    
+ tagdatablockpropertyblockname shift        176    
+tagdatablockpropertykeycolumnname shift        175    
+tagdatablockpropertymasterblockname shift        174    
+tagdatablockpropertyinsertallowed shift        173    
+tagdatablockpropertydeleteallowed shift        172    
+tagdatablockpropertyupdateallowed shift        171    
+tagdatablockpropertywhereclause shift        170    
+tagdatablockpropertyorderbyclause shift        169    
+
+State 8:
+          tagdatablockfullopen ::= tagdatablockopen * tagdatablockproperties tagclosechar
+
+                         SPACE shift        149    
+        tagdatablockproperties shift        7      
+          tagdatablockproperty shift        7        /* because tagdatablockproperty==tagdatablockproperties */
+tagdatablockpropertyjoincondition shift        182    
+tagdatablockpropertyconnectionname shift        181    
+tagdatablockpropertyautogeneratedcolumns shift        180    
+tagdatablockpropertyrecordcount shift        179    
+tagdatablockpropertysourcename shift        178    
+tagdatablockpropertyschemaname shift        177    
+ tagdatablockpropertyblockname shift        176    
+tagdatablockpropertykeycolumnname shift        175    
+tagdatablockpropertymasterblockname shift        174    
+tagdatablockpropertyinsertallowed shift        173    
+tagdatablockpropertydeleteallowed shift        172    
+tagdatablockpropertyupdateallowed shift        171    
+tagdatablockpropertywhereclause shift        170    
+tagdatablockpropertyorderbyclause shift        169    
+
+State 9:
+          tagtablecoltd ::= tagtablecoltdfullopen * tagtablecoltdblockclosefull
+          tagtablecoltd ::= tagtablecoltdfullopen * spaces tagtablecoltdblockclosefull
+          tagtablecoltd ::= tagtablecoltdfullopen * spaces tagtable spaces tagtablecoltdblockclosefull
+          tagtablecoltd ::= tagtablecoltdfullopen * tagtablecolcontents tagtablecoltdblockclosefull
+          tagtablecoltd ::= tagtablecoltdfullopen * spaces tagtablecolcontents tagtablecoltdblockclosefull
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                TAG_INPUT_OPEN shift-reduce 42     taginputopen ::= TAG_INPUT_OPEN
+               TAG_SELECT_OPEN shift-reduce 43     taginputopen ::= TAG_SELECT_OPEN
+             TAG_TEXTAREA_OPEN shift-reduce 44     taginputopen ::= TAG_TEXTAREA_OPEN
+                TAG_TABLE_OPEN shift-reduce 68     tagtableopen ::= TAG_TABLE_OPEN
+            TAG_TD_BLOCK_CLOSE shift-reduce 79     tagtablecoltdblockclose ::= TAG_TD_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 346    htmltext ::= HTMLTEXT
+                         space shift        10       /* because space==spaces */
+                      tagtable shift        13       /* because tagtable==tagtablecolcontents */
+                      htmltext shift        97     
+                        spaces shift        10     
+                      taginput shift        98     
+              taginputfullopen shift        74     
+                  taginputopen shift        3      
+              tagtablefullopen shift        18     
+                  tagtableopen shift        47     
+   tagtablecoltdblockclosefull shift-reduce 242    tagtablecoltd ::= tagtablecoltdfullopen tagtablecoltdblockclosefull
+           tagtablecolcontents shift        13     
+       tagtablecoltdblockclose shift        99     
+            tagtablecolcontent shift        13       /* because tagtablecolcontent==tagtablecolcontents */
+
+State 10:
+          tagtablecoltd ::= tagtablecoltdfullopen spaces * tagtablecoltdblockclosefull
+          tagtablecoltd ::= tagtablecoltdfullopen spaces * tagtable spaces tagtablecoltdblockclosefull
+          tagtablecoltd ::= tagtablecoltdfullopen spaces * tagtablecolcontents tagtablecoltdblockclosefull
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                TAG_INPUT_OPEN shift-reduce 42     taginputopen ::= TAG_INPUT_OPEN
+               TAG_SELECT_OPEN shift-reduce 43     taginputopen ::= TAG_SELECT_OPEN
+             TAG_TEXTAREA_OPEN shift-reduce 44     taginputopen ::= TAG_TEXTAREA_OPEN
+                TAG_TABLE_OPEN shift-reduce 68     tagtableopen ::= TAG_TABLE_OPEN
+            TAG_TD_BLOCK_CLOSE shift-reduce 79     tagtablecoltdblockclose ::= TAG_TD_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 346    htmltext ::= HTMLTEXT
+                         space shift-reduce 347    spaces ::= spaces space
+                      tagtable shift        100    
+                      htmltext shift        97     
+                      taginput shift        98     
+              taginputfullopen shift        74     
+                  taginputopen shift        3      
+              tagtablefullopen shift        18     
+                  tagtableopen shift        47     
+   tagtablecoltdblockclosefull shift-reduce 243    tagtablecoltd ::= tagtablecoltdfullopen spaces tagtablecoltdblockclosefull
+           tagtablecolcontents shift        14     
+       tagtablecoltdblockclose shift        99     
+            tagtablecolcontent shift        14       /* because tagtablecolcontent==tagtablecolcontents */
+
+State 11:
+          tagtablecolth ::= tagtablecolthfullopen * tagtablecolthblockclosefull
+          tagtablecolth ::= tagtablecolthfullopen * tagtablecolcontents tagtablecolthblockclosefull
+
+                TAG_INPUT_OPEN shift-reduce 42     taginputopen ::= TAG_INPUT_OPEN
+               TAG_SELECT_OPEN shift-reduce 43     taginputopen ::= TAG_SELECT_OPEN
+             TAG_TEXTAREA_OPEN shift-reduce 44     taginputopen ::= TAG_TEXTAREA_OPEN
+                TAG_TABLE_OPEN shift-reduce 68     tagtableopen ::= TAG_TABLE_OPEN
+            TAG_TH_BLOCK_CLOSE shift-reduce 81     tagtablecolthblockclose ::= TAG_TH_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 346    htmltext ::= HTMLTEXT
+                      tagtable shift        12       /* because tagtable==tagtablecolcontents */
+                      htmltext shift        97     
+                      taginput shift        98     
+              taginputfullopen shift        74     
+                  taginputopen shift        3      
+              tagtablefullopen shift        18     
+                  tagtableopen shift        47     
+           tagtablecolcontents shift        12     
+            tagtablecolcontent shift        12       /* because tagtablecolcontent==tagtablecolcontents */
+   tagtablecolthblockclosefull shift-reduce 258    tagtablecolth ::= tagtablecolthfullopen tagtablecolthblockclosefull
+       tagtablecolthblockclose shift        96     
+
+State 12:
+          tagtablecolcontents ::= tagtablecolcontents * tagtablecolcontent
+          tagtablecolth ::= tagtablecolthfullopen tagtablecolcontents * tagtablecolthblockclosefull
+
+                TAG_INPUT_OPEN shift-reduce 42     taginputopen ::= TAG_INPUT_OPEN
+               TAG_SELECT_OPEN shift-reduce 43     taginputopen ::= TAG_SELECT_OPEN
+             TAG_TEXTAREA_OPEN shift-reduce 44     taginputopen ::= TAG_TEXTAREA_OPEN
+                TAG_TABLE_OPEN shift-reduce 68     tagtableopen ::= TAG_TABLE_OPEN
+            TAG_TH_BLOCK_CLOSE shift-reduce 81     tagtablecolthblockclose ::= TAG_TH_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 346    htmltext ::= HTMLTEXT
+                      tagtable shift-reduce 251    tagtablecolcontents ::= tagtablecolcontents tagtablecolcontent  /* because tagtable==tagtablecolcontent */
+                      htmltext shift        97     
+                      taginput shift        98     
+              taginputfullopen shift        74     
+                  taginputopen shift        3      
+              tagtablefullopen shift        18     
+                  tagtableopen shift        47     
+            tagtablecolcontent shift-reduce 251    tagtablecolcontents ::= tagtablecolcontents tagtablecolcontent
+   tagtablecolthblockclosefull shift-reduce 259    tagtablecolth ::= tagtablecolthfullopen tagtablecolcontents tagtablecolthblockclosefull
+       tagtablecolthblockclose shift        96     
+
+State 13:
+          tagtablecoltd ::= tagtablecoltdfullopen tagtablecolcontents * tagtablecoltdblockclosefull
+          tagtablecolcontents ::= tagtablecolcontents * tagtablecolcontent
+
+                TAG_INPUT_OPEN shift-reduce 42     taginputopen ::= TAG_INPUT_OPEN
+               TAG_SELECT_OPEN shift-reduce 43     taginputopen ::= TAG_SELECT_OPEN
+             TAG_TEXTAREA_OPEN shift-reduce 44     taginputopen ::= TAG_TEXTAREA_OPEN
+                TAG_TABLE_OPEN shift-reduce 68     tagtableopen ::= TAG_TABLE_OPEN
+            TAG_TD_BLOCK_CLOSE shift-reduce 79     tagtablecoltdblockclose ::= TAG_TD_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 346    htmltext ::= HTMLTEXT
+                      tagtable shift-reduce 251    tagtablecolcontents ::= tagtablecolcontents tagtablecolcontent  /* because tagtable==tagtablecolcontent */
+                      htmltext shift        97     
+                      taginput shift        98     
+              taginputfullopen shift        74     
+                  taginputopen shift        3      
+              tagtablefullopen shift        18     
+                  tagtableopen shift        47     
+   tagtablecoltdblockclosefull shift-reduce 245    tagtablecoltd ::= tagtablecoltdfullopen tagtablecolcontents tagtablecoltdblockclosefull
+       tagtablecoltdblockclose shift        99     
+            tagtablecolcontent shift-reduce 251    tagtablecolcontents ::= tagtablecolcontents tagtablecolcontent
+
+State 14:
+          tagtablecoltd ::= tagtablecoltdfullopen spaces tagtablecolcontents * tagtablecoltdblockclosefull
+          tagtablecolcontents ::= tagtablecolcontents * tagtablecolcontent
+
+                TAG_INPUT_OPEN shift-reduce 42     taginputopen ::= TAG_INPUT_OPEN
+               TAG_SELECT_OPEN shift-reduce 43     taginputopen ::= TAG_SELECT_OPEN
+             TAG_TEXTAREA_OPEN shift-reduce 44     taginputopen ::= TAG_TEXTAREA_OPEN
+                TAG_TABLE_OPEN shift-reduce 68     tagtableopen ::= TAG_TABLE_OPEN
+            TAG_TD_BLOCK_CLOSE shift-reduce 79     tagtablecoltdblockclose ::= TAG_TD_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 346    htmltext ::= HTMLTEXT
+                      tagtable shift-reduce 251    tagtablecolcontents ::= tagtablecolcontents tagtablecolcontent  /* because tagtable==tagtablecolcontent */
+                      htmltext shift        97     
+                      taginput shift        98     
+              taginputfullopen shift        74     
+                  taginputopen shift        3      
+              tagtablefullopen shift        18     
+                  tagtableopen shift        47     
+   tagtablecoltdblockclosefull shift-reduce 246    tagtablecoltd ::= tagtablecoltdfullopen spaces tagtablecolcontents tagtablecoltdblockclosefull
+       tagtablecoltdblockclose shift        99     
+            tagtablecolcontent shift-reduce 251    tagtablecolcontents ::= tagtablecolcontents tagtablecolcontent
+
+State 15:
+          tagdatablock ::= tagdatablockfullopen * tagdatablockblockclosefull
+          tagdatablock ::= tagdatablockfullopen * tagdatablockcontents tagdatablockblockclosefull
+
+                         SPACE shift-reduce 349    space ::= SPACE
+     TAG_DATABLOCK_BLOCK_CLOSE shift-reduce 20     tagdatablockblockclose ::= TAG_DATABLOCK_BLOCK_CLOSE
+                TAG_TABLE_OPEN shift-reduce 68     tagtableopen ::= TAG_TABLE_OPEN
+                      HTMLTEXT shift-reduce 346    htmltext ::= HTMLTEXT
+                         space shift        20       /* because space==tagdatablockcontents */
+                      tagtable shift        20       /* because tagtable==tagdatablockcontents */
+                      htmltext shift        20       /* because htmltext==tagdatablockcontents */
+    tagdatablockblockclosefull shift-reduce 153    tagdatablock ::= tagdatablockfullopen tagdatablockblockclosefull
+          tagdatablockcontents shift        20     
+        tagdatablockblockclose shift-reduce 153    tagdatablock ::= tagdatablockfullopen tagdatablockblockclosefull  /* because tagdatablockblockclose==tagdatablockblockclosefull */
+           tagdatablockcontent shift        20       /* because tagdatablockcontent==tagdatablockcontents */
+              tagtablefullopen shift        18     
+                  tagtableopen shift        47     
+
+State 16:
+          tagcontrolblock ::= tagcontrolblockfullopen * tagcontrolblockclosefull
+          tagcontrolblock ::= tagcontrolblockfullopen * tagcontrolblockcontents tagcontrolblockclosefull
+
+                 TAG_TREE_OPEN shift-reduce 2      tagtreeopen ::= TAG_TREE_OPEN
+                         SPACE shift-reduce 349    space ::= SPACE
+        TAG_CONTROLBLOCK_CLOSE shift-reduce 144    tagcontrolblockblockclose ::= TAG_CONTROLBLOCK_CLOSE
+                      HTMLTEXT shift-reduce 346    htmltext ::= HTMLTEXT
+                         space shift        21       /* because space==tagcontrolblockcontents */
+                      htmltext shift        21       /* because htmltext==tagcontrolblockcontents */
+                       tagtree shift        21       /* because tagtree==tagcontrolblockcontents */
+               tagtreefullopen shift        145    
+                   tagtreeopen shift        71     
+      tagcontrolblockclosefull shift-reduce 139    tagcontrolblock ::= tagcontrolblockfullopen tagcontrolblockclosefull
+       tagcontrolblockcontents shift        21     
+     tagcontrolblockblockclose shift-reduce 139    tagcontrolblock ::= tagcontrolblockfullopen tagcontrolblockclosefull  /* because tagcontrolblockblockclose==tagcontrolblockclosefull */
+        tagcontrolblockcontent shift        21       /* because tagcontrolblockcontent==tagcontrolblockcontents */
+
+State 17:
+          tagtablerow ::= tagtablerowfullopen tagtablecols * tagtablerowblockclosefull
+          tagtablecols ::= tagtablecols * tagtablecol
+
+            TAG_TR_BLOCK_CLOSE shift-reduce 77     tagtablerowblockclose ::= TAG_TR_BLOCK_CLOSE
+                   TAG_TD_OPEN shift-reduce 78     tagtablecoltdopen ::= TAG_TD_OPEN
+                   TAG_TH_OPEN shift-reduce 80     tagtablecolthopen ::= TAG_TH_OPEN
+     tagtablerowblockclosefull shift-reduce 232    tagtablerow ::= tagtablerowfullopen tagtablecols tagtablerowblockclosefull
+         tagtablerowblockclose shift        103    
+                   tagtablecol shift-reduce 238    tagtablecols ::= tagtablecols tagtablecol
+                 tagtablecoltd shift-reduce 238    tagtablecols ::= tagtablecols tagtablecol  /* because tagtablecoltd==tagtablecol */
+                 tagtablecolth shift-reduce 238    tagtablecols ::= tagtablecols tagtablecol  /* because tagtablecolth==tagtablecol */
+         tagtablecoltdfullopen shift        9      
+             tagtablecoltdopen shift        46     
+         tagtablecolthfullopen shift        11     
+             tagtablecolthopen shift        38     
+
+State 18:
+          tagtable ::= tagtablefullopen * tagtableblockclosefull
+          tagtable ::= tagtablefullopen * tablecontent tagtableblockclosefull
+
+         TAG_TABLE_BLOCK_CLOSE shift-reduce 69     tagtableblockclose ::= TAG_TABLE_BLOCK_CLOSE
+                TAG_THEAD_OPEN shift-reduce 70     tagtheadopen ::= TAG_THEAD_OPEN
+                TAG_TBODY_OPEN shift-reduce 74     tagtbodyopen ::= TAG_TBODY_OPEN
+        tagtableblockclosefull shift-reduce 196    tagtable ::= tagtablefullopen tagtableblockclosefull
+                  tablecontent shift        105    
+            tagtableblockclose shift-reduce 196    tagtable ::= tagtablefullopen tagtableblockclosefull  /* because tagtableblockclose==tagtableblockclosefull */
+                      tagthead shift        24     
+                      tagtbody shift        68     
+              tagtheadfullopen shift        23     
+                  tagtheadopen shift        36     
+              tagtbodyfullopen shift        49     
+                  tagtbodyopen shift        44     
+
+State 19:
+          taghtml ::= taghtmlfullopen * taghtmlblockclosefull
+          taghtml ::= taghtmlfullopen * taghtmlcontents taghtmlblockclosefull
+
+          TAG_HTML_BLOCK_CLOSE shift-reduce 318    taghtmlblockclose ::= TAG_HTML_BLOCK_CLOSE
+                 TAG_BODY_OPEN shift-reduce 324    tagbodyopen ::= TAG_BODY_OPEN
+                 TAG_HEAD_OPEN shift        118    
+               taghtmlcontents shift        85     
+                       tagbody shift        85       /* because tagbody==taghtmlcontents */
+                       taghead shift        72     
+         taghtmlblockclosefull shift-reduce 311    taghtml ::= taghtmlfullopen taghtmlblockclosefull
+             taghtmlblockclose shift-reduce 311    taghtml ::= taghtmlfullopen taghtmlblockclosefull  /* because taghtmlblockclose==taghtmlblockclosefull */
+               tagbodyfullopen shift        2      
+                   tagbodyopen shift        43     
+               tagheadfullopen shift        5      
+                   tagheadopen shift-reduce 89     tagheadfullopen ::= tagheadopen
+
+State 20:
+          tagdatablock ::= tagdatablockfullopen tagdatablockcontents * tagdatablockblockclosefull
+          tagdatablockcontents ::= tagdatablockcontents * tagdatablockcontent
+
+                         SPACE shift-reduce 349    space ::= SPACE
+     TAG_DATABLOCK_BLOCK_CLOSE shift-reduce 20     tagdatablockblockclose ::= TAG_DATABLOCK_BLOCK_CLOSE
+                TAG_TABLE_OPEN shift-reduce 68     tagtableopen ::= TAG_TABLE_OPEN
+                      HTMLTEXT shift-reduce 346    htmltext ::= HTMLTEXT
+                         space shift-reduce 156    tagdatablockcontents ::= tagdatablockcontents tagdatablockcontent  /* because space==tagdatablockcontent */
+                      tagtable shift-reduce 156    tagdatablockcontents ::= tagdatablockcontents tagdatablockcontent  /* because tagtable==tagdatablockcontent */
+                      htmltext shift-reduce 156    tagdatablockcontents ::= tagdatablockcontents tagdatablockcontent  /* because htmltext==tagdatablockcontent */
+    tagdatablockblockclosefull shift-reduce 154    tagdatablock ::= tagdatablockfullopen tagdatablockcontents tagdatablockblockclosefull
+        tagdatablockblockclose shift-reduce 154    tagdatablock ::= tagdatablockfullopen tagdatablockcontents tagdatablockblockclosefull  /* because tagdatablockblockclose==tagdatablockblockclosefull */
+           tagdatablockcontent shift-reduce 156    tagdatablockcontents ::= tagdatablockcontents tagdatablockcontent
+              tagtablefullopen shift        18     
+                  tagtableopen shift        47     
+
+State 21:
+          tagcontrolblock ::= tagcontrolblockfullopen tagcontrolblockcontents * tagcontrolblockclosefull
+          tagcontrolblockcontents ::= tagcontrolblockcontents * tagcontrolblockcontent
+
+                 TAG_TREE_OPEN shift-reduce 2      tagtreeopen ::= TAG_TREE_OPEN
+                         SPACE shift-reduce 349    space ::= SPACE
+        TAG_CONTROLBLOCK_CLOSE shift-reduce 144    tagcontrolblockblockclose ::= TAG_CONTROLBLOCK_CLOSE
+                      HTMLTEXT shift-reduce 346    htmltext ::= HTMLTEXT
+                         space shift-reduce 145    tagcontrolblockcontents ::= tagcontrolblockcontents tagcontrolblockcontent  /* because space==tagcontrolblockcontent */
+                      htmltext shift-reduce 145    tagcontrolblockcontents ::= tagcontrolblockcontents tagcontrolblockcontent  /* because htmltext==tagcontrolblockcontent */
+                       tagtree shift-reduce 145    tagcontrolblockcontents ::= tagcontrolblockcontents tagcontrolblockcontent  /* because tagtree==tagcontrolblockcontent */
+               tagtreefullopen shift        145    
+                   tagtreeopen shift        71     
+      tagcontrolblockclosefull shift-reduce 140    tagcontrolblock ::= tagcontrolblockfullopen tagcontrolblockcontents tagcontrolblockclosefull
+     tagcontrolblockblockclose shift-reduce 140    tagcontrolblock ::= tagcontrolblockfullopen tagcontrolblockcontents tagcontrolblockclosefull  /* because tagcontrolblockblockclose==tagcontrolblockclosefull */
+        tagcontrolblockcontent shift-reduce 145    tagcontrolblockcontents ::= tagcontrolblockcontents tagcontrolblockcontent
+
+State 22:
+          tagtablerow ::= tagtablerowfullopen * tagtablecols tagtablerowblockclosefull
+
+                   TAG_TD_OPEN shift-reduce 78     tagtablecoltdopen ::= TAG_TD_OPEN
+                   TAG_TH_OPEN shift-reduce 80     tagtablecolthopen ::= TAG_TH_OPEN
+                  tagtablecols shift        17     
+                   tagtablecol shift        17       /* because tagtablecol==tagtablecols */
+                 tagtablecoltd shift        17       /* because tagtablecoltd==tagtablecol */
+                 tagtablecolth shift        17       /* because tagtablecolth==tagtablecol */
+         tagtablecoltdfullopen shift        9      
+             tagtablecoltdopen shift        46     
+         tagtablecolthfullopen shift        11     
+             tagtablecolthopen shift        38     
+
+State 23:
+          tagthead ::= tagtheadfullopen * tagtheadblockclosefull
+          tagthead ::= tagtheadfullopen * tagtablerows tagtheadblockclosefull
+
+         TAG_THEAD_BLOCK_CLOSE shift-reduce 71     tagtheadblockclose ::= TAG_THEAD_BLOCK_CLOSE
+                   TAG_TR_OPEN shift-reduce 76     tagtablerowopen ::= TAG_TR_OPEN
+        tagtheadblockclosefull shift-reduce 208    tagthead ::= tagtheadfullopen tagtheadblockclosefull
+                  tagtablerows shift        28     
+            tagtheadblockclose shift        89     
+                   tagtablerow shift        28       /* because tagtablerow==tagtablerows */
+           tagtablerowfullopen shift        22     
+               tagtablerowopen shift        37     
+
+State 24:
+          tablecontent ::= tagthead * tagtbody tagtfoot
+          tablecontent ::= tagthead * tagtfoot tagtbody
+          tablecontent ::= tagthead * tagtbody
+
+                TAG_TFOOT_OPEN shift-reduce 72     tagtfootopen ::= TAG_TFOOT_OPEN
+                TAG_TBODY_OPEN shift-reduce 74     tagtbodyopen ::= TAG_TBODY_OPEN
+                      tagtbody shift        70     
+                      tagtfoot shift        69     
+              tagtfootfullopen shift        50     
+                  tagtfootopen shift        45     
+              tagtbodyfullopen shift        49     
+                  tagtbodyopen shift        44     
+
+State 25:
+          tagconnectionfullopen ::= tagconnectionopen connectionproperties * tagclosechar
+          tagconnectionfullopen ::= tagconnectionopen connectionproperties * tagclosechar spaces
+          connectionproperties ::= connectionproperties * connectionproperty
+
+                         SPACE shift        150    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift        108    
+            connectionproperty shift-reduce 135    connectionproperties ::= connectionproperties connectionproperty
+connectionpropertyconnectionname shift        258    
+    connectionpropertyusername shift        253    
+connectionpropertyuserpassword shift        252    
+connectionpropertyinstancename shift        251    
+
+State 26:
+          tagconnectionfullopen ::= tagconnectionopen * connectionproperties tagclosechar
+          tagconnectionfullopen ::= tagconnectionopen * connectionproperties tagclosechar spaces
+
+                         SPACE shift        151    
+          connectionproperties shift        25     
+            connectionproperty shift        25       /* because connectionproperty==connectionproperties */
+connectionpropertyconnectionname shift        258    
+    connectionpropertyusername shift        253    
+connectionpropertyuserpassword shift        252    
+connectionpropertyinstancename shift        251    
+
+State 27:
+          tagscriptfullopen ::= tagscriptopen * tagclosechar
+          tagscriptfullopen ::= tagscriptopen * tagscriptproperties tagclosechar
+
+                         SPACE shift        152    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift-reduce 303    tagscriptfullopen ::= tagscriptopen tagclosechar
+           tagscriptproperties shift        40     
+             tagscriptproperty shift        40       /* because tagscriptproperty==tagscriptproperties */
+   tagscriptpropertyscripttype shift        162    
+          tagscriptpropertysrc shift        159    
+
+State 28:
+          tagthead ::= tagtheadfullopen tagtablerows * tagtheadblockclosefull
+          tagtablerows ::= tagtablerows * tagtablerow
+
+         TAG_THEAD_BLOCK_CLOSE shift-reduce 71     tagtheadblockclose ::= TAG_THEAD_BLOCK_CLOSE
+                   TAG_TR_OPEN shift-reduce 76     tagtablerowopen ::= TAG_TR_OPEN
+        tagtheadblockclosefull shift-reduce 209    tagthead ::= tagtheadfullopen tagtablerows tagtheadblockclosefull
+            tagtheadblockclose shift        89     
+                   tagtablerow shift-reduce 230    tagtablerows ::= tagtablerows tagtablerow
+           tagtablerowfullopen shift        22     
+               tagtablerowopen shift        37     
+
+State 29:
+          tagtbody ::= tagtbodyfullopen tagtablerows * tagtbodyblockclosefull
+          tagtablerows ::= tagtablerows * tagtablerow
+
+         TAG_TBODY_BLOCK_CLOSE shift-reduce 75     tagtbodyblockclose ::= TAG_TBODY_BLOCK_CLOSE
+                   TAG_TR_OPEN shift-reduce 76     tagtablerowopen ::= TAG_TR_OPEN
+        tagtbodyblockclosefull shift-reduce 223    tagtbody ::= tagtbodyfullopen tagtablerows tagtbodyblockclosefull
+            tagtbodyblockclose shift        92     
+                   tagtablerow shift-reduce 230    tagtablerows ::= tagtablerows tagtablerow
+           tagtablerowfullopen shift        22     
+               tagtablerowopen shift        37     
+
+State 30:
+          tagtfoot ::= tagtfootfullopen tagtablerows * tagtfootblockclosefull
+          tagtablerows ::= tagtablerows * tagtablerow
+
+         TAG_TFOOT_BLOCK_CLOSE shift-reduce 73     tagtfootblockclose ::= TAG_TFOOT_BLOCK_CLOSE
+                   TAG_TR_OPEN shift-reduce 76     tagtablerowopen ::= TAG_TR_OPEN
+        tagtfootblockclosefull shift-reduce 216    tagtfoot ::= tagtfootfullopen tagtablerows tagtfootblockclosefull
+            tagtfootblockclose shift        104    
+                   tagtablerow shift-reduce 230    tagtablerows ::= tagtablerows tagtablerow
+           tagtablerowfullopen shift        22     
+               tagtablerowopen shift        37     
+
+State 31:
+          tagscript ::= tagscriptfullopen * tagscriptblockclosefull
+          tagscript ::= tagscriptfullopen * htmlandspaces tagscriptblockclosefull
+
+                         SPACE shift-reduce 345    htmlandspace ::= SPACE
+        TAG_SCRIPT_BLOCK_CLOSE shift-reduce 306    tagscriptblockclose ::= TAG_SCRIPT_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 344    htmlandspace ::= HTMLTEXT
+                 htmlandspaces shift        52     
+       tagscriptblockclosefull shift-reduce 301    tagscript ::= tagscriptfullopen tagscriptblockclosefull
+           tagscriptblockclose shift        78     
+                  htmlandspace shift        52       /* because htmlandspace==htmlandspaces */
+
+State 32:
+          tagstyle ::= tagstylefullopen * tagstyleblockclosefull
+          tagstyle ::= tagstylefullopen * htmlandspaces tagstyleblockclosefull
+
+                         SPACE shift-reduce 345    htmlandspace ::= SPACE
+         TAG_STYLE_BLOCK_CLOSE shift-reduce 295    tagstyleblockclose ::= TAG_STYLE_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 344    htmlandspace ::= HTMLTEXT
+                 htmlandspaces shift        53     
+        tagstyleblockclosefull shift-reduce 288    tagstyle ::= tagstylefullopen tagstyleblockclosefull
+            tagstyleblockclose shift        79     
+                  htmlandspace shift        53       /* because htmlandspace==htmlandspaces */
+
+State 33:
+          tagmetafullopen ::= tagmetaopen tagproperties * tagclosechar
+          tagmetafullopen ::= tagmetaopen tagproperties * tagshortclose
+          tagproperties ::= tagproperties * tagproperty
+
+                         SPACE shift        205    
+               TAG_SHORT_CLOSE shift-reduce 341    tagshortclose ::= TAG_SHORT_CLOSE
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift-reduce 282    tagmetafullopen ::= tagmetaopen tagproperties tagclosechar
+                 tagshortclose shift-reduce 283    tagmetafullopen ::= tagmetaopen tagproperties tagshortclose
+                   tagproperty shift-reduce 336    tagproperties ::= tagproperties tagproperty
+
+State 34:
+          taglinkfullopen ::= taglinkopen tagproperties * tagclosechar
+          taglinkfullopen ::= taglinkopen tagproperties * tagshortclose
+          tagproperties ::= tagproperties * tagproperty
+
+                         SPACE shift        205    
+               TAG_SHORT_CLOSE shift-reduce 341    tagshortclose ::= TAG_SHORT_CLOSE
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift-reduce 274    taglinkfullopen ::= taglinkopen tagproperties tagclosechar
+                 tagshortclose shift-reduce 275    taglinkfullopen ::= taglinkopen tagproperties tagshortclose
+                   tagproperty shift-reduce 336    tagproperties ::= tagproperties tagproperty
+
+State 35:
+          tagtitle ::= tagtitlefullopen * tagtitleblockclosefull
+          tagtitle ::= tagtitlefullopen * htmlandspaces tagtitleblockclosefull
+
+                         SPACE shift-reduce 345    htmlandspace ::= SPACE
+         TAG_TITLE_BLOCK_CLOSE shift-reduce 271    tagtitleblockclose ::= TAG_TITLE_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 344    htmlandspace ::= HTMLTEXT
+        tagtitleblockclosefull shift-reduce 264    tagtitle ::= tagtitlefullopen tagtitleblockclosefull
+                 htmlandspaces shift        54     
+            tagtitleblockclose shift        84     
+                  htmlandspace shift        54       /* because htmlandspace==htmlandspaces */
+
+State 36:
+          tagtheadfullopen ::= tagtheadopen * tagclosechar
+          tagtheadfullopen ::= tagtheadopen * tagclosechar spaces
+          tagtheadfullopen ::= tagtheadopen * tagpropertieswithreturnvaluesall tagclosechar
+          tagtheadfullopen ::= tagtheadopen * tagpropertieswithreturnvaluesall tagclosechar spaces
+
+                         SPACE shift        201    
+                    PROPERTYID shift        200    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift        88     
+tagpropertieswithreturnvaluesall shift        113    
+ tagpropertieswithreturnvalues shift        135    
+    tagpropertywithreturnvalue shift        135      /* because tagpropertywithreturnvalue==tagpropertieswithreturnvalues */
+
+State 37:
+          tagtablerowfullopen ::= tagtablerowopen * tagclosechar
+          tagtablerowfullopen ::= tagtablerowopen * tagclosechar spaces
+          tagtablerowfullopen ::= tagtablerowopen * tagpropertieswithreturnvaluesall tagclosechar
+
+                         SPACE shift        201    
+                    PROPERTYID shift        200    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift        95     
+tagpropertieswithreturnvaluesall shift        114    
+ tagpropertieswithreturnvalues shift        135    
+    tagpropertywithreturnvalue shift        135      /* because tagpropertywithreturnvalue==tagpropertieswithreturnvalues */
+
+State 38:
+          tagtablecolthfullopen ::= tagtablecolthopen * tagclosechar
+          tagtablecolthfullopen ::= tagtablecolthopen * tagpropertieswithreturnvaluesall tagclosechar
+
+                         SPACE shift        201    
+                    PROPERTYID shift        200    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift-reduce 260    tagtablecolthfullopen ::= tagtablecolthopen tagclosechar
+tagpropertieswithreturnvaluesall shift        115    
+ tagpropertieswithreturnvalues shift        135    
+    tagpropertywithreturnvalue shift        135      /* because tagpropertywithreturnvalue==tagpropertieswithreturnvalues */
+
+State 39:
+          taghtmlfullopen ::= taghtmlopen * tagclosechar
+          taghtmlfullopen ::= taghtmlopen * tagclosechar spaces
+          taghtmlfullopen ::= taghtmlopen * tagproperties tagclosechar
+          taghtmlfullopen ::= taghtmlopen * tagproperties tagclosechar spaces
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift        77     
+                 tagproperties shift        56     
+                   tagproperty shift        56       /* because tagproperty==tagproperties */
+
+State 40:
+          tagscriptfullopen ::= tagscriptopen tagscriptproperties * tagclosechar
+          tagscriptproperties ::= tagscriptproperties * tagscriptproperty
+
+                         SPACE shift        152    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift-reduce 304    tagscriptfullopen ::= tagscriptopen tagscriptproperties tagclosechar
+             tagscriptproperty shift-reduce 307    tagscriptproperties ::= tagscriptproperties tagscriptproperty
+   tagscriptpropertyscripttype shift        162    
+          tagscriptpropertysrc shift        159    
+
+State 41:
+          tagstylefullopen ::= tagstyleopen * tagclosechar
+          tagstylefullopen ::= tagstyleopen * tagstyleproperties tagclosechar
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        153    
+                  tagclosechar shift-reduce 290    tagstylefullopen ::= tagstyleopen tagclosechar
+            tagstyleproperties shift        57     
+              tagstyleproperty shift        57       /* because tagstyleproperty==tagstyleproperties */
+
+State 42:
+          tagtitlefullopen ::= tagtitleopen * tagclosechar
+          tagtitlefullopen ::= tagtitleopen * tagproperties tagclosechar
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift-reduce 266    tagtitlefullopen ::= tagtitleopen tagclosechar
+                 tagproperties shift        58     
+                   tagproperty shift        58       /* because tagproperty==tagproperties */
+
+State 43:
+          tagbodyfullopen ::= tagbodyopen * tagclosechar
+          tagbodyfullopen ::= tagbodyopen * tagproperties tagclosechar
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift-reduce 87     tagbodyfullopen ::= tagbodyopen tagclosechar
+                 tagproperties shift        59     
+                   tagproperty shift        59       /* because tagproperty==tagproperties */
+
+State 44:
+          tagtbodyfullopen ::= tagtbodyopen * tagclosechar
+          tagtbodyfullopen ::= tagtbodyopen * tagclosechar spaces
+          tagtbodyfullopen ::= tagtbodyopen * tagproperties tagclosechar
+          tagtbodyfullopen ::= tagtbodyopen * tagproperties tagclosechar spaces
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift        91     
+                 tagproperties shift        60     
+                   tagproperty shift        60       /* because tagproperty==tagproperties */
+
+State 45:
+          tagtfootfullopen ::= tagtfootopen * tagclosechar
+          tagtfootfullopen ::= tagtfootopen * tagclosechar spaces
+          tagtfootfullopen ::= tagtfootopen * tagproperties tagclosechar
+          tagtfootfullopen ::= tagtfootopen * tagproperties tagclosechar spaces
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift        94     
+                 tagproperties shift        61     
+                   tagproperty shift        61       /* because tagproperty==tagproperties */
+
+State 46:
+          tagtablecoltdfullopen ::= tagtablecoltdopen * tagclosechar
+          tagtablecoltdfullopen ::= tagtablecoltdopen * tagproperties tagclosechar
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift-reduce 247    tagtablecoltdfullopen ::= tagtablecoltdopen tagclosechar
+                 tagproperties shift        62     
+                   tagproperty shift        62       /* because tagproperty==tagproperties */
+
+State 47:
+          tagtablefullopen ::= tagtableopen * tagclosechar
+          tagtablefullopen ::= tagtableopen * tagclosechar spaces
+          tagtablefullopen ::= tagtableopen * tagproperties tagclosechar
+          tagtablefullopen ::= tagtableopen * tagproperties tagclosechar spaces
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift        102    
+                 tagproperties shift        64     
+                   tagproperty shift        64       /* because tagproperty==tagproperties */
+
+State 48:
+          tagdatalistfullopen ::= tagdatalistopen datalistproperties * tagclosechar
+          tagdatalistfullopen ::= tagdatalistopen datalistproperties * tagclosechar spaces
+          datalistproperties ::= datalistproperties * datalistproperty
+
+                         SPACE shift        155    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift        110    
+              datalistproperty shift-reduce 128    datalistproperties ::= datalistproperties datalistproperty
+         tagdatalistpropertyid shift        262    
+tagdatalistpropertyconnectionname shift        259    
+
+State 49:
+          tagtbody ::= tagtbodyfullopen * tagtablerows tagtbodyblockclosefull
+
+                   TAG_TR_OPEN shift-reduce 76     tagtablerowopen ::= TAG_TR_OPEN
+                  tagtablerows shift        29     
+                   tagtablerow shift        29       /* because tagtablerow==tagtablerows */
+           tagtablerowfullopen shift        22     
+               tagtablerowopen shift        37     
+
+State 50:
+          tagtfoot ::= tagtfootfullopen * tagtablerows tagtfootblockclosefull
+
+                   TAG_TR_OPEN shift-reduce 76     tagtablerowopen ::= TAG_TR_OPEN
+                  tagtablerows shift        30     
+                   tagtablerow shift        30       /* because tagtablerow==tagtablerows */
+           tagtablerowfullopen shift        22     
+               tagtablerowopen shift        37     
+
+State 51:
+          tagdatalistfullopen ::= tagdatalistopen * datalistproperties tagclosechar
+          tagdatalistfullopen ::= tagdatalistopen * datalistproperties tagclosechar spaces
+
+                         SPACE shift        158    
+            datalistproperties shift        48     
+              datalistproperty shift        48       /* because datalistproperty==datalistproperties */
+         tagdatalistpropertyid shift        262    
+tagdatalistpropertyconnectionname shift        259    
+
+State 52:
+          tagscript ::= tagscriptfullopen htmlandspaces * tagscriptblockclosefull
+          htmlandspaces ::= htmlandspaces * htmlandspace
+
+                         SPACE shift-reduce 345    htmlandspace ::= SPACE
+        TAG_SCRIPT_BLOCK_CLOSE shift-reduce 306    tagscriptblockclose ::= TAG_SCRIPT_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 344    htmlandspace ::= HTMLTEXT
+       tagscriptblockclosefull shift-reduce 302    tagscript ::= tagscriptfullopen htmlandspaces tagscriptblockclosefull
+           tagscriptblockclose shift        78     
+                  htmlandspace shift-reduce 342    htmlandspaces ::= htmlandspaces htmlandspace
+
+State 53:
+          tagstyle ::= tagstylefullopen htmlandspaces * tagstyleblockclosefull
+          htmlandspaces ::= htmlandspaces * htmlandspace
+
+                         SPACE shift-reduce 345    htmlandspace ::= SPACE
+         TAG_STYLE_BLOCK_CLOSE shift-reduce 295    tagstyleblockclose ::= TAG_STYLE_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 344    htmlandspace ::= HTMLTEXT
+        tagstyleblockclosefull shift-reduce 289    tagstyle ::= tagstylefullopen htmlandspaces tagstyleblockclosefull
+            tagstyleblockclose shift        79     
+                  htmlandspace shift-reduce 342    htmlandspaces ::= htmlandspaces htmlandspace
+
+State 54:
+          tagtitle ::= tagtitlefullopen htmlandspaces * tagtitleblockclosefull
+          htmlandspaces ::= htmlandspaces * htmlandspace
+
+                         SPACE shift-reduce 345    htmlandspace ::= SPACE
+         TAG_TITLE_BLOCK_CLOSE shift-reduce 271    tagtitleblockclose ::= TAG_TITLE_BLOCK_CLOSE
+                      HTMLTEXT shift-reduce 344    htmlandspace ::= HTMLTEXT
+        tagtitleblockclosefull shift-reduce 265    tagtitle ::= tagtitlefullopen htmlandspaces tagtitleblockclosefull
+            tagtitleblockclose shift        84     
+                  htmlandspace shift-reduce 342    htmlandspaces ::= htmlandspaces htmlandspace
+
+State 55:
+     (90) start ::= expressions *
+          expressions ::= expressions * expression
+
+                             $ reduce       90     start ::= expressions
+              HTML_END_OF_FILE shift-reduce 97     endoffile ::= HTML_END_OF_FILE
+                         SPACE shift-reduce 349    space ::= SPACE
+                    expression shift-reduce 91     expressions ::= expressions expression
+                         space shift-reduce 91     expressions ::= expressions expression  /* because space==expression */
+                     endoffile shift-reduce 91     expressions ::= expressions expression  /* because endoffile==expression */
+
+State 56:
+          taghtmlfullopen ::= taghtmlopen tagproperties * tagclosechar
+          taghtmlfullopen ::= taghtmlopen tagproperties * tagclosechar spaces
+          tagproperties ::= tagproperties * tagproperty
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift        76     
+                   tagproperty shift-reduce 336    tagproperties ::= tagproperties tagproperty
+
+State 57:
+          tagstylefullopen ::= tagstyleopen tagstyleproperties * tagclosechar
+          tagstyleproperties ::= tagstyleproperties * tagstyleproperty
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        153    
+                  tagclosechar shift-reduce 291    tagstylefullopen ::= tagstyleopen tagstyleproperties tagclosechar
+              tagstyleproperty shift-reduce 296    tagstyleproperties ::= tagstyleproperties tagstyleproperty
+
+State 58:
+          tagtitlefullopen ::= tagtitleopen tagproperties * tagclosechar
+          tagproperties ::= tagproperties * tagproperty
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift-reduce 267    tagtitlefullopen ::= tagtitleopen tagproperties tagclosechar
+                   tagproperty shift-reduce 336    tagproperties ::= tagproperties tagproperty
+
+State 59:
+          tagbodyfullopen ::= tagbodyopen tagproperties * tagclosechar
+          tagproperties ::= tagproperties * tagproperty
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift-reduce 321    tagbodyfullopen ::= tagbodyopen tagproperties tagclosechar
+                   tagproperty shift-reduce 336    tagproperties ::= tagproperties tagproperty
+
+State 60:
+          tagtbodyfullopen ::= tagtbodyopen tagproperties * tagclosechar
+          tagtbodyfullopen ::= tagtbodyopen tagproperties * tagclosechar spaces
+          tagproperties ::= tagproperties * tagproperty
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift        90     
+                   tagproperty shift-reduce 336    tagproperties ::= tagproperties tagproperty
+
+State 61:
+          tagtfootfullopen ::= tagtfootopen tagproperties * tagclosechar
+          tagtfootfullopen ::= tagtfootopen tagproperties * tagclosechar spaces
+          tagproperties ::= tagproperties * tagproperty
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift        93     
+                   tagproperty shift-reduce 336    tagproperties ::= tagproperties tagproperty
+
+State 62:
+          tagtablecoltdfullopen ::= tagtablecoltdopen tagproperties * tagclosechar
+          tagproperties ::= tagproperties * tagproperty
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift-reduce 248    tagtablecoltdfullopen ::= tagtablecoltdopen tagproperties tagclosechar
+                   tagproperty shift-reduce 336    tagproperties ::= tagproperties tagproperty
+
+State 63:
+          tagtablecoltd ::= tagtablecoltdfullopen spaces tagtable spaces * tagtablecoltdblockclosefull
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+            TAG_TD_BLOCK_CLOSE shift-reduce 79     tagtablecoltdblockclose ::= TAG_TD_BLOCK_CLOSE
+                         space shift-reduce 347    spaces ::= spaces space
+   tagtablecoltdblockclosefull shift-reduce 244    tagtablecoltd ::= tagtablecoltdfullopen spaces tagtable spaces tagtablecoltdblockclosefull
+       tagtablecoltdblockclose shift        99     
+
+State 64:
+          tagtablefullopen ::= tagtableopen tagproperties * tagclosechar
+          tagtablefullopen ::= tagtableopen tagproperties * tagclosechar spaces
+          tagproperties ::= tagproperties * tagproperty
+
+                         SPACE shift        205    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                         space shift        204    
+                  tagclosechar shift        101    
+                   tagproperty shift-reduce 336    tagproperties ::= tagproperties tagproperty
+
+State 65:
+          tagtreefullopen ::= tagtreeopen tagtreeproperties * tagclosechar
+          tagtreefullopen ::= tagtreeopen tagtreeproperties * tagclosechar spaces
+          tagtreeproperties ::= tagtreeproperties * tagtreeproperty
+
+                         SPACE shift        157    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift        107    
+               tagtreeproperty shift-reduce 120    tagtreeproperties ::= tagtreeproperties tagtreeproperty
+             tagtreepropertyid shift        250    
+
+State 66:
+          tagmetafullopen ::= tagmetaopen * tagproperties tagclosechar
+          tagmetafullopen ::= tagmetaopen * tagproperties tagshortclose
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        204    
+                 tagproperties shift        33     
+                   tagproperty shift        33       /* because tagproperty==tagproperties */
+
+State 67:
+          taglinkfullopen ::= taglinkopen * tagproperties tagclosechar
+          taglinkfullopen ::= taglinkopen * tagproperties tagshortclose
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        204    
+                 tagproperties shift        34     
+                   tagproperty shift        34       /* because tagproperty==tagproperties */
+
+State 68:
+          tablecontent ::= tagtbody * tagtfoot
+    (207) tablecontent ::= tagtbody *
+
+                TAG_TFOOT_OPEN shift-reduce 72     tagtfootopen ::= TAG_TFOOT_OPEN
+                      tagtfoot shift-reduce 206    tablecontent ::= tagtbody tagtfoot
+              tagtfootfullopen shift        50     
+                  tagtfootopen shift        45     
+                     {default} reduce       207    tablecontent ::= tagtbody
+
+State 69:
+          tablecontent ::= tagthead tagtfoot * tagtbody
+
+                TAG_TBODY_OPEN shift-reduce 74     tagtbodyopen ::= TAG_TBODY_OPEN
+                      tagtbody shift-reduce 204    tablecontent ::= tagthead tagtfoot tagtbody
+              tagtbodyfullopen shift        49     
+                  tagtbodyopen shift        44     
+
+State 70:
+          tablecontent ::= tagthead tagtbody * tagtfoot
+    (205) tablecontent ::= tagthead tagtbody *
+
+                TAG_TFOOT_OPEN shift-reduce 72     tagtfootopen ::= TAG_TFOOT_OPEN
+                      tagtfoot shift-reduce 203    tablecontent ::= tagthead tagtbody tagtfoot
+              tagtfootfullopen shift        50     
+                  tagtfootopen shift        45     
+                     {default} reduce       205    tablecontent ::= tagthead tagtbody
+
+State 71:
+          tagtreefullopen ::= tagtreeopen * tagtreeproperties tagclosechar
+          tagtreefullopen ::= tagtreeopen * tagtreeproperties tagclosechar spaces
+
+                         SPACE shift        248    
+             tagtreeproperties shift        65     
+               tagtreeproperty shift        65       /* because tagtreeproperty==tagtreeproperties */
+             tagtreepropertyid shift        250    
+
+State 72:
+          taghtmlcontents ::= taghead * tagbody
+
+                 TAG_BODY_OPEN shift-reduce 324    tagbodyopen ::= TAG_BODY_OPEN
+                       tagbody shift-reduce 99     taghtmlcontents ::= taghead tagbody
+               tagbodyfullopen shift        2      
+                   tagbodyopen shift        43     
+
+State 73:
+          expressions ::= tagdoctype * taghtml
+
+                 TAG_HTML_OPEN shift-reduce 86     taghtmlopen ::= TAG_HTML_OPEN
+                       taghtml shift-reduce 93     expressions ::= tagdoctype taghtml
+               taghtmlfullopen shift        19     
+                   taghtmlopen shift        39     
+
+State 74:
+    (172) taginput ::= taginputfullopen *
+          taginput ::= taginputfullopen * taginputblockclosefull
+
+         TAG_INPUT_BLOCK_CLOSE shift-reduce 46     taginputblockclose ::= TAG_INPUT_BLOCK_CLOSE
+        TAG_SELECT_BLOCK_CLOSE shift-reduce 47     taginputblockclose ::= TAG_SELECT_BLOCK_CLOSE
+      TAG_TEXTAREA_BLOCK_CLOSE shift-reduce 48     taginputblockclose ::= TAG_TEXTAREA_BLOCK_CLOSE
+        taginputblockclosefull shift-reduce 173    taginput ::= taginputfullopen taginputblockclosefull
+            taginputblockclose shift-reduce 45     taginputblockclosefull ::= taginputblockclose
+                     {default} reduce       172    taginput ::= taginputfullopen
+
+State 75:
+          tagcontrolblockfullopen ::= tagcontrolblockopen tagcontrolblockproperties * tagclosechar
+          tagcontrolblockproperties ::= tagcontrolblockproperties * tagcontrolblockproperty
+
+                         SPACE shift        154    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift-reduce 141    tagcontrolblockfullopen ::= tagcontrolblockopen tagcontrolblockproperties tagclosechar
+       tagcontrolblockproperty shift-reduce 150    tagcontrolblockproperties ::= tagcontrolblockproperties tagcontrolblockproperty
+
+State 76:
+    (315) taghtmlfullopen ::= taghtmlopen tagproperties tagclosechar *
+          taghtmlfullopen ::= taghtmlopen tagproperties tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        116      /* because space==spaces */
+                        spaces shift        116    
+                     {default} reduce       315    taghtmlfullopen ::= taghtmlopen tagproperties tagclosechar
+
+State 77:
+    (313) taghtmlfullopen ::= taghtmlopen tagclosechar *
+          taghtmlfullopen ::= taghtmlopen tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        117      /* because space==spaces */
+                        spaces shift        117    
+                     {default} reduce       313    taghtmlfullopen ::= taghtmlopen tagclosechar
+
+State 78:
+     (82) tagscriptblockclosefull ::= tagscriptblockclose *
+          tagscriptblockclosefull ::= tagscriptblockclose * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        120      /* because space==spaces */
+                        spaces shift        120    
+                     {default} reduce       82     tagscriptblockclosefull ::= tagscriptblockclose
+
+State 79:
+    (292) tagstyleblockclosefull ::= tagstyleblockclose *
+          tagstyleblockclosefull ::= tagstyleblockclose * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        121      /* because space==spaces */
+                        spaces shift        121    
+                     {default} reduce       292    tagstyleblockclosefull ::= tagstyleblockclose
+
+State 80:
+    (284) tagmetablockclosefull ::= tagmetablockclose *
+          tagmetablockclosefull ::= tagmetablockclose * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        122      /* because space==spaces */
+                        spaces shift        122    
+                     {default} reduce       284    tagmetablockclosefull ::= tagmetablockclose
+
+State 81:
+    (280) tagmeta ::= tagmetafullopen *
+          tagmeta ::= tagmetafullopen * tagmetablockclosefull
+
+          TAG_META_BLOCK_CLOSE shift-reduce 287    tagmetablockclose ::= TAG_META_BLOCK_CLOSE
+         tagmetablockclosefull shift-reduce 281    tagmeta ::= tagmetafullopen tagmetablockclosefull
+             tagmetablockclose shift        80     
+                     {default} reduce       280    tagmeta ::= tagmetafullopen
+
+State 82:
+    (276) taglinkblockclosefull ::= taglinkblockclose *
+          taglinkblockclosefull ::= taglinkblockclose * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        123      /* because space==spaces */
+                        spaces shift        123    
+                     {default} reduce       276    taglinkblockclosefull ::= taglinkblockclose
+
+State 83:
+    (272) taglink ::= taglinkfullopen *
+          taglink ::= taglinkfullopen * taglinkblockclosefull
+
+          TAG_LINK_BLOCK_CLOSE shift-reduce 279    taglinkblockclose ::= TAG_LINK_BLOCK_CLOSE
+         taglinkblockclosefull shift-reduce 273    taglink ::= taglinkfullopen taglinkblockclosefull
+             taglinkblockclose shift        82     
+                     {default} reduce       272    taglink ::= taglinkfullopen
+
+State 84:
+    (268) tagtitleblockclosefull ::= tagtitleblockclose *
+          tagtitleblockclosefull ::= tagtitleblockclose * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        124      /* because space==spaces */
+                        spaces shift        124    
+                     {default} reduce       268    tagtitleblockclosefull ::= tagtitleblockclose
+
+State 85:
+          taghtml ::= taghtmlfullopen taghtmlcontents * taghtmlblockclosefull
+
+          TAG_HTML_BLOCK_CLOSE shift-reduce 318    taghtmlblockclose ::= TAG_HTML_BLOCK_CLOSE
+         taghtmlblockclosefull shift-reduce 312    taghtml ::= taghtmlfullopen taghtmlcontents taghtmlblockclosefull
+             taghtmlblockclose shift-reduce 312    taghtml ::= taghtmlfullopen taghtmlcontents taghtmlblockclosefull  /* because taghtmlblockclose==taghtmlblockclosefull */
+
+State 86:
+    (322) tagbodyblockclosefull ::= tagbodyblockclose *
+          tagbodyblockclosefull ::= tagbodyblockclose * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        125      /* because space==spaces */
+                        spaces shift        125    
+                     {default} reduce       322    tagbodyblockclosefull ::= tagbodyblockclose
+
+State 87:
+    (212) tagtheadfullopen ::= tagtheadopen tagpropertieswithreturnvaluesall tagclosechar *
+          tagtheadfullopen ::= tagtheadopen tagpropertieswithreturnvaluesall tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        126      /* because space==spaces */
+                        spaces shift        126    
+                     {default} reduce       212    tagtheadfullopen ::= tagtheadopen tagpropertieswithreturnvaluesall tagclosechar
+
+State 88:
+    (210) tagtheadfullopen ::= tagtheadopen tagclosechar *
+          tagtheadfullopen ::= tagtheadopen tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        127      /* because space==spaces */
+                        spaces shift        127    
+                     {default} reduce       210    tagtheadfullopen ::= tagtheadopen tagclosechar
+
+State 89:
+    (214) tagtheadblockclosefull ::= tagtheadblockclose *
+          tagtheadblockclosefull ::= tagtheadblockclose * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        128      /* because space==spaces */
+                        spaces shift        128    
+                     {default} reduce       214    tagtheadblockclosefull ::= tagtheadblockclose
+
+State 90:
+    (226) tagtbodyfullopen ::= tagtbodyopen tagproperties tagclosechar *
+          tagtbodyfullopen ::= tagtbodyopen tagproperties tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        129      /* because space==spaces */
+                        spaces shift        129    
+                     {default} reduce       226    tagtbodyfullopen ::= tagtbodyopen tagproperties tagclosechar
+
+State 91:
+    (224) tagtbodyfullopen ::= tagtbodyopen tagclosechar *
+          tagtbodyfullopen ::= tagtbodyopen tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        130      /* because space==spaces */
+                        spaces shift        130    
+                     {default} reduce       224    tagtbodyfullopen ::= tagtbodyopen tagclosechar
+
+State 92:
+    (228) tagtbodyblockclosefull ::= tagtbodyblockclose *
+          tagtbodyblockclosefull ::= tagtbodyblockclose * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        131      /* because space==spaces */
+                        spaces shift        131    
+                     {default} reduce       228    tagtbodyblockclosefull ::= tagtbodyblockclose
+
+State 93:
+    (219) tagtfootfullopen ::= tagtfootopen tagproperties tagclosechar *
+          tagtfootfullopen ::= tagtfootopen tagproperties tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        132      /* because space==spaces */
+                        spaces shift        132    
+                     {default} reduce       219    tagtfootfullopen ::= tagtfootopen tagproperties tagclosechar
+
+State 94:
+    (217) tagtfootfullopen ::= tagtfootopen tagclosechar *
+          tagtfootfullopen ::= tagtfootopen tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        133      /* because space==spaces */
+                        spaces shift        133    
+                     {default} reduce       217    tagtfootfullopen ::= tagtfootopen tagclosechar
+
+State 95:
+    (233) tagtablerowfullopen ::= tagtablerowopen tagclosechar *
+          tagtablerowfullopen ::= tagtablerowopen tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        134      /* because space==spaces */
+                        spaces shift        134    
+                     {default} reduce       233    tagtablerowfullopen ::= tagtablerowopen tagclosechar
+
+State 96:
+    (262) tagtablecolthblockclosefull ::= tagtablecolthblockclose *
+          tagtablecolthblockclosefull ::= tagtablecolthblockclose * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        136      /* because space==spaces */
+                        spaces shift        136    
+                     {default} reduce       262    tagtablecolthblockclosefull ::= tagtablecolthblockclose
+
+State 97:
+    (255) tagtablecolcontent ::= htmltext *
+          tagtablecolcontent ::= htmltext * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        137      /* because space==spaces */
+                        spaces shift        137    
+                     {default} reduce       255    tagtablecolcontent ::= htmltext
+
+State 98:
+    (253) tagtablecolcontent ::= taginput *
+          tagtablecolcontent ::= taginput * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        138      /* because space==spaces */
+                        spaces shift        138    
+                     {default} reduce       253    tagtablecolcontent ::= taginput
+
+State 99:
+    (249) tagtablecoltdblockclosefull ::= tagtablecoltdblockclose *
+          tagtablecoltdblockclosefull ::= tagtablecoltdblockclose * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        139      /* because space==spaces */
+                        spaces shift        139    
+                     {default} reduce       249    tagtablecoltdblockclosefull ::= tagtablecoltdblockclose
+
+State 100:
+          tagtablecoltd ::= tagtablecoltdfullopen spaces tagtable * spaces tagtablecoltdblockclosefull
+    (257) tagtablecolcontent ::= tagtable *
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        63       /* because space==spaces */
+                        spaces shift        63     
+                     {default} reduce       257    tagtablecolcontent ::= tagtable
+
+State 101:
+    (200) tagtablefullopen ::= tagtableopen tagproperties tagclosechar *
+          tagtablefullopen ::= tagtableopen tagproperties tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        140      /* because space==spaces */
+                        spaces shift        140    
+                     {default} reduce       200    tagtablefullopen ::= tagtableopen tagproperties tagclosechar
+
+State 102:
+    (198) tagtablefullopen ::= tagtableopen tagclosechar *
+          tagtablefullopen ::= tagtableopen tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        141      /* because space==spaces */
+                        spaces shift        141    
+                     {default} reduce       198    tagtablefullopen ::= tagtableopen tagclosechar
+
+State 103:
+    (236) tagtablerowblockclosefull ::= tagtablerowblockclose *
+          tagtablerowblockclosefull ::= tagtablerowblockclose * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        142      /* because space==spaces */
+                        spaces shift        142    
+                     {default} reduce       236    tagtablerowblockclosefull ::= tagtablerowblockclose
+
+State 104:
+    (221) tagtfootblockclosefull ::= tagtfootblockclose *
+          tagtfootblockclosefull ::= tagtfootblockclose * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        143      /* because space==spaces */
+                        spaces shift        143    
+                     {default} reduce       221    tagtfootblockclosefull ::= tagtfootblockclose
+
+State 105:
+          tagtable ::= tagtablefullopen tablecontent * tagtableblockclosefull
+
+         TAG_TABLE_BLOCK_CLOSE shift-reduce 69     tagtableblockclose ::= TAG_TABLE_BLOCK_CLOSE
+        tagtableblockclosefull shift-reduce 197    tagtable ::= tagtablefullopen tablecontent tagtableblockclosefull
+            tagtableblockclose shift-reduce 197    tagtable ::= tagtablefullopen tablecontent tagtableblockclosefull  /* because tagtableblockclose==tagtableblockclosefull */
+
+State 106:
+          tagcontrolblockfullopen ::= tagcontrolblockopen * tagcontrolblockproperties tagclosechar
+
+                         SPACE shift        156    
+     tagcontrolblockproperties shift        75     
+       tagcontrolblockproperty shift        75       /* because tagcontrolblockproperty==tagcontrolblockproperties */
+
+State 107:
+    (118) tagtreefullopen ::= tagtreeopen tagtreeproperties tagclosechar *
+          tagtreefullopen ::= tagtreeopen tagtreeproperties tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        144      /* because space==spaces */
+                        spaces shift        144    
+                     {default} reduce       118    tagtreefullopen ::= tagtreeopen tagtreeproperties tagclosechar
+
+State 108:
+    (132) tagconnectionfullopen ::= tagconnectionopen connectionproperties tagclosechar *
+          tagconnectionfullopen ::= tagconnectionopen connectionproperties tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        146      /* because space==spaces */
+                        spaces shift        146    
+                     {default} reduce       132    tagconnectionfullopen ::= tagconnectionopen connectionproperties tagclosechar
+
+State 109:
+          tagconnection ::= tagconnectionfullopen * tagconnectionblockclosefull
+
+    TAG_CONNECTION_BLOCK_CLOSE shift-reduce 10     tagconnectionblockclose ::= TAG_CONNECTION_BLOCK_CLOSE
+   tagconnectionblockclosefull shift-reduce 8      tagconnection ::= tagconnectionfullopen tagconnectionblockclosefull
+       tagconnectionblockclose shift-reduce 8      tagconnection ::= tagconnectionfullopen tagconnectionblockclosefull  /* because tagconnectionblockclose==tagconnectionblockclosefull */
+
+State 110:
+    (125) tagdatalistfullopen ::= tagdatalistopen datalistproperties tagclosechar *
+          tagdatalistfullopen ::= tagdatalistopen datalistproperties tagclosechar * spaces
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift        147      /* because space==spaces */
+                        spaces shift        147    
+                     {default} reduce       125    tagdatalistfullopen ::= tagdatalistopen datalistproperties tagclosechar
+
+State 111:
+          tagdatalist ::= tagdatalistfullopen * tagdatalistblockclosefull
+
+      TAG_DATALIST_BLOCK_CLOSE shift-reduce 5      tagdatalistblockclose ::= TAG_DATALIST_BLOCK_CLOSE
+     tagdatalistblockclosefull shift-reduce 124    tagdatalist ::= tagdatalistfullopen tagdatalistblockclosefull
+         tagdatalistblockclose shift-reduce 124    tagdatalist ::= tagdatalistfullopen tagdatalistblockclosefull  /* because tagdatalistblockclose==tagdatalistblockclosefull */
+
+State 112:
+          taginputcheckedvalue ::= spaces * PROP_INPUT_CHECKED_VALUE ASSIGMENT
+          taginputuncheckedvalue ::= spaces * PROP_INPUT_UNCHECKED_VALUE ASSIGMENT
+          taginputpropertyinputname ::= spaces * PROP_INPUT_NAME ASSIGMENT
+          taginputpropertysequencename ::= spaces * PROP_INPUT_SEQUENCE_NAME ASSIGMENT
+          taginputpropertysequenceschemaname ::= spaces * PROP_INPUT_SEQUENCE_SCHEMA_NAME ASSIGMENT
+          taginputpropertymasteritemname ::= spaces * PROP_INPUT_MASTER_ITEM_NAME ASSIGMENT
+          taginputpropertyinputtype ::= spaces * PROP_INPUT_TYPE ASSIGMENT
+          taginputpropertyinputvalue ::= spaces * PROP_INPUT_VALUE ASSIGMENT
+          taginputpropertydefaultvalue ::= spaces * PROP_INPUT_DEFAULT_VALUE ASSIGMENT
+          taginputpropertycolumnname ::= spaces * PROP_INPUT_COLUMN_NAME ASSIGMENT
+          taginputpropertyformatmask ::= spaces * PROP_INPUT_FORMAT_MASK ASSIGMENT
+          taginputpropertydatatype ::= spaces * PROP_INPUT_DATA_TYPE ASSIGMENT
+          taginputpropertymaxlength ::= spaces * PROP_INPUT_MAX_LENGTH ASSIGMENT
+          taginputpropertyinsertallowed ::= spaces * PROP_INPUT_INSERT_ALLOWED ASSIGMENT
+          taginputpropertyupdateallowed ::= spaces * PROP_INPUT_UPDATE_ALLOWED ASSIGMENT
+          taginputpropertydatalistname ::= spaces * PROP_INPUT_DATALIST_NAME ASSIGMENT
+          taginputpropertylookupitemname ::= spaces * PROP_INPUT_LOOKUP_ITEM_NAME ASSIGMENT
+          taginputpropertylookupitemblockname ::= spaces * PROP_INPUT_LOOKUP_ITEM_BLOCK_NAME ASSIGMENT
+          taginputproperty ::= spaces * PROPERTYID ASSIGMENT PROPERTYDATA
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                    PROPERTYID shift        224    
+      PROP_INPUT_CHECKED_VALUE shift        242    
+    PROP_INPUT_UNCHECKED_VALUE shift        241    
+               PROP_INPUT_NAME shift        240    
+      PROP_INPUT_SEQUENCE_NAME shift        239    
+PROP_INPUT_SEQUENCE_SCHEMA_NAME shift        238    
+   PROP_INPUT_MASTER_ITEM_NAME shift        237    
+               PROP_INPUT_TYPE shift        236    
+              PROP_INPUT_VALUE shift        235    
+      PROP_INPUT_DEFAULT_VALUE shift        234    
+        PROP_INPUT_COLUMN_NAME shift        233    
+        PROP_INPUT_FORMAT_MASK shift        232    
+          PROP_INPUT_DATA_TYPE shift        231    
+         PROP_INPUT_MAX_LENGTH shift        230    
+     PROP_INPUT_INSERT_ALLOWED shift        229    
+     PROP_INPUT_UPDATE_ALLOWED shift        228    
+      PROP_INPUT_DATALIST_NAME shift        227    
+   PROP_INPUT_LOOKUP_ITEM_NAME shift        226    
+PROP_INPUT_LOOKUP_ITEM_BLOCK_NAME shift        225    
+                         space shift-reduce 347    spaces ::= spaces space
+
+State 113:
+          tagtheadfullopen ::= tagtheadopen tagpropertieswithreturnvaluesall * tagclosechar
+          tagtheadfullopen ::= tagtheadopen tagpropertieswithreturnvaluesall * tagclosechar spaces
+
+                         SPACE shift        201    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift        87     
+
+State 114:
+          tagtablerowfullopen ::= tagtablerowopen tagpropertieswithreturnvaluesall * tagclosechar
+
+                         SPACE shift        201    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift-reduce 235    tagtablerowfullopen ::= tagtablerowopen tagpropertieswithreturnvaluesall tagclosechar
+
+State 115:
+          tagtablecolthfullopen ::= tagtablecolthopen tagpropertieswithreturnvaluesall * tagclosechar
+
+                         SPACE shift        201    
+                     TAG_CLOSE shift-reduce 339    tagclosechar ::= TAG_CLOSE
+                  tagclosechar shift-reduce 261    tagtablecolthfullopen ::= tagtablecolthopen tagpropertieswithreturnvaluesall tagclosechar
+
+State 116:
+    (316) taghtmlfullopen ::= taghtmlopen tagproperties tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       316    taghtmlfullopen ::= taghtmlopen tagproperties tagclosechar spaces
+
+State 117:
+    (314) taghtmlfullopen ::= taghtmlopen tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       314    taghtmlfullopen ::= taghtmlopen tagclosechar spaces
+
+State 118:
+    (329) tagheadopen ::= TAG_HEAD_OPEN *
+          tagheadopen ::= TAG_HEAD_OPEN * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 330    tagheadopen ::= TAG_HEAD_OPEN space
+                     {default} reduce       329    tagheadopen ::= TAG_HEAD_OPEN
+
+State 119:
+    (327) tagheadblockclosefull ::= tagheadblockclose *
+          tagheadblockclosefull ::= tagheadblockclose * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 328    tagheadblockclosefull ::= tagheadblockclose space
+                     {default} reduce       327    tagheadblockclosefull ::= tagheadblockclose
+
+State 120:
+     (83) tagscriptblockclosefull ::= tagscriptblockclose spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       83     tagscriptblockclosefull ::= tagscriptblockclose spaces
+
+State 121:
+    (293) tagstyleblockclosefull ::= tagstyleblockclose spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       293    tagstyleblockclosefull ::= tagstyleblockclose spaces
+
+State 122:
+    (285) tagmetablockclosefull ::= tagmetablockclose spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       285    tagmetablockclosefull ::= tagmetablockclose spaces
+
+State 123:
+    (277) taglinkblockclosefull ::= taglinkblockclose spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       277    taglinkblockclosefull ::= taglinkblockclose spaces
+
+State 124:
+    (269) tagtitleblockclosefull ::= tagtitleblockclose spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       269    tagtitleblockclosefull ::= tagtitleblockclose spaces
+
+State 125:
+    (323) tagbodyblockclosefull ::= tagbodyblockclose spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       323    tagbodyblockclosefull ::= tagbodyblockclose spaces
+
+State 126:
+    (213) tagtheadfullopen ::= tagtheadopen tagpropertieswithreturnvaluesall tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       213    tagtheadfullopen ::= tagtheadopen tagpropertieswithreturnvaluesall tagclosechar spaces
+
+State 127:
+    (211) tagtheadfullopen ::= tagtheadopen tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       211    tagtheadfullopen ::= tagtheadopen tagclosechar spaces
+
+State 128:
+    (215) tagtheadblockclosefull ::= tagtheadblockclose spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       215    tagtheadblockclosefull ::= tagtheadblockclose spaces
+
+State 129:
+    (227) tagtbodyfullopen ::= tagtbodyopen tagproperties tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       227    tagtbodyfullopen ::= tagtbodyopen tagproperties tagclosechar spaces
+
+State 130:
+    (225) tagtbodyfullopen ::= tagtbodyopen tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       225    tagtbodyfullopen ::= tagtbodyopen tagclosechar spaces
+
+State 131:
+    (229) tagtbodyblockclosefull ::= tagtbodyblockclose spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       229    tagtbodyblockclosefull ::= tagtbodyblockclose spaces
+
+State 132:
+    (220) tagtfootfullopen ::= tagtfootopen tagproperties tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       220    tagtfootfullopen ::= tagtfootopen tagproperties tagclosechar spaces
+
+State 133:
+    (218) tagtfootfullopen ::= tagtfootopen tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       218    tagtfootfullopen ::= tagtfootopen tagclosechar spaces
+
+State 134:
+    (234) tagtablerowfullopen ::= tagtablerowopen tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       234    tagtablerowfullopen ::= tagtablerowopen tagclosechar spaces
+
+State 135:
+    (332) tagpropertieswithreturnvaluesall ::= tagpropertieswithreturnvalues *
+          tagpropertieswithreturnvalues ::= tagpropertieswithreturnvalues * tagpropertywithreturnvalue
+
+                    PROPERTYID shift        200    
+    tagpropertywithreturnvalue shift-reduce 333    tagpropertieswithreturnvalues ::= tagpropertieswithreturnvalues tagpropertywithreturnvalue
+                     {default} reduce       332    tagpropertieswithreturnvaluesall ::= tagpropertieswithreturnvalues
+
+State 136:
+    (263) tagtablecolthblockclosefull ::= tagtablecolthblockclose spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       263    tagtablecolthblockclosefull ::= tagtablecolthblockclose spaces
+
+State 137:
+    (256) tagtablecolcontent ::= htmltext spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       256    tagtablecolcontent ::= htmltext spaces
+
+State 138:
+    (254) tagtablecolcontent ::= taginput spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       254    tagtablecolcontent ::= taginput spaces
+
+State 139:
+    (250) tagtablecoltdblockclosefull ::= tagtablecoltdblockclose spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       250    tagtablecoltdblockclosefull ::= tagtablecoltdblockclose spaces
+
+State 140:
+    (201) tagtablefullopen ::= tagtableopen tagproperties tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       201    tagtablefullopen ::= tagtableopen tagproperties tagclosechar spaces
+
+State 141:
+    (199) tagtablefullopen ::= tagtableopen tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       199    tagtablefullopen ::= tagtableopen tagclosechar spaces
+
+State 142:
+    (237) tagtablerowblockclosefull ::= tagtablerowblockclose spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       237    tagtablerowblockclosefull ::= tagtablerowblockclose spaces
+
+State 143:
+    (222) tagtfootblockclosefull ::= tagtfootblockclose spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       222    tagtfootblockclosefull ::= tagtfootblockclose spaces
+
+State 144:
+    (119) tagtreefullopen ::= tagtreeopen tagtreeproperties tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       119    tagtreefullopen ::= tagtreeopen tagtreeproperties tagclosechar spaces
+
+State 145:
+          tagtree ::= tagtreefullopen * tagtreeblockclosefull
+
+          TAG_TREE_BLOCK_CLOSE shift-reduce 3      tagtreeblockclosefull ::= TAG_TREE_BLOCK_CLOSE
+         tagtreeblockclosefull shift-reduce 117    tagtree ::= tagtreefullopen tagtreeblockclosefull
+
+State 146:
+    (133) tagconnectionfullopen ::= tagconnectionopen connectionproperties tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       133    tagconnectionfullopen ::= tagconnectionopen connectionproperties tagclosechar spaces
+
+State 147:
+    (126) tagdatalistfullopen ::= tagdatalistopen datalistproperties tagclosechar spaces *
+          spaces ::= spaces * space
+
+                         SPACE shift-reduce 349    space ::= SPACE
+                         space shift-reduce 347    spaces ::= spaces space
+                     {default} reduce       126    tagdatalistfullopen ::= tagdatalistopen datalistproperties tagclosechar spaces
+
+State 148:
+          tagdatablockproperty ::= SPACE * PROPERTYID ASSIGMENT PROPERTYDATA
+          tagdatablockpropertyjoincondition ::= SPACE * PROP_BLOCK_JOIN_CONDITION ASSIGMENT
+          tagdatablockpropertyconnectionname ::= SPACE * PROP_BLOCK_CONNECTION_NAME ASSIGMENT
+          tagdatablockpropertyautogeneratedcolumns ::= SPACE * PROP_BLOCK_AUTO_GENERATED_COLUMNS ASSIGMENT
+          tagdatablockpropertyrecordcount ::= SPACE * PROP_BLOCK_RECORD_COUNT ASSIGMENT
+          tagdatablockpropertysourcename ::= SPACE * PROP_BLOCK_DATA_SOURCE_NAME ASSIGMENT
+          tagdatablockpropertyschemaname ::= SPACE * PROP_BLOCK_DATA_SCHEMA_NAME ASSIGMENT
+          tagdatablockpropertyblockname ::= SPACE * PROP_BLOCK_BLOCK_NAME ASSIGMENT
+          tagdatablockpropertykeycolumnname ::= SPACE * PROP_BLOCK_KEY_COLUMN_NAME ASSIGMENT
+          tagdatablockpropertymasterblockname ::= SPACE * PROP_BLOCK_MASTER_BLOCK_NAME ASSIGMENT
+          tagdatablockpropertyinsertallowed ::= SPACE * PROP_BLOCK_INSERT_ALLOWED ASSIGMENT
+          tagdatablockpropertydeleteallowed ::= SPACE * PROP_BLOCK_DELETE_ALLOWED ASSIGMENT
+          tagdatablockpropertyupdateallowed ::= SPACE * PROP_BLOCK_UPDATE_ALLOWED ASSIGMENT
+          tagdatablockpropertywhereclause ::= SPACE * PROP_BLOCK_WHERE_CLAUSE ASSIGMENT
+          tagdatablockpropertyorderbyclause ::= SPACE * PROP_BLOCK_OREDERBY_CLAUSE ASSIGMENT
+          tagclosechar ::= SPACE * TAG_CLOSE
+
+                    PROPERTYID shift        198    
+     PROP_BLOCK_JOIN_CONDITION shift        196    
+    PROP_BLOCK_CONNECTION_NAME shift        195    
+PROP_BLOCK_AUTO_GENERATED_COLUMNS shift        194    
+       PROP_BLOCK_RECORD_COUNT shift        193    
+   PROP_BLOCK_DATA_SOURCE_NAME shift        192    
+   PROP_BLOCK_DATA_SCHEMA_NAME shift        191    
+         PROP_BLOCK_BLOCK_NAME shift        190    
+    PROP_BLOCK_KEY_COLUMN_NAME shift        189    
+  PROP_BLOCK_MASTER_BLOCK_NAME shift        188    
+     PROP_BLOCK_INSERT_ALLOWED shift        187    
+     PROP_BLOCK_DELETE_ALLOWED shift        186    
+     PROP_BLOCK_UPDATE_ALLOWED shift        185    
+       PROP_BLOCK_WHERE_CLAUSE shift        184    
+    PROP_BLOCK_OREDERBY_CLAUSE shift        183    
+                     TAG_CLOSE shift-reduce 340    tagclosechar ::= SPACE TAG_CLOSE
+
+State 149:
+          tagdatablockproperty ::= SPACE * PROPERTYID ASSIGMENT PROPERTYDATA
+          tagdatablockpropertyjoincondition ::= SPACE * PROP_BLOCK_JOIN_CONDITION ASSIGMENT
+          tagdatablockpropertyconnectionname ::= SPACE * PROP_BLOCK_CONNECTION_NAME ASSIGMENT
+          tagdatablockpropertyautogeneratedcolumns ::= SPACE * PROP_BLOCK_AUTO_GENERATED_COLUMNS ASSIGMENT
+          tagdatablockpropertyrecordcount ::= SPACE * PROP_BLOCK_RECORD_COUNT ASSIGMENT
+          tagdatablockpropertysourcename ::= SPACE * PROP_BLOCK_DATA_SOURCE_NAME ASSIGMENT
+          tagdatablockpropertyschemaname ::= SPACE * PROP_BLOCK_DATA_SCHEMA_NAME ASSIGMENT
+          tagdatablockpropertyblockname ::= SPACE * PROP_BLOCK_BLOCK_NAME ASSIGMENT
+          tagdatablockpropertykeycolumnname ::= SPACE * PROP_BLOCK_KEY_COLUMN_NAME ASSIGMENT
+          tagdatablockpropertymasterblockname ::= SPACE * PROP_BLOCK_MASTER_BLOCK_NAME ASSIGMENT
+          tagdatablockpropertyinsertallowed ::= SPACE * PROP_BLOCK_INSERT_ALLOWED ASSIGMENT
+          tagdatablockpropertydeleteallowed ::= SPACE * PROP_BLOCK_DELETE_ALLOWED ASSIGMENT
+          tagdatablockpropertyupdateallowed ::= SPACE * PROP_BLOCK_UPDATE_ALLOWED ASSIGMENT
+          tagdatablockpropertywhereclause ::= SPACE * PROP_BLOCK_WHERE_CLAUSE ASSIGMENT
+          tagdatablockpropertyorderbyclause ::= SPACE * PROP_BLOCK_OREDERBY_CLAUSE ASSIGMENT
+
+                    PROPERTYID shift        198    
+     PROP_BLOCK_JOIN_CONDITION shift        196    
+    PROP_BLOCK_CONNECTION_NAME shift        195    
+PROP_BLOCK_AUTO_GENERATED_COLUMNS shift        194    
+       PROP_BLOCK_RECORD_COUNT shift        193    
+   PROP_BLOCK_DATA_SOURCE_NAME shift        192    
+   PROP_BLOCK_DATA_SCHEMA_NAME shift        191    
+         PROP_BLOCK_BLOCK_NAME shift        190    
+    PROP_BLOCK_KEY_COLUMN_NAME shift        189    
+  PROP_BLOCK_MASTER_BLOCK_NAME shift        188    
+     PROP_BLOCK_INSERT_ALLOWED shift        187    
+     PROP_BLOCK_DELETE_ALLOWED shift        186    
+     PROP_BLOCK_UPDATE_ALLOWED shift        185    
+       PROP_BLOCK_WHERE_CLAUSE shift        184    
+    PROP_BLOCK_OREDERBY_CLAUSE shift        183    
+
+State 150:
+          connectionpropertyconnectionname ::= SPACE * PROP_CONNECTION_CONNECTION_NAME ASSIGMENT
+          connectionpropertyusername ::= SPACE * PROP_CONNECTION_USER_NAME ASSIGMENT
+          connectionpropertyuserpassword ::= SPACE * PROP_CONNECTION_USER_PASSWORD ASSIGMENT
+          connectionpropertyinstancename ::= SPACE * PROP_CONNECTION_INSTANCE_NAME ASSIGMENT
+          tagclosechar ::= SPACE * TAG_CLOSE
+
+PROP_CONNECTION_CONNECTION_NAME shift        257    
+     PROP_CONNECTION_USER_NAME shift        256    
+ PROP_CONNECTION_USER_PASSWORD shift        255    
+ PROP_CONNECTION_INSTANCE_NAME shift        254    
+                     TAG_CLOSE shift-reduce 340    tagclosechar ::= SPACE TAG_CLOSE
+
+State 151:
+          connectionpropertyconnectionname ::= SPACE * PROP_CONNECTION_CONNECTION_NAME ASSIGMENT
+          connectionpropertyusername ::= SPACE * PROP_CONNECTION_USER_NAME ASSIGMENT
+          connectionpropertyuserpassword ::= SPACE * PROP_CONNECTION_USER_PASSWORD ASSIGMENT
+          connectionpropertyinstancename ::= SPACE * PROP_CONNECTION_INSTANCE_NAME ASSIGMENT
+
+PROP_CONNECTION_CONNECTION_NAME shift        257    
+     PROP_CONNECTION_USER_NAME shift        256    
+ PROP_CONNECTION_USER_PASSWORD shift        255    
+ PROP_CONNECTION_INSTANCE_NAME shift        254    
+
+State 152:
+          tagscriptpropertyscripttype ::= SPACE * PROPERTYID_SCRIPT_TYPE ASSIGMENT
+          tagscriptpropertysrc ::= SPACE * PROPERTYID_SCRIPT_SRC ASSIGMENT
+          tagclosechar ::= SPACE * TAG_CLOSE
+
+         PROPERTYID_SCRIPT_SRC shift        160    
+        PROPERTYID_SCRIPT_TYPE shift        161    
+                     TAG_CLOSE shift-reduce 340    tagclosechar ::= SPACE TAG_CLOSE
+
+State 153:
+          tagstyleproperty ::= space * PROPERTYID_SCRIPT_SRC ASSIGMENT PROPERTYDATA
+          tagstyleproperty ::= space * PROPERTYID_SCRIPT_TYPE ASSIGMENT PROPERTYDATA
+          tagstyleproperty ::= space * PROPERTYID ASSIGMENT PROPERTYDATA
+
+                    PROPERTYID shift        164    
+         PROPERTYID_SCRIPT_SRC shift        168    
+        PROPERTYID_SCRIPT_TYPE shift        166    
+
+State 154:
+          tagcontrolblockproperty ::= SPACE * PROP_CONTROLBLOCK_BLOCK_NAME ASSIGMENT PROPERTYDATA
+          tagcontrolblockproperty ::= SPACE * PROPERTYID ASSIGMENT PROPERTYDATA
+          tagclosechar ::= SPACE * TAG_CLOSE
+
+  PROP_CONTROLBLOCK_BLOCK_NAME shift        247    
+                    PROPERTYID shift        245    
+                     TAG_CLOSE shift-reduce 340    tagclosechar ::= SPACE TAG_CLOSE
+
+State 155:
+          tagdatalistpropertyid ::= SPACE * PROP_DATALIST_DATALIST_NAME ASSIGMENT
+          tagdatalistpropertyconnectionname ::= SPACE * PROP_DATALIST_CONNECTION_NAME ASSIGMENT
+          tagclosechar ::= SPACE * TAG_CLOSE
+
+   PROP_DATALIST_DATALIST_NAME shift        261    
+ PROP_DATALIST_CONNECTION_NAME shift        260    
+                     TAG_CLOSE shift-reduce 340    tagclosechar ::= SPACE TAG_CLOSE
+
+State 156:
+          tagcontrolblockproperty ::= SPACE * PROP_CONTROLBLOCK_BLOCK_NAME ASSIGMENT PROPERTYDATA
+          tagcontrolblockproperty ::= SPACE * PROPERTYID ASSIGMENT PROPERTYDATA
+
+  PROP_CONTROLBLOCK_BLOCK_NAME shift        247    
+                    PROPERTYID shift        245    
+
+State 157:
+          tagtreepropertyid ::= SPACE * PROP_TREE_NAME ASSIGMENT
+          tagclosechar ::= SPACE * TAG_CLOSE
+
+                PROP_TREE_NAME shift        249    
+                     TAG_CLOSE shift-reduce 340    tagclosechar ::= SPACE TAG_CLOSE
+
+State 158:
+          tagdatalistpropertyid ::= SPACE * PROP_DATALIST_DATALIST_NAME ASSIGMENT
+          tagdatalistpropertyconnectionname ::= SPACE * PROP_DATALIST_CONNECTION_NAME ASSIGMENT
+
+   PROP_DATALIST_DATALIST_NAME shift        261    
+ PROP_DATALIST_CONNECTION_NAME shift        260    
+
+State 159:
+          tagscriptproperty ::= tagscriptpropertysrc * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 85     tagscriptproperty ::= tagscriptpropertysrc PROPERTYDATA
+
+State 160:
+          tagscriptpropertysrc ::= SPACE PROPERTYID_SCRIPT_SRC * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 310    tagscriptpropertysrc ::= SPACE PROPERTYID_SCRIPT_SRC ASSIGMENT
+
+State 161:
+          tagscriptpropertyscripttype ::= SPACE PROPERTYID_SCRIPT_TYPE * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 309    tagscriptpropertyscripttype ::= SPACE PROPERTYID_SCRIPT_TYPE ASSIGMENT
+
+State 162:
+          tagscriptproperty ::= tagscriptpropertyscripttype * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 84     tagscriptproperty ::= tagscriptpropertyscripttype PROPERTYDATA
+
+State 163:
+          tagstyleproperty ::= space PROPERTYID ASSIGMENT * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 300    tagstyleproperty ::= space PROPERTYID ASSIGMENT PROPERTYDATA
+
+State 164:
+          tagstyleproperty ::= space PROPERTYID * ASSIGMENT PROPERTYDATA
+
+                     ASSIGMENT shift        163    
+
+State 165:
+          tagstyleproperty ::= space PROPERTYID_SCRIPT_TYPE ASSIGMENT * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 299    tagstyleproperty ::= space PROPERTYID_SCRIPT_TYPE ASSIGMENT PROPERTYDATA
+
+State 166:
+          tagstyleproperty ::= space PROPERTYID_SCRIPT_TYPE * ASSIGMENT PROPERTYDATA
+
+                     ASSIGMENT shift        165    
+
+State 167:
+          tagstyleproperty ::= space PROPERTYID_SCRIPT_SRC ASSIGMENT * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 298    tagstyleproperty ::= space PROPERTYID_SCRIPT_SRC ASSIGMENT PROPERTYDATA
+
+State 168:
+          tagstyleproperty ::= space PROPERTYID_SCRIPT_SRC * ASSIGMENT PROPERTYDATA
+
+                     ASSIGMENT shift        167    
+
+State 169:
+          tagdatablockproperty ::= tagdatablockpropertyorderbyclause * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 39     tagdatablockproperty ::= tagdatablockpropertyorderbyclause PROPERTYDATA
+
+State 170:
+          tagdatablockproperty ::= tagdatablockpropertywhereclause * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 37     tagdatablockproperty ::= tagdatablockpropertywhereclause PROPERTYDATA
+
+State 171:
+          tagdatablockproperty ::= tagdatablockpropertyupdateallowed * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 36     tagdatablockproperty ::= tagdatablockpropertyupdateallowed PROPERTYDATA
+
+State 172:
+          tagdatablockproperty ::= tagdatablockpropertydeleteallowed * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 35     tagdatablockproperty ::= tagdatablockpropertydeleteallowed PROPERTYDATA
+
+State 173:
+          tagdatablockproperty ::= tagdatablockpropertyinsertallowed * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 34     tagdatablockproperty ::= tagdatablockpropertyinsertallowed PROPERTYDATA
+
+State 174:
+          tagdatablockproperty ::= tagdatablockpropertymasterblockname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 33     tagdatablockproperty ::= tagdatablockpropertymasterblockname PROPERTYDATA
+
+State 175:
+          tagdatablockproperty ::= tagdatablockpropertykeycolumnname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 32     tagdatablockproperty ::= tagdatablockpropertykeycolumnname PROPERTYDATA
+
+State 176:
+          tagdatablockproperty ::= tagdatablockpropertyblockname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 31     tagdatablockproperty ::= tagdatablockpropertyblockname PROPERTYDATA
+
+State 177:
+          tagdatablockproperty ::= tagdatablockpropertyschemaname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 29     tagdatablockproperty ::= tagdatablockpropertyschemaname PROPERTYDATA
+
+State 178:
+          tagdatablockproperty ::= tagdatablockpropertysourcename * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 27     tagdatablockproperty ::= tagdatablockpropertysourcename PROPERTYDATA
+
+State 179:
+          tagdatablockproperty ::= tagdatablockpropertyrecordcount * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 26     tagdatablockproperty ::= tagdatablockpropertyrecordcount PROPERTYDATA
+
+State 180:
+          tagdatablockproperty ::= tagdatablockpropertyautogeneratedcolumns * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 25     tagdatablockproperty ::= tagdatablockpropertyautogeneratedcolumns PROPERTYDATA
+
+State 181:
+          tagdatablockproperty ::= tagdatablockpropertyconnectionname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 23     tagdatablockproperty ::= tagdatablockpropertyconnectionname PROPERTYDATA
+
+State 182:
+          tagdatablockproperty ::= tagdatablockpropertyjoincondition * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 21     tagdatablockproperty ::= tagdatablockpropertyjoincondition PROPERTYDATA
+
+State 183:
+          tagdatablockpropertyorderbyclause ::= SPACE PROP_BLOCK_OREDERBY_CLAUSE * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 40     tagdatablockpropertyorderbyclause ::= SPACE PROP_BLOCK_OREDERBY_CLAUSE ASSIGMENT
+
+State 184:
+          tagdatablockpropertywhereclause ::= SPACE PROP_BLOCK_WHERE_CLAUSE * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 38     tagdatablockpropertywhereclause ::= SPACE PROP_BLOCK_WHERE_CLAUSE ASSIGMENT
+
+State 185:
+          tagdatablockpropertyupdateallowed ::= SPACE PROP_BLOCK_UPDATE_ALLOWED * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 171    tagdatablockpropertyupdateallowed ::= SPACE PROP_BLOCK_UPDATE_ALLOWED ASSIGMENT
+
+State 186:
+          tagdatablockpropertydeleteallowed ::= SPACE PROP_BLOCK_DELETE_ALLOWED * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 170    tagdatablockpropertydeleteallowed ::= SPACE PROP_BLOCK_DELETE_ALLOWED ASSIGMENT
+
+State 187:
+          tagdatablockpropertyinsertallowed ::= SPACE PROP_BLOCK_INSERT_ALLOWED * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 169    tagdatablockpropertyinsertallowed ::= SPACE PROP_BLOCK_INSERT_ALLOWED ASSIGMENT
+
+State 188:
+          tagdatablockpropertymasterblockname ::= SPACE PROP_BLOCK_MASTER_BLOCK_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 168    tagdatablockpropertymasterblockname ::= SPACE PROP_BLOCK_MASTER_BLOCK_NAME ASSIGMENT
+
+State 189:
+          tagdatablockpropertykeycolumnname ::= SPACE PROP_BLOCK_KEY_COLUMN_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 167    tagdatablockpropertykeycolumnname ::= SPACE PROP_BLOCK_KEY_COLUMN_NAME ASSIGMENT
+
+State 190:
+          tagdatablockpropertyblockname ::= SPACE PROP_BLOCK_BLOCK_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 166    tagdatablockpropertyblockname ::= SPACE PROP_BLOCK_BLOCK_NAME ASSIGMENT
+
+State 191:
+          tagdatablockpropertyschemaname ::= SPACE PROP_BLOCK_DATA_SCHEMA_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 30     tagdatablockpropertyschemaname ::= SPACE PROP_BLOCK_DATA_SCHEMA_NAME ASSIGMENT
+
+State 192:
+          tagdatablockpropertysourcename ::= SPACE PROP_BLOCK_DATA_SOURCE_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 28     tagdatablockpropertysourcename ::= SPACE PROP_BLOCK_DATA_SOURCE_NAME ASSIGMENT
+
+State 193:
+          tagdatablockpropertyrecordcount ::= SPACE PROP_BLOCK_RECORD_COUNT * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 165    tagdatablockpropertyrecordcount ::= SPACE PROP_BLOCK_RECORD_COUNT ASSIGMENT
+
+State 194:
+          tagdatablockpropertyautogeneratedcolumns ::= SPACE PROP_BLOCK_AUTO_GENERATED_COLUMNS * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 164    tagdatablockpropertyautogeneratedcolumns ::= SPACE PROP_BLOCK_AUTO_GENERATED_COLUMNS ASSIGMENT
+
+State 195:
+          tagdatablockpropertyconnectionname ::= SPACE PROP_BLOCK_CONNECTION_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 24     tagdatablockpropertyconnectionname ::= SPACE PROP_BLOCK_CONNECTION_NAME ASSIGMENT
+
+State 196:
+          tagdatablockpropertyjoincondition ::= SPACE PROP_BLOCK_JOIN_CONDITION * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 22     tagdatablockpropertyjoincondition ::= SPACE PROP_BLOCK_JOIN_CONDITION ASSIGMENT
+
+State 197:
+          tagdatablockproperty ::= SPACE PROPERTYID ASSIGMENT * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 163    tagdatablockproperty ::= SPACE PROPERTYID ASSIGMENT PROPERTYDATA
+
+State 198:
+          tagdatablockproperty ::= SPACE PROPERTYID * ASSIGMENT PROPERTYDATA
+
+                     ASSIGMENT shift        197    
+
+State 199:
+          tagpropertywithreturnvalue ::= PROPERTYID ASSIGMENT * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 335    tagpropertywithreturnvalue ::= PROPERTYID ASSIGMENT PROPERTYDATA
+
+State 200:
+          tagpropertywithreturnvalue ::= PROPERTYID * ASSIGMENT PROPERTYDATA
+
+                     ASSIGMENT shift        199    
+
+State 201:
+          tagclosechar ::= SPACE * TAG_CLOSE
+
+                     TAG_CLOSE shift-reduce 340    tagclosechar ::= SPACE TAG_CLOSE
+
+State 202:
+          tagproperty ::= space PROPERTYID ASSIGMENT * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 338    tagproperty ::= space PROPERTYID ASSIGMENT PROPERTYDATA
+
+State 203:
+          tagproperty ::= space PROPERTYID * ASSIGMENT PROPERTYDATA
+
+                     ASSIGMENT shift        202    
+
+State 204:
+          tagproperty ::= space * PROPERTYID ASSIGMENT PROPERTYDATA
+
+                    PROPERTYID shift        203    
+
+State 205:
+          tagclosechar ::= SPACE * TAG_CLOSE
+    (349) space ::= SPACE *
+
+                     TAG_CLOSE shift-reduce 340    tagclosechar ::= SPACE TAG_CLOSE
+                     {default} reduce       349    space ::= SPACE
+
+State 206:
+          taginputproperty ::= taginputpropertylookupitemblockname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 66     taginputproperty ::= taginputpropertylookupitemblockname PROPERTYDATA
+
+State 207:
+          taginputproperty ::= taginputpropertylookupitemname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 65     taginputproperty ::= taginputpropertylookupitemname PROPERTYDATA
+
+State 208:
+          taginputproperty ::= taginputpropertydatalistname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 64     taginputproperty ::= taginputpropertydatalistname PROPERTYDATA
+
+State 209:
+          taginputproperty ::= taginputpropertyupdateallowed * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 63     taginputproperty ::= taginputpropertyupdateallowed PROPERTYDATA
+
+State 210:
+          taginputproperty ::= taginputpropertyinsertallowed * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 62     taginputproperty ::= taginputpropertyinsertallowed PROPERTYDATA
+
+State 211:
+          taginputproperty ::= taginputpropertymaxlength * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 61     taginputproperty ::= taginputpropertymaxlength PROPERTYDATA
+
+State 212:
+          taginputproperty ::= taginputpropertydatatype * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 60     taginputproperty ::= taginputpropertydatatype PROPERTYDATA
+
+State 213:
+          taginputproperty ::= taginputpropertyformatmask * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 59     taginputproperty ::= taginputpropertyformatmask PROPERTYDATA
+
+State 214:
+          taginputproperty ::= taginputpropertycolumnname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 58     taginputproperty ::= taginputpropertycolumnname PROPERTYDATA
+
+State 215:
+          taginputproperty ::= taginputpropertydefaultvalue * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 57     taginputproperty ::= taginputpropertydefaultvalue PROPERTYDATA
+
+State 216:
+          taginputproperty ::= taginputpropertyinputvalue * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 56     taginputproperty ::= taginputpropertyinputvalue PROPERTYDATA
+
+State 217:
+          taginputproperty ::= taginputpropertyinputtype * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 55     taginputproperty ::= taginputpropertyinputtype PROPERTYDATA
+
+State 218:
+          taginputproperty ::= taginputpropertymasteritemname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 54     taginputproperty ::= taginputpropertymasteritemname PROPERTYDATA
+
+State 219:
+          taginputproperty ::= taginputpropertysequenceschemaname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 53     taginputproperty ::= taginputpropertysequenceschemaname PROPERTYDATA
+
+State 220:
+          taginputproperty ::= taginputpropertysequencename * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 52     taginputproperty ::= taginputpropertysequencename PROPERTYDATA
+
+State 221:
+          taginputproperty ::= taginputpropertyinputname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 51     taginputproperty ::= taginputpropertyinputname PROPERTYDATA
+
+State 222:
+          taginputproperty ::= taginputuncheckedvalue * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 50     taginputproperty ::= taginputuncheckedvalue PROPERTYDATA
+
+State 223:
+          taginputproperty ::= spaces PROPERTYID ASSIGMENT * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 67     taginputproperty ::= spaces PROPERTYID ASSIGMENT PROPERTYDATA
+
+State 224:
+          taginputproperty ::= spaces PROPERTYID * ASSIGMENT PROPERTYDATA
+
+                     ASSIGMENT shift        223    
+
+State 225:
+          taginputpropertylookupitemblockname ::= spaces PROP_INPUT_LOOKUP_ITEM_BLOCK_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 195    taginputpropertylookupitemblockname ::= spaces PROP_INPUT_LOOKUP_ITEM_BLOCK_NAME ASSIGMENT
+
+State 226:
+          taginputpropertylookupitemname ::= spaces PROP_INPUT_LOOKUP_ITEM_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 194    taginputpropertylookupitemname ::= spaces PROP_INPUT_LOOKUP_ITEM_NAME ASSIGMENT
+
+State 227:
+          taginputpropertydatalistname ::= spaces PROP_INPUT_DATALIST_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 193    taginputpropertydatalistname ::= spaces PROP_INPUT_DATALIST_NAME ASSIGMENT
+
+State 228:
+          taginputpropertyupdateallowed ::= spaces PROP_INPUT_UPDATE_ALLOWED * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 192    taginputpropertyupdateallowed ::= spaces PROP_INPUT_UPDATE_ALLOWED ASSIGMENT
+
+State 229:
+          taginputpropertyinsertallowed ::= spaces PROP_INPUT_INSERT_ALLOWED * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 191    taginputpropertyinsertallowed ::= spaces PROP_INPUT_INSERT_ALLOWED ASSIGMENT
+
+State 230:
+          taginputpropertymaxlength ::= spaces PROP_INPUT_MAX_LENGTH * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 190    taginputpropertymaxlength ::= spaces PROP_INPUT_MAX_LENGTH ASSIGMENT
+
+State 231:
+          taginputpropertydatatype ::= spaces PROP_INPUT_DATA_TYPE * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 189    taginputpropertydatatype ::= spaces PROP_INPUT_DATA_TYPE ASSIGMENT
+
+State 232:
+          taginputpropertyformatmask ::= spaces PROP_INPUT_FORMAT_MASK * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 188    taginputpropertyformatmask ::= spaces PROP_INPUT_FORMAT_MASK ASSIGMENT
+
+State 233:
+          taginputpropertycolumnname ::= spaces PROP_INPUT_COLUMN_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 187    taginputpropertycolumnname ::= spaces PROP_INPUT_COLUMN_NAME ASSIGMENT
+
+State 234:
+          taginputpropertydefaultvalue ::= spaces PROP_INPUT_DEFAULT_VALUE * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 186    taginputpropertydefaultvalue ::= spaces PROP_INPUT_DEFAULT_VALUE ASSIGMENT
+
+State 235:
+          taginputpropertyinputvalue ::= spaces PROP_INPUT_VALUE * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 185    taginputpropertyinputvalue ::= spaces PROP_INPUT_VALUE ASSIGMENT
+
+State 236:
+          taginputpropertyinputtype ::= spaces PROP_INPUT_TYPE * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 184    taginputpropertyinputtype ::= spaces PROP_INPUT_TYPE ASSIGMENT
+
+State 237:
+          taginputpropertymasteritemname ::= spaces PROP_INPUT_MASTER_ITEM_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 183    taginputpropertymasteritemname ::= spaces PROP_INPUT_MASTER_ITEM_NAME ASSIGMENT
+
+State 238:
+          taginputpropertysequenceschemaname ::= spaces PROP_INPUT_SEQUENCE_SCHEMA_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 182    taginputpropertysequenceschemaname ::= spaces PROP_INPUT_SEQUENCE_SCHEMA_NAME ASSIGMENT
+
+State 239:
+          taginputpropertysequencename ::= spaces PROP_INPUT_SEQUENCE_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 181    taginputpropertysequencename ::= spaces PROP_INPUT_SEQUENCE_NAME ASSIGMENT
+
+State 240:
+          taginputpropertyinputname ::= spaces PROP_INPUT_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 180    taginputpropertyinputname ::= spaces PROP_INPUT_NAME ASSIGMENT
+
+State 241:
+          taginputuncheckedvalue ::= spaces PROP_INPUT_UNCHECKED_VALUE * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 179    taginputuncheckedvalue ::= spaces PROP_INPUT_UNCHECKED_VALUE ASSIGMENT
+
+State 242:
+          taginputcheckedvalue ::= spaces PROP_INPUT_CHECKED_VALUE * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 178    taginputcheckedvalue ::= spaces PROP_INPUT_CHECKED_VALUE ASSIGMENT
+
+State 243:
+          taginputproperty ::= taginputcheckedvalue * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 49     taginputproperty ::= taginputcheckedvalue PROPERTYDATA
+
+State 244:
+          tagcontrolblockproperty ::= SPACE PROPERTYID ASSIGMENT * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 152    tagcontrolblockproperty ::= SPACE PROPERTYID ASSIGMENT PROPERTYDATA
+
+State 245:
+          tagcontrolblockproperty ::= SPACE PROPERTYID * ASSIGMENT PROPERTYDATA
+
+                     ASSIGMENT shift        244    
+
+State 246:
+          tagcontrolblockproperty ::= SPACE PROP_CONTROLBLOCK_BLOCK_NAME ASSIGMENT * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 17     tagcontrolblockproperty ::= SPACE PROP_CONTROLBLOCK_BLOCK_NAME ASSIGMENT PROPERTYDATA
+
+State 247:
+          tagcontrolblockproperty ::= SPACE PROP_CONTROLBLOCK_BLOCK_NAME * ASSIGMENT PROPERTYDATA
+
+                     ASSIGMENT shift        246    
+
+State 248:
+          tagtreepropertyid ::= SPACE * PROP_TREE_NAME ASSIGMENT
+
+                PROP_TREE_NAME shift        249    
+
+State 249:
+          tagtreepropertyid ::= SPACE PROP_TREE_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 123    tagtreepropertyid ::= SPACE PROP_TREE_NAME ASSIGMENT
+
+State 250:
+          tagtreeproperty ::= tagtreepropertyid * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 122    tagtreeproperty ::= tagtreepropertyid PROPERTYDATA
+
+State 251:
+          connectionproperty ::= connectionpropertyinstancename * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 16     connectionproperty ::= connectionpropertyinstancename PROPERTYDATA
+
+State 252:
+          connectionproperty ::= connectionpropertyuserpassword * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 14     connectionproperty ::= connectionpropertyuserpassword PROPERTYDATA
+
+State 253:
+          connectionproperty ::= connectionpropertyusername * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 12     connectionproperty ::= connectionpropertyusername PROPERTYDATA
+
+State 254:
+          connectionpropertyinstancename ::= SPACE PROP_CONNECTION_INSTANCE_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 138    connectionpropertyinstancename ::= SPACE PROP_CONNECTION_INSTANCE_NAME ASSIGMENT
+
+State 255:
+          connectionpropertyuserpassword ::= SPACE PROP_CONNECTION_USER_PASSWORD * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 15     connectionpropertyuserpassword ::= SPACE PROP_CONNECTION_USER_PASSWORD ASSIGMENT
+
+State 256:
+          connectionpropertyusername ::= SPACE PROP_CONNECTION_USER_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 13     connectionpropertyusername ::= SPACE PROP_CONNECTION_USER_NAME ASSIGMENT
+
+State 257:
+          connectionpropertyconnectionname ::= SPACE PROP_CONNECTION_CONNECTION_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 137    connectionpropertyconnectionname ::= SPACE PROP_CONNECTION_CONNECTION_NAME ASSIGMENT
+
+State 258:
+          connectionproperty ::= connectionpropertyconnectionname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 11     connectionproperty ::= connectionpropertyconnectionname PROPERTYDATA
+
+State 259:
+          datalistproperty ::= tagdatalistpropertyconnectionname * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 7      datalistproperty ::= tagdatalistpropertyconnectionname PROPERTYDATA
+
+State 260:
+          tagdatalistpropertyconnectionname ::= SPACE PROP_DATALIST_CONNECTION_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 131    tagdatalistpropertyconnectionname ::= SPACE PROP_DATALIST_CONNECTION_NAME ASSIGMENT
+
+State 261:
+          tagdatalistpropertyid ::= SPACE PROP_DATALIST_DATALIST_NAME * ASSIGMENT
+
+                     ASSIGMENT shift-reduce 130    tagdatalistpropertyid ::= SPACE PROP_DATALIST_DATALIST_NAME ASSIGMENT
+
+State 262:
+          datalistproperty ::= tagdatalistpropertyid * PROPERTYDATA
+
+                  PROPERTYDATA shift-reduce 6      datalistproperty ::= tagdatalistpropertyid PROPERTYDATA
+
+----------------------------------------------------
+Symbols:
+    0: $:
+    1: HTML_END_OF_FILE
+    2: TAG_DOCTYPE_HTSQL_DTD
+    3: TAG_DOCTYPE_HTML
+    4: TAG_TREE_OPEN
+    5: TAG_TREE_BLOCK_CLOSE
+    6: PROPERTYDATA
+    7: SPACE
+    8: PROP_TREE_NAME
+    9: ASSIGMENT
+   10: TAG_DATALIST_OPEN
+   11: TAG_DATALIST_BLOCK_CLOSE
+   12: PROP_DATALIST_DATALIST_NAME
+   13: PROP_DATALIST_CONNECTION_NAME
+   14: TAG_CONNECTION_OPEN
+   15: TAG_CONNECTION_BLOCK_CLOSE
+   16: PROP_CONNECTION_CONNECTION_NAME
+   17: PROP_CONNECTION_USER_NAME
+   18: PROP_CONNECTION_USER_PASSWORD
+   19: PROP_CONNECTION_INSTANCE_NAME
+   20: TAG_CONTROLBLOCK_OPEN
+   21: TAG_CONTROLBLOCK_CLOSE
+   22: PROP_CONTROLBLOCK_BLOCK_NAME
+   23: PROPERTYID
+   24: TAG_DATABLOCK_OPEN
+   25: TAG_DATABLOCK_BLOCK_CLOSE
+   26: PROP_BLOCK_JOIN_CONDITION
+   27: PROP_BLOCK_CONNECTION_NAME
+   28: PROP_BLOCK_AUTO_GENERATED_COLUMNS
+   29: PROP_BLOCK_RECORD_COUNT
+   30: PROP_BLOCK_DATA_SOURCE_NAME
+   31: PROP_BLOCK_DATA_SCHEMA_NAME
+   32: PROP_BLOCK_BLOCK_NAME
+   33: PROP_BLOCK_KEY_COLUMN_NAME
+   34: PROP_BLOCK_MASTER_BLOCK_NAME
+   35: PROP_BLOCK_INSERT_ALLOWED
+   36: PROP_BLOCK_DELETE_ALLOWED
+   37: PROP_BLOCK_UPDATE_ALLOWED
+   38: PROP_BLOCK_WHERE_CLAUSE
+   39: PROP_BLOCK_OREDERBY_CLAUSE
+   40: TAG_SHORT_CLOSE
+   41: TAG_INPUT_OPEN
+   42: TAG_SELECT_OPEN
+   43: TAG_TEXTAREA_OPEN
+   44: TAG_INPUT_BLOCK_CLOSE
+   45: TAG_SELECT_BLOCK_CLOSE
+   46: TAG_TEXTAREA_BLOCK_CLOSE
+   47: PROP_INPUT_CHECKED_VALUE
+   48: PROP_INPUT_UNCHECKED_VALUE
+   49: PROP_INPUT_NAME
+   50: PROP_INPUT_SEQUENCE_NAME
+   51: PROP_INPUT_SEQUENCE_SCHEMA_NAME
+   52: PROP_INPUT_MASTER_ITEM_NAME
+   53: PROP_INPUT_TYPE
+   54: PROP_INPUT_VALUE
+   55: PROP_INPUT_DEFAULT_VALUE
+   56: PROP_INPUT_COLUMN_NAME
+   57: PROP_INPUT_FORMAT_MASK
+   58: PROP_INPUT_DATA_TYPE
+   59: PROP_INPUT_MAX_LENGTH
+   60: PROP_INPUT_INSERT_ALLOWED
+   61: PROP_INPUT_UPDATE_ALLOWED
+   62: PROP_INPUT_DATALIST_NAME
+   63: PROP_INPUT_LOOKUP_ITEM_NAME
+   64: PROP_INPUT_LOOKUP_ITEM_BLOCK_NAME
+   65: TAG_TABLE_OPEN
+   66: TAG_TABLE_BLOCK_CLOSE
+   67: TAG_THEAD_OPEN
+   68: TAG_THEAD_BLOCK_CLOSE
+   69: TAG_TFOOT_OPEN
+   70: TAG_TFOOT_BLOCK_CLOSE
+   71: TAG_TBODY_OPEN
+   72: TAG_TBODY_BLOCK_CLOSE
+   73: TAG_TR_OPEN
+   74: TAG_TR_BLOCK_CLOSE
+   75: TAG_TD_OPEN
+   76: TAG_TD_BLOCK_CLOSE
+   77: TAG_TH_OPEN
+   78: TAG_TH_BLOCK_CLOSE
+   79: TAG_TITLE_OPEN
+   80: TAG_TITLE_BLOCK_CLOSE
+   81: TAG_LINK_OPEN
+   82: TAG_LINK_BLOCK_CLOSE
+   83: TAG_META_OPEN
+   84: TAG_META_BLOCK_CLOSE
+   85: TAG_STYLE_OPEN
+   86: TAG_STYLE_BLOCK_CLOSE
+   87: PROPERTYID_SCRIPT_SRC
+   88: PROPERTYID_SCRIPT_TYPE
+   89: TAG_SCRIPT_OPEN
+   90: TAG_SCRIPT_BLOCK_CLOSE
+   91: TAG_HTML_OPEN
+   92: TAG_HTML_BLOCK_CLOSE
+   93: TAG_BODY_OPEN
+   94: TAG_BODY_BLOCK_CLOSE
+   95: TAG_HEAD_OPEN
+   96: TAG_HEAD_BLOCK_CLOSE
+   97: TAG_CLOSE
+   98: HTMLTEXT
+   99: error:
+  100: start: HTML_END_OF_FILE TAG_DOCTYPE_HTSQL_DTD TAG_DOCTYPE_HTML SPACE TAG_HTML_OPEN
+  101: expressions: HTML_END_OF_FILE TAG_DOCTYPE_HTSQL_DTD TAG_DOCTYPE_HTML SPACE TAG_HTML_OPEN
+  102: expression: HTML_END_OF_FILE SPACE
+  103: tagdoctype: TAG_DOCTYPE_HTSQL_DTD TAG_DOCTYPE_HTML
+  104: taghtml: TAG_HTML_OPEN
+  105: space: SPACE
+  106: endoffile: HTML_END_OF_FILE
+  107: taghtmlcontents: TAG_BODY_OPEN TAG_HEAD_OPEN
+  108: tagbody: TAG_BODY_OPEN
+  109: taghead: TAG_HEAD_OPEN
+  110: tagheadcontents: TAG_TITLE_OPEN TAG_LINK_OPEN TAG_META_OPEN TAG_STYLE_OPEN TAG_SCRIPT_OPEN
+  111: tagheadcontent: TAG_TITLE_OPEN TAG_LINK_OPEN TAG_META_OPEN TAG_STYLE_OPEN TAG_SCRIPT_OPEN
+  112: tagtitle: TAG_TITLE_OPEN
+  113: tagscript: TAG_SCRIPT_OPEN
+  114: tagstyle: TAG_STYLE_OPEN
+  115: taglink: TAG_LINK_OPEN
+  116: tagmeta: TAG_META_OPEN
+  117: tagbodycontents: SPACE TAG_DATALIST_OPEN TAG_CONNECTION_OPEN TAG_CONTROLBLOCK_OPEN TAG_DATABLOCK_OPEN TAG_TABLE_OPEN HTMLTEXT
+  118: tagbodycontent: SPACE TAG_DATALIST_OPEN TAG_CONNECTION_OPEN TAG_CONTROLBLOCK_OPEN TAG_DATABLOCK_OPEN TAG_TABLE_OPEN HTMLTEXT
+  119: htsqls: TAG_DATALIST_OPEN TAG_CONNECTION_OPEN TAG_CONTROLBLOCK_OPEN TAG_DATABLOCK_OPEN
+  120: tagtable: TAG_TABLE_OPEN
+  121: htmltext: HTMLTEXT
+  122: tagconnection: TAG_CONNECTION_OPEN
+  123: tagdatablock: TAG_DATABLOCK_OPEN
+  124: tagcontrolblock: TAG_CONTROLBLOCK_OPEN
+  125: tagdatalist: TAG_DATALIST_OPEN
+  126: tagtree: TAG_TREE_OPEN
+  127: tagtreefullopen: TAG_TREE_OPEN
+  128: tagtreeblockclosefull: TAG_TREE_BLOCK_CLOSE
+  129: tagtreeopen: TAG_TREE_OPEN
+  130: tagtreeproperties: SPACE
+  131: tagclosechar: SPACE TAG_CLOSE
+  132: spaces: SPACE
+  133: tagtreeproperty: SPACE
+  134: tagtreepropertyid: SPACE
+  135: tagdatalistfullopen: TAG_DATALIST_OPEN
+  136: tagdatalistblockclosefull: TAG_DATALIST_BLOCK_CLOSE
+  137: tagdatalistopen: TAG_DATALIST_OPEN
+  138: datalistproperties: SPACE
+  139: tagdatalistblockclose: TAG_DATALIST_BLOCK_CLOSE
+  140: datalistproperty: SPACE
+  141: tagdatalistpropertyid: SPACE
+  142: tagdatalistpropertyconnectionname: SPACE
+  143: tagconnectionfullopen: TAG_CONNECTION_OPEN
+  144: tagconnectionblockclosefull: TAG_CONNECTION_BLOCK_CLOSE
+  145: tagconnectionopen: TAG_CONNECTION_OPEN
+  146: connectionproperties: SPACE
+  147: tagconnectionblockclose: TAG_CONNECTION_BLOCK_CLOSE
+  148: connectionproperty: SPACE
+  149: connectionpropertyconnectionname: SPACE
+  150: connectionpropertyusername: SPACE
+  151: connectionpropertyuserpassword: SPACE
+  152: connectionpropertyinstancename: SPACE
+  153: tagcontrolblockfullopen: TAG_CONTROLBLOCK_OPEN
+  154: tagcontrolblockclosefull: TAG_CONTROLBLOCK_CLOSE
+  155: tagcontrolblockcontents: TAG_TREE_OPEN SPACE HTMLTEXT
+  156: tagcontrolblockopen: TAG_CONTROLBLOCK_OPEN
+  157: tagcontrolblockproperties: SPACE
+  158: tagcontrolblockblockclose: TAG_CONTROLBLOCK_CLOSE
+  159: tagcontrolblockcontent: TAG_TREE_OPEN SPACE HTMLTEXT
+  160: tagcontrolblockproperty: SPACE
+  161: tagdatablockfullopen: TAG_DATABLOCK_OPEN
+  162: tagdatablockblockclosefull: TAG_DATABLOCK_BLOCK_CLOSE
+  163: tagdatablockcontents: SPACE TAG_TABLE_OPEN HTMLTEXT
+  164: tagdatablockopen: TAG_DATABLOCK_OPEN
+  165: tagdatablockproperties: SPACE
+  166: tagdatablockblockclose: TAG_DATABLOCK_BLOCK_CLOSE
+  167: tagdatablockcontent: SPACE TAG_TABLE_OPEN HTMLTEXT
+  168: tagdatablockproperty: SPACE
+  169: tagdatablockpropertyjoincondition: SPACE
+  170: tagdatablockpropertyconnectionname: SPACE
+  171: tagdatablockpropertyautogeneratedcolumns: SPACE
+  172: tagdatablockpropertyrecordcount: SPACE
+  173: tagdatablockpropertysourcename: SPACE
+  174: tagdatablockpropertyschemaname: SPACE
+  175: tagdatablockpropertyblockname: SPACE
+  176: tagdatablockpropertykeycolumnname: SPACE
+  177: tagdatablockpropertymasterblockname: SPACE
+  178: tagdatablockpropertyinsertallowed: SPACE
+  179: tagdatablockpropertydeleteallowed: SPACE
+  180: tagdatablockpropertyupdateallowed: SPACE
+  181: tagdatablockpropertywhereclause: SPACE
+  182: tagdatablockpropertyorderbyclause: SPACE
+  183: taginput: TAG_INPUT_OPEN TAG_SELECT_OPEN TAG_TEXTAREA_OPEN
+  184: taginputfullopen: TAG_INPUT_OPEN TAG_SELECT_OPEN TAG_TEXTAREA_OPEN
+  185: taginputblockclosefull: TAG_INPUT_BLOCK_CLOSE TAG_SELECT_BLOCK_CLOSE TAG_TEXTAREA_BLOCK_CLOSE
+  186: taginputopen: TAG_INPUT_OPEN TAG_SELECT_OPEN TAG_TEXTAREA_OPEN
+  187: taginputproperties: SPACE
+  188: taginputshortclose: TAG_SHORT_CLOSE
+  189: taginputblockclose: TAG_INPUT_BLOCK_CLOSE TAG_SELECT_BLOCK_CLOSE TAG_TEXTAREA_BLOCK_CLOSE
+  190: taginputproperty: SPACE
+  191: taginputcheckedvalue: SPACE
+  192: taginputuncheckedvalue: SPACE
+  193: taginputpropertyinputname: SPACE
+  194: taginputpropertysequencename: SPACE
+  195: taginputpropertysequenceschemaname: SPACE
+  196: taginputpropertymasteritemname: SPACE
+  197: taginputpropertyinputtype: SPACE
+  198: taginputpropertyinputvalue: SPACE
+  199: taginputpropertydefaultvalue: SPACE
+  200: taginputpropertycolumnname: SPACE
+  201: taginputpropertyformatmask: SPACE
+  202: taginputpropertydatatype: SPACE
+  203: taginputpropertymaxlength: SPACE
+  204: taginputpropertyinsertallowed: SPACE
+  205: taginputpropertyupdateallowed: SPACE
+  206: taginputpropertydatalistname: SPACE
+  207: taginputpropertylookupitemname: SPACE
+  208: taginputpropertylookupitemblockname: SPACE
+  209: tagtablefullopen: TAG_TABLE_OPEN
+  210: tagtableblockclosefull: TAG_TABLE_BLOCK_CLOSE
+  211: tablecontent: TAG_THEAD_OPEN TAG_TBODY_OPEN
+  212: tagtableopen: TAG_TABLE_OPEN
+  213: tagproperties: SPACE
+  214: tagtableblockclose: TAG_TABLE_BLOCK_CLOSE
+  215: tagthead: TAG_THEAD_OPEN
+  216: tagtbody: TAG_TBODY_OPEN
+  217: tagtfoot: TAG_TFOOT_OPEN
+  218: tagtheadfullopen: TAG_THEAD_OPEN
+  219: tagtheadblockclosefull: TAG_THEAD_BLOCK_CLOSE
+  220: tagtablerows: TAG_TR_OPEN
+  221: tagtheadopen: TAG_THEAD_OPEN
+  222: tagpropertieswithreturnvaluesall: PROPERTYID
+  223: tagtheadblockclose: TAG_THEAD_BLOCK_CLOSE
+  224: tagtfootfullopen: TAG_TFOOT_OPEN
+  225: tagtfootblockclosefull: TAG_TFOOT_BLOCK_CLOSE
+  226: tagtfootopen: TAG_TFOOT_OPEN
+  227: tagtfootblockclose: TAG_TFOOT_BLOCK_CLOSE
+  228: tagtbodyfullopen: TAG_TBODY_OPEN
+  229: tagtbodyblockclosefull: TAG_TBODY_BLOCK_CLOSE
+  230: tagtbodyopen: TAG_TBODY_OPEN
+  231: tagtbodyblockclose: TAG_TBODY_BLOCK_CLOSE
+  232: tagtablerow: TAG_TR_OPEN
+  233: tagtablerowfullopen: TAG_TR_OPEN
+  234: tagtablecols: TAG_TD_OPEN TAG_TH_OPEN
+  235: tagtablerowblockclosefull: TAG_TR_BLOCK_CLOSE
+  236: tagtablerowopen: TAG_TR_OPEN
+  237: tagtablerowblockclose: TAG_TR_BLOCK_CLOSE
+  238: tagtablecol: TAG_TD_OPEN TAG_TH_OPEN
+  239: tagtablecoltd: TAG_TD_OPEN
+  240: tagtablecolth: TAG_TH_OPEN
+  241: tagtablecoltdfullopen: TAG_TD_OPEN
+  242: tagtablecoltdblockclosefull: TAG_TD_BLOCK_CLOSE
+  243: tagtablecolcontents: TAG_INPUT_OPEN TAG_SELECT_OPEN TAG_TEXTAREA_OPEN TAG_TABLE_OPEN HTMLTEXT
+  244: tagtablecoltdopen: TAG_TD_OPEN
+  245: tagtablecoltdblockclose: TAG_TD_BLOCK_CLOSE
+  246: tagtablecolcontent: TAG_INPUT_OPEN TAG_SELECT_OPEN TAG_TEXTAREA_OPEN TAG_TABLE_OPEN HTMLTEXT
+  247: tagtablecolthfullopen: TAG_TH_OPEN
+  248: tagtablecolthblockclosefull: TAG_TH_BLOCK_CLOSE
+  249: tagtablecolthopen: TAG_TH_OPEN
+  250: tagtablecolthblockclose: TAG_TH_BLOCK_CLOSE
+  251: tagtitlefullopen: TAG_TITLE_OPEN
+  252: tagtitleblockclosefull: TAG_TITLE_BLOCK_CLOSE
+  253: htmlandspaces: SPACE HTMLTEXT
+  254: tagtitleopen: TAG_TITLE_OPEN
+  255: tagtitleblockclose: TAG_TITLE_BLOCK_CLOSE
+  256: taglinkfullopen: TAG_LINK_OPEN
+  257: taglinkblockclosefull: TAG_LINK_BLOCK_CLOSE
+  258: taglinkopen: TAG_LINK_OPEN
+  259: tagshortclose: TAG_SHORT_CLOSE
+  260: taglinkblockclose: TAG_LINK_BLOCK_CLOSE
+  261: tagmetafullopen: TAG_META_OPEN
+  262: tagmetablockclosefull: TAG_META_BLOCK_CLOSE
+  263: tagmetaopen: TAG_META_OPEN
+  264: tagmetablockclose: TAG_META_BLOCK_CLOSE
+  265: tagstylefullopen: TAG_STYLE_OPEN
+  266: tagstyleblockclosefull: TAG_STYLE_BLOCK_CLOSE
+  267: tagstyleopen: TAG_STYLE_OPEN
+  268: tagstyleproperties: SPACE
+  269: tagstyleblockclose: TAG_STYLE_BLOCK_CLOSE
+  270: tagstyleproperty: SPACE
+  271: tagscriptfullopen: TAG_SCRIPT_OPEN
+  272: tagscriptblockclosefull: TAG_SCRIPT_BLOCK_CLOSE
+  273: tagscriptopen: TAG_SCRIPT_OPEN
+  274: tagscriptproperties: SPACE
+  275: tagscriptblockclose: TAG_SCRIPT_BLOCK_CLOSE
+  276: tagscriptproperty: SPACE
+  277: tagscriptpropertyscripttype: SPACE
+  278: tagscriptpropertysrc: SPACE
+  279: taghtmlfullopen: TAG_HTML_OPEN
+  280: taghtmlblockclosefull: TAG_HTML_BLOCK_CLOSE
+  281: taghtmlopen: TAG_HTML_OPEN
+  282: taghtmlblockclose: TAG_HTML_BLOCK_CLOSE
+  283: tagbodyfullopen: TAG_BODY_OPEN
+  284: tagbodyblockclosefull: TAG_BODY_BLOCK_CLOSE
+  285: tagbodyopen: TAG_BODY_OPEN
+  286: tagbodyblockclose: TAG_BODY_BLOCK_CLOSE
+  287: tagheadfullopen: TAG_HEAD_OPEN
+  288: tagheadblockclosefull: TAG_HEAD_BLOCK_CLOSE
+  289: tagheadopen: TAG_HEAD_OPEN
+  290: tagheadblockclose: TAG_HEAD_BLOCK_CLOSE
+  291: tagpropertieswithreturnvalues: PROPERTYID
+  292: tagpropertywithreturnvalue: PROPERTYID
+  293: tagproperty: SPACE
+  294: htmlandspace: SPACE HTMLTEXT

@@ -28,6 +28,15 @@
     <Filter Include="Source Files\sqlx\Compiler">
       <UniqueIdentifier>{145def49-86ea-4d88-b907-7e73c3443990}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\sqlx\htmlParser">
+      <UniqueIdentifier>{c98e4817-f437-4610-883e-bb1ded8fee06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sqlx\htmlParser\lemon">
+      <UniqueIdentifier>{2853b6f9-13c3-4fb0-80a4-99dac95f68db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sqlx\htmlParser\lexer">
+      <UniqueIdentifier>{ce0df7e0-0152-41fe-abb9-9579d5d484d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lexer.pre.c">
@@ -54,6 +63,12 @@
     <ClCompile Include="Node.cpp">
       <Filter>Source Files\sqlx\Compiler</Filter>
     </ClCompile>
+    <ClCompile Include="lemon.html.c">
+      <Filter>Source Files\sqlx\htmlParser\lemon</Filter>
+    </ClCompile>
+    <ClCompile Include="lexer.html.c">
+      <Filter>Source Files\sqlx\htmlParser\lexer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lemon.pre.yy">
@@ -64,6 +79,12 @@
     </None>
     <None Include="lexer.pre.ll">
       <Filter>Source Files\sqlx\preParser\lexer</Filter>
+    </None>
+    <None Include="lemon.html.yy">
+      <Filter>Source Files\sqlx\htmlParser\lemon</Filter>
+    </None>
+    <None Include="lexer.html.ll">
+      <Filter>Source Files\sqlx\htmlParser\lexer</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +108,12 @@
     </ClInclude>
     <ClInclude Include="Node.h">
       <Filter>Source Files\sqlx\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="lemon.html.h">
+      <Filter>Source Files\sqlx\htmlParser\lemon</Filter>
+    </ClInclude>
+    <ClInclude Include="html.parser.imp.h">
+      <Filter>Source Files\sqlx\htmlParser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

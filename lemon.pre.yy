@@ -13,8 +13,10 @@
   *	https://choosealicense.com/licenses/gpl-3.0/
   */
 
-#include <assert.h>
+#include <stdint.h>
 #include "pre.parser.imp.h"
+
+#include <assert.h>
 
 }
 
@@ -39,7 +41,7 @@
 
 
 %syntax_error {
-
+    printf("\nsyntax error");
 }
 
 start ::= expressions.

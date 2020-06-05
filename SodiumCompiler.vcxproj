@@ -140,9 +140,10 @@
       <DelayLoadDLLs>SodiumShared.dll</DelayLoadDLLs>
     </Link>
     <PreBuildEvent>
-      <Command>$(ProjectDir)lemon -b lemon.pre.yy
+      <Command>$(ProjectDir)lemon -b lemon.html.yy
+$(ProjectDir)lemon -b lemon.pre.yy
 $(ProjectDir)win_flex_bison-latest\win_flex -Ppre --outfile="lexer.pre.c"  lexer.pre.ll
-</Command>
+$(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lexer.html.ll</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy $(ProjectDir)$(Platform)\SodiumCompiler.exe C:\Sodium\Sodium-Setup</Command>
@@ -170,15 +171,19 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Ppre --outfile="lexer.pre.c"  lexer
       <AdditionalDependencies>SodiumShared.lib;LLVMCore.lib;LLVMExecutionEngine.lib;LLVMInterpreter.lib;LLVMMC.lib;LLVMMCJIT.lib;LLVMSupport.lib;LLVMX86CodeGen.lib;LLVMX86Desc.lib;LLVMX86Info.lib;LLVMRuntimeDyld.lib;LLVMMCDisassembler.lib;LLVMAsmPrinter.lib;LLVMDebugInfoDWARF.lib;LLVMGlobalISel.lib;LLVMSelectionDAG.lib;LLVMCodeGen.lib;LLVMTarget.lib;LLVMBitWriter.lib;LLVMScalarOpts.lib;LLVMAggressiveInstCombine.lib;LLVMInstCombine.lib;LLVMTransformUtils.lib;LLVMAnalysis.lib;LLVMObject.lib;LLVMBitReader.lib;LLVMBitstreamReader.lib;LLVMMCParser.lib;LLVMDebugInfoCodeView.lib;LLVMDebugInfoMSF.lib;LLVMProfileData.lib;LLVMBinaryFormat.lib;LLVMRemarks.lib;LLVMX86Utils.lib;psapi.lib;shell32.lib;ole32.lib;uuid.lib;advapi32.lib;delayimp.lib;-delayload:shell32.dll;-delayload:ole32.dll;LLVMDemangle.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;oleaut32.lib;comdlg32.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>$(ProjectDir)lemon -b lemon.pre.yy
-$(ProjectDir)win_flex_bison-latest\win_flex -Ppre --outfile="lexer.pre.c"  lexer.pre.ll</Command>
+      <Command>$(ProjectDir)lemon -b lemon.html.yy
+$(ProjectDir)lemon -b lemon.pre.yy
+$(ProjectDir)win_flex_bison-latest\win_flex -Ppre --outfile="lexer.pre.c"  lexer.pre.ll
+$(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lexer.html.ll</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy $(ProjectDir)$(Platform)\SodiumCompiler.exe C:\Sodium\Sodium-Setup</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lemon.html.c" />
     <ClCompile Include="lemon.pre.c" />
+    <ClCompile Include="lexer.html.c" />
     <ClCompile Include="lexer.pre.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Node.cpp" />
@@ -188,14 +193,18 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Ppre --outfile="lexer.pre.c"  lexer
     <ClCompile Include="SymbolTable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lemon.html.yy" />
     <None Include="lemon.pre.out">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="lemon.pre.yy" />
+    <None Include="lexer.html.ll" />
     <None Include="lexer.pre.ll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="html.parser.imp.h" />
+    <ClInclude Include="lemon.html.h" />
     <ClInclude Include="lemon.pre.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="pch.h" />
