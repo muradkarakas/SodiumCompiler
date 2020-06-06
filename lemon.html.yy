@@ -24,47 +24,32 @@
 
 %extra_argument { SodiumCompiler *session }
 
-%token_type { Token }
+%token_type { Token * }
 
 %syntax_error {
     printf("--SYNTAX ERROR--");
-    
-    /*HTSQLPage *page = GetCurrentPage(session);
-	char lineStr[10];
-	sprintf_s(lineStr, sizeof(lineStr), "%d", session->sessionDebugInfo->lineNumberOuter);
-    char *errMsg = mkStrcat(session->heapHandle, __FILE__, __LINE__, "HTML Syntax Error on line ", lineStr, ". Possible Tokens : (", NULL);
-    int n = sizeof(yyTokenName) / sizeof(yyTokenName[0]);
-    for (int i = 0; i < n; ++i) {
-            int a = yy_find_shift_action(yypParser, (YYCODETYPE)i);
-            if (a < YYNSTATE + YYNRULE) {
-                char *tmp = mkStrcat(session->heapHandle, __FILE__, __LINE__, errMsg, " ", yyTokenName[i], NULL);
-                mkFree(session->heapHandle, errMsg);
-                errMsg = tmp;
-            }
-    }
-    char *tempMsg = mkStrcat(session->heapHandle, __FILE__, __LINE__, errMsg, ")", NULL);
-    mkFree(session->heapHandle, errMsg);
-    errMsg = tempMsg;
-	__sendErrorResponse(session, page, errMsg, "");
-	CLOG(ERR_SYNTAX_ERROR_IN_FRMX_FILE, errMsg);*/
+    exit(100);
 }
 
 %token_destructor {
-    if ($$.tokenStr != NULL) {
-        printf("%.*s", $$.tokenStrLength, $$.tokenStr);
+    if ($$->tokenStr != NULL) {
+        if ($$->tokenStr[0] == '\n') {
+            printf("\n%4d: ", session->lineNumberOuter);
+        } else {
+            printf("%.*s", $$->tokenStrLength, $$->tokenStr);
+        }
     }
 }
 
 start ::= expressions.
-start ::= eof.
-
-eof ::= END_OF_FILE.
 
 expressions ::= expressions expression.
 expressions ::= expression.
 
-expression   ::= tagdoctype spaces_enters taghtml.
-expression   ::= taghtml.
+expression  ::= tagdoctype spaces_enters taghtml END_OF_FILE.
+expression  ::= tagdoctype spaces_enters taghtml spaces_enters END_OF_FILE.
+expression  ::= space.
+expression  ::= enter.
 
 tagheadcontents ::= tagheadcontents tagheadcontent.
 tagheadcontents ::= tagheadcontent.
@@ -739,8 +724,7 @@ spaces_enter ::= enter.
 spaces  ::= spaces space.
 spaces  ::= space.
 
-enters  ::= enters enter.
-enters  ::= enter.
+
 
 space   ::= SPACE.
 

@@ -32,6 +32,7 @@
 PARAOPEN		"{"*
 PARACLOSE		"}"*
 SPACE			[ \t]*
+ENTER			\n
 TAGCLOSECHAR	"\/"
 HTMLTEXT        [.a-zA-Z#(),:;!=?'"0-9\t\n\{\}\]\-\\[/@$*+_\.]
 
@@ -92,13 +93,13 @@ BEGIN(INITIAL);
     ############################################################################################
  */
 
-{SPACE}"<"{SPACE}"!DOCTYPE"{SPACE}"HTML"{SPACE}"SYSTEM"{SPACE}"\"ht-sql.dtd\""{SPACE}">"{SPACE}      {
+"<"{SPACE}"!DOCTYPE"{SPACE}"HTML"{SPACE}"SYSTEM"{SPACE}"\"ht-sql.dtd\""{SPACE}">"                   {
                                                                                                         return TAG_DOCTYPE_HTSQL_DTD;
                                                                                                      }
 {SPACE}"<"{SPACE}"!DOCTYPE"{SPACE}"html"{SPACE}">"{SPACE}											 {
 																										return TAG_DOCTYPE_HTML;
 																									 }
-{SPACE}"<"{SPACE}"html"	                            {
+"<"{SPACE}"html"	                                {
                                                         BEGIN(SC_HTML_TAGPROPERTY);
                                                         return TAG_HTML_OPEN;
                                                     }
@@ -153,7 +154,7 @@ BEGIN(INITIAL);
 "<"{SPACE}{TAGCLOSECHAR}{SPACE}"style"{SPACE}">"	{
 														return TAG_STYLE_BLOCK_CLOSE;
 													}
-\n											        {
+{ENTER}                                             {
 														SodiumCompiler *session = yyextra;
                                                         session->lineNumberOuter++;
                                                         return ENTER;
@@ -210,9 +211,10 @@ BEGIN(INITIAL);
                                                         return PROPERTYDATA;
 
                                                     }
-\n{SPACE}											{
+{ENTER}                                             {
 														SodiumCompiler * session = yyextra;
                                                         session->lineNumberOuter++;
+                                                        return ENTER;
 													}
 {SPACE}                                             {
                                                         return SPACE;
@@ -311,10 +313,10 @@ BEGIN(INITIAL);
 							BEGIN(SC_TAG_CONTROLBLOCK_CONTENT);
                             return TAG_CLOSE;
 						}
-{SPACE}\n{SPACE}		{
+{ENTER}                 {
                             SodiumCompiler * session = yyextra;
                             session->lineNumberOuter++;
-							return SPACE;
+							return ENTER;
 						}
 {SPACE}                 {
                             return SPACE;
@@ -333,10 +335,10 @@ BEGIN(INITIAL);
                                                             BEGIN(INITIAL);
                                                             return TAG_CONTROLBLOCK_CLOSE;
                                                         }
-{SPACE}\n{SPACE}									{
+{ENTER}                                             {
 														SodiumCompiler *session = yyextra;
                                                         session->lineNumberOuter++;
-														return SPACE;
+														return ENTER;
 													}
 {SPACE}                                             {
                                                         return SPACE;
@@ -412,10 +414,10 @@ BEGIN(INITIAL);
 							BEGIN(SC_TAG_DATABLOCK_CONTENT);
                             return TAG_CLOSE;
 						}
-{SPACE}\n{SPACE}		{
+{ENTER}                 {
 							SodiumCompiler * session = yyextra;
                             session->lineNumberOuter++;
-							return SPACE;
+							return ENTER;
 						}
 {SPACE}                 {
                             return SPACE;
@@ -487,6 +489,7 @@ BEGIN(INITIAL);
 "<"{SPACE}{TAGCLOSECHAR}{SPACE}"th"{SPACE}">"	    {
                                                         return TAG_TH_BLOCK_CLOSE;
                                                     }
+
  /* ############################################################################################
     HT/SQL Input & Select
     ############################################################################################
@@ -512,9 +515,10 @@ BEGIN(INITIAL);
 {SPACE}"<"{SPACE}{TAGCLOSECHAR}{SPACE}"select"{SPACE}">"	{
 																return TAG_SELECT_BLOCK_CLOSE;
 															}
-\n{SPACE}											{
+{ENTER}                                             {
 														SodiumCompiler * session = yyextra;
                                                         session->lineNumberOuter++;
+                                                        return ENTER;
 													}
 {SPACE}                                             {
                                                         return SPACE;
@@ -621,9 +625,10 @@ BEGIN(INITIAL);
                                                 BEGIN(SC_TAG_DATABLOCK_CONTENT);
                                                 return TAG_CLOSE;
                                             }
-\n											{
+{ENTER}                                     {
 												SodiumCompiler * session = yyextra;
 												session->lineNumberOuter++;
+                                                return ENTER;
 											}
 {SPACE}                                     {
                                                 return SPACE;

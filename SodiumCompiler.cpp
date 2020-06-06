@@ -39,23 +39,23 @@ SodiumCompiler::ParseFRMXFile(
         htmlset_in(mkSourceFile, scanner);
 
         void* pParser = htmlParseAlloc(malloc);
-        Token token;
+        Token _token = { 0 };
+        Token *token = &_token;
 
-        while (token.tokenCode = htmllex(scanner) != END_OF_FILE) {
-            token.tokenStrLength = htmlget_leng(scanner);
-            token.tokenStr = htmlget_text(scanner);
-            htmlParse(pParser, token.tokenCode, token, this);
+        token->tokenCode = htmllex(scanner);
+        while (token->tokenCode != END_OF_FILE) {
+            token->tokenStrLength = htmlget_leng(scanner);
+            token->tokenStr = htmlget_text(scanner);
+            htmlParse(pParser, token->tokenCode, token, this);
+            token->tokenCode = htmllex(scanner);
         }
 
-        token.tokenCode = SPACE;
-        token.tokenStr = " ";
-        token.tokenStrLength = 1;
-        htmlParse(pParser, SPACE, token, this);
+        /*token->tokenCode = SPACE;
+        token->tokenStr = " ";
+        token->tokenStrLength = 1;
+        htmlParse(pParser, token->tokenCode, token, this);
 
-        token.tokenCode = 0;
-        token.tokenStr = "";
-        token.tokenStrLength = 0;
-        htmlParse(pParser, 0, token, this);
+        htmlParse(pParser, 0, 0, this);*/
 
         htmlParseFree(pParser, free);
         htmllex_destroy(scanner);

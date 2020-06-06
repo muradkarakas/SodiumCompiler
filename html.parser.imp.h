@@ -31,7 +31,7 @@ int             htmllex_destroy(yyscan_t yyscanner);
 void htmlParse(
 	void* yyp,           // The parser 
 	int yymajor,         // The major token code number 
-	Token yyminor,       // The value for the token 
+	Token * yyminor,       // The value for the token 
 	SodiumCompiler*     //	Optional %extra_argument parameter 
 );
 
