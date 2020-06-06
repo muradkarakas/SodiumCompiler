@@ -23,6 +23,8 @@
 #include <stdint.h>
 }
 
+
+
 %option extra-type="SodiumCompiler *"
 %option never-interactive
 %option nounistd
@@ -300,19 +302,19 @@ BEGIN(INITIAL);
 "control-block-name"    {
                             return PROP_CONTROLBLOCK_BLOCK_NAME;
                         }
-[a-zA-Z_]([^\n\t <>=?;"'\(\)\[\]\{\}])*				{
-														return PROPERTYID;
-													}
-{SPACE}"="{SPACE}		{
+"="             		{
                             return ASSIGMENT;
-                        }
-\"([^\"])*\"	        {
-                            return PROPERTYDATA;
                         }
 ">"				        {
 							BEGIN(SC_TAG_CONTROLBLOCK_CONTENT);
                             return TAG_CLOSE;
 						}
+[a-zA-Z_]([^\n\t <>=?;"'\(\)\[\]\{\}])*				{
+														return PROPERTYID;
+													}
+\"([^\"])*\"	        {
+                            return PROPERTYDATA;
+                        }
 {ENTER}                 {
                             SodiumCompiler * session = yyextra;
                             session->lineNumberOuter++;

@@ -14,9 +14,9 @@
 #define TAG_CONTROLBLOCK_OPEN           14
 #define TAG_CONTROLBLOCK_CLOSE          15
 #define PROP_CONTROLBLOCK_BLOCK_NAME    16
-#define PROPERTYID                      17
-#define TAG_DATABLOCK_OPEN              18
-#define TAG_DATABLOCK_BLOCK_CLOSE       19
+#define TAG_DATABLOCK_OPEN              17
+#define TAG_DATABLOCK_BLOCK_CLOSE       18
+#define PROPERTYID                      19
 #define PROP_BLOCK_JOIN_CONDITION       20
 #define PROP_BLOCK_CONNECTION_NAME      21
 #define PROP_BLOCK_AUTO_GENERATED_COLUMNS  22

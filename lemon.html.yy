@@ -32,13 +32,25 @@
 }
 
 %token_destructor {
-    if ($$->tokenStr != NULL) {
-        if ($$->tokenStr[0] == '\n') {
+    Token *token = $$;
+    if (token->tokenStr != NULL) {
+        if (token->tokenStr[0] == '\n') {
             printf("\n%4d: ", session->lineNumberOuter);
         } else {
-            printf("%.*s", $$->tokenStrLength, $$->tokenStr);
+            printf("%.*s", token->tokenStrLength, token->tokenStr);
         }
     }
+}
+
+%default_destructor {
+    /*Token *token = $$;
+    if (token->tokenStr != NULL) {
+        if (token->tokenStr[0] == '\n') {
+            printf("\n%4d: ", session->lineNumberOuter);
+        } else {
+            printf("%.*s", token->tokenStrLength, token->tokenStr);
+        }
+    }*/
 }
 
 start ::= expressions.
@@ -132,7 +144,7 @@ tagdatalistpropertyconnectionname ::= SPACE PROP_DATALIST_CONNECTION_NAME ASSIGM
 tagcontrolblock          ::= tagcontrolblockfullopen tagcontrolblockclosefull.
 tagcontrolblock          ::= tagcontrolblockfullopen tagcontrolblockcontents tagcontrolblockclosefull.
 
-tagcontrolblockfullopen  ::= tagcontrolblockopen tagcontrolblockproperties tagclosechar.
+tagcontrolblockfullopen  ::= tagcontrolblockopen spaces_enters tagcontrolblockproperties tagclosechar.
 
 tagcontrolblockopen      ::= TAG_CONTROLBLOCK_OPEN.
 
@@ -144,15 +156,14 @@ tagcontrolblockcontents  ::= tagcontrolblockcontent.
 
 tagcontrolblockcontent  ::= tagtree.
 tagcontrolblockcontent  ::= space.
+tagcontrolblockcontent  ::= enter.
 tagcontrolblockcontent  ::= htmltext.
 
 tagcontrolblockproperties   ::= tagcontrolblockproperties tagcontrolblockproperty.
-
 tagcontrolblockproperties   ::= tagcontrolblockproperty.
 
-tagcontrolblockproperty     ::= SPACE PROP_CONTROLBLOCK_BLOCK_NAME  ASSIGMENT PROPERTYDATA.
+tagcontrolblockproperty     ::= PROP_CONTROLBLOCK_BLOCK_NAME opt__spaces_enters ASSIGMENT opt__spaces_enters PROPERTYDATA.
 
-tagcontrolblockproperty     ::= SPACE PROPERTYID ASSIGMENT PROPERTYDATA.
 
 
 
@@ -713,6 +724,8 @@ htmltext ::= HTMLTEXT.
  *
  */
 
+opt__spaces_enters ::= spaces_enters.
+opt__spaces_enters ::= .
 
 spaces_enters ::= spaces_enters spaces_enter.
 spaces_enters ::= spaces_enter.

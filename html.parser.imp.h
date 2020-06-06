@@ -21,6 +21,7 @@ typedef void* yyscan_t;
 #define YY_EXTRA_TYPE SodiumCompiler *
 #endif
 
+
 int				htmllex(yyscan_t yyscanner);
 int				htmllex_init_extra(YY_EXTRA_TYPE user_defined, yyscan_t* scanner);
 int             htmlget_leng(yyscan_t yyscanner);
