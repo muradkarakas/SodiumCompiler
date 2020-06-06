@@ -13,30 +13,56 @@
 
 #include "SodiumCompiler.h"
 #include "pre.parser.imp.h"
+#include "html.parser.imp.h"
+#include "lemon.html.h"
 #include "lemon.pre.h"
 
 HANDLE gHeapHandle = NULL;
 
-
-SodiumCompiler::SodiumCompiler() 
+BOOL
+SodiumCompiler::ParseFRMXFile(
+    char* filePath
+)
 {
-    this->lineNumberOuter = 0;
-    this->rootSymbol = NULL;
-    this->heapHandle = HeapCreate(HEAP_ZERO_MEMORY, 2048, 0);
-}
+    yyscan_t scanner;
 
-SodiumCompiler::~SodiumCompiler()
-{
-    if (this->heapHandle != NULL) {
-        HeapDestroy(this->heapHandle);
-        this->heapHandle = NULL;
+    FILE* mkSourceFile = fopen(filePath, "r");
+
+    if (mkSourceFile == NULL) {
+        /** File does not exists */
+        printf("\nFile not found: %s", filePath);
+        return false;
     }
-}
+    else {
+        //htmllex_init(&scanner);
+        htmllex_init_extra(this, &scanner);
+        htmlset_in(mkSourceFile, scanner);
 
-void
-SodiumCompiler::DumpDllFile()
-{
+        void* pParser = htmlParseAlloc(malloc);
+        Token token;
 
+        while (token.tokenCode = htmllex(scanner) != END_OF_FILE) {
+            token.tokenStrLength = htmlget_leng(scanner);
+            token.tokenStr = htmlget_text(scanner);
+            htmlParse(pParser, token.tokenCode, token, this);
+        }
+
+        token.tokenCode = SPACE;
+        token.tokenStr = " ";
+        token.tokenStrLength = 1;
+        htmlParse(pParser, SPACE, token, this);
+
+        token.tokenCode = 0;
+        token.tokenStr = "";
+        token.tokenStrLength = 0;
+        htmlParse(pParser, 0, token, this);
+
+        htmlParseFree(pParser, free);
+        htmllex_destroy(scanner);
+        fclose(mkSourceFile);
+
+        return true;
+    }
 }
 
 BOOL
@@ -66,10 +92,8 @@ SodiumCompiler::ParseSQLXFile(
         do {
             token.tokenCode = prelex(scanner);
             token.tokenStrLength = preget_leng(scanner);
-            token.tokenStr = (char*)mkMalloc(this->heapHandle, token.tokenStrLength + 1, __FILE__, __LINE__);
-            strncpy_s(token.tokenStr, token.tokenStrLength + 1, preget_text(scanner), token.tokenStrLength + 1);
+            token.tokenStr = preget_text(scanner);
             preParse(pParser, token.tokenCode, token, this);
-
         } while (token.tokenCode != PRE_END_OF_FILE);
 
         preParseFree(pParser, free);
@@ -82,3 +106,24 @@ SodiumCompiler::ParseSQLXFile(
     return retVal;
 }
 
+
+SodiumCompiler::SodiumCompiler()
+{
+    this->lineNumberOuter = 0;
+    this->rootSymbol = NULL;
+    this->heapHandle = HeapCreate(HEAP_ZERO_MEMORY, 2048, 0);
+}
+
+SodiumCompiler::~SodiumCompiler()
+{
+    if (this->heapHandle != NULL) {
+        HeapDestroy(this->heapHandle);
+        this->heapHandle = NULL;
+    }
+}
+
+void
+SodiumCompiler::DumpDllFile()
+{
+
+}

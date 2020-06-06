@@ -69,6 +69,9 @@
     <ClCompile Include="lexer.html.c">
       <Filter>Source Files\sqlx\htmlParser\lexer</Filter>
     </ClCompile>
+    <ClCompile Include="html.parser.imp.c">
+      <Filter>Source Files\sqlx\htmlParser</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lemon.pre.yy">
@@ -85,6 +88,9 @@
     </None>
     <None Include="lexer.html.ll">
       <Filter>Source Files\sqlx\htmlParser\lexer</Filter>
+    </None>
+    <None Include="lemon.html.out">
+      <Filter>Source Files\sqlx\htmlParser\lemon</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -30,7 +30,7 @@ extern "C" {
 
 typedef struct Token {
 	int			tokenCode;
-	char		* tokenStr;
+	const char	* tokenStr;
 	DWORD		tokenStrLength;
 } Token;
 
@@ -46,6 +46,7 @@ public:
 	~SodiumCompiler();
 
 	//	returns FALSE if file does not exists or not accessble
+	BOOL	ParseFRMXFile(char * filePath);
 	BOOL	ParseSQLXFile(char * filePath);
 	void	DumpDllFile();
 };

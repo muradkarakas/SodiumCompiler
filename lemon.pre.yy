@@ -24,8 +24,8 @@
 
 %extra_argument { SodiumCompiler *session }
 
-%type function_body_line    { char * }
-%type function_body_lines   { char * }
+%type function_body_line    { const char * }
+%type function_body_lines   { const char * }
 
 %token_type { Token }
 
@@ -33,9 +33,7 @@
 
 %token_destructor {
     if ($$.tokenStr != NULL) {
-        printf("%s", $$.tokenStr);
-        mkFree(session->heapHandle, $$.tokenStr);
-        $$.tokenStr = NULL;
+        printf("%.*s", $$.tokenStrLength, $$.tokenStr);
     }
 }
 
@@ -122,32 +120,21 @@ htsqlfunctionbody   ::= PRE_FUNCTION_BEGIN(AAA) function_body_lines(BBB) PRE_FUN
 {
     printf("\n%s\n%s\n%s", AAA.tokenStr, BBB, CCC.tokenStr); 
     // preTokenDestructor(session, AAA);
-    mkFree(session->heapHandle, BBB);
+    //mkFree(session->heapHandle, BBB);
     // preTokenDestructor(session, CCC);
 }
 htsqlfunctionbody   ::= PRE_FUNCTION_BEGIN(AAA) PRE_FUNCTION_END(CCC).
 {
-        
     // preTokenDestructor(session, AAA);
     // preTokenDestructor(session, CCC);
 }
 
 
-function_body_lines(RET) ::= function_body_lines(AAA) function_body_line(BBB).
-{
-    char *p1  = AAA;
-    char *p2  = BBB;
-    char *ret = mkStrcat(session->heapHandle, __FILE__, __LINE__, p1, p2, NULL);
-    RET = ret;
-    mkFree(session->heapHandle, p1);
-    mkFree(session->heapHandle, p2);
-}
+function_body_lines ::= function_body_lines function_body_line.
+
 function_body_lines ::= function_body_line.
 
-function_body_line(RET)  ::= PRE_FUNCTION_BODY_LINE(BBB).
-{
-    RET = BBB.tokenStr;
-}
+function_body_line  ::= PRE_FUNCTION_BODY_LINE.
 
 
 

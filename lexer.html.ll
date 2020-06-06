@@ -54,7 +54,6 @@ utf_8   {u2a}|{u2b}|{u3a}|{u3b}|{u4a}|{u4b}|{u4c}
 %x SC_TITLE
 %x SC_HTML_COMMENT
 %x SC_SCRIPT
-%x SC_CONNECTION_PROPERTIES
 %x SC_DATALIST_PROPERTIES
 %x SC_DATABLOCK_PROPERTIES
 %x SC_LOV_PROPERTIES
@@ -154,15 +153,16 @@ BEGIN(INITIAL);
 "<"{SPACE}{TAGCLOSECHAR}{SPACE}"style"{SPACE}">"	{
 														return TAG_STYLE_BLOCK_CLOSE;
 													}
-\n{SPACE}											{
+\n											        {
 														SodiumCompiler *session = yyextra;
                                                         session->lineNumberOuter++;
+                                                        return ENTER;
 													}
 {SPACE}                                             {
                                                         return SPACE;
                                                     }
 <<EOF>>												{
-														return HTML_END_OF_FILE;
+														return END_OF_FILE;
 													}
 .                                                   {
                                                         return HTMLTEXT;
@@ -285,45 +285,6 @@ BEGIN(INITIAL);
                         }
 }
 
- /* ############################################################################################
-    HT/SQL Connection
-    ############################################################################################
- */
-"<"{SPACE}"connection"	{
-                            BEGIN(SC_CONNECTION_PROPERTIES);
-                            return TAG_CONNECTION_OPEN;
-                        }
-"<"{SPACE}{TAGCLOSECHAR}{SPACE}"connection"{SPACE}">"	{
-                                                            BEGIN(INITIAL);
-                                                            return TAG_CONNECTION_BLOCK_CLOSE;
-                                                        }
-<SC_CONNECTION_PROPERTIES>{
-"connection\-name"      {
-                            return PROP_CONNECTION_CONNECTION_NAME;
-                        }
-"user\-name"            {
-                            return PROP_CONNECTION_USER_NAME;
-                        }
-"user\-password"        {
-                            return PROP_CONNECTION_USER_PASSWORD;
-                        }
-"instance\-name"        {
-                            return PROP_CONNECTION_INSTANCE_NAME;
-                        }
-{SPACE}"="{SPACE}       {
-                            return ASSIGMENT;
-                        }
-\"([^\"])*\"	        {
-							return PROPERTYDATA;
-						}
-">"				        {
-							BEGIN(INITIAL);
-                            return TAG_CLOSE;
-						}
-{SPACE}                 {
-                            return SPACE;
-                        }
-}
 
  /* ############################################################################################
     HT/SQL Control Block

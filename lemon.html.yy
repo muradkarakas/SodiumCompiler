@@ -27,7 +27,8 @@
 %token_type { Token }
 
 %syntax_error {
-    printf("\nsyntax error");
+    printf("--SYNTAX ERROR--");
+    
     /*HTSQLPage *page = GetCurrentPage(session);
 	char lineStr[10];
 	sprintf_s(lineStr, sizeof(lineStr), "%d", session->sessionDebugInfo->lineNumberOuter);
@@ -50,30 +51,26 @@
 
 %token_destructor {
     if ($$.tokenStr != NULL) {
-        printf("%s", $$.tokenStr);
-        mkFree(session->heapHandle, $$.tokenStr);
-        $$.tokenStr = NULL;
+        printf("%.*s", $$.tokenStrLength, $$.tokenStr);
     }
 }
 
 start ::= expressions.
+start ::= eof.
+
+eof ::= END_OF_FILE.
 
 expressions ::= expressions expression.
 expressions ::= expression.
 
-expressions  ::= tagdoctype taghtml.
-expressions  ::= taghtml.
-expression   ::= space.
-expression   ::= endoffile.
-
-endoffile      ::= HTML_END_OF_FILE.
-
-taghtmlcontents ::= tagbody.
-taghtmlcontents ::= taghead tagbody.
+expression   ::= tagdoctype spaces_enters taghtml.
+expression   ::= taghtml.
 
 tagheadcontents ::= tagheadcontents tagheadcontent.
 tagheadcontents ::= tagheadcontent.
 
+tagheadcontent  ::= space.
+tagheadcontent  ::= enter.
 tagheadcontent  ::= tagtitle.
 tagheadcontent  ::= tagscript.
 tagheadcontent  ::= tagstyle.
@@ -86,21 +83,17 @@ tagbodycontents ::= tagbodycontent.
 tagbodycontent  ::= htsqls.
 tagbodycontent  ::= tagtable.
 tagbodycontent  ::= space.
+tagbodycontent  ::= enter.
 tagbodycontent  ::= htmltext.
 
-htsqls ::= tagconnection.
 htsqls ::= tagdatablock.
 htsqls ::= tagcontrolblock.
 htsqls ::= tagdatalist.
 
 tagdoctype ::= TAG_DOCTYPE_HTSQL_DTD.
-{
-	
-}
+
 tagdoctype ::= TAG_DOCTYPE_HTML.
-{
-	
-}
+
 
 /** ############################################################################################
     HT/SQL Tree
@@ -110,15 +103,9 @@ tagtree                 ::= tagtreefullopen tagtreeblockclosefull.
 tagtreefullopen         ::= tagtreeopen tagtreeproperties tagclosechar.
 tagtreefullopen         ::= tagtreeopen tagtreeproperties tagclosechar spaces.
 
-tagtreeopen             ::= TAG_TREE_OPEN(A).
-{
-    
-}
+tagtreeopen             ::= TAG_TREE_OPEN.
 
-tagtreeblockclosefull   ::= TAG_TREE_BLOCK_CLOSE(A).
-{
-    
-}
+tagtreeblockclosefull   ::= TAG_TREE_BLOCK_CLOSE.
 
 tagtreeproperties       ::= tagtreeproperties tagtreeproperty.
 tagtreeproperties       ::= tagtreeproperty.
@@ -136,87 +123,21 @@ tagdatalistfullopen   ::= tagdatalistopen datalistproperties tagclosechar.
 tagdatalistfullopen   ::= tagdatalistopen datalistproperties tagclosechar spaces.
 
 tagdatalistopen       ::= TAG_DATALIST_OPEN.
-{
-    
-}
 
 tagdatalistblockclosefull ::= tagdatalistblockclose.
 
 tagdatalistblockclose ::= TAG_DATALIST_BLOCK_CLOSE.
-{
-    
-}
+
 datalistproperties   ::= datalistproperties datalistproperty.
 datalistproperties   ::= datalistproperty.
 
-datalistproperty     ::= tagdatalistpropertyid PROPERTYDATA(A).
-{
-    
-}
+datalistproperty     ::= tagdatalistpropertyid PROPERTYDATA.
+
 tagdatalistpropertyid ::= SPACE PROP_DATALIST_DATALIST_NAME ASSIGMENT.
 
-datalistproperty     ::= tagdatalistpropertyconnectionname PROPERTYDATA(A).
-{
-    
-}
+datalistproperty     ::= tagdatalistpropertyconnectionname PROPERTYDATA.
+
 tagdatalistpropertyconnectionname ::= SPACE PROP_DATALIST_CONNECTION_NAME ASSIGMENT.
-
-
-
-/** ############################################################################################
-    HT/SQL Connection
-    ############################################################################################
-*/
-tagconnection           ::= tagconnectionfullopen tagconnectionblockclosefull.
-{
-    
-}
-tagconnectionfullopen   ::= tagconnectionopen connectionproperties tagclosechar.
-tagconnectionfullopen   ::= tagconnectionopen connectionproperties tagclosechar spaces.
-
-tagconnectionopen       ::= TAG_CONNECTION_OPEN.
-{
-   
-}
-
-tagconnectionblockclosefull ::= tagconnectionblockclose.
-
-tagconnectionblockclose ::= TAG_CONNECTION_BLOCK_CLOSE.
-{
-
-}
-connectionproperties   ::= connectionproperties connectionproperty.
-connectionproperties   ::= connectionproperty.
-
-connectionproperty     ::= connectionpropertyconnectionname PROPERTYDATA(A).
-{
-   
-}
-connectionpropertyconnectionname ::= SPACE PROP_CONNECTION_CONNECTION_NAME  ASSIGMENT.
-
-connectionproperty          ::=  connectionpropertyusername PROPERTYDATA(A).
-{
-    
-}
-connectionpropertyusername  ::= SPACE(A) PROP_CONNECTION_USER_NAME(B)  ASSIGMENT(C).
-{
-    
-}
-
-connectionproperty          ::=  connectionpropertyuserpassword PROPERTYDATA(A).
-{
-    
-}
-connectionpropertyuserpassword ::= SPACE(A) PROP_CONNECTION_USER_PASSWORD(B) ASSIGMENT(C).
-{
-    
-}
-
-connectionproperty     ::= connectionpropertyinstancename PROPERTYDATA(A).
-{
-   
-}
-connectionpropertyinstancename ::= SPACE PROP_CONNECTION_INSTANCE_NAME ASSIGMENT.
 
 
 /** ############################################################################################
@@ -244,11 +165,9 @@ tagcontrolblockproperties   ::= tagcontrolblockproperties tagcontrolblockpropert
 
 tagcontrolblockproperties   ::= tagcontrolblockproperty.
 
-tagcontrolblockproperty     ::= SPACE(A) PROP_CONTROLBLOCK_BLOCK_NAME(B)  ASSIGMENT(C) PROPERTYDATA(NAME).
-{
-    
-}
-tagcontrolblockproperty     ::= SPACE PROPERTYID                    ASSIGMENT PROPERTYDATA.
+tagcontrolblockproperty     ::= SPACE PROP_CONTROLBLOCK_BLOCK_NAME  ASSIGMENT PROPERTYDATA.
+
+tagcontrolblockproperty     ::= SPACE PROPERTYID ASSIGMENT PROPERTYDATA.
 
 
 
@@ -259,19 +178,13 @@ tagcontrolblockproperty     ::= SPACE PROPERTYID                    ASSIGMENT PR
 tagdatablock           ::= tagdatablockfullopen tagdatablockblockclosefull.
 tagdatablock           ::= tagdatablockfullopen tagdatablockcontents tagdatablockblockclosefull.
 tagdatablockfullopen   ::= tagdatablockopen tagdatablockproperties tagclosechar.
-{
-    
-}
+
 tagdatablockopen       ::= TAG_DATABLOCK_OPEN.
-{
-    
-}
+
 tagdatablockblockclosefull ::= tagdatablockblockclose.
 
-tagdatablockblockclose ::= TAG_DATABLOCK_BLOCK_CLOSE(A).
-{
-    
-}
+tagdatablockblockclose ::= TAG_DATABLOCK_BLOCK_CLOSE.
+
 
 tagdatablockcontents ::= tagdatablockcontents tagdatablockcontent.
 tagdatablockcontents ::= tagdatablockcontent.
@@ -286,108 +199,66 @@ tagdatablockproperties   ::= tagdatablockproperty.
 
 tagdatablockproperty     ::= SPACE PROPERTYID  ASSIGMENT PROPERTYDATA.
 
-tagdatablockproperty     ::=  tagdatablockpropertyjoincondition PROPERTYDATA(B).
-{
-    
-}
-tagdatablockpropertyjoincondition ::= SPACE PROP_BLOCK_JOIN_CONDITION(A) ASSIGMENT(B).
-{
+tagdatablockproperty     ::=  tagdatablockpropertyjoincondition PROPERTYDATA.
 
-}
+tagdatablockpropertyjoincondition ::= SPACE PROP_BLOCK_JOIN_CONDITION ASSIGMENT.
 
-tagdatablockproperty     ::=  tagdatablockpropertyconnectionname PROPERTYDATA(B).
-{
-   
-}
-tagdatablockpropertyconnectionname ::= SPACE PROP_BLOCK_CONNECTION_NAME(A) ASSIGMENT(B).
-{
 
-}
+tagdatablockproperty     ::=  tagdatablockpropertyconnectionname PROPERTYDATA.
 
-tagdatablockproperty     ::= tagdatablockpropertyautogeneratedcolumns PROPERTYDATA(B).
-{
-	
-}
+tagdatablockpropertyconnectionname ::= SPACE PROP_BLOCK_CONNECTION_NAME ASSIGMENT.
+
+
+tagdatablockproperty     ::= tagdatablockpropertyautogeneratedcolumns PROPERTYDATA.
+
 tagdatablockpropertyautogeneratedcolumns ::= SPACE PROP_BLOCK_AUTO_GENERATED_COLUMNS ASSIGMENT.
 
-tagdatablockproperty     ::=  tagdatablockpropertyrecordcount PROPERTYDATA(B).
-{
-    
-}
+tagdatablockproperty     ::=  tagdatablockpropertyrecordcount PROPERTYDATA.
+
 tagdatablockpropertyrecordcount ::= SPACE PROP_BLOCK_RECORD_COUNT ASSIGMENT.
 
-tagdatablockproperty     ::=  tagdatablockpropertysourcename PROPERTYDATA(B).
-{
-    
-}
-tagdatablockpropertysourcename ::= SPACE PROP_BLOCK_DATA_SOURCE_NAME(A) ASSIGMENT(B).
-{
-	
-}
+tagdatablockproperty     ::=  tagdatablockpropertysourcename PROPERTYDATA.
 
-tagdatablockproperty     ::= tagdatablockpropertyschemaname PROPERTYDATA(B).
-{
-	
-}
-tagdatablockpropertyschemaname ::= SPACE PROP_BLOCK_DATA_SCHEMA_NAME(A) ASSIGMENT(B).
-{
-	
-}
+tagdatablockpropertysourcename ::= SPACE PROP_BLOCK_DATA_SOURCE_NAME ASSIGMENT.
 
-tagdatablockproperty     ::=  tagdatablockpropertyblockname PROPERTYDATA(B).
-{
-   
-}
+
+tagdatablockproperty     ::= tagdatablockpropertyschemaname PROPERTYDATA.
+
+tagdatablockpropertyschemaname ::= SPACE PROP_BLOCK_DATA_SCHEMA_NAME ASSIGMENT.
+
+tagdatablockproperty     ::=  tagdatablockpropertyblockname PROPERTYDATA.
+
 tagdatablockpropertyblockname ::= SPACE PROP_BLOCK_BLOCK_NAME ASSIGMENT.
 
-tagdatablockproperty     ::=  tagdatablockpropertykeycolumnname PROPERTYDATA(B).
-{
-    
-}
+tagdatablockproperty     ::=  tagdatablockpropertykeycolumnname PROPERTYDATA.
+
 tagdatablockpropertykeycolumnname ::= SPACE PROP_BLOCK_KEY_COLUMN_NAME ASSIGMENT.
 
-tagdatablockproperty     ::=  tagdatablockpropertymasterblockname PROPERTYDATA(B).
-{
-    
-}
+tagdatablockproperty     ::=  tagdatablockpropertymasterblockname PROPERTYDATA.
+
 tagdatablockpropertymasterblockname ::= SPACE PROP_BLOCK_MASTER_BLOCK_NAME ASSIGMENT.
 
-tagdatablockproperty     ::= tagdatablockpropertyinsertallowed PROPERTYDATA(B).
-{
-    
-}
+tagdatablockproperty     ::= tagdatablockpropertyinsertallowed PROPERTYDATA.
+
 tagdatablockpropertyinsertallowed ::= SPACE PROP_BLOCK_INSERT_ALLOWED ASSIGMENT.
 
-tagdatablockproperty    ::= tagdatablockpropertydeleteallowed PROPERTYDATA(B).
-{
-    
-}
+tagdatablockproperty    ::= tagdatablockpropertydeleteallowed PROPERTYDATA.
+
 tagdatablockpropertydeleteallowed ::= SPACE PROP_BLOCK_DELETE_ALLOWED ASSIGMENT.
 
-tagdatablockproperty     ::= tagdatablockpropertyupdateallowed PROPERTYDATA(B).
-{
-    
-}
+tagdatablockproperty     ::= tagdatablockpropertyupdateallowed PROPERTYDATA.
+
 tagdatablockpropertyupdateallowed ::= SPACE PROP_BLOCK_UPDATE_ALLOWED ASSIGMENT.
 
 
-tagdatablockproperty     ::= tagdatablockpropertywhereclause PROPERTYDATA(B).
-{
-    
-}
-tagdatablockpropertywhereclause ::= SPACE PROP_BLOCK_WHERE_CLAUSE(A) ASSIGMENT(B).
-{
+tagdatablockproperty     ::= tagdatablockpropertywhereclause PROPERTYDATA.
 
-}
+tagdatablockpropertywhereclause ::= SPACE PROP_BLOCK_WHERE_CLAUSE ASSIGMENT.
 
-tagdatablockproperty    ::=  tagdatablockpropertyorderbyclause PROPERTYDATA(B).
-{
-    
-}
-tagdatablockpropertyorderbyclause ::= SPACE PROP_BLOCK_OREDERBY_CLAUSE(A) ASSIGMENT(B).
-{
-	
-}
+tagdatablockproperty    ::=  tagdatablockpropertyorderbyclause PROPERTYDATA.
+
+tagdatablockpropertyorderbyclause ::= SPACE PROP_BLOCK_OREDERBY_CLAUSE ASSIGMENT.
+
 
 
 /** ############################################################################################
@@ -401,161 +272,101 @@ taginputfullopen   ::= taginputopen taginputproperties taginputshortclose.
 
 
 taginputshortclose ::= TAG_SHORT_CLOSE.
-{
-	
-}
 
-taginputopen       ::= TAG_INPUT_OPEN(A).
-{
-    
-}
-taginputopen       ::= TAG_SELECT_OPEN(A).
-{
-    
-}
-taginputopen       ::= TAG_TEXTAREA_OPEN(A).
-{
 
-}
+taginputopen       ::= TAG_INPUT_OPEN.
+
+taginputopen       ::= TAG_SELECT_OPEN.
+
+taginputopen       ::= TAG_TEXTAREA_OPEN.
+
 taginputblockclosefull ::= taginputblockclose.
-{
-  
-}
-taginputblockclose ::= TAG_INPUT_BLOCK_CLOSE(A).
-{
 
-}
+taginputblockclose ::= TAG_INPUT_BLOCK_CLOSE.
 
-taginputblockclose ::= TAG_SELECT_BLOCK_CLOSE(A).
-{
+taginputblockclose ::= TAG_SELECT_BLOCK_CLOSE.
 
-}
-
-taginputblockclose ::= TAG_TEXTAREA_BLOCK_CLOSE(A).
-{
-    
-}
-
-
+taginputblockclose ::= TAG_TEXTAREA_BLOCK_CLOSE.
 
 taginputproperties    ::= taginputproperties taginputproperty.
 
 taginputproperties    ::= taginputproperty.
 
-taginputproperty      ::= taginputcheckedvalue PROPERTYDATA(B).
-{
-    
-}
-taginputcheckedvalue   ::= spaces PROP_INPUT_CHECKED_VALUE   ASSIGMENT.
+taginputproperty      ::= taginputcheckedvalue PROPERTYDATA.
 
-taginputproperty      ::= taginputuncheckedvalue PROPERTYDATA(B).
-{
-    
-}
-taginputuncheckedvalue   ::= spaces PROP_INPUT_UNCHECKED_VALUE   ASSIGMENT.
+taginputcheckedvalue   ::= spaces PROP_INPUT_CHECKED_VALUE ASSIGMENT.
 
-taginputproperty      ::= taginputpropertyinputname PROPERTYDATA(B).
-{
-	
-}
-taginputpropertyinputname   ::= spaces PROP_INPUT_NAME   ASSIGMENT.
+taginputproperty      ::= taginputuncheckedvalue PROPERTYDATA.
 
-taginputproperty      ::= taginputpropertysequencename PROPERTYDATA(B).
-{
-    
-}
-taginputpropertysequencename   ::= spaces PROP_INPUT_SEQUENCE_NAME   ASSIGMENT.
+taginputuncheckedvalue   ::= spaces PROP_INPUT_UNCHECKED_VALUE ASSIGMENT.
 
-taginputproperty      ::= taginputpropertysequenceschemaname PROPERTYDATA(B).
-{
-    
-}
-taginputpropertysequenceschemaname   ::= spaces PROP_INPUT_SEQUENCE_SCHEMA_NAME   ASSIGMENT.
+taginputproperty      ::= taginputpropertyinputname PROPERTYDATA.
+
+taginputpropertyinputname   ::= spaces PROP_INPUT_NAME ASSIGMENT.
+
+taginputproperty      ::= taginputpropertysequencename PROPERTYDATA.
+
+taginputpropertysequencename   ::= spaces PROP_INPUT_SEQUENCE_NAME ASSIGMENT.
+
+taginputproperty      ::= taginputpropertysequenceschemaname PROPERTYDATA.
+
+taginputpropertysequenceschemaname   ::= spaces PROP_INPUT_SEQUENCE_SCHEMA_NAME ASSIGMENT.
 
 
-taginputproperty      ::= taginputpropertymasteritemname PROPERTYDATA(B).
-{
-    
-}
+taginputproperty      ::= taginputpropertymasteritemname PROPERTYDATA.
+
 taginputpropertymasteritemname   ::= spaces PROP_INPUT_MASTER_ITEM_NAME ASSIGMENT.
 
-taginputproperty            ::=  taginputpropertyinputtype PROPERTYDATA(B).
-{
-    
-}
+taginputproperty            ::=  taginputpropertyinputtype PROPERTYDATA.
+
 taginputpropertyinputtype   ::= spaces PROP_INPUT_TYPE  ASSIGMENT.
 
-taginputproperty            ::= taginputpropertyinputvalue PROPERTYDATA(B).
-{
-    
-}
+taginputproperty            ::= taginputpropertyinputvalue PROPERTYDATA.
+
 taginputpropertyinputvalue  ::= spaces PROP_INPUT_VALUE ASSIGMENT.
 
+taginputproperty            ::= taginputpropertydefaultvalue PROPERTYDATA.
 
-taginputproperty            ::= taginputpropertydefaultvalue PROPERTYDATA(B).
-{
-    
-}
 taginputpropertydefaultvalue::= spaces PROP_INPUT_DEFAULT_VALUE ASSIGMENT.
 
-taginputproperty       ::=  taginputpropertycolumnname PROPERTYDATA(B).
-{
-    
-}
+taginputproperty       ::=  taginputpropertycolumnname PROPERTYDATA.
+
 taginputpropertycolumnname ::= spaces PROP_INPUT_COLUMN_NAME ASSIGMENT.
 
-taginputproperty       ::= taginputpropertyformatmask PROPERTYDATA(B).
-{
-    
-}
+taginputproperty       ::= taginputpropertyformatmask PROPERTYDATA.
+
 taginputpropertyformatmask ::= spaces PROP_INPUT_FORMAT_MASK ASSIGMENT.
 
-taginputproperty       ::= taginputpropertydatatype PROPERTYDATA(B).
-{
-    
-}
+taginputproperty       ::= taginputpropertydatatype PROPERTYDATA.
+
 taginputpropertydatatype ::= spaces PROP_INPUT_DATA_TYPE ASSIGMENT.
 
-taginputproperty       ::= taginputpropertymaxlength PROPERTYDATA(B).
-{
-    
-}
+taginputproperty       ::= taginputpropertymaxlength PROPERTYDATA.
+
 taginputpropertymaxlength ::= spaces PROP_INPUT_MAX_LENGTH ASSIGMENT.
 
-taginputproperty       ::= taginputpropertyinsertallowed PROPERTYDATA(B).
-{
-    
-}
+taginputproperty       ::= taginputpropertyinsertallowed PROPERTYDATA.
+
 taginputpropertyinsertallowed ::= spaces PROP_INPUT_INSERT_ALLOWED   ASSIGMENT.
 
-taginputproperty       ::= taginputpropertyupdateallowed PROPERTYDATA(B).
-{
-    
-}
+taginputproperty       ::= taginputpropertyupdateallowed PROPERTYDATA.
+
 taginputpropertyupdateallowed ::= spaces PROP_INPUT_UPDATE_ALLOWED ASSIGMENT.
 
-taginputproperty       ::= taginputpropertydatalistname PROPERTYDATA(B).
-{
+taginputproperty       ::= taginputpropertydatalistname PROPERTYDATA.
 
-}
 taginputpropertydatalistname ::= spaces PROP_INPUT_DATALIST_NAME ASSIGMENT.
 
-taginputproperty       ::= taginputpropertylookupitemname PROPERTYDATA(B).
-{
-   
-}
+taginputproperty       ::= taginputpropertylookupitemname PROPERTYDATA.
+
 taginputpropertylookupitemname ::= spaces PROP_INPUT_LOOKUP_ITEM_NAME ASSIGMENT.
 
-taginputproperty       ::= taginputpropertylookupitemblockname PROPERTYDATA(B).
-{
-	
-}
+taginputproperty       ::= taginputpropertylookupitemblockname PROPERTYDATA.
+
 taginputpropertylookupitemblockname ::= spaces PROP_INPUT_LOOKUP_ITEM_BLOCK_NAME ASSIGMENT.
 
-taginputproperty              ::= spaces PROPERTYID(A) ASSIGMENT(B) PROPERTYDATA(C).
-{
-    
-}
+taginputproperty              ::= spaces PROPERTYID ASSIGMENT PROPERTYDATA.
+
 
 /** ############################################################################################
     <table> ... </table>
@@ -570,15 +381,11 @@ tagtablefullopen ::= tagtableopen tagproperties tagclosechar.
 tagtablefullopen ::= tagtableopen tagproperties tagclosechar spaces.
 
 tagtableopen        ::= TAG_TABLE_OPEN.
-{
-    
-}
+
 tagtableblockclosefull ::= tagtableblockclose.
 
 tagtableblockclose  ::= TAG_TABLE_BLOCK_CLOSE.
-{
-    
-}
+
 
 
 
@@ -601,16 +408,12 @@ tagtheadfullopen    ::= tagtheadopen tagclosechar spaces.
 tagtheadfullopen    ::= tagtheadopen tagpropertieswithreturnvaluesall tagclosechar.
 tagtheadfullopen    ::= tagtheadopen tagpropertieswithreturnvaluesall tagclosechar spaces.
 tagtheadopen        ::= TAG_THEAD_OPEN.
-{
-	
-}
+
 tagtheadblockclosefull ::= tagtheadblockclose.
 tagtheadblockclosefull ::= tagtheadblockclose spaces.
 
 tagtheadblockclose  ::= TAG_THEAD_BLOCK_CLOSE.
-{
-	
-}
+
 
 
 /** ############################################################################################
@@ -623,16 +426,12 @@ tagtfootfullopen    ::= tagtfootopen tagclosechar spaces.
 tagtfootfullopen    ::= tagtfootopen tagproperties tagclosechar.
 tagtfootfullopen    ::= tagtfootopen tagproperties tagclosechar spaces.
 tagtfootopen        ::= TAG_TFOOT_OPEN.
-{
-	
-}
+
 tagtfootblockclosefull ::= tagtfootblockclose.
 tagtfootblockclosefull ::= tagtfootblockclose spaces.
 
 tagtfootblockclose  ::= TAG_TFOOT_BLOCK_CLOSE.
-{
-	
-}
+
 
 
 /** ############################################################################################
@@ -645,16 +444,12 @@ tagtbodyfullopen    ::= tagtbodyopen tagclosechar spaces.
 tagtbodyfullopen    ::= tagtbodyopen tagproperties tagclosechar.
 tagtbodyfullopen    ::= tagtbodyopen tagproperties tagclosechar spaces.
 tagtbodyopen        ::= TAG_TBODY_OPEN.
-{
-	
-}
+
 tagtbodyblockclosefull ::= tagtbodyblockclose.
 tagtbodyblockclosefull ::= tagtbodyblockclose spaces.
 
 tagtbodyblockclose  ::= TAG_TBODY_BLOCK_CLOSE.
-{
-	
-}
+
 
 
 /** ############################################################################################
@@ -669,17 +464,13 @@ tagtablerowfullopen ::= tagtablerowopen tagclosechar.
 tagtablerowfullopen ::= tagtablerowopen tagclosechar spaces.
 tagtablerowfullopen ::= tagtablerowopen tagpropertieswithreturnvaluesall tagclosechar.
 
-tagtablerowopen        ::= TAG_TR_OPEN(A).
-{
-    
-}
+tagtablerowopen        ::= TAG_TR_OPEN.
+
 tagtablerowblockclosefull ::= tagtablerowblockclose.
 tagtablerowblockclosefull ::= tagtablerowblockclose spaces.
 
 tagtablerowblockclose  ::= TAG_TR_BLOCK_CLOSE.
-{
-    
-}
+
 
 
 tagtablecols ::= tagtablecols tagtablecol.
@@ -702,16 +493,12 @@ tagtablecoltdfullopen ::= tagtablecoltdopen tagclosechar.
 tagtablecoltdfullopen ::= tagtablecoltdopen tagproperties tagclosechar.
 
 tagtablecoltdopen        ::= TAG_TD_OPEN.
-{
-    
-}
+
 tagtablecoltdblockclosefull ::= tagtablecoltdblockclose.
 tagtablecoltdblockclosefull ::= tagtablecoltdblockclose spaces.
 
 tagtablecoltdblockclose  ::= TAG_TD_BLOCK_CLOSE.
-{
-    
-}
+
 
 tagtablecolcontents ::= tagtablecolcontents tagtablecolcontent.
 tagtablecolcontents ::= tagtablecolcontent.
@@ -733,16 +520,12 @@ tagtablecolthfullopen ::= tagtablecolthopen tagclosechar.
 tagtablecolthfullopen ::= tagtablecolthopen tagpropertieswithreturnvaluesall tagclosechar.
 
 tagtablecolthopen        ::= TAG_TH_OPEN.
-{
-    
-}
+
 tagtablecolthblockclosefull ::= tagtablecolthblockclose.
 tagtablecolthblockclosefull ::= tagtablecolthblockclose spaces.
 
 tagtablecolthblockclose  ::= TAG_TH_BLOCK_CLOSE.
-{
-    
-}
+
 
 
 /** ############################################################################################
@@ -754,7 +537,6 @@ tagtitle            ::= tagtitlefullopen htmlandspaces tagtitleblockclosefull.
 tagtitlefullopen    ::= tagtitleopen tagclosechar.
 tagtitlefullopen    ::= tagtitleopen tagproperties tagclosechar.
 tagtitleblockclosefull  ::= tagtitleblockclose.
-tagtitleblockclosefull  ::= tagtitleblockclose spaces.
 tagtitleopen        ::= TAG_TITLE_OPEN.
 tagtitleblockclose  ::= TAG_TITLE_BLOCK_CLOSE.
 
@@ -768,7 +550,6 @@ taglinkfullopen ::= taglinkopen tagproperties tagclosechar.
 taglinkfullopen ::= taglinkopen tagproperties tagshortclose.
 
 taglinkblockclosefull ::= taglinkblockclose.
-taglinkblockclosefull ::= taglinkblockclose spaces.
 
 taglinkopen           ::= TAG_LINK_OPEN.
 taglinkblockclose     ::= TAG_LINK_BLOCK_CLOSE.
@@ -784,7 +565,6 @@ tagmetafullopen ::= tagmetaopen tagproperties tagclosechar.
 tagmetafullopen ::= tagmetaopen tagproperties tagshortclose.
 
 tagmetablockclosefull ::= tagmetablockclose.
-tagmetablockclosefull ::= tagmetablockclose spaces.
 
 tagmetaopen           ::= TAG_META_OPEN.
 tagmetablockclose     ::= TAG_META_BLOCK_CLOSE.
@@ -801,7 +581,6 @@ tagstylefullopen ::= tagstyleopen tagstyleproperties tagclosechar.
 
 tagstyleblockclosefull ::= tagstyleblockclose.
 
-tagstyleblockclosefull ::= tagstyleblockclose spaces.
 tagstyleopen           ::= TAG_STYLE_OPEN.
 tagstyleblockclose     ::= TAG_STYLE_BLOCK_CLOSE.
 
@@ -824,13 +603,7 @@ tagscriptfullopen ::= tagscriptopen tagclosechar.
 tagscriptfullopen ::= tagscriptopen tagscriptproperties tagclosechar.
 
 tagscriptblockclosefull ::= tagscriptblockclose.
-{
-	
-}
-tagscriptblockclosefull ::= tagscriptblockclose spaces.
-{
-	
-}
+
 tagscriptopen           ::= TAG_SCRIPT_OPEN.
 tagscriptblockclose     ::= TAG_SCRIPT_BLOCK_CLOSE.
 
@@ -839,16 +612,12 @@ tagscriptblockclose     ::= TAG_SCRIPT_BLOCK_CLOSE.
 tagscriptproperties  ::= tagscriptproperties tagscriptproperty.
 tagscriptproperties  ::= tagscriptproperty.
 
-tagscriptproperty    ::=  tagscriptpropertyscripttype PROPERTYDATA(C).
-{
-	
-}
+tagscriptproperty    ::=  tagscriptpropertyscripttype PROPERTYDATA.
+
 tagscriptpropertyscripttype ::= SPACE PROPERTYID_SCRIPT_TYPE ASSIGMENT.
 
-tagscriptproperty ::= tagscriptpropertysrc PROPERTYDATA(C).
-{
-	
-}
+tagscriptproperty ::= tagscriptpropertysrc PROPERTYDATA.
+
 tagscriptpropertysrc ::= SPACE PROPERTYID_SCRIPT_SRC ASSIGMENT.
 
 /** ############################################################################################
@@ -858,18 +627,22 @@ tagscriptpropertysrc ::= SPACE PROPERTYID_SCRIPT_SRC ASSIGMENT.
 taghtml         ::= taghtmlfullopen taghtmlblockclosefull.
 taghtml         ::= taghtmlfullopen taghtmlcontents taghtmlblockclosefull.
 taghtmlfullopen ::= taghtmlopen tagclosechar.
-taghtmlfullopen ::= taghtmlopen tagclosechar spaces.
 taghtmlfullopen ::= taghtmlopen tagproperties tagclosechar.
-taghtmlfullopen ::= taghtmlopen tagproperties tagclosechar spaces.
 
 taghtmlblockclosefull ::= taghtmlblockclose.
 
 taghtmlopen       ::= TAG_HTML_OPEN.
-{
-	
-}
+
 taghtmlblockclose ::= TAG_HTML_BLOCK_CLOSE.
 
+taghtmlcontents ::= taghtmlcontents taghtmlcontent.
+taghtmlcontents ::= taghtmlcontent.
+
+taghtmlcontent ::= space.
+taghtmlcontent ::= enter.
+taghtmlcontent ::= tagbody.
+taghtmlcontent ::= taghead tagbody.
+taghtmlcontent ::= taghead spaces_enters tagbody.
 
 /** ############################################################################################
     <body> ... </body>
@@ -880,20 +653,15 @@ tagbody ::= tagbodyfullopen tagbodyblockclosefull.
 tagbody ::= tagbodyfullopen tagbodycontents tagbodyblockclosefull.
 
 tagbodyfullopen ::= tagbodyopen tagclosechar.
-{
 
-}
 tagbodyfullopen ::= tagbodyopen tagproperties tagclosechar.
 
 tagbodyblockclosefull ::= tagbodyblockclose.
-tagbodyblockclosefull ::= tagbodyblockclose spaces.
 
 tagbodyopen         ::= TAG_BODY_OPEN.
 
-tagbodyblockclose   ::= TAG_BODY_BLOCK_CLOSE(A).
-{
-    
-}
+tagbodyblockclose   ::= TAG_BODY_BLOCK_CLOSE.
+
 
 /** ############################################################################################
     <head> ... </head>
@@ -904,15 +672,10 @@ taghead ::= tagheadfullopen tagheadblockclosefull.
 taghead ::= tagheadfullopen tagheadcontents tagheadblockclosefull.
 
 tagheadfullopen ::= tagheadopen.
-{
-	
-}
 
 tagheadblockclosefull ::= tagheadblockclose.
-tagheadblockclosefull ::= tagheadblockclose space.
 
 tagheadopen         ::= TAG_HEAD_OPEN.
-tagheadopen         ::= TAG_HEAD_OPEN space.
 
 tagheadblockclose   ::= TAG_HEAD_BLOCK_CLOSE.
 
@@ -961,11 +724,24 @@ htmlandspace  ::= SPACE.
 htmltext ::= HTMLTEXT.
 
 /**
- *      SPACE
+ *      SPACEs & ENTERs
  *
  */
-spaces ::= spaces space.
-spaces ::= space.
-space  ::= SPACE.
 
 
+spaces_enters ::= spaces_enters spaces_enter.
+spaces_enters ::= spaces_enter.
+
+spaces_enter ::= space.
+spaces_enter ::= enter.
+
+
+spaces  ::= spaces space.
+spaces  ::= space.
+
+enters  ::= enters enter.
+enters  ::= enter.
+
+space   ::= SPACE.
+
+enter   ::= ENTER.

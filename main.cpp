@@ -26,11 +26,13 @@ main(
         return 1;
     }
 
-    SodiumCompiler compiler;
+    SodiumCompiler *compiler = new SodiumCompiler();
 
-    compiler.ParseSQLXFile(argv[1]);
+    compiler->ParseFRMXFile(argv[1]);
 
-    compiler.DumpDllFile();
+    compiler->DumpDllFile();
+
+    delete compiler;
 
     return 0;
     /*

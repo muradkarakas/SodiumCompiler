@@ -181,6 +181,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="html.parser.imp.c" />
     <ClCompile Include="lemon.html.c" />
     <ClCompile Include="lemon.pre.c" />
     <ClCompile Include="lexer.html.c" />
@@ -193,6 +194,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     <ClCompile Include="SymbolTable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lemon.html.out" />
     <None Include="lemon.html.yy" />
     <None Include="lemon.pre.out">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
