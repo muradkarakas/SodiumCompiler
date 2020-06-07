@@ -29,7 +29,7 @@ main(
     SodiumCompiler *compiler = new SodiumCompiler();
 
     if (compiler->ParseFRMXFile(argv[1])) {
-        compiler->PrintParsedFRMXFile();
+        //compiler->PrintParsedFRMXFile();
     }
 
 

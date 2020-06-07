@@ -508,13 +508,13 @@ BEGIN(INITIAL);
                             BEGIN(SC_INPUT_PROPERTIES);
                             return TAG_SELECT_OPEN;
                         }
-{SPACE}"<"{SPACE}{TAGCLOSECHAR}{SPACE}"input"{SPACE}">"		{
+"<"{SPACE}{TAGCLOSECHAR}{SPACE}"input"{SPACE}">"		    {
 																return TAG_INPUT_BLOCK_CLOSE;
 															}
-{SPACE}"<"{SPACE}{TAGCLOSECHAR}{SPACE}"textarea"{SPACE}">"	{
+"<"{SPACE}{TAGCLOSECHAR}{SPACE}"textarea"{SPACE}">"	        {
 																return TAG_TEXTAREA_BLOCK_CLOSE;
 															}
-{SPACE}"<"{SPACE}{TAGCLOSECHAR}{SPACE}"select"{SPACE}">"	{
+"<"{SPACE}{TAGCLOSECHAR}{SPACE}"select"{SPACE}">"	        {
 																return TAG_SELECT_BLOCK_CLOSE;
 															}
 {ENTER}                                             {

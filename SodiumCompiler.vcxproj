@@ -140,10 +140,8 @@
       <DelayLoadDLLs>SodiumShared.dll</DelayLoadDLLs>
     </Link>
     <PreBuildEvent>
-      <Command>$(ProjectDir)lemon -b lemon.html.yy
-$(ProjectDir)lemon -b lemon.pre.yy
-$(ProjectDir)win_flex_bison-latest\win_flex -Ppre --outfile="lexer.pre.c"  lexer.pre.ll
-$(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lexer.html.ll</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy $(ProjectDir)$(Platform)\SodiumCompiler.exe C:\Sodium\Sodium-Setup</Command>
