@@ -205,7 +205,7 @@ static const YYACTIONTYPE yy_action[] = {
  /*    10 */   702,   25,  102,   86,   25,   25,  855,  720,   23,  855,
  /*    20 */   701,   44,  629,  107,  107,  726,  528,  528,  203,  528,
  /*    30 */   528,  528,  528,  528,  528, 1193,   37,   37,   57,  133,
- /*    40 */   849,  849,  523,  524,  686,  698,  726,  107,  135,  716,
+ /*    40 */   849,  849,   37,   37,  686,  698,  726,  107,  135,  716,
  /*    50 */   221,  220,  219,  218,  217,  216,  215,  214,  213,  212,
  /*    60 */   211,  210,  209,  208,  207,  206,  205,  204,  132,  630,
  /*    70 */   783,  639,  222,  201,  200,  199,  198,  197,  196,  195,
@@ -262,9 +262,9 @@ static const YYACTIONTYPE yy_action[] = {
  /*   580 */   139,  765,  846,  772,  805,  779,  744,  786,  115,   21,
  /*   590 */   183,  798,   54,  711,  105,   90,  720,   23,  831,  762,
  /*   600 */    44,  856,  586,  564,  232,  229,  586,  591,  846,  692,
- /*   610 */    31,  115,  809,   87,  860,  223,  547,  548,  719,  726,
+ /*   610 */    31,  115,  809,   87,  857,  223,  547,  548,  719,  726,
  /*   620 */   856,  855,   31,   23,   61,   12,   44,  180,   46,  803,
- /*   630 */   526,   57,   40,  846,  856,  523,  524,  693,   64,  183,
+ /*   630 */   523,   57,   40,  846,  856,  523,  523,  693,   64,  183,
  /*   640 */    62,   87,  183,  793,  849,  183,  793,  802,  183,   21,
  /*   650 */   720,   23,   54,  781,   44,  183,  781,  770,  183,   29,
  /*   660 */   840,  821,   29,   29,   89,  849,  849,   92,   61,   32,
@@ -281,7 +281,7 @@ static const YYACTIONTYPE yy_action[] = {
  /*   770 */   121,  122,  558,  791,  123,  558,  124,  145,  790,   71,
  /*   780 */   147,  839,  125,  625,  126,  127,  623,  128,  129,  131,
  /*   790 */   621,  619,  617,  839,  615,  613,  611,  609,  607,  605,
- /*   800 */   839,  603,  601,  599,  859,  522,  182,  626,  624,  622,
+ /*   800 */   839,  603,  601,  599,  859,  525,  182,  626,  624,  622,
  /*   810 */   620,  618,  616,  839,  859,  227,   67,  614,  612,   68,
  /*   820 */   610,  608,   69,  840,  859,   70,  606,  604,  602,  600,
  /*   830 */   598,  177,   72,  835,  859,   41,  838,  179,  181,  675,
@@ -643,12 +643,12 @@ static const char *const yyTokenName[] = {
 /* For tracing reduce actions, the names of all rules are required.
 */
 static const char *const yyRuleName[] = {
- /*   0 */ "expression ::= tagdoctype spaces_enters taghtml opt__spaces_enters END_OF_FILE",
- /*   1 */ "expression ::= space",
- /*   2 */ "expression ::= enter",
- /*   3 */ "start ::= expressions",
- /*   4 */ "expressions ::= expressions expression",
- /*   5 */ "expressions ::= expression",
+ /*   0 */ "start ::= expressions",
+ /*   1 */ "expressions ::= expressions expression",
+ /*   2 */ "expressions ::= expression",
+ /*   3 */ "expression ::= tagdoctype spaces_enters taghtml opt__spaces_enters END_OF_FILE",
+ /*   4 */ "expression ::= space",
+ /*   5 */ "expression ::= enter",
  /*   6 */ "tagheadcontents ::= tagheadcontents tagheadcontent",
  /*   7 */ "tagheadcontents ::= tagheadcontent",
  /*   8 */ "tagheadcontent ::= space",
@@ -1637,12 +1637,12 @@ static const struct {
   YYCODETYPE lhs;         /* Symbol on the left-hand side of the rule */
   unsigned char nrhs;     /* Number of right-hand side symbols in the rule */
 } yyRuleInfo[] = {
-  { 97, 5 },
-  { 97, 1 },
-  { 97, 1 },
   { 95, 1 },
   { 96, 2 },
   { 96, 1 },
+  { 97, 5 },
+  { 97, 1 },
+  { 97, 1 },
   { 104, 2 },
   { 104, 1 },
   { 105, 1 },
@@ -2034,83 +2034,45 @@ static void yy_reduce(
   **     break;
   */
 /********** Begin reduce actions **********************************************/
-      case 0: /* expression ::= tagdoctype spaces_enters taghtml opt__spaces_enters END_OF_FILE */
-{  yy_destructor(yypParser,98,&yymsp[-4].minor);
-#line 59 "lemon.html.yy"
+      case 0: /* start ::= expressions */
+{  yy_destructor(yypParser,96,&yymsp[0].minor);
+#line 53 "lemon.html.yy"
 {
-    int a = 111;
-    a = 111;
 }
-#line 2045 "lemon.html.c"
+#line 2043 "lemon.html.c"
+}
+        break;
+      case 1: /* expressions ::= expressions expression */
+{  yy_destructor(yypParser,96,&yymsp[-1].minor);
+#line 55 "lemon.html.yy"
+{
+}
+#line 2051 "lemon.html.c"
+  yy_destructor(yypParser,97,&yymsp[0].minor);
+}
+        break;
+      case 2: /* expressions ::= expression */
+{  yy_destructor(yypParser,97,&yymsp[0].minor);
+#line 56 "lemon.html.yy"
+{
+}
+#line 2060 "lemon.html.c"
+}
+        break;
+      case 3: /* expression ::= tagdoctype spaces_enters taghtml opt__spaces_enters END_OF_FILE */
+{  yy_destructor(yypParser,98,&yymsp[-4].minor);
+#line 58 "lemon.html.yy"
+{
+}
+#line 2068 "lemon.html.c"
   yy_destructor(yypParser,99,&yymsp[-3].minor);
   yy_destructor(yypParser,100,&yymsp[-2].minor);
   yy_destructor(yypParser,101,&yymsp[-1].minor);
   yy_destructor(yypParser,1,&yymsp[0].minor);
 }
         break;
-      case 1: /* expression ::= space */
-{  yy_destructor(yypParser,102,&yymsp[0].minor);
-#line 64 "lemon.html.yy"
-{
-    int a = 111;
-    a = 111;
-}
-#line 2059 "lemon.html.c"
-}
-        break;
-      case 2: /* expression ::= enter */
-{  yy_destructor(yypParser,103,&yymsp[0].minor);
-#line 69 "lemon.html.yy"
-{
-    int a = 111;
-    a = 111;
-}
-#line 2069 "lemon.html.c"
-}
-        break;
-      case 3: /* start ::= expressions */
-{  yy_destructor(yypParser,96,&yymsp[0].minor);
-#line 53 "lemon.html.yy"
-{
-}
-#line 2077 "lemon.html.c"
-}
-        break;
-      case 4: /* expressions ::= expressions expression */
-{  yy_destructor(yypParser,96,&yymsp[-1].minor);
-#line 55 "lemon.html.yy"
-{
-}
-#line 2085 "lemon.html.c"
-  yy_destructor(yypParser,97,&yymsp[0].minor);
-}
-        break;
-      case 5: /* expressions ::= expression */
-{  yy_destructor(yypParser,97,&yymsp[0].minor);
-#line 56 "lemon.html.yy"
-{
-}
-#line 2094 "lemon.html.c"
-}
-        break;
-      case 6: /* tagheadcontents ::= tagheadcontents tagheadcontent */
-{  yy_destructor(yypParser,104,&yymsp[-1].minor);
-#line 74 "lemon.html.yy"
-{
-}
-#line 2102 "lemon.html.c"
-  yy_destructor(yypParser,105,&yymsp[0].minor);
-}
-        break;
-      case 7: /* tagheadcontents ::= tagheadcontent */
-{  yy_destructor(yypParser,105,&yymsp[0].minor);
-#line 75 "lemon.html.yy"
-{
-}
-#line 2111 "lemon.html.c"
-}
-        break;
-      case 8: /* tagheadcontent ::= space */
+      case 4: /* expression ::= space */
+      case 8: /* tagheadcontent ::= space */ yytestcase(yyruleno==8);
       case 19: /* tagbodycontent ::= space */ yytestcase(yyruleno==19);
       case 57: /* tagcontrolblockcontent ::= space */ yytestcase(yyruleno==57);
       case 72: /* tagdatablockcontent ::= space */ yytestcase(yyruleno==72);
@@ -2118,97 +2080,115 @@ static void yy_reduce(
       case 329: /* spaces_enter ::= space */ yytestcase(yyruleno==329);
       case 332: /* spaces ::= space */ yytestcase(yyruleno==332);
 {  yy_destructor(yypParser,102,&yymsp[0].minor);
-#line 77 "lemon.html.yy"
+#line 60 "lemon.html.yy"
 {
 }
-#line 2125 "lemon.html.c"
+#line 2087 "lemon.html.c"
 }
         break;
-      case 9: /* tagheadcontent ::= enter */
+      case 5: /* expression ::= enter */
+      case 9: /* tagheadcontent ::= enter */ yytestcase(yyruleno==9);
       case 20: /* tagbodycontent ::= enter */ yytestcase(yyruleno==20);
       case 58: /* tagcontrolblockcontent ::= enter */ yytestcase(yyruleno==58);
       case 293: /* taghtmlcontent ::= enter */ yytestcase(yyruleno==293);
       case 330: /* spaces_enter ::= enter */ yytestcase(yyruleno==330);
 {  yy_destructor(yypParser,103,&yymsp[0].minor);
-#line 78 "lemon.html.yy"
+#line 62 "lemon.html.yy"
 {
 }
-#line 2137 "lemon.html.c"
+#line 2100 "lemon.html.c"
+}
+        break;
+      case 6: /* tagheadcontents ::= tagheadcontents tagheadcontent */
+{  yy_destructor(yypParser,104,&yymsp[-1].minor);
+#line 65 "lemon.html.yy"
+{
+}
+#line 2108 "lemon.html.c"
+  yy_destructor(yypParser,105,&yymsp[0].minor);
+}
+        break;
+      case 7: /* tagheadcontents ::= tagheadcontent */
+{  yy_destructor(yypParser,105,&yymsp[0].minor);
+#line 66 "lemon.html.yy"
+{
+}
+#line 2117 "lemon.html.c"
 }
         break;
       case 10: /* tagheadcontent ::= tagtitle */
 {  yy_destructor(yypParser,106,&yymsp[0].minor);
-#line 79 "lemon.html.yy"
+#line 70 "lemon.html.yy"
 {
 }
-#line 2145 "lemon.html.c"
+#line 2125 "lemon.html.c"
 }
         break;
       case 11: /* tagheadcontent ::= tagscript */
 {  yy_destructor(yypParser,107,&yymsp[0].minor);
-#line 80 "lemon.html.yy"
+#line 71 "lemon.html.yy"
 {
 }
-#line 2153 "lemon.html.c"
+#line 2133 "lemon.html.c"
 }
         break;
       case 12: /* tagheadcontent ::= tagstyle */
 {  yy_destructor(yypParser,108,&yymsp[0].minor);
-#line 81 "lemon.html.yy"
+#line 72 "lemon.html.yy"
 {
 }
-#line 2161 "lemon.html.c"
+#line 2141 "lemon.html.c"
 }
         break;
       case 13: /* tagheadcontent ::= taglink */
 {  yy_destructor(yypParser,109,&yymsp[0].minor);
-#line 82 "lemon.html.yy"
+#line 73 "lemon.html.yy"
 {
 }
-#line 2169 "lemon.html.c"
+#line 2149 "lemon.html.c"
 }
         break;
       case 14: /* tagheadcontent ::= tagmeta */
 {  yy_destructor(yypParser,110,&yymsp[0].minor);
-#line 83 "lemon.html.yy"
+#line 74 "lemon.html.yy"
 {
 }
-#line 2177 "lemon.html.c"
+#line 2157 "lemon.html.c"
 }
         break;
       case 15: /* tagbodycontents ::= tagbodycontents tagbodycontent */
 {  yy_destructor(yypParser,111,&yymsp[-1].minor);
-#line 85 "lemon.html.yy"
+#line 76 "lemon.html.yy"
 {
 }
-#line 2185 "lemon.html.c"
+#line 2165 "lemon.html.c"
   yy_destructor(yypParser,112,&yymsp[0].minor);
 }
         break;
       case 16: /* tagbodycontents ::= tagbodycontent */
 {  yy_destructor(yypParser,112,&yymsp[0].minor);
-#line 86 "lemon.html.yy"
+#line 77 "lemon.html.yy"
 {
 }
-#line 2194 "lemon.html.c"
+#line 2174 "lemon.html.c"
 }
         break;
       case 17: /* tagbodycontent ::= htsqls */
 {  yy_destructor(yypParser,113,&yymsp[0].minor);
-#line 88 "lemon.html.yy"
+#line 79 "lemon.html.yy"
 {
 }
-#line 2202 "lemon.html.c"
+#line 2182 "lemon.html.c"
 }
         break;
       case 18: /* tagbodycontent ::= tagtable */
       case 71: /* tagdatablockcontent ::= tagtable */ yytestcase(yyruleno==71);
       case 229: /* tagtablecolcontent ::= tagtable */ yytestcase(yyruleno==229);
 {  yy_destructor(yypParser,114,&yymsp[0].minor);
-#line 89 "lemon.html.yy"
+#line 80 "lemon.html.yy"
 {
 }
-#line 2212 "lemon.html.c"
+#line 2192 "lemon.html.c"
 }
         break;
       case 21: /* tagbodycontent ::= htmltext */
@@ -2216,77 +2196,77 @@ static void yy_reduce(
       case 73: /* tagdatablockcontent ::= htmltext */ yytestcase(yyruleno==73);
       case 227: /* tagtablecolcontent ::= htmltext */ yytestcase(yyruleno==227);
 {  yy_destructor(yypParser,115,&yymsp[0].minor);
-#line 92 "lemon.html.yy"
+#line 83 "lemon.html.yy"
 {
 }
-#line 2223 "lemon.html.c"
+#line 2203 "lemon.html.c"
 }
         break;
       case 22: /* htsqls ::= tagdatablock */
 {  yy_destructor(yypParser,116,&yymsp[0].minor);
-#line 94 "lemon.html.yy"
+#line 85 "lemon.html.yy"
 {
 }
-#line 2231 "lemon.html.c"
+#line 2211 "lemon.html.c"
 }
         break;
       case 23: /* htsqls ::= tagcontrolblock */
 {  yy_destructor(yypParser,117,&yymsp[0].minor);
-#line 95 "lemon.html.yy"
+#line 86 "lemon.html.yy"
 {
 }
-#line 2239 "lemon.html.c"
+#line 2219 "lemon.html.c"
 }
         break;
       case 24: /* htsqls ::= tagdatalist */
 {  yy_destructor(yypParser,118,&yymsp[0].minor);
-#line 96 "lemon.html.yy"
+#line 87 "lemon.html.yy"
 {
 }
-#line 2247 "lemon.html.c"
+#line 2227 "lemon.html.c"
 }
         break;
       case 25: /* tagdoctype ::= TAG_DOCTYPE_HTSQL_DTD */
 {  yy_destructor(yypParser,2,&yymsp[0].minor);
-#line 98 "lemon.html.yy"
+#line 89 "lemon.html.yy"
 {
 }
-#line 2255 "lemon.html.c"
+#line 2235 "lemon.html.c"
 }
         break;
       case 26: /* tagdoctype ::= TAG_DOCTYPE_HTML */
 {  yy_destructor(yypParser,3,&yymsp[0].minor);
-#line 100 "lemon.html.yy"
+#line 91 "lemon.html.yy"
 {
 }
-#line 2263 "lemon.html.c"
+#line 2243 "lemon.html.c"
 }
         break;
       case 27: /* tagtree ::= tagtreefullopen tagtreeblockclosefull */
 {  yy_destructor(yypParser,120,&yymsp[-1].minor);
-#line 107 "lemon.html.yy"
+#line 98 "lemon.html.yy"
 {
 }
-#line 2271 "lemon.html.c"
+#line 2251 "lemon.html.c"
   yy_destructor(yypParser,121,&yymsp[0].minor);
 }
         break;
       case 28: /* tagtreefullopen ::= tagtreeopen tagtreeproperties tagclosechar */
 {  yy_destructor(yypParser,122,&yymsp[-2].minor);
-#line 108 "lemon.html.yy"
+#line 99 "lemon.html.yy"
 {
 }
-#line 2280 "lemon.html.c"
+#line 2260 "lemon.html.c"
   yy_destructor(yypParser,123,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 29: /* tagtreefullopen ::= tagtreeopen tagtreeproperties tagclosechar spaces */
 {  yy_destructor(yypParser,122,&yymsp[-3].minor);
-#line 109 "lemon.html.yy"
+#line 100 "lemon.html.yy"
 {
 }
-#line 2290 "lemon.html.c"
+#line 2270 "lemon.html.c"
   yy_destructor(yypParser,123,&yymsp[-2].minor);
   yy_destructor(yypParser,124,&yymsp[-1].minor);
   yy_destructor(yypParser,125,&yymsp[0].minor);
@@ -2294,81 +2274,81 @@ static void yy_reduce(
         break;
       case 30: /* tagtreeopen ::= TAG_TREE_OPEN */
 {  yy_destructor(yypParser,4,&yymsp[0].minor);
-#line 111 "lemon.html.yy"
+#line 102 "lemon.html.yy"
 {
 }
-#line 2301 "lemon.html.c"
+#line 2281 "lemon.html.c"
 }
         break;
       case 31: /* tagtreeblockclosefull ::= TAG_TREE_BLOCK_CLOSE */
 {  yy_destructor(yypParser,5,&yymsp[0].minor);
-#line 113 "lemon.html.yy"
+#line 104 "lemon.html.yy"
 {
 }
-#line 2309 "lemon.html.c"
+#line 2289 "lemon.html.c"
 }
         break;
       case 32: /* tagtreeproperties ::= tagtreeproperties tagtreeproperty */
 {  yy_destructor(yypParser,123,&yymsp[-1].minor);
-#line 115 "lemon.html.yy"
+#line 106 "lemon.html.yy"
 {
 }
-#line 2317 "lemon.html.c"
+#line 2297 "lemon.html.c"
   yy_destructor(yypParser,126,&yymsp[0].minor);
 }
         break;
       case 33: /* tagtreeproperties ::= tagtreeproperty */
 {  yy_destructor(yypParser,126,&yymsp[0].minor);
-#line 116 "lemon.html.yy"
+#line 107 "lemon.html.yy"
 {
 }
-#line 2326 "lemon.html.c"
+#line 2306 "lemon.html.c"
 }
         break;
       case 34: /* tagtreeproperty ::= tagtreepropertyid PROPERTYDATA */
 {  yy_destructor(yypParser,127,&yymsp[-1].minor);
-#line 118 "lemon.html.yy"
+#line 109 "lemon.html.yy"
 {
 }
-#line 2334 "lemon.html.c"
+#line 2314 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 35: /* tagtreepropertyid ::= SPACE PROP_TREE_NAME ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 120 "lemon.html.yy"
+#line 111 "lemon.html.yy"
 {
 }
-#line 2343 "lemon.html.c"
+#line 2323 "lemon.html.c"
   yy_destructor(yypParser,8,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 36: /* tagdatalist ::= tagdatalistfullopen tagdatalistblockclosefull */
 {  yy_destructor(yypParser,128,&yymsp[-1].minor);
-#line 126 "lemon.html.yy"
+#line 117 "lemon.html.yy"
 {
 }
-#line 2353 "lemon.html.c"
+#line 2333 "lemon.html.c"
   yy_destructor(yypParser,129,&yymsp[0].minor);
 }
         break;
       case 37: /* tagdatalistfullopen ::= tagdatalistopen datalistproperties tagclosechar */
 {  yy_destructor(yypParser,130,&yymsp[-2].minor);
-#line 127 "lemon.html.yy"
+#line 118 "lemon.html.yy"
 {
 }
-#line 2362 "lemon.html.c"
+#line 2342 "lemon.html.c"
   yy_destructor(yypParser,131,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 38: /* tagdatalistfullopen ::= tagdatalistopen datalistproperties tagclosechar spaces */
 {  yy_destructor(yypParser,130,&yymsp[-3].minor);
-#line 128 "lemon.html.yy"
+#line 119 "lemon.html.yy"
 {
 }
-#line 2372 "lemon.html.c"
+#line 2352 "lemon.html.c"
   yy_destructor(yypParser,131,&yymsp[-2].minor);
   yy_destructor(yypParser,124,&yymsp[-1].minor);
   yy_destructor(yypParser,125,&yymsp[0].minor);
@@ -2376,108 +2356,108 @@ static void yy_reduce(
         break;
       case 39: /* tagdatalistopen ::= TAG_DATALIST_OPEN */
 {  yy_destructor(yypParser,10,&yymsp[0].minor);
-#line 130 "lemon.html.yy"
+#line 121 "lemon.html.yy"
 {
 }
-#line 2383 "lemon.html.c"
+#line 2363 "lemon.html.c"
 }
         break;
       case 40: /* tagdatalistblockclosefull ::= tagdatalistblockclose */
 {  yy_destructor(yypParser,132,&yymsp[0].minor);
-#line 132 "lemon.html.yy"
+#line 123 "lemon.html.yy"
 {
 }
-#line 2391 "lemon.html.c"
+#line 2371 "lemon.html.c"
 }
         break;
       case 41: /* tagdatalistblockclose ::= TAG_DATALIST_BLOCK_CLOSE */
 {  yy_destructor(yypParser,11,&yymsp[0].minor);
-#line 134 "lemon.html.yy"
+#line 125 "lemon.html.yy"
 {
 }
-#line 2399 "lemon.html.c"
+#line 2379 "lemon.html.c"
 }
         break;
       case 42: /* datalistproperties ::= datalistproperties datalistproperty */
 {  yy_destructor(yypParser,131,&yymsp[-1].minor);
-#line 136 "lemon.html.yy"
+#line 127 "lemon.html.yy"
 {
 }
-#line 2407 "lemon.html.c"
+#line 2387 "lemon.html.c"
   yy_destructor(yypParser,133,&yymsp[0].minor);
 }
         break;
       case 43: /* datalistproperties ::= datalistproperty */
 {  yy_destructor(yypParser,133,&yymsp[0].minor);
-#line 137 "lemon.html.yy"
+#line 128 "lemon.html.yy"
 {
 }
-#line 2416 "lemon.html.c"
+#line 2396 "lemon.html.c"
 }
         break;
       case 44: /* datalistproperty ::= tagdatalistpropertyid PROPERTYDATA */
 {  yy_destructor(yypParser,134,&yymsp[-1].minor);
-#line 139 "lemon.html.yy"
+#line 130 "lemon.html.yy"
 {
 }
-#line 2424 "lemon.html.c"
+#line 2404 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 45: /* tagdatalistpropertyid ::= SPACE PROP_DATALIST_DATALIST_NAME ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 141 "lemon.html.yy"
+#line 132 "lemon.html.yy"
 {
 }
-#line 2433 "lemon.html.c"
+#line 2413 "lemon.html.c"
   yy_destructor(yypParser,12,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 46: /* datalistproperty ::= tagdatalistpropertyconnectionname PROPERTYDATA */
 {  yy_destructor(yypParser,135,&yymsp[-1].minor);
-#line 143 "lemon.html.yy"
+#line 134 "lemon.html.yy"
 {
 }
-#line 2443 "lemon.html.c"
+#line 2423 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 47: /* tagdatalistpropertyconnectionname ::= SPACE PROP_DATALIST_CONNECTION_NAME ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 145 "lemon.html.yy"
+#line 136 "lemon.html.yy"
 {
 }
-#line 2452 "lemon.html.c"
+#line 2432 "lemon.html.c"
   yy_destructor(yypParser,13,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 48: /* tagcontrolblock ::= tagcontrolblockfullopen tagcontrolblockclosefull */
 {  yy_destructor(yypParser,136,&yymsp[-1].minor);
-#line 152 "lemon.html.yy"
+#line 143 "lemon.html.yy"
 {
 }
-#line 2462 "lemon.html.c"
+#line 2442 "lemon.html.c"
   yy_destructor(yypParser,137,&yymsp[0].minor);
 }
         break;
       case 49: /* tagcontrolblock ::= tagcontrolblockfullopen tagcontrolblockcontents tagcontrolblockclosefull */
 {  yy_destructor(yypParser,136,&yymsp[-2].minor);
-#line 153 "lemon.html.yy"
+#line 144 "lemon.html.yy"
 {
 }
-#line 2471 "lemon.html.c"
+#line 2451 "lemon.html.c"
   yy_destructor(yypParser,138,&yymsp[-1].minor);
   yy_destructor(yypParser,137,&yymsp[0].minor);
 }
         break;
       case 50: /* tagcontrolblockfullopen ::= tagcontrolblockopen spaces_enters tagcontrolblockproperties tagclosechar */
 {  yy_destructor(yypParser,139,&yymsp[-3].minor);
-#line 155 "lemon.html.yy"
+#line 146 "lemon.html.yy"
 {
 }
-#line 2481 "lemon.html.c"
+#line 2461 "lemon.html.c"
   yy_destructor(yypParser,99,&yymsp[-2].minor);
   yy_destructor(yypParser,140,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
@@ -2485,76 +2465,76 @@ static void yy_reduce(
         break;
       case 51: /* tagcontrolblockopen ::= TAG_CONTROLBLOCK_OPEN */
 {  yy_destructor(yypParser,14,&yymsp[0].minor);
-#line 157 "lemon.html.yy"
+#line 148 "lemon.html.yy"
 {
 }
-#line 2492 "lemon.html.c"
+#line 2472 "lemon.html.c"
 }
         break;
       case 52: /* tagcontrolblockclosefull ::= tagcontrolblockblockclose */
 {  yy_destructor(yypParser,141,&yymsp[0].minor);
-#line 159 "lemon.html.yy"
+#line 150 "lemon.html.yy"
 {
 }
-#line 2500 "lemon.html.c"
+#line 2480 "lemon.html.c"
 }
         break;
       case 53: /* tagcontrolblockblockclose ::= TAG_CONTROLBLOCK_CLOSE */
 {  yy_destructor(yypParser,15,&yymsp[0].minor);
-#line 160 "lemon.html.yy"
+#line 151 "lemon.html.yy"
 {
 }
-#line 2508 "lemon.html.c"
+#line 2488 "lemon.html.c"
 }
         break;
       case 54: /* tagcontrolblockcontents ::= tagcontrolblockcontents tagcontrolblockcontent */
 {  yy_destructor(yypParser,138,&yymsp[-1].minor);
-#line 162 "lemon.html.yy"
+#line 153 "lemon.html.yy"
 {
 }
-#line 2516 "lemon.html.c"
+#line 2496 "lemon.html.c"
   yy_destructor(yypParser,142,&yymsp[0].minor);
 }
         break;
       case 55: /* tagcontrolblockcontents ::= tagcontrolblockcontent */
 {  yy_destructor(yypParser,142,&yymsp[0].minor);
-#line 163 "lemon.html.yy"
+#line 154 "lemon.html.yy"
 {
 }
-#line 2525 "lemon.html.c"
+#line 2505 "lemon.html.c"
 }
         break;
       case 56: /* tagcontrolblockcontent ::= tagtree */
 {  yy_destructor(yypParser,119,&yymsp[0].minor);
-#line 165 "lemon.html.yy"
+#line 156 "lemon.html.yy"
 {
 }
-#line 2533 "lemon.html.c"
+#line 2513 "lemon.html.c"
 }
         break;
       case 60: /* tagcontrolblockproperties ::= tagcontrolblockproperties tagcontrolblockproperty */
 {  yy_destructor(yypParser,140,&yymsp[-1].minor);
-#line 170 "lemon.html.yy"
+#line 161 "lemon.html.yy"
 {
 }
-#line 2541 "lemon.html.c"
+#line 2521 "lemon.html.c"
   yy_destructor(yypParser,143,&yymsp[0].minor);
 }
         break;
       case 61: /* tagcontrolblockproperties ::= tagcontrolblockproperty */
 {  yy_destructor(yypParser,143,&yymsp[0].minor);
-#line 171 "lemon.html.yy"
+#line 162 "lemon.html.yy"
 {
 }
-#line 2550 "lemon.html.c"
+#line 2530 "lemon.html.c"
 }
         break;
       case 62: /* tagcontrolblockproperty ::= PROP_CONTROLBLOCK_BLOCK_NAME opt__spaces_enters ASSIGMENT opt__spaces_enters PROPERTYDATA */
 {  yy_destructor(yypParser,16,&yymsp[-4].minor);
-#line 173 "lemon.html.yy"
+#line 164 "lemon.html.yy"
 {
 }
-#line 2558 "lemon.html.c"
+#line 2538 "lemon.html.c"
   yy_destructor(yypParser,101,&yymsp[-3].minor);
   yy_destructor(yypParser,9,&yymsp[-2].minor);
   yy_destructor(yypParser,101,&yymsp[-1].minor);
@@ -2563,97 +2543,97 @@ static void yy_reduce(
         break;
       case 63: /* tagdatablock ::= tagdatablockfullopen tagdatablockblockclosefull */
 {  yy_destructor(yypParser,144,&yymsp[-1].minor);
-#line 182 "lemon.html.yy"
+#line 173 "lemon.html.yy"
 {
 }
-#line 2570 "lemon.html.c"
+#line 2550 "lemon.html.c"
   yy_destructor(yypParser,145,&yymsp[0].minor);
 }
         break;
       case 64: /* tagdatablock ::= tagdatablockfullopen tagdatablockcontents tagdatablockblockclosefull */
 {  yy_destructor(yypParser,144,&yymsp[-2].minor);
-#line 183 "lemon.html.yy"
+#line 174 "lemon.html.yy"
 {
 }
-#line 2579 "lemon.html.c"
+#line 2559 "lemon.html.c"
   yy_destructor(yypParser,146,&yymsp[-1].minor);
   yy_destructor(yypParser,145,&yymsp[0].minor);
 }
         break;
       case 65: /* tagdatablockfullopen ::= tagdatablockopen tagdatablockproperties tagclosechar */
 {  yy_destructor(yypParser,147,&yymsp[-2].minor);
-#line 184 "lemon.html.yy"
+#line 175 "lemon.html.yy"
 {
 }
-#line 2589 "lemon.html.c"
+#line 2569 "lemon.html.c"
   yy_destructor(yypParser,148,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 66: /* tagdatablockopen ::= TAG_DATABLOCK_OPEN */
 {  yy_destructor(yypParser,17,&yymsp[0].minor);
-#line 186 "lemon.html.yy"
+#line 177 "lemon.html.yy"
 {
 }
-#line 2599 "lemon.html.c"
+#line 2579 "lemon.html.c"
 }
         break;
       case 67: /* tagdatablockblockclosefull ::= tagdatablockblockclose */
 {  yy_destructor(yypParser,149,&yymsp[0].minor);
-#line 188 "lemon.html.yy"
+#line 179 "lemon.html.yy"
 {
 }
-#line 2607 "lemon.html.c"
+#line 2587 "lemon.html.c"
 }
         break;
       case 68: /* tagdatablockblockclose ::= TAG_DATABLOCK_BLOCK_CLOSE */
 {  yy_destructor(yypParser,18,&yymsp[0].minor);
-#line 190 "lemon.html.yy"
+#line 181 "lemon.html.yy"
 {
 }
-#line 2615 "lemon.html.c"
+#line 2595 "lemon.html.c"
 }
         break;
       case 69: /* tagdatablockcontents ::= tagdatablockcontents tagdatablockcontent */
 {  yy_destructor(yypParser,146,&yymsp[-1].minor);
-#line 193 "lemon.html.yy"
+#line 184 "lemon.html.yy"
 {
 }
-#line 2623 "lemon.html.c"
+#line 2603 "lemon.html.c"
   yy_destructor(yypParser,150,&yymsp[0].minor);
 }
         break;
       case 70: /* tagdatablockcontents ::= tagdatablockcontent */
 {  yy_destructor(yypParser,150,&yymsp[0].minor);
-#line 194 "lemon.html.yy"
+#line 185 "lemon.html.yy"
 {
 }
-#line 2632 "lemon.html.c"
+#line 2612 "lemon.html.c"
 }
         break;
       case 74: /* tagdatablockproperties ::= tagdatablockproperties tagdatablockproperty */
 {  yy_destructor(yypParser,148,&yymsp[-1].minor);
-#line 200 "lemon.html.yy"
+#line 191 "lemon.html.yy"
 {
 }
-#line 2640 "lemon.html.c"
+#line 2620 "lemon.html.c"
   yy_destructor(yypParser,151,&yymsp[0].minor);
 }
         break;
       case 75: /* tagdatablockproperties ::= tagdatablockproperty */
 {  yy_destructor(yypParser,151,&yymsp[0].minor);
-#line 202 "lemon.html.yy"
+#line 193 "lemon.html.yy"
 {
 }
-#line 2649 "lemon.html.c"
+#line 2629 "lemon.html.c"
 }
         break;
       case 76: /* tagdatablockproperty ::= SPACE PROPERTYID ASSIGMENT PROPERTYDATA */
 {  yy_destructor(yypParser,7,&yymsp[-3].minor);
-#line 204 "lemon.html.yy"
+#line 195 "lemon.html.yy"
 {
 }
-#line 2657 "lemon.html.c"
+#line 2637 "lemon.html.c"
   yy_destructor(yypParser,19,&yymsp[-2].minor);
   yy_destructor(yypParser,9,&yymsp[-1].minor);
   yy_destructor(yypParser,6,&yymsp[0].minor);
@@ -2661,303 +2641,303 @@ static void yy_reduce(
         break;
       case 77: /* tagdatablockproperty ::= tagdatablockpropertyjoincondition PROPERTYDATA */
 {  yy_destructor(yypParser,152,&yymsp[-1].minor);
-#line 206 "lemon.html.yy"
+#line 197 "lemon.html.yy"
 {
 }
-#line 2668 "lemon.html.c"
+#line 2648 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 78: /* tagdatablockpropertyjoincondition ::= SPACE PROP_BLOCK_JOIN_CONDITION ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 208 "lemon.html.yy"
+#line 199 "lemon.html.yy"
 {
 }
-#line 2677 "lemon.html.c"
+#line 2657 "lemon.html.c"
   yy_destructor(yypParser,20,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 79: /* tagdatablockproperty ::= tagdatablockpropertyconnectionname PROPERTYDATA */
 {  yy_destructor(yypParser,153,&yymsp[-1].minor);
-#line 211 "lemon.html.yy"
+#line 202 "lemon.html.yy"
 {
 }
-#line 2687 "lemon.html.c"
+#line 2667 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 80: /* tagdatablockpropertyconnectionname ::= SPACE PROP_BLOCK_CONNECTION_NAME ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 213 "lemon.html.yy"
+#line 204 "lemon.html.yy"
 {
 }
-#line 2696 "lemon.html.c"
+#line 2676 "lemon.html.c"
   yy_destructor(yypParser,21,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 81: /* tagdatablockproperty ::= tagdatablockpropertyautogeneratedcolumns PROPERTYDATA */
 {  yy_destructor(yypParser,154,&yymsp[-1].minor);
-#line 216 "lemon.html.yy"
+#line 207 "lemon.html.yy"
 {
 }
-#line 2706 "lemon.html.c"
+#line 2686 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 82: /* tagdatablockpropertyautogeneratedcolumns ::= SPACE PROP_BLOCK_AUTO_GENERATED_COLUMNS ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 218 "lemon.html.yy"
+#line 209 "lemon.html.yy"
 {
 }
-#line 2715 "lemon.html.c"
+#line 2695 "lemon.html.c"
   yy_destructor(yypParser,22,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 83: /* tagdatablockproperty ::= tagdatablockpropertyrecordcount PROPERTYDATA */
 {  yy_destructor(yypParser,155,&yymsp[-1].minor);
-#line 220 "lemon.html.yy"
+#line 211 "lemon.html.yy"
 {
 }
-#line 2725 "lemon.html.c"
+#line 2705 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 84: /* tagdatablockpropertyrecordcount ::= SPACE PROP_BLOCK_RECORD_COUNT ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 222 "lemon.html.yy"
+#line 213 "lemon.html.yy"
 {
 }
-#line 2734 "lemon.html.c"
+#line 2714 "lemon.html.c"
   yy_destructor(yypParser,23,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 85: /* tagdatablockproperty ::= tagdatablockpropertysourcename PROPERTYDATA */
 {  yy_destructor(yypParser,156,&yymsp[-1].minor);
-#line 224 "lemon.html.yy"
+#line 215 "lemon.html.yy"
 {
 }
-#line 2744 "lemon.html.c"
+#line 2724 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 86: /* tagdatablockpropertysourcename ::= SPACE PROP_BLOCK_DATA_SOURCE_NAME ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 226 "lemon.html.yy"
+#line 217 "lemon.html.yy"
 {
 }
-#line 2753 "lemon.html.c"
+#line 2733 "lemon.html.c"
   yy_destructor(yypParser,24,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 87: /* tagdatablockproperty ::= tagdatablockpropertyschemaname PROPERTYDATA */
 {  yy_destructor(yypParser,157,&yymsp[-1].minor);
-#line 229 "lemon.html.yy"
+#line 220 "lemon.html.yy"
 {
 }
-#line 2763 "lemon.html.c"
+#line 2743 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 88: /* tagdatablockpropertyschemaname ::= SPACE PROP_BLOCK_DATA_SCHEMA_NAME ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 231 "lemon.html.yy"
+#line 222 "lemon.html.yy"
 {
 }
-#line 2772 "lemon.html.c"
+#line 2752 "lemon.html.c"
   yy_destructor(yypParser,25,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 89: /* tagdatablockproperty ::= tagdatablockpropertyblockname PROPERTYDATA */
 {  yy_destructor(yypParser,158,&yymsp[-1].minor);
-#line 233 "lemon.html.yy"
+#line 224 "lemon.html.yy"
 {
 }
-#line 2782 "lemon.html.c"
+#line 2762 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 90: /* tagdatablockpropertyblockname ::= SPACE PROP_BLOCK_BLOCK_NAME ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 235 "lemon.html.yy"
+#line 226 "lemon.html.yy"
 {
 }
-#line 2791 "lemon.html.c"
+#line 2771 "lemon.html.c"
   yy_destructor(yypParser,26,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 91: /* tagdatablockproperty ::= tagdatablockpropertykeycolumnname PROPERTYDATA */
 {  yy_destructor(yypParser,159,&yymsp[-1].minor);
-#line 237 "lemon.html.yy"
+#line 228 "lemon.html.yy"
 {
 }
-#line 2801 "lemon.html.c"
+#line 2781 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 92: /* tagdatablockpropertykeycolumnname ::= SPACE PROP_BLOCK_KEY_COLUMN_NAME ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 239 "lemon.html.yy"
+#line 230 "lemon.html.yy"
 {
 }
-#line 2810 "lemon.html.c"
+#line 2790 "lemon.html.c"
   yy_destructor(yypParser,27,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 93: /* tagdatablockproperty ::= tagdatablockpropertymasterblockname PROPERTYDATA */
 {  yy_destructor(yypParser,160,&yymsp[-1].minor);
-#line 241 "lemon.html.yy"
+#line 232 "lemon.html.yy"
 {
 }
-#line 2820 "lemon.html.c"
+#line 2800 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 94: /* tagdatablockpropertymasterblockname ::= SPACE PROP_BLOCK_MASTER_BLOCK_NAME ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 243 "lemon.html.yy"
+#line 234 "lemon.html.yy"
 {
 }
-#line 2829 "lemon.html.c"
+#line 2809 "lemon.html.c"
   yy_destructor(yypParser,28,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 95: /* tagdatablockproperty ::= tagdatablockpropertyinsertallowed PROPERTYDATA */
 {  yy_destructor(yypParser,161,&yymsp[-1].minor);
-#line 245 "lemon.html.yy"
+#line 236 "lemon.html.yy"
 {
 }
-#line 2839 "lemon.html.c"
+#line 2819 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 96: /* tagdatablockpropertyinsertallowed ::= SPACE PROP_BLOCK_INSERT_ALLOWED ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 247 "lemon.html.yy"
+#line 238 "lemon.html.yy"
 {
 }
-#line 2848 "lemon.html.c"
+#line 2828 "lemon.html.c"
   yy_destructor(yypParser,29,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 97: /* tagdatablockproperty ::= tagdatablockpropertydeleteallowed PROPERTYDATA */
 {  yy_destructor(yypParser,162,&yymsp[-1].minor);
-#line 249 "lemon.html.yy"
+#line 240 "lemon.html.yy"
 {
 }
-#line 2858 "lemon.html.c"
+#line 2838 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 98: /* tagdatablockpropertydeleteallowed ::= SPACE PROP_BLOCK_DELETE_ALLOWED ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 251 "lemon.html.yy"
+#line 242 "lemon.html.yy"
 {
 }
-#line 2867 "lemon.html.c"
+#line 2847 "lemon.html.c"
   yy_destructor(yypParser,30,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 99: /* tagdatablockproperty ::= tagdatablockpropertyupdateallowed PROPERTYDATA */
 {  yy_destructor(yypParser,163,&yymsp[-1].minor);
-#line 253 "lemon.html.yy"
+#line 244 "lemon.html.yy"
 {
 }
-#line 2877 "lemon.html.c"
+#line 2857 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 100: /* tagdatablockpropertyupdateallowed ::= SPACE PROP_BLOCK_UPDATE_ALLOWED ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 255 "lemon.html.yy"
+#line 246 "lemon.html.yy"
 {
 }
-#line 2886 "lemon.html.c"
+#line 2866 "lemon.html.c"
   yy_destructor(yypParser,31,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 101: /* tagdatablockproperty ::= tagdatablockpropertywhereclause PROPERTYDATA */
 {  yy_destructor(yypParser,164,&yymsp[-1].minor);
-#line 258 "lemon.html.yy"
+#line 249 "lemon.html.yy"
 {
 }
-#line 2896 "lemon.html.c"
+#line 2876 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 102: /* tagdatablockpropertywhereclause ::= SPACE PROP_BLOCK_WHERE_CLAUSE ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 260 "lemon.html.yy"
+#line 251 "lemon.html.yy"
 {
 }
-#line 2905 "lemon.html.c"
+#line 2885 "lemon.html.c"
   yy_destructor(yypParser,32,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 103: /* tagdatablockproperty ::= tagdatablockpropertyorderbyclause PROPERTYDATA */
 {  yy_destructor(yypParser,165,&yymsp[-1].minor);
-#line 262 "lemon.html.yy"
+#line 253 "lemon.html.yy"
 {
 }
-#line 2915 "lemon.html.c"
+#line 2895 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 104: /* tagdatablockpropertyorderbyclause ::= SPACE PROP_BLOCK_OREDERBY_CLAUSE ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 264 "lemon.html.yy"
+#line 255 "lemon.html.yy"
 {
 }
-#line 2924 "lemon.html.c"
+#line 2904 "lemon.html.c"
   yy_destructor(yypParser,33,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 105: /* taginput ::= taginputfullopen */
 {  yy_destructor(yypParser,167,&yymsp[0].minor);
-#line 272 "lemon.html.yy"
+#line 263 "lemon.html.yy"
 {
 }
-#line 2934 "lemon.html.c"
+#line 2914 "lemon.html.c"
 }
         break;
       case 106: /* taginput ::= taginputfullopen taginputblockclosefull */
 {  yy_destructor(yypParser,167,&yymsp[-1].minor);
-#line 273 "lemon.html.yy"
+#line 264 "lemon.html.yy"
 {
 }
-#line 2942 "lemon.html.c"
+#line 2922 "lemon.html.c"
   yy_destructor(yypParser,168,&yymsp[0].minor);
 }
         break;
       case 107: /* taginputfullopen ::= taginputopen taginputproperties tagclosechar */
 {  yy_destructor(yypParser,169,&yymsp[-2].minor);
-#line 274 "lemon.html.yy"
+#line 265 "lemon.html.yy"
 {
 }
-#line 2951 "lemon.html.c"
+#line 2931 "lemon.html.c"
   yy_destructor(yypParser,170,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 108: /* taginputfullopen ::= taginputopen taginputproperties taginputshortclose */
 {  yy_destructor(yypParser,169,&yymsp[-2].minor);
-#line 275 "lemon.html.yy"
+#line 266 "lemon.html.yy"
 {
 }
-#line 2961 "lemon.html.c"
+#line 2941 "lemon.html.c"
   yy_destructor(yypParser,170,&yymsp[-1].minor);
   yy_destructor(yypParser,171,&yymsp[0].minor);
 }
@@ -2965,433 +2945,433 @@ static void yy_reduce(
       case 109: /* taginputshortclose ::= TAG_SHORT_CLOSE */
       case 319: /* tagshortclose ::= TAG_SHORT_CLOSE */ yytestcase(yyruleno==319);
 {  yy_destructor(yypParser,34,&yymsp[0].minor);
-#line 278 "lemon.html.yy"
+#line 269 "lemon.html.yy"
 {
 }
-#line 2972 "lemon.html.c"
+#line 2952 "lemon.html.c"
 }
         break;
       case 110: /* taginputopen ::= TAG_INPUT_OPEN */
 {  yy_destructor(yypParser,35,&yymsp[0].minor);
-#line 281 "lemon.html.yy"
+#line 272 "lemon.html.yy"
 {
 }
-#line 2980 "lemon.html.c"
+#line 2960 "lemon.html.c"
 }
         break;
       case 111: /* taginputopen ::= TAG_SELECT_OPEN */
 {  yy_destructor(yypParser,36,&yymsp[0].minor);
-#line 283 "lemon.html.yy"
+#line 274 "lemon.html.yy"
 {
 }
-#line 2988 "lemon.html.c"
+#line 2968 "lemon.html.c"
 }
         break;
       case 112: /* taginputopen ::= TAG_TEXTAREA_OPEN */
 {  yy_destructor(yypParser,37,&yymsp[0].minor);
-#line 285 "lemon.html.yy"
+#line 276 "lemon.html.yy"
 {
 }
-#line 2996 "lemon.html.c"
+#line 2976 "lemon.html.c"
 }
         break;
       case 113: /* taginputblockclosefull ::= taginputblockclose */
 {  yy_destructor(yypParser,172,&yymsp[0].minor);
-#line 287 "lemon.html.yy"
+#line 278 "lemon.html.yy"
 {
 }
-#line 3004 "lemon.html.c"
+#line 2984 "lemon.html.c"
 }
         break;
       case 114: /* taginputblockclose ::= TAG_INPUT_BLOCK_CLOSE */
 {  yy_destructor(yypParser,38,&yymsp[0].minor);
-#line 289 "lemon.html.yy"
+#line 280 "lemon.html.yy"
 {
 }
-#line 3012 "lemon.html.c"
+#line 2992 "lemon.html.c"
 }
         break;
       case 115: /* taginputblockclose ::= TAG_SELECT_BLOCK_CLOSE */
 {  yy_destructor(yypParser,39,&yymsp[0].minor);
-#line 291 "lemon.html.yy"
+#line 282 "lemon.html.yy"
 {
 }
-#line 3020 "lemon.html.c"
+#line 3000 "lemon.html.c"
 }
         break;
       case 116: /* taginputblockclose ::= TAG_TEXTAREA_BLOCK_CLOSE */
 {  yy_destructor(yypParser,40,&yymsp[0].minor);
-#line 293 "lemon.html.yy"
+#line 284 "lemon.html.yy"
 {
 }
-#line 3028 "lemon.html.c"
+#line 3008 "lemon.html.c"
 }
         break;
       case 117: /* taginputproperties ::= taginputproperties taginputproperty */
 {  yy_destructor(yypParser,170,&yymsp[-1].minor);
-#line 295 "lemon.html.yy"
+#line 286 "lemon.html.yy"
 {
 }
-#line 3036 "lemon.html.c"
+#line 3016 "lemon.html.c"
   yy_destructor(yypParser,173,&yymsp[0].minor);
 }
         break;
       case 118: /* taginputproperties ::= taginputproperty */
 {  yy_destructor(yypParser,173,&yymsp[0].minor);
-#line 297 "lemon.html.yy"
+#line 288 "lemon.html.yy"
 {
 }
-#line 3045 "lemon.html.c"
+#line 3025 "lemon.html.c"
 }
         break;
       case 119: /* taginputproperty ::= taginputcheckedvalue PROPERTYDATA */
 {  yy_destructor(yypParser,174,&yymsp[-1].minor);
-#line 299 "lemon.html.yy"
+#line 290 "lemon.html.yy"
 {
 }
-#line 3053 "lemon.html.c"
+#line 3033 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 120: /* taginputcheckedvalue ::= spaces PROP_INPUT_CHECKED_VALUE ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 301 "lemon.html.yy"
+#line 292 "lemon.html.yy"
 {
 }
-#line 3062 "lemon.html.c"
+#line 3042 "lemon.html.c"
   yy_destructor(yypParser,41,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 121: /* taginputproperty ::= taginputuncheckedvalue PROPERTYDATA */
 {  yy_destructor(yypParser,175,&yymsp[-1].minor);
-#line 303 "lemon.html.yy"
+#line 294 "lemon.html.yy"
 {
 }
-#line 3072 "lemon.html.c"
+#line 3052 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 122: /* taginputuncheckedvalue ::= spaces PROP_INPUT_UNCHECKED_VALUE ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 305 "lemon.html.yy"
+#line 296 "lemon.html.yy"
 {
 }
-#line 3081 "lemon.html.c"
+#line 3061 "lemon.html.c"
   yy_destructor(yypParser,42,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 123: /* taginputproperty ::= taginputpropertyinputname PROPERTYDATA */
 {  yy_destructor(yypParser,176,&yymsp[-1].minor);
-#line 307 "lemon.html.yy"
+#line 298 "lemon.html.yy"
 {
 }
-#line 3091 "lemon.html.c"
+#line 3071 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 124: /* taginputpropertyinputname ::= spaces PROP_INPUT_NAME ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 309 "lemon.html.yy"
+#line 300 "lemon.html.yy"
 {
 }
-#line 3100 "lemon.html.c"
+#line 3080 "lemon.html.c"
   yy_destructor(yypParser,43,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 125: /* taginputproperty ::= taginputpropertysequencename PROPERTYDATA */
 {  yy_destructor(yypParser,177,&yymsp[-1].minor);
-#line 311 "lemon.html.yy"
+#line 302 "lemon.html.yy"
 {
 }
-#line 3110 "lemon.html.c"
+#line 3090 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 126: /* taginputpropertysequencename ::= spaces PROP_INPUT_SEQUENCE_NAME ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 313 "lemon.html.yy"
+#line 304 "lemon.html.yy"
 {
 }
-#line 3119 "lemon.html.c"
+#line 3099 "lemon.html.c"
   yy_destructor(yypParser,44,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 127: /* taginputproperty ::= taginputpropertysequenceschemaname PROPERTYDATA */
 {  yy_destructor(yypParser,178,&yymsp[-1].minor);
-#line 315 "lemon.html.yy"
+#line 306 "lemon.html.yy"
 {
 }
-#line 3129 "lemon.html.c"
+#line 3109 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 128: /* taginputpropertysequenceschemaname ::= spaces PROP_INPUT_SEQUENCE_SCHEMA_NAME ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 317 "lemon.html.yy"
+#line 308 "lemon.html.yy"
 {
 }
-#line 3138 "lemon.html.c"
+#line 3118 "lemon.html.c"
   yy_destructor(yypParser,45,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 129: /* taginputproperty ::= taginputpropertymasteritemname PROPERTYDATA */
 {  yy_destructor(yypParser,179,&yymsp[-1].minor);
-#line 320 "lemon.html.yy"
+#line 311 "lemon.html.yy"
 {
 }
-#line 3148 "lemon.html.c"
+#line 3128 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 130: /* taginputpropertymasteritemname ::= spaces PROP_INPUT_MASTER_ITEM_NAME ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 322 "lemon.html.yy"
+#line 313 "lemon.html.yy"
 {
 }
-#line 3157 "lemon.html.c"
+#line 3137 "lemon.html.c"
   yy_destructor(yypParser,46,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 131: /* taginputproperty ::= taginputpropertyinputtype PROPERTYDATA */
 {  yy_destructor(yypParser,180,&yymsp[-1].minor);
-#line 324 "lemon.html.yy"
+#line 315 "lemon.html.yy"
 {
 }
-#line 3167 "lemon.html.c"
+#line 3147 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 132: /* taginputpropertyinputtype ::= spaces PROP_INPUT_TYPE ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 326 "lemon.html.yy"
+#line 317 "lemon.html.yy"
 {
 }
-#line 3176 "lemon.html.c"
+#line 3156 "lemon.html.c"
   yy_destructor(yypParser,47,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 133: /* taginputproperty ::= taginputpropertyinputvalue PROPERTYDATA */
 {  yy_destructor(yypParser,181,&yymsp[-1].minor);
-#line 328 "lemon.html.yy"
+#line 319 "lemon.html.yy"
 {
 }
-#line 3186 "lemon.html.c"
+#line 3166 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 134: /* taginputpropertyinputvalue ::= spaces PROP_INPUT_VALUE ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 330 "lemon.html.yy"
+#line 321 "lemon.html.yy"
 {
 }
-#line 3195 "lemon.html.c"
+#line 3175 "lemon.html.c"
   yy_destructor(yypParser,48,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 135: /* taginputproperty ::= taginputpropertydefaultvalue PROPERTYDATA */
 {  yy_destructor(yypParser,182,&yymsp[-1].minor);
-#line 332 "lemon.html.yy"
+#line 323 "lemon.html.yy"
 {
 }
-#line 3205 "lemon.html.c"
+#line 3185 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 136: /* taginputpropertydefaultvalue ::= spaces PROP_INPUT_DEFAULT_VALUE ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 334 "lemon.html.yy"
+#line 325 "lemon.html.yy"
 {
 }
-#line 3214 "lemon.html.c"
+#line 3194 "lemon.html.c"
   yy_destructor(yypParser,49,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 137: /* taginputproperty ::= taginputpropertycolumnname PROPERTYDATA */
 {  yy_destructor(yypParser,183,&yymsp[-1].minor);
-#line 336 "lemon.html.yy"
+#line 327 "lemon.html.yy"
 {
 }
-#line 3224 "lemon.html.c"
+#line 3204 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 138: /* taginputpropertycolumnname ::= spaces PROP_INPUT_COLUMN_NAME ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 338 "lemon.html.yy"
+#line 329 "lemon.html.yy"
 {
 }
-#line 3233 "lemon.html.c"
+#line 3213 "lemon.html.c"
   yy_destructor(yypParser,50,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 139: /* taginputproperty ::= taginputpropertyformatmask PROPERTYDATA */
 {  yy_destructor(yypParser,184,&yymsp[-1].minor);
-#line 340 "lemon.html.yy"
+#line 331 "lemon.html.yy"
 {
 }
-#line 3243 "lemon.html.c"
+#line 3223 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 140: /* taginputpropertyformatmask ::= spaces PROP_INPUT_FORMAT_MASK ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 342 "lemon.html.yy"
+#line 333 "lemon.html.yy"
 {
 }
-#line 3252 "lemon.html.c"
+#line 3232 "lemon.html.c"
   yy_destructor(yypParser,51,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 141: /* taginputproperty ::= taginputpropertydatatype PROPERTYDATA */
 {  yy_destructor(yypParser,185,&yymsp[-1].minor);
-#line 344 "lemon.html.yy"
+#line 335 "lemon.html.yy"
 {
 }
-#line 3262 "lemon.html.c"
+#line 3242 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 142: /* taginputpropertydatatype ::= spaces PROP_INPUT_DATA_TYPE ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 346 "lemon.html.yy"
+#line 337 "lemon.html.yy"
 {
 }
-#line 3271 "lemon.html.c"
+#line 3251 "lemon.html.c"
   yy_destructor(yypParser,52,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 143: /* taginputproperty ::= taginputpropertymaxlength PROPERTYDATA */
 {  yy_destructor(yypParser,186,&yymsp[-1].minor);
-#line 348 "lemon.html.yy"
+#line 339 "lemon.html.yy"
 {
 }
-#line 3281 "lemon.html.c"
+#line 3261 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 144: /* taginputpropertymaxlength ::= spaces PROP_INPUT_MAX_LENGTH ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 350 "lemon.html.yy"
+#line 341 "lemon.html.yy"
 {
 }
-#line 3290 "lemon.html.c"
+#line 3270 "lemon.html.c"
   yy_destructor(yypParser,53,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 145: /* taginputproperty ::= taginputpropertyinsertallowed PROPERTYDATA */
 {  yy_destructor(yypParser,187,&yymsp[-1].minor);
-#line 352 "lemon.html.yy"
+#line 343 "lemon.html.yy"
 {
 }
-#line 3300 "lemon.html.c"
+#line 3280 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 146: /* taginputpropertyinsertallowed ::= spaces PROP_INPUT_INSERT_ALLOWED ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 354 "lemon.html.yy"
+#line 345 "lemon.html.yy"
 {
 }
-#line 3309 "lemon.html.c"
+#line 3289 "lemon.html.c"
   yy_destructor(yypParser,54,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 147: /* taginputproperty ::= taginputpropertyupdateallowed PROPERTYDATA */
 {  yy_destructor(yypParser,188,&yymsp[-1].minor);
-#line 356 "lemon.html.yy"
+#line 347 "lemon.html.yy"
 {
 }
-#line 3319 "lemon.html.c"
+#line 3299 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 148: /* taginputpropertyupdateallowed ::= spaces PROP_INPUT_UPDATE_ALLOWED ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 358 "lemon.html.yy"
+#line 349 "lemon.html.yy"
 {
 }
-#line 3328 "lemon.html.c"
+#line 3308 "lemon.html.c"
   yy_destructor(yypParser,55,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 149: /* taginputproperty ::= taginputpropertydatalistname PROPERTYDATA */
 {  yy_destructor(yypParser,189,&yymsp[-1].minor);
-#line 360 "lemon.html.yy"
+#line 351 "lemon.html.yy"
 {
 }
-#line 3338 "lemon.html.c"
+#line 3318 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 150: /* taginputpropertydatalistname ::= spaces PROP_INPUT_DATALIST_NAME ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 362 "lemon.html.yy"
+#line 353 "lemon.html.yy"
 {
 }
-#line 3347 "lemon.html.c"
+#line 3327 "lemon.html.c"
   yy_destructor(yypParser,56,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 151: /* taginputproperty ::= taginputpropertylookupitemname PROPERTYDATA */
 {  yy_destructor(yypParser,190,&yymsp[-1].minor);
-#line 364 "lemon.html.yy"
+#line 355 "lemon.html.yy"
 {
 }
-#line 3357 "lemon.html.c"
+#line 3337 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 152: /* taginputpropertylookupitemname ::= spaces PROP_INPUT_LOOKUP_ITEM_NAME ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 366 "lemon.html.yy"
+#line 357 "lemon.html.yy"
 {
 }
-#line 3366 "lemon.html.c"
+#line 3346 "lemon.html.c"
   yy_destructor(yypParser,57,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 153: /* taginputproperty ::= taginputpropertylookupitemblockname PROPERTYDATA */
 {  yy_destructor(yypParser,191,&yymsp[-1].minor);
-#line 368 "lemon.html.yy"
+#line 359 "lemon.html.yy"
 {
 }
-#line 3376 "lemon.html.c"
+#line 3356 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 154: /* taginputpropertylookupitemblockname ::= spaces PROP_INPUT_LOOKUP_ITEM_BLOCK_NAME ASSIGMENT */
 {  yy_destructor(yypParser,125,&yymsp[-2].minor);
-#line 370 "lemon.html.yy"
+#line 361 "lemon.html.yy"
 {
 }
-#line 3385 "lemon.html.c"
+#line 3365 "lemon.html.c"
   yy_destructor(yypParser,58,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 155: /* taginputproperty ::= spaces PROPERTYID ASSIGMENT PROPERTYDATA */
 {  yy_destructor(yypParser,125,&yymsp[-3].minor);
-#line 372 "lemon.html.yy"
+#line 363 "lemon.html.yy"
 {
 }
-#line 3395 "lemon.html.c"
+#line 3375 "lemon.html.c"
   yy_destructor(yypParser,19,&yymsp[-2].minor);
   yy_destructor(yypParser,9,&yymsp[-1].minor);
   yy_destructor(yypParser,6,&yymsp[0].minor);
@@ -3399,58 +3379,58 @@ static void yy_reduce(
         break;
       case 156: /* tagtable ::= tagtablefullopen tagtableblockclosefull */
 {  yy_destructor(yypParser,192,&yymsp[-1].minor);
-#line 379 "lemon.html.yy"
+#line 370 "lemon.html.yy"
 {
 }
-#line 3406 "lemon.html.c"
+#line 3386 "lemon.html.c"
   yy_destructor(yypParser,193,&yymsp[0].minor);
 }
         break;
       case 157: /* tagtable ::= tagtablefullopen tablecontent tagtableblockclosefull */
 {  yy_destructor(yypParser,192,&yymsp[-2].minor);
-#line 380 "lemon.html.yy"
+#line 371 "lemon.html.yy"
 {
 }
-#line 3415 "lemon.html.c"
+#line 3395 "lemon.html.c"
   yy_destructor(yypParser,194,&yymsp[-1].minor);
   yy_destructor(yypParser,193,&yymsp[0].minor);
 }
         break;
       case 158: /* tagtablefullopen ::= tagtableopen tagclosechar */
 {  yy_destructor(yypParser,195,&yymsp[-1].minor);
-#line 382 "lemon.html.yy"
+#line 373 "lemon.html.yy"
 {
 }
-#line 3425 "lemon.html.c"
+#line 3405 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 159: /* tagtablefullopen ::= tagtableopen tagclosechar spaces */
 {  yy_destructor(yypParser,195,&yymsp[-2].minor);
-#line 383 "lemon.html.yy"
+#line 374 "lemon.html.yy"
 {
 }
-#line 3434 "lemon.html.c"
+#line 3414 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[-1].minor);
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 160: /* tagtablefullopen ::= tagtableopen tagproperties tagclosechar */
 {  yy_destructor(yypParser,195,&yymsp[-2].minor);
-#line 384 "lemon.html.yy"
+#line 375 "lemon.html.yy"
 {
 }
-#line 3444 "lemon.html.c"
+#line 3424 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 161: /* tagtablefullopen ::= tagtableopen tagproperties tagclosechar spaces */
 {  yy_destructor(yypParser,195,&yymsp[-3].minor);
-#line 385 "lemon.html.yy"
+#line 376 "lemon.html.yy"
 {
 }
-#line 3454 "lemon.html.c"
+#line 3434 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-2].minor);
   yy_destructor(yypParser,124,&yymsp[-1].minor);
   yy_destructor(yypParser,125,&yymsp[0].minor);
@@ -3458,128 +3438,128 @@ static void yy_reduce(
         break;
       case 162: /* tagtableopen ::= TAG_TABLE_OPEN */
 {  yy_destructor(yypParser,59,&yymsp[0].minor);
-#line 387 "lemon.html.yy"
+#line 378 "lemon.html.yy"
 {
 }
-#line 3465 "lemon.html.c"
+#line 3445 "lemon.html.c"
 }
         break;
       case 163: /* tagtableblockclosefull ::= tagtableblockclose */
 {  yy_destructor(yypParser,197,&yymsp[0].minor);
-#line 389 "lemon.html.yy"
+#line 380 "lemon.html.yy"
 {
 }
-#line 3473 "lemon.html.c"
+#line 3453 "lemon.html.c"
 }
         break;
       case 164: /* tagtableblockclose ::= TAG_TABLE_BLOCK_CLOSE */
 {  yy_destructor(yypParser,60,&yymsp[0].minor);
-#line 391 "lemon.html.yy"
+#line 382 "lemon.html.yy"
 {
 }
-#line 3481 "lemon.html.c"
+#line 3461 "lemon.html.c"
 }
         break;
       case 165: /* tablecontent ::= tagthead tagtbody tagtfoot */
 {  yy_destructor(yypParser,198,&yymsp[-2].minor);
-#line 397 "lemon.html.yy"
+#line 388 "lemon.html.yy"
 {
 }
-#line 3489 "lemon.html.c"
+#line 3469 "lemon.html.c"
   yy_destructor(yypParser,199,&yymsp[-1].minor);
   yy_destructor(yypParser,200,&yymsp[0].minor);
 }
         break;
       case 166: /* tablecontent ::= tagthead tagtfoot tagtbody */
 {  yy_destructor(yypParser,198,&yymsp[-2].minor);
-#line 398 "lemon.html.yy"
+#line 389 "lemon.html.yy"
 {
 }
-#line 3499 "lemon.html.c"
+#line 3479 "lemon.html.c"
   yy_destructor(yypParser,200,&yymsp[-1].minor);
   yy_destructor(yypParser,199,&yymsp[0].minor);
 }
         break;
       case 167: /* tablecontent ::= tagthead tagtbody */
 {  yy_destructor(yypParser,198,&yymsp[-1].minor);
-#line 399 "lemon.html.yy"
+#line 390 "lemon.html.yy"
 {
 }
-#line 3509 "lemon.html.c"
+#line 3489 "lemon.html.c"
   yy_destructor(yypParser,199,&yymsp[0].minor);
 }
         break;
       case 168: /* tablecontent ::= tagtbody tagtfoot */
 {  yy_destructor(yypParser,199,&yymsp[-1].minor);
-#line 400 "lemon.html.yy"
+#line 391 "lemon.html.yy"
 {
 }
-#line 3518 "lemon.html.c"
+#line 3498 "lemon.html.c"
   yy_destructor(yypParser,200,&yymsp[0].minor);
 }
         break;
       case 169: /* tablecontent ::= tagtbody */
 {  yy_destructor(yypParser,199,&yymsp[0].minor);
-#line 401 "lemon.html.yy"
+#line 392 "lemon.html.yy"
 {
 }
-#line 3527 "lemon.html.c"
+#line 3507 "lemon.html.c"
 }
         break;
       case 170: /* tagthead ::= tagtheadfullopen tagtheadblockclosefull */
 {  yy_destructor(yypParser,201,&yymsp[-1].minor);
-#line 408 "lemon.html.yy"
+#line 399 "lemon.html.yy"
 {
 }
-#line 3535 "lemon.html.c"
+#line 3515 "lemon.html.c"
   yy_destructor(yypParser,202,&yymsp[0].minor);
 }
         break;
       case 171: /* tagthead ::= tagtheadfullopen tagtablerows tagtheadblockclosefull */
 {  yy_destructor(yypParser,201,&yymsp[-2].minor);
-#line 409 "lemon.html.yy"
+#line 400 "lemon.html.yy"
 {
 }
-#line 3544 "lemon.html.c"
+#line 3524 "lemon.html.c"
   yy_destructor(yypParser,203,&yymsp[-1].minor);
   yy_destructor(yypParser,202,&yymsp[0].minor);
 }
         break;
       case 172: /* tagtheadfullopen ::= tagtheadopen tagclosechar */
 {  yy_destructor(yypParser,204,&yymsp[-1].minor);
-#line 410 "lemon.html.yy"
+#line 401 "lemon.html.yy"
 {
 }
-#line 3554 "lemon.html.c"
+#line 3534 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 173: /* tagtheadfullopen ::= tagtheadopen tagclosechar spaces */
 {  yy_destructor(yypParser,204,&yymsp[-2].minor);
-#line 411 "lemon.html.yy"
+#line 402 "lemon.html.yy"
 {
 }
-#line 3563 "lemon.html.c"
+#line 3543 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[-1].minor);
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 174: /* tagtheadfullopen ::= tagtheadopen tagpropertieswithreturnvaluesall tagclosechar */
 {  yy_destructor(yypParser,204,&yymsp[-2].minor);
-#line 412 "lemon.html.yy"
+#line 403 "lemon.html.yy"
 {
 }
-#line 3573 "lemon.html.c"
+#line 3553 "lemon.html.c"
   yy_destructor(yypParser,205,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 175: /* tagtheadfullopen ::= tagtheadopen tagpropertieswithreturnvaluesall tagclosechar spaces */
 {  yy_destructor(yypParser,204,&yymsp[-3].minor);
-#line 413 "lemon.html.yy"
+#line 404 "lemon.html.yy"
 {
 }
-#line 3583 "lemon.html.c"
+#line 3563 "lemon.html.c"
   yy_destructor(yypParser,205,&yymsp[-2].minor);
   yy_destructor(yypParser,124,&yymsp[-1].minor);
   yy_destructor(yypParser,125,&yymsp[0].minor);
@@ -3587,82 +3567,82 @@ static void yy_reduce(
         break;
       case 176: /* tagtheadopen ::= TAG_THEAD_OPEN */
 {  yy_destructor(yypParser,61,&yymsp[0].minor);
-#line 414 "lemon.html.yy"
+#line 405 "lemon.html.yy"
 {
 }
-#line 3594 "lemon.html.c"
+#line 3574 "lemon.html.c"
 }
         break;
       case 177: /* tagtheadblockclosefull ::= tagtheadblockclose */
 {  yy_destructor(yypParser,206,&yymsp[0].minor);
-#line 416 "lemon.html.yy"
+#line 407 "lemon.html.yy"
 {
 }
-#line 3602 "lemon.html.c"
+#line 3582 "lemon.html.c"
 }
         break;
       case 178: /* tagtheadblockclosefull ::= tagtheadblockclose spaces */
 {  yy_destructor(yypParser,206,&yymsp[-1].minor);
-#line 417 "lemon.html.yy"
+#line 408 "lemon.html.yy"
 {
 }
-#line 3610 "lemon.html.c"
+#line 3590 "lemon.html.c"
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 179: /* tagtheadblockclose ::= TAG_THEAD_BLOCK_CLOSE */
 {  yy_destructor(yypParser,62,&yymsp[0].minor);
-#line 419 "lemon.html.yy"
+#line 410 "lemon.html.yy"
 {
 }
-#line 3619 "lemon.html.c"
+#line 3599 "lemon.html.c"
 }
         break;
       case 180: /* tagtfoot ::= tagtfootfullopen tagtablerows tagtfootblockclosefull */
 {  yy_destructor(yypParser,207,&yymsp[-2].minor);
-#line 427 "lemon.html.yy"
+#line 418 "lemon.html.yy"
 {
 }
-#line 3627 "lemon.html.c"
+#line 3607 "lemon.html.c"
   yy_destructor(yypParser,203,&yymsp[-1].minor);
   yy_destructor(yypParser,208,&yymsp[0].minor);
 }
         break;
       case 181: /* tagtfootfullopen ::= tagtfootopen tagclosechar */
 {  yy_destructor(yypParser,209,&yymsp[-1].minor);
-#line 428 "lemon.html.yy"
+#line 419 "lemon.html.yy"
 {
 }
-#line 3637 "lemon.html.c"
+#line 3617 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 182: /* tagtfootfullopen ::= tagtfootopen tagclosechar spaces */
 {  yy_destructor(yypParser,209,&yymsp[-2].minor);
-#line 429 "lemon.html.yy"
+#line 420 "lemon.html.yy"
 {
 }
-#line 3646 "lemon.html.c"
+#line 3626 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[-1].minor);
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 183: /* tagtfootfullopen ::= tagtfootopen tagproperties tagclosechar */
 {  yy_destructor(yypParser,209,&yymsp[-2].minor);
-#line 430 "lemon.html.yy"
+#line 421 "lemon.html.yy"
 {
 }
-#line 3656 "lemon.html.c"
+#line 3636 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 184: /* tagtfootfullopen ::= tagtfootopen tagproperties tagclosechar spaces */
 {  yy_destructor(yypParser,209,&yymsp[-3].minor);
-#line 431 "lemon.html.yy"
+#line 422 "lemon.html.yy"
 {
 }
-#line 3666 "lemon.html.c"
+#line 3646 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-2].minor);
   yy_destructor(yypParser,124,&yymsp[-1].minor);
   yy_destructor(yypParser,125,&yymsp[0].minor);
@@ -3670,82 +3650,82 @@ static void yy_reduce(
         break;
       case 185: /* tagtfootopen ::= TAG_TFOOT_OPEN */
 {  yy_destructor(yypParser,63,&yymsp[0].minor);
-#line 432 "lemon.html.yy"
+#line 423 "lemon.html.yy"
 {
 }
-#line 3677 "lemon.html.c"
+#line 3657 "lemon.html.c"
 }
         break;
       case 186: /* tagtfootblockclosefull ::= tagtfootblockclose */
 {  yy_destructor(yypParser,210,&yymsp[0].minor);
-#line 434 "lemon.html.yy"
+#line 425 "lemon.html.yy"
 {
 }
-#line 3685 "lemon.html.c"
+#line 3665 "lemon.html.c"
 }
         break;
       case 187: /* tagtfootblockclosefull ::= tagtfootblockclose spaces */
 {  yy_destructor(yypParser,210,&yymsp[-1].minor);
-#line 435 "lemon.html.yy"
+#line 426 "lemon.html.yy"
 {
 }
-#line 3693 "lemon.html.c"
+#line 3673 "lemon.html.c"
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 188: /* tagtfootblockclose ::= TAG_TFOOT_BLOCK_CLOSE */
 {  yy_destructor(yypParser,64,&yymsp[0].minor);
-#line 437 "lemon.html.yy"
+#line 428 "lemon.html.yy"
 {
 }
-#line 3702 "lemon.html.c"
+#line 3682 "lemon.html.c"
 }
         break;
       case 189: /* tagtbody ::= tagtbodyfullopen tagtablerows tagtbodyblockclosefull */
 {  yy_destructor(yypParser,211,&yymsp[-2].minor);
-#line 445 "lemon.html.yy"
+#line 436 "lemon.html.yy"
 {
 }
-#line 3710 "lemon.html.c"
+#line 3690 "lemon.html.c"
   yy_destructor(yypParser,203,&yymsp[-1].minor);
   yy_destructor(yypParser,212,&yymsp[0].minor);
 }
         break;
       case 190: /* tagtbodyfullopen ::= tagtbodyopen tagclosechar */
 {  yy_destructor(yypParser,213,&yymsp[-1].minor);
-#line 446 "lemon.html.yy"
+#line 437 "lemon.html.yy"
 {
 }
-#line 3720 "lemon.html.c"
+#line 3700 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 191: /* tagtbodyfullopen ::= tagtbodyopen tagclosechar spaces */
 {  yy_destructor(yypParser,213,&yymsp[-2].minor);
-#line 447 "lemon.html.yy"
+#line 438 "lemon.html.yy"
 {
 }
-#line 3729 "lemon.html.c"
+#line 3709 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[-1].minor);
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 192: /* tagtbodyfullopen ::= tagtbodyopen tagproperties tagclosechar */
 {  yy_destructor(yypParser,213,&yymsp[-2].minor);
-#line 448 "lemon.html.yy"
+#line 439 "lemon.html.yy"
 {
 }
-#line 3739 "lemon.html.c"
+#line 3719 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 193: /* tagtbodyfullopen ::= tagtbodyopen tagproperties tagclosechar spaces */
 {  yy_destructor(yypParser,213,&yymsp[-3].minor);
-#line 449 "lemon.html.yy"
+#line 440 "lemon.html.yy"
 {
 }
-#line 3749 "lemon.html.c"
+#line 3729 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-2].minor);
   yy_destructor(yypParser,124,&yymsp[-1].minor);
   yy_destructor(yypParser,125,&yymsp[0].minor);
@@ -3753,184 +3733,184 @@ static void yy_reduce(
         break;
       case 194: /* tagtbodyopen ::= TAG_TBODY_OPEN */
 {  yy_destructor(yypParser,65,&yymsp[0].minor);
-#line 450 "lemon.html.yy"
+#line 441 "lemon.html.yy"
 {
 }
-#line 3760 "lemon.html.c"
+#line 3740 "lemon.html.c"
 }
         break;
       case 195: /* tagtbodyblockclosefull ::= tagtbodyblockclose */
 {  yy_destructor(yypParser,214,&yymsp[0].minor);
-#line 452 "lemon.html.yy"
+#line 443 "lemon.html.yy"
 {
 }
-#line 3768 "lemon.html.c"
+#line 3748 "lemon.html.c"
 }
         break;
       case 196: /* tagtbodyblockclosefull ::= tagtbodyblockclose spaces */
 {  yy_destructor(yypParser,214,&yymsp[-1].minor);
-#line 453 "lemon.html.yy"
+#line 444 "lemon.html.yy"
 {
 }
-#line 3776 "lemon.html.c"
+#line 3756 "lemon.html.c"
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 197: /* tagtbodyblockclose ::= TAG_TBODY_BLOCK_CLOSE */
 {  yy_destructor(yypParser,66,&yymsp[0].minor);
-#line 455 "lemon.html.yy"
+#line 446 "lemon.html.yy"
 {
 }
-#line 3785 "lemon.html.c"
+#line 3765 "lemon.html.c"
 }
         break;
       case 198: /* tagtablerows ::= tagtablerows tagtablerow */
 {  yy_destructor(yypParser,203,&yymsp[-1].minor);
-#line 463 "lemon.html.yy"
+#line 454 "lemon.html.yy"
 {
 }
-#line 3793 "lemon.html.c"
+#line 3773 "lemon.html.c"
   yy_destructor(yypParser,215,&yymsp[0].minor);
 }
         break;
       case 199: /* tagtablerows ::= tagtablerow */
 {  yy_destructor(yypParser,215,&yymsp[0].minor);
-#line 464 "lemon.html.yy"
+#line 455 "lemon.html.yy"
 {
 }
-#line 3802 "lemon.html.c"
+#line 3782 "lemon.html.c"
 }
         break;
       case 200: /* tagtablerow ::= tagtablerowfullopen tagtablecols tagtablerowblockclosefull */
 {  yy_destructor(yypParser,216,&yymsp[-2].minor);
-#line 466 "lemon.html.yy"
+#line 457 "lemon.html.yy"
 {
 }
-#line 3810 "lemon.html.c"
+#line 3790 "lemon.html.c"
   yy_destructor(yypParser,217,&yymsp[-1].minor);
   yy_destructor(yypParser,218,&yymsp[0].minor);
 }
         break;
       case 201: /* tagtablerowfullopen ::= tagtablerowopen tagclosechar */
 {  yy_destructor(yypParser,219,&yymsp[-1].minor);
-#line 467 "lemon.html.yy"
+#line 458 "lemon.html.yy"
 {
 }
-#line 3820 "lemon.html.c"
+#line 3800 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 202: /* tagtablerowfullopen ::= tagtablerowopen tagclosechar spaces */
 {  yy_destructor(yypParser,219,&yymsp[-2].minor);
-#line 468 "lemon.html.yy"
+#line 459 "lemon.html.yy"
 {
 }
-#line 3829 "lemon.html.c"
+#line 3809 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[-1].minor);
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 203: /* tagtablerowfullopen ::= tagtablerowopen tagpropertieswithreturnvaluesall tagclosechar */
 {  yy_destructor(yypParser,219,&yymsp[-2].minor);
-#line 469 "lemon.html.yy"
+#line 460 "lemon.html.yy"
 {
 }
-#line 3839 "lemon.html.c"
+#line 3819 "lemon.html.c"
   yy_destructor(yypParser,205,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 204: /* tagtablerowopen ::= TAG_TR_OPEN */
 {  yy_destructor(yypParser,67,&yymsp[0].minor);
-#line 471 "lemon.html.yy"
+#line 462 "lemon.html.yy"
 {
 }
-#line 3849 "lemon.html.c"
+#line 3829 "lemon.html.c"
 }
         break;
       case 205: /* tagtablerowblockclosefull ::= tagtablerowblockclose */
 {  yy_destructor(yypParser,220,&yymsp[0].minor);
-#line 473 "lemon.html.yy"
+#line 464 "lemon.html.yy"
 {
 }
-#line 3857 "lemon.html.c"
+#line 3837 "lemon.html.c"
 }
         break;
       case 206: /* tagtablerowblockclosefull ::= tagtablerowblockclose spaces */
 {  yy_destructor(yypParser,220,&yymsp[-1].minor);
-#line 474 "lemon.html.yy"
+#line 465 "lemon.html.yy"
 {
 }
-#line 3865 "lemon.html.c"
+#line 3845 "lemon.html.c"
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 207: /* tagtablerowblockclose ::= TAG_TR_BLOCK_CLOSE */
 {  yy_destructor(yypParser,68,&yymsp[0].minor);
-#line 476 "lemon.html.yy"
+#line 467 "lemon.html.yy"
 {
 }
-#line 3874 "lemon.html.c"
+#line 3854 "lemon.html.c"
 }
         break;
       case 208: /* tagtablecols ::= tagtablecols tagtablecol */
 {  yy_destructor(yypParser,217,&yymsp[-1].minor);
-#line 480 "lemon.html.yy"
+#line 471 "lemon.html.yy"
 {
 }
-#line 3882 "lemon.html.c"
+#line 3862 "lemon.html.c"
   yy_destructor(yypParser,221,&yymsp[0].minor);
 }
         break;
       case 209: /* tagtablecols ::= tagtablecol */
 {  yy_destructor(yypParser,221,&yymsp[0].minor);
-#line 481 "lemon.html.yy"
+#line 472 "lemon.html.yy"
 {
 }
-#line 3891 "lemon.html.c"
+#line 3871 "lemon.html.c"
 }
         break;
       case 210: /* tagtablecol ::= tagtablecoltd */
 {  yy_destructor(yypParser,222,&yymsp[0].minor);
-#line 483 "lemon.html.yy"
+#line 474 "lemon.html.yy"
 {
 }
-#line 3899 "lemon.html.c"
+#line 3879 "lemon.html.c"
 }
         break;
       case 211: /* tagtablecol ::= tagtablecolth */
 {  yy_destructor(yypParser,223,&yymsp[0].minor);
-#line 484 "lemon.html.yy"
+#line 475 "lemon.html.yy"
 {
 }
-#line 3907 "lemon.html.c"
+#line 3887 "lemon.html.c"
 }
         break;
       case 212: /* tagtablecoltd ::= tagtablecoltdfullopen tagtablecoltdblockclosefull */
 {  yy_destructor(yypParser,224,&yymsp[-1].minor);
-#line 490 "lemon.html.yy"
+#line 481 "lemon.html.yy"
 {
 }
-#line 3915 "lemon.html.c"
+#line 3895 "lemon.html.c"
   yy_destructor(yypParser,225,&yymsp[0].minor);
 }
         break;
       case 213: /* tagtablecoltd ::= tagtablecoltdfullopen spaces tagtablecoltdblockclosefull */
 {  yy_destructor(yypParser,224,&yymsp[-2].minor);
-#line 491 "lemon.html.yy"
+#line 482 "lemon.html.yy"
 {
 }
-#line 3924 "lemon.html.c"
+#line 3904 "lemon.html.c"
   yy_destructor(yypParser,125,&yymsp[-1].minor);
   yy_destructor(yypParser,225,&yymsp[0].minor);
 }
         break;
       case 214: /* tagtablecoltd ::= tagtablecoltdfullopen spaces tagtable spaces tagtablecoltdblockclosefull */
 {  yy_destructor(yypParser,224,&yymsp[-4].minor);
-#line 492 "lemon.html.yy"
+#line 483 "lemon.html.yy"
 {
 }
-#line 3934 "lemon.html.c"
+#line 3914 "lemon.html.c"
   yy_destructor(yypParser,125,&yymsp[-3].minor);
   yy_destructor(yypParser,114,&yymsp[-2].minor);
   yy_destructor(yypParser,125,&yymsp[-1].minor);
@@ -3939,20 +3919,20 @@ static void yy_reduce(
         break;
       case 215: /* tagtablecoltd ::= tagtablecoltdfullopen tagtablecolcontents tagtablecoltdblockclosefull */
 {  yy_destructor(yypParser,224,&yymsp[-2].minor);
-#line 493 "lemon.html.yy"
+#line 484 "lemon.html.yy"
 {
 }
-#line 3946 "lemon.html.c"
+#line 3926 "lemon.html.c"
   yy_destructor(yypParser,226,&yymsp[-1].minor);
   yy_destructor(yypParser,225,&yymsp[0].minor);
 }
         break;
       case 216: /* tagtablecoltd ::= tagtablecoltdfullopen spaces tagtablecolcontents tagtablecoltdblockclosefull */
 {  yy_destructor(yypParser,224,&yymsp[-3].minor);
-#line 494 "lemon.html.yy"
+#line 485 "lemon.html.yy"
 {
 }
-#line 3956 "lemon.html.c"
+#line 3936 "lemon.html.c"
   yy_destructor(yypParser,125,&yymsp[-2].minor);
   yy_destructor(yypParser,226,&yymsp[-1].minor);
   yy_destructor(yypParser,225,&yymsp[0].minor);
@@ -3960,439 +3940,439 @@ static void yy_reduce(
         break;
       case 217: /* tagtablecoltdfullopen ::= tagtablecoltdopen tagclosechar */
 {  yy_destructor(yypParser,227,&yymsp[-1].minor);
-#line 495 "lemon.html.yy"
+#line 486 "lemon.html.yy"
 {
 }
-#line 3967 "lemon.html.c"
+#line 3947 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 218: /* tagtablecoltdfullopen ::= tagtablecoltdopen tagproperties tagclosechar */
 {  yy_destructor(yypParser,227,&yymsp[-2].minor);
-#line 497 "lemon.html.yy"
+#line 488 "lemon.html.yy"
 {
 }
-#line 3976 "lemon.html.c"
+#line 3956 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 219: /* tagtablecoltdopen ::= TAG_TD_OPEN */
 {  yy_destructor(yypParser,69,&yymsp[0].minor);
-#line 499 "lemon.html.yy"
+#line 490 "lemon.html.yy"
 {
 }
-#line 3986 "lemon.html.c"
+#line 3966 "lemon.html.c"
 }
         break;
       case 220: /* tagtablecoltdblockclosefull ::= tagtablecoltdblockclose */
 {  yy_destructor(yypParser,228,&yymsp[0].minor);
-#line 501 "lemon.html.yy"
+#line 492 "lemon.html.yy"
 {
 }
-#line 3994 "lemon.html.c"
+#line 3974 "lemon.html.c"
 }
         break;
       case 221: /* tagtablecoltdblockclosefull ::= tagtablecoltdblockclose spaces */
 {  yy_destructor(yypParser,228,&yymsp[-1].minor);
-#line 502 "lemon.html.yy"
+#line 493 "lemon.html.yy"
 {
 }
-#line 4002 "lemon.html.c"
+#line 3982 "lemon.html.c"
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 222: /* tagtablecoltdblockclose ::= TAG_TD_BLOCK_CLOSE */
 {  yy_destructor(yypParser,70,&yymsp[0].minor);
-#line 504 "lemon.html.yy"
+#line 495 "lemon.html.yy"
 {
 }
-#line 4011 "lemon.html.c"
+#line 3991 "lemon.html.c"
 }
         break;
       case 223: /* tagtablecolcontents ::= tagtablecolcontents tagtablecolcontent */
 {  yy_destructor(yypParser,226,&yymsp[-1].minor);
-#line 507 "lemon.html.yy"
+#line 498 "lemon.html.yy"
 {
 }
-#line 4019 "lemon.html.c"
+#line 3999 "lemon.html.c"
   yy_destructor(yypParser,229,&yymsp[0].minor);
 }
         break;
       case 224: /* tagtablecolcontents ::= tagtablecolcontent */
 {  yy_destructor(yypParser,229,&yymsp[0].minor);
-#line 508 "lemon.html.yy"
+#line 499 "lemon.html.yy"
 {
 }
-#line 4028 "lemon.html.c"
+#line 4008 "lemon.html.c"
 }
         break;
       case 225: /* tagtablecolcontent ::= taginput */
 {  yy_destructor(yypParser,166,&yymsp[0].minor);
-#line 510 "lemon.html.yy"
+#line 501 "lemon.html.yy"
 {
 }
-#line 4036 "lemon.html.c"
+#line 4016 "lemon.html.c"
 }
         break;
       case 226: /* tagtablecolcontent ::= taginput spaces */
 {  yy_destructor(yypParser,166,&yymsp[-1].minor);
-#line 511 "lemon.html.yy"
+#line 502 "lemon.html.yy"
 {
 }
-#line 4044 "lemon.html.c"
+#line 4024 "lemon.html.c"
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 228: /* tagtablecolcontent ::= htmltext spaces */
 {  yy_destructor(yypParser,115,&yymsp[-1].minor);
-#line 513 "lemon.html.yy"
+#line 504 "lemon.html.yy"
 {
 }
-#line 4053 "lemon.html.c"
+#line 4033 "lemon.html.c"
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 230: /* tagtablecolth ::= tagtablecolthfullopen tagtablecolthblockclosefull */
 {  yy_destructor(yypParser,230,&yymsp[-1].minor);
-#line 520 "lemon.html.yy"
+#line 511 "lemon.html.yy"
 {
 }
-#line 4062 "lemon.html.c"
+#line 4042 "lemon.html.c"
   yy_destructor(yypParser,231,&yymsp[0].minor);
 }
         break;
       case 231: /* tagtablecolth ::= tagtablecolthfullopen tagtablecolcontents tagtablecolthblockclosefull */
 {  yy_destructor(yypParser,230,&yymsp[-2].minor);
-#line 521 "lemon.html.yy"
+#line 512 "lemon.html.yy"
 {
 }
-#line 4071 "lemon.html.c"
+#line 4051 "lemon.html.c"
   yy_destructor(yypParser,226,&yymsp[-1].minor);
   yy_destructor(yypParser,231,&yymsp[0].minor);
 }
         break;
       case 232: /* tagtablecolthfullopen ::= tagtablecolthopen tagclosechar */
 {  yy_destructor(yypParser,232,&yymsp[-1].minor);
-#line 522 "lemon.html.yy"
+#line 513 "lemon.html.yy"
 {
 }
-#line 4081 "lemon.html.c"
+#line 4061 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 233: /* tagtablecolthfullopen ::= tagtablecolthopen tagpropertieswithreturnvaluesall tagclosechar */
 {  yy_destructor(yypParser,232,&yymsp[-2].minor);
-#line 524 "lemon.html.yy"
+#line 515 "lemon.html.yy"
 {
 }
-#line 4090 "lemon.html.c"
+#line 4070 "lemon.html.c"
   yy_destructor(yypParser,205,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 234: /* tagtablecolthopen ::= TAG_TH_OPEN */
 {  yy_destructor(yypParser,71,&yymsp[0].minor);
-#line 526 "lemon.html.yy"
+#line 517 "lemon.html.yy"
 {
 }
-#line 4100 "lemon.html.c"
+#line 4080 "lemon.html.c"
 }
         break;
       case 235: /* tagtablecolthblockclosefull ::= tagtablecolthblockclose */
 {  yy_destructor(yypParser,233,&yymsp[0].minor);
-#line 528 "lemon.html.yy"
+#line 519 "lemon.html.yy"
 {
 }
-#line 4108 "lemon.html.c"
+#line 4088 "lemon.html.c"
 }
         break;
       case 236: /* tagtablecolthblockclosefull ::= tagtablecolthblockclose spaces */
 {  yy_destructor(yypParser,233,&yymsp[-1].minor);
-#line 529 "lemon.html.yy"
+#line 520 "lemon.html.yy"
 {
 }
-#line 4116 "lemon.html.c"
+#line 4096 "lemon.html.c"
   yy_destructor(yypParser,125,&yymsp[0].minor);
 }
         break;
       case 237: /* tagtablecolthblockclose ::= TAG_TH_BLOCK_CLOSE */
 {  yy_destructor(yypParser,72,&yymsp[0].minor);
-#line 531 "lemon.html.yy"
+#line 522 "lemon.html.yy"
 {
 }
-#line 4125 "lemon.html.c"
+#line 4105 "lemon.html.c"
 }
         break;
       case 238: /* tagtitle ::= tagtitlefullopen tagtitleblockclosefull */
 {  yy_destructor(yypParser,234,&yymsp[-1].minor);
-#line 539 "lemon.html.yy"
+#line 530 "lemon.html.yy"
 {
 }
-#line 4133 "lemon.html.c"
+#line 4113 "lemon.html.c"
   yy_destructor(yypParser,235,&yymsp[0].minor);
 }
         break;
       case 239: /* tagtitle ::= tagtitlefullopen htmlandspaces tagtitleblockclosefull */
 {  yy_destructor(yypParser,234,&yymsp[-2].minor);
-#line 540 "lemon.html.yy"
+#line 531 "lemon.html.yy"
 {
 }
-#line 4142 "lemon.html.c"
+#line 4122 "lemon.html.c"
   yy_destructor(yypParser,236,&yymsp[-1].minor);
   yy_destructor(yypParser,235,&yymsp[0].minor);
 }
         break;
       case 240: /* tagtitlefullopen ::= tagtitleopen tagclosechar */
 {  yy_destructor(yypParser,237,&yymsp[-1].minor);
-#line 541 "lemon.html.yy"
+#line 532 "lemon.html.yy"
 {
 }
-#line 4152 "lemon.html.c"
+#line 4132 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 241: /* tagtitlefullopen ::= tagtitleopen tagproperties tagclosechar */
 {  yy_destructor(yypParser,237,&yymsp[-2].minor);
-#line 542 "lemon.html.yy"
+#line 533 "lemon.html.yy"
 {
 }
-#line 4161 "lemon.html.c"
+#line 4141 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 242: /* tagtitleblockclosefull ::= tagtitleblockclose */
 {  yy_destructor(yypParser,238,&yymsp[0].minor);
-#line 543 "lemon.html.yy"
+#line 534 "lemon.html.yy"
 {
 }
-#line 4171 "lemon.html.c"
+#line 4151 "lemon.html.c"
 }
         break;
       case 243: /* tagtitleopen ::= TAG_TITLE_OPEN */
 {  yy_destructor(yypParser,73,&yymsp[0].minor);
-#line 544 "lemon.html.yy"
+#line 535 "lemon.html.yy"
 {
 }
-#line 4179 "lemon.html.c"
+#line 4159 "lemon.html.c"
 }
         break;
       case 244: /* tagtitleblockclose ::= TAG_TITLE_BLOCK_CLOSE */
 {  yy_destructor(yypParser,74,&yymsp[0].minor);
-#line 545 "lemon.html.yy"
+#line 536 "lemon.html.yy"
 {
 }
-#line 4187 "lemon.html.c"
+#line 4167 "lemon.html.c"
 }
         break;
       case 245: /* taglink ::= taglinkfullopen */
 {  yy_destructor(yypParser,239,&yymsp[0].minor);
-#line 551 "lemon.html.yy"
+#line 542 "lemon.html.yy"
 {
 }
-#line 4195 "lemon.html.c"
+#line 4175 "lemon.html.c"
 }
         break;
       case 246: /* taglink ::= taglinkfullopen taglinkblockclosefull */
 {  yy_destructor(yypParser,239,&yymsp[-1].minor);
-#line 552 "lemon.html.yy"
+#line 543 "lemon.html.yy"
 {
 }
-#line 4203 "lemon.html.c"
+#line 4183 "lemon.html.c"
   yy_destructor(yypParser,240,&yymsp[0].minor);
 }
         break;
       case 247: /* taglinkfullopen ::= taglinkopen tagproperties tagclosechar */
 {  yy_destructor(yypParser,241,&yymsp[-2].minor);
-#line 553 "lemon.html.yy"
+#line 544 "lemon.html.yy"
 {
 }
-#line 4212 "lemon.html.c"
+#line 4192 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 248: /* taglinkfullopen ::= taglinkopen tagproperties tagshortclose */
 {  yy_destructor(yypParser,241,&yymsp[-2].minor);
-#line 554 "lemon.html.yy"
+#line 545 "lemon.html.yy"
 {
 }
-#line 4222 "lemon.html.c"
+#line 4202 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-1].minor);
   yy_destructor(yypParser,242,&yymsp[0].minor);
 }
         break;
       case 249: /* taglinkblockclosefull ::= taglinkblockclose */
 {  yy_destructor(yypParser,243,&yymsp[0].minor);
-#line 556 "lemon.html.yy"
+#line 547 "lemon.html.yy"
 {
 }
-#line 4232 "lemon.html.c"
+#line 4212 "lemon.html.c"
 }
         break;
       case 250: /* taglinkopen ::= TAG_LINK_OPEN */
 {  yy_destructor(yypParser,75,&yymsp[0].minor);
-#line 558 "lemon.html.yy"
+#line 549 "lemon.html.yy"
 {
 }
-#line 4240 "lemon.html.c"
+#line 4220 "lemon.html.c"
 }
         break;
       case 251: /* taglinkblockclose ::= TAG_LINK_BLOCK_CLOSE */
 {  yy_destructor(yypParser,76,&yymsp[0].minor);
-#line 559 "lemon.html.yy"
+#line 550 "lemon.html.yy"
 {
 }
-#line 4248 "lemon.html.c"
+#line 4228 "lemon.html.c"
 }
         break;
       case 252: /* tagmeta ::= tagmetafullopen */
 {  yy_destructor(yypParser,244,&yymsp[0].minor);
-#line 566 "lemon.html.yy"
+#line 557 "lemon.html.yy"
 {
 }
-#line 4256 "lemon.html.c"
+#line 4236 "lemon.html.c"
 }
         break;
       case 253: /* tagmeta ::= tagmetafullopen tagmetablockclosefull */
 {  yy_destructor(yypParser,244,&yymsp[-1].minor);
-#line 567 "lemon.html.yy"
+#line 558 "lemon.html.yy"
 {
 }
-#line 4264 "lemon.html.c"
+#line 4244 "lemon.html.c"
   yy_destructor(yypParser,245,&yymsp[0].minor);
 }
         break;
       case 254: /* tagmetafullopen ::= tagmetaopen tagproperties tagclosechar */
 {  yy_destructor(yypParser,246,&yymsp[-2].minor);
-#line 568 "lemon.html.yy"
+#line 559 "lemon.html.yy"
 {
 }
-#line 4273 "lemon.html.c"
+#line 4253 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 255: /* tagmetafullopen ::= tagmetaopen tagproperties tagshortclose */
 {  yy_destructor(yypParser,246,&yymsp[-2].minor);
-#line 569 "lemon.html.yy"
+#line 560 "lemon.html.yy"
 {
 }
-#line 4283 "lemon.html.c"
+#line 4263 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-1].minor);
   yy_destructor(yypParser,242,&yymsp[0].minor);
 }
         break;
       case 256: /* tagmetablockclosefull ::= tagmetablockclose */
 {  yy_destructor(yypParser,247,&yymsp[0].minor);
-#line 571 "lemon.html.yy"
+#line 562 "lemon.html.yy"
 {
 }
-#line 4293 "lemon.html.c"
+#line 4273 "lemon.html.c"
 }
         break;
       case 257: /* tagmetaopen ::= TAG_META_OPEN */
 {  yy_destructor(yypParser,77,&yymsp[0].minor);
-#line 573 "lemon.html.yy"
+#line 564 "lemon.html.yy"
 {
 }
-#line 4301 "lemon.html.c"
+#line 4281 "lemon.html.c"
 }
         break;
       case 258: /* tagmetablockclose ::= TAG_META_BLOCK_CLOSE */
 {  yy_destructor(yypParser,78,&yymsp[0].minor);
-#line 574 "lemon.html.yy"
+#line 565 "lemon.html.yy"
 {
 }
-#line 4309 "lemon.html.c"
+#line 4289 "lemon.html.c"
 }
         break;
       case 259: /* tagstyle ::= tagstylefullopen tagstyleblockclosefull */
 {  yy_destructor(yypParser,248,&yymsp[-1].minor);
-#line 581 "lemon.html.yy"
+#line 572 "lemon.html.yy"
 {
 }
-#line 4317 "lemon.html.c"
+#line 4297 "lemon.html.c"
   yy_destructor(yypParser,249,&yymsp[0].minor);
 }
         break;
       case 260: /* tagstyle ::= tagstylefullopen htmlandspaces tagstyleblockclosefull */
 {  yy_destructor(yypParser,248,&yymsp[-2].minor);
-#line 582 "lemon.html.yy"
+#line 573 "lemon.html.yy"
 {
 }
-#line 4326 "lemon.html.c"
+#line 4306 "lemon.html.c"
   yy_destructor(yypParser,236,&yymsp[-1].minor);
   yy_destructor(yypParser,249,&yymsp[0].minor);
 }
         break;
       case 261: /* tagstylefullopen ::= tagstyleopen tagclosechar */
 {  yy_destructor(yypParser,250,&yymsp[-1].minor);
-#line 583 "lemon.html.yy"
+#line 574 "lemon.html.yy"
 {
 }
-#line 4336 "lemon.html.c"
+#line 4316 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 262: /* tagstylefullopen ::= tagstyleopen tagstyleproperties tagclosechar */
 {  yy_destructor(yypParser,250,&yymsp[-2].minor);
-#line 584 "lemon.html.yy"
+#line 575 "lemon.html.yy"
 {
 }
-#line 4345 "lemon.html.c"
+#line 4325 "lemon.html.c"
   yy_destructor(yypParser,251,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 263: /* tagstyleblockclosefull ::= tagstyleblockclose */
 {  yy_destructor(yypParser,252,&yymsp[0].minor);
-#line 586 "lemon.html.yy"
+#line 577 "lemon.html.yy"
 {
 }
-#line 4355 "lemon.html.c"
+#line 4335 "lemon.html.c"
 }
         break;
       case 264: /* tagstyleopen ::= TAG_STYLE_OPEN */
 {  yy_destructor(yypParser,79,&yymsp[0].minor);
-#line 588 "lemon.html.yy"
+#line 579 "lemon.html.yy"
 {
 }
-#line 4363 "lemon.html.c"
+#line 4343 "lemon.html.c"
 }
         break;
       case 265: /* tagstyleblockclose ::= TAG_STYLE_BLOCK_CLOSE */
 {  yy_destructor(yypParser,80,&yymsp[0].minor);
-#line 589 "lemon.html.yy"
+#line 580 "lemon.html.yy"
 {
 }
-#line 4371 "lemon.html.c"
+#line 4351 "lemon.html.c"
 }
         break;
       case 266: /* tagstyleproperties ::= tagstyleproperties tagstyleproperty */
 {  yy_destructor(yypParser,251,&yymsp[-1].minor);
-#line 592 "lemon.html.yy"
+#line 583 "lemon.html.yy"
 {
 }
-#line 4379 "lemon.html.c"
+#line 4359 "lemon.html.c"
   yy_destructor(yypParser,253,&yymsp[0].minor);
 }
         break;
       case 267: /* tagstyleproperties ::= tagstyleproperty */
 {  yy_destructor(yypParser,253,&yymsp[0].minor);
-#line 593 "lemon.html.yy"
+#line 584 "lemon.html.yy"
 {
 }
-#line 4388 "lemon.html.c"
+#line 4368 "lemon.html.c"
 }
         break;
       case 268: /* tagstyleproperty ::= space PROPERTYID_SCRIPT_SRC ASSIGMENT PROPERTYDATA */
 {  yy_destructor(yypParser,102,&yymsp[-3].minor);
-#line 595 "lemon.html.yy"
+#line 586 "lemon.html.yy"
 {
 }
-#line 4396 "lemon.html.c"
+#line 4376 "lemon.html.c"
   yy_destructor(yypParser,81,&yymsp[-2].minor);
   yy_destructor(yypParser,9,&yymsp[-1].minor);
   yy_destructor(yypParser,6,&yymsp[0].minor);
@@ -4400,10 +4380,10 @@ static void yy_reduce(
         break;
       case 269: /* tagstyleproperty ::= space PROPERTYID_SCRIPT_TYPE ASSIGMENT PROPERTYDATA */
 {  yy_destructor(yypParser,102,&yymsp[-3].minor);
-#line 596 "lemon.html.yy"
+#line 587 "lemon.html.yy"
 {
 }
-#line 4407 "lemon.html.c"
+#line 4387 "lemon.html.c"
   yy_destructor(yypParser,82,&yymsp[-2].minor);
   yy_destructor(yypParser,9,&yymsp[-1].minor);
   yy_destructor(yypParser,6,&yymsp[0].minor);
@@ -4412,10 +4392,10 @@ static void yy_reduce(
       case 270: /* tagstyleproperty ::= space PROPERTYID ASSIGMENT PROPERTYDATA */
       case 316: /* tagproperty ::= space PROPERTYID ASSIGMENT PROPERTYDATA */ yytestcase(yyruleno==316);
 {  yy_destructor(yypParser,102,&yymsp[-3].minor);
-#line 597 "lemon.html.yy"
+#line 588 "lemon.html.yy"
 {
 }
-#line 4419 "lemon.html.c"
+#line 4399 "lemon.html.c"
   yy_destructor(yypParser,19,&yymsp[-2].minor);
   yy_destructor(yypParser,9,&yymsp[-1].minor);
   yy_destructor(yypParser,6,&yymsp[0].minor);
@@ -4423,476 +4403,476 @@ static void yy_reduce(
         break;
       case 271: /* tagscript ::= tagscriptfullopen tagscriptblockclosefull */
 {  yy_destructor(yypParser,254,&yymsp[-1].minor);
-#line 604 "lemon.html.yy"
+#line 595 "lemon.html.yy"
 {
 }
-#line 4430 "lemon.html.c"
+#line 4410 "lemon.html.c"
   yy_destructor(yypParser,255,&yymsp[0].minor);
 }
         break;
       case 272: /* tagscript ::= tagscriptfullopen htmlandspaces tagscriptblockclosefull */
 {  yy_destructor(yypParser,254,&yymsp[-2].minor);
-#line 605 "lemon.html.yy"
+#line 596 "lemon.html.yy"
 {
 }
-#line 4439 "lemon.html.c"
+#line 4419 "lemon.html.c"
   yy_destructor(yypParser,236,&yymsp[-1].minor);
   yy_destructor(yypParser,255,&yymsp[0].minor);
 }
         break;
       case 273: /* tagscriptfullopen ::= tagscriptopen tagclosechar */
 {  yy_destructor(yypParser,256,&yymsp[-1].minor);
-#line 606 "lemon.html.yy"
+#line 597 "lemon.html.yy"
 {
 }
-#line 4449 "lemon.html.c"
+#line 4429 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 274: /* tagscriptfullopen ::= tagscriptopen tagscriptproperties tagclosechar */
 {  yy_destructor(yypParser,256,&yymsp[-2].minor);
-#line 607 "lemon.html.yy"
+#line 598 "lemon.html.yy"
 {
 }
-#line 4458 "lemon.html.c"
+#line 4438 "lemon.html.c"
   yy_destructor(yypParser,257,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 275: /* tagscriptblockclosefull ::= tagscriptblockclose */
 {  yy_destructor(yypParser,258,&yymsp[0].minor);
-#line 609 "lemon.html.yy"
+#line 600 "lemon.html.yy"
 {
 }
-#line 4468 "lemon.html.c"
+#line 4448 "lemon.html.c"
 }
         break;
       case 276: /* tagscriptopen ::= TAG_SCRIPT_OPEN */
 {  yy_destructor(yypParser,83,&yymsp[0].minor);
-#line 611 "lemon.html.yy"
+#line 602 "lemon.html.yy"
 {
 }
-#line 4476 "lemon.html.c"
+#line 4456 "lemon.html.c"
 }
         break;
       case 277: /* tagscriptblockclose ::= TAG_SCRIPT_BLOCK_CLOSE */
 {  yy_destructor(yypParser,84,&yymsp[0].minor);
-#line 612 "lemon.html.yy"
+#line 603 "lemon.html.yy"
 {
 }
-#line 4484 "lemon.html.c"
+#line 4464 "lemon.html.c"
 }
         break;
       case 278: /* tagscriptproperties ::= tagscriptproperties tagscriptproperty */
 {  yy_destructor(yypParser,257,&yymsp[-1].minor);
-#line 616 "lemon.html.yy"
+#line 607 "lemon.html.yy"
 {
 }
-#line 4492 "lemon.html.c"
+#line 4472 "lemon.html.c"
   yy_destructor(yypParser,259,&yymsp[0].minor);
 }
         break;
       case 279: /* tagscriptproperties ::= tagscriptproperty */
 {  yy_destructor(yypParser,259,&yymsp[0].minor);
-#line 617 "lemon.html.yy"
+#line 608 "lemon.html.yy"
 {
 }
-#line 4501 "lemon.html.c"
+#line 4481 "lemon.html.c"
 }
         break;
       case 280: /* tagscriptproperty ::= tagscriptpropertyscripttype PROPERTYDATA */
 {  yy_destructor(yypParser,260,&yymsp[-1].minor);
-#line 619 "lemon.html.yy"
+#line 610 "lemon.html.yy"
 {
 }
-#line 4509 "lemon.html.c"
+#line 4489 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 281: /* tagscriptpropertyscripttype ::= SPACE PROPERTYID_SCRIPT_TYPE ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 621 "lemon.html.yy"
+#line 612 "lemon.html.yy"
 {
 }
-#line 4518 "lemon.html.c"
+#line 4498 "lemon.html.c"
   yy_destructor(yypParser,82,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 282: /* tagscriptproperty ::= tagscriptpropertysrc PROPERTYDATA */
 {  yy_destructor(yypParser,261,&yymsp[-1].minor);
-#line 623 "lemon.html.yy"
+#line 614 "lemon.html.yy"
 {
 }
-#line 4528 "lemon.html.c"
+#line 4508 "lemon.html.c"
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 283: /* tagscriptpropertysrc ::= SPACE PROPERTYID_SCRIPT_SRC ASSIGMENT */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 625 "lemon.html.yy"
+#line 616 "lemon.html.yy"
 {
 }
-#line 4537 "lemon.html.c"
+#line 4517 "lemon.html.c"
   yy_destructor(yypParser,81,&yymsp[-1].minor);
   yy_destructor(yypParser,9,&yymsp[0].minor);
 }
         break;
       case 284: /* taghtml ::= taghtmlfullopen taghtmlblockclosefull */
 {  yy_destructor(yypParser,262,&yymsp[-1].minor);
-#line 631 "lemon.html.yy"
+#line 622 "lemon.html.yy"
 {
 }
-#line 4547 "lemon.html.c"
+#line 4527 "lemon.html.c"
   yy_destructor(yypParser,263,&yymsp[0].minor);
 }
         break;
       case 285: /* taghtml ::= taghtmlfullopen taghtmlcontents taghtmlblockclosefull */
 {  yy_destructor(yypParser,262,&yymsp[-2].minor);
-#line 632 "lemon.html.yy"
+#line 623 "lemon.html.yy"
 {
 }
-#line 4556 "lemon.html.c"
+#line 4536 "lemon.html.c"
   yy_destructor(yypParser,264,&yymsp[-1].minor);
   yy_destructor(yypParser,263,&yymsp[0].minor);
 }
         break;
       case 286: /* taghtmlfullopen ::= taghtmlopen tagclosechar */
 {  yy_destructor(yypParser,265,&yymsp[-1].minor);
-#line 633 "lemon.html.yy"
+#line 624 "lemon.html.yy"
 {
 }
-#line 4566 "lemon.html.c"
+#line 4546 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 287: /* taghtmlfullopen ::= taghtmlopen tagproperties tagclosechar */
 {  yy_destructor(yypParser,265,&yymsp[-2].minor);
-#line 634 "lemon.html.yy"
+#line 625 "lemon.html.yy"
 {
 }
-#line 4575 "lemon.html.c"
+#line 4555 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 288: /* taghtmlblockclosefull ::= TAG_HTML_BLOCK_CLOSE */
 {  yy_destructor(yypParser,85,&yymsp[0].minor);
-#line 636 "lemon.html.yy"
+#line 627 "lemon.html.yy"
 {
 }
-#line 4585 "lemon.html.c"
+#line 4565 "lemon.html.c"
 }
         break;
       case 289: /* taghtmlopen ::= TAG_HTML_OPEN */
 {  yy_destructor(yypParser,86,&yymsp[0].minor);
-#line 638 "lemon.html.yy"
+#line 629 "lemon.html.yy"
 {
 }
-#line 4593 "lemon.html.c"
+#line 4573 "lemon.html.c"
 }
         break;
       case 290: /* taghtmlcontents ::= taghtmlcontents taghtmlcontent */
 {  yy_destructor(yypParser,264,&yymsp[-1].minor);
-#line 640 "lemon.html.yy"
+#line 631 "lemon.html.yy"
 {
 }
-#line 4601 "lemon.html.c"
+#line 4581 "lemon.html.c"
   yy_destructor(yypParser,266,&yymsp[0].minor);
 }
         break;
       case 291: /* taghtmlcontents ::= taghtmlcontent */
 {  yy_destructor(yypParser,266,&yymsp[0].minor);
-#line 641 "lemon.html.yy"
+#line 632 "lemon.html.yy"
 {
 }
-#line 4610 "lemon.html.c"
+#line 4590 "lemon.html.c"
 }
         break;
       case 294: /* taghtmlcontent ::= tagbody */
 {  yy_destructor(yypParser,267,&yymsp[0].minor);
-#line 645 "lemon.html.yy"
+#line 636 "lemon.html.yy"
 {
 }
-#line 4618 "lemon.html.c"
+#line 4598 "lemon.html.c"
 }
         break;
       case 295: /* taghtmlcontent ::= taghead tagbody */
 {  yy_destructor(yypParser,268,&yymsp[-1].minor);
-#line 646 "lemon.html.yy"
+#line 637 "lemon.html.yy"
 {
 }
-#line 4626 "lemon.html.c"
+#line 4606 "lemon.html.c"
   yy_destructor(yypParser,267,&yymsp[0].minor);
 }
         break;
       case 296: /* taghtmlcontent ::= taghead spaces_enters tagbody */
 {  yy_destructor(yypParser,268,&yymsp[-2].minor);
-#line 647 "lemon.html.yy"
+#line 638 "lemon.html.yy"
 {
 }
-#line 4635 "lemon.html.c"
+#line 4615 "lemon.html.c"
   yy_destructor(yypParser,99,&yymsp[-1].minor);
   yy_destructor(yypParser,267,&yymsp[0].minor);
 }
         break;
       case 297: /* tagbody ::= tagbodyfullopen tagbodyblockclosefull */
 {  yy_destructor(yypParser,269,&yymsp[-1].minor);
-#line 654 "lemon.html.yy"
+#line 645 "lemon.html.yy"
 {
 }
-#line 4645 "lemon.html.c"
+#line 4625 "lemon.html.c"
   yy_destructor(yypParser,270,&yymsp[0].minor);
 }
         break;
       case 298: /* tagbody ::= tagbodyfullopen tagbodycontents tagbodyblockclosefull */
 {  yy_destructor(yypParser,269,&yymsp[-2].minor);
-#line 655 "lemon.html.yy"
+#line 646 "lemon.html.yy"
 {
 }
-#line 4654 "lemon.html.c"
+#line 4634 "lemon.html.c"
   yy_destructor(yypParser,111,&yymsp[-1].minor);
   yy_destructor(yypParser,270,&yymsp[0].minor);
 }
         break;
       case 299: /* tagbodyfullopen ::= tagbodyopen tagclosechar */
 {  yy_destructor(yypParser,271,&yymsp[-1].minor);
-#line 657 "lemon.html.yy"
+#line 648 "lemon.html.yy"
 {
 }
-#line 4664 "lemon.html.c"
+#line 4644 "lemon.html.c"
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 300: /* tagbodyfullopen ::= tagbodyopen tagproperties tagclosechar */
 {  yy_destructor(yypParser,271,&yymsp[-2].minor);
-#line 659 "lemon.html.yy"
+#line 650 "lemon.html.yy"
 {
 }
-#line 4673 "lemon.html.c"
+#line 4653 "lemon.html.c"
   yy_destructor(yypParser,196,&yymsp[-1].minor);
   yy_destructor(yypParser,124,&yymsp[0].minor);
 }
         break;
       case 301: /* tagbodyblockclosefull ::= tagbodyblockclose */
 {  yy_destructor(yypParser,272,&yymsp[0].minor);
-#line 661 "lemon.html.yy"
+#line 652 "lemon.html.yy"
 {
 }
-#line 4683 "lemon.html.c"
+#line 4663 "lemon.html.c"
 }
         break;
       case 302: /* tagbodyopen ::= TAG_BODY_OPEN */
 {  yy_destructor(yypParser,87,&yymsp[0].minor);
-#line 663 "lemon.html.yy"
+#line 654 "lemon.html.yy"
 {
 }
-#line 4691 "lemon.html.c"
+#line 4671 "lemon.html.c"
 }
         break;
       case 303: /* tagbodyblockclose ::= TAG_BODY_BLOCK_CLOSE */
 {  yy_destructor(yypParser,88,&yymsp[0].minor);
-#line 665 "lemon.html.yy"
+#line 656 "lemon.html.yy"
 {
 }
-#line 4699 "lemon.html.c"
+#line 4679 "lemon.html.c"
 }
         break;
       case 304: /* taghead ::= tagheadfullopen tagheadblockclosefull */
 {  yy_destructor(yypParser,273,&yymsp[-1].minor);
-#line 673 "lemon.html.yy"
+#line 664 "lemon.html.yy"
 {
 }
-#line 4707 "lemon.html.c"
+#line 4687 "lemon.html.c"
   yy_destructor(yypParser,274,&yymsp[0].minor);
 }
         break;
       case 305: /* taghead ::= tagheadfullopen tagheadcontents tagheadblockclosefull */
 {  yy_destructor(yypParser,273,&yymsp[-2].minor);
-#line 674 "lemon.html.yy"
+#line 665 "lemon.html.yy"
 {
 }
-#line 4716 "lemon.html.c"
+#line 4696 "lemon.html.c"
   yy_destructor(yypParser,104,&yymsp[-1].minor);
   yy_destructor(yypParser,274,&yymsp[0].minor);
 }
         break;
       case 306: /* tagheadfullopen ::= tagheadopen */
 {  yy_destructor(yypParser,275,&yymsp[0].minor);
-#line 676 "lemon.html.yy"
+#line 667 "lemon.html.yy"
 {
 }
-#line 4726 "lemon.html.c"
+#line 4706 "lemon.html.c"
 }
         break;
       case 307: /* tagheadblockclosefull ::= tagheadblockclose */
 {  yy_destructor(yypParser,276,&yymsp[0].minor);
-#line 678 "lemon.html.yy"
+#line 669 "lemon.html.yy"
 {
 }
-#line 4734 "lemon.html.c"
+#line 4714 "lemon.html.c"
 }
         break;
       case 308: /* tagheadopen ::= TAG_HEAD_OPEN */
 {  yy_destructor(yypParser,89,&yymsp[0].minor);
-#line 680 "lemon.html.yy"
+#line 671 "lemon.html.yy"
 {
 }
-#line 4742 "lemon.html.c"
+#line 4722 "lemon.html.c"
 }
         break;
       case 309: /* tagheadblockclose ::= TAG_HEAD_BLOCK_CLOSE */
 {  yy_destructor(yypParser,90,&yymsp[0].minor);
-#line 682 "lemon.html.yy"
+#line 673 "lemon.html.yy"
 {
 }
-#line 4750 "lemon.html.c"
+#line 4730 "lemon.html.c"
 }
         break;
       case 310: /* tagpropertieswithreturnvaluesall ::= tagpropertieswithreturnvalues */
 {  yy_destructor(yypParser,277,&yymsp[0].minor);
-#line 690 "lemon.html.yy"
+#line 681 "lemon.html.yy"
 {
 }
-#line 4758 "lemon.html.c"
+#line 4738 "lemon.html.c"
 }
         break;
       case 311: /* tagpropertieswithreturnvalues ::= tagpropertieswithreturnvalues tagpropertywithreturnvalue */
 {  yy_destructor(yypParser,277,&yymsp[-1].minor);
-#line 692 "lemon.html.yy"
+#line 683 "lemon.html.yy"
 {
 }
-#line 4766 "lemon.html.c"
+#line 4746 "lemon.html.c"
   yy_destructor(yypParser,278,&yymsp[0].minor);
 }
         break;
       case 312: /* tagpropertieswithreturnvalues ::= tagpropertywithreturnvalue */
 {  yy_destructor(yypParser,278,&yymsp[0].minor);
-#line 694 "lemon.html.yy"
+#line 685 "lemon.html.yy"
 {
 }
-#line 4775 "lemon.html.c"
+#line 4755 "lemon.html.c"
 }
         break;
       case 313: /* tagpropertywithreturnvalue ::= PROPERTYID ASSIGMENT PROPERTYDATA */
 {  yy_destructor(yypParser,19,&yymsp[-2].minor);
-#line 696 "lemon.html.yy"
+#line 687 "lemon.html.yy"
 {
 }
-#line 4783 "lemon.html.c"
+#line 4763 "lemon.html.c"
   yy_destructor(yypParser,9,&yymsp[-1].minor);
   yy_destructor(yypParser,6,&yymsp[0].minor);
 }
         break;
       case 314: /* tagproperties ::= tagproperties tagproperty */
 {  yy_destructor(yypParser,196,&yymsp[-1].minor);
-#line 703 "lemon.html.yy"
+#line 694 "lemon.html.yy"
 {
 }
-#line 4793 "lemon.html.c"
+#line 4773 "lemon.html.c"
   yy_destructor(yypParser,279,&yymsp[0].minor);
 }
         break;
       case 315: /* tagproperties ::= tagproperty */
 {  yy_destructor(yypParser,279,&yymsp[0].minor);
-#line 704 "lemon.html.yy"
+#line 695 "lemon.html.yy"
 {
 }
-#line 4802 "lemon.html.c"
+#line 4782 "lemon.html.c"
 }
         break;
       case 317: /* tagclosechar ::= TAG_CLOSE */
 {  yy_destructor(yypParser,91,&yymsp[0].minor);
-#line 710 "lemon.html.yy"
+#line 701 "lemon.html.yy"
 {
 }
-#line 4810 "lemon.html.c"
+#line 4790 "lemon.html.c"
 }
         break;
       case 318: /* tagclosechar ::= SPACE TAG_CLOSE */
 {  yy_destructor(yypParser,7,&yymsp[-1].minor);
-#line 711 "lemon.html.yy"
+#line 702 "lemon.html.yy"
 {
 }
-#line 4818 "lemon.html.c"
+#line 4798 "lemon.html.c"
   yy_destructor(yypParser,91,&yymsp[0].minor);
 }
         break;
       case 320: /* htmlandspaces ::= htmlandspaces htmlandspace */
 {  yy_destructor(yypParser,236,&yymsp[-1].minor);
-#line 720 "lemon.html.yy"
+#line 711 "lemon.html.yy"
 {
 }
-#line 4827 "lemon.html.c"
+#line 4807 "lemon.html.c"
   yy_destructor(yypParser,280,&yymsp[0].minor);
 }
         break;
       case 321: /* htmlandspaces ::= htmlandspace */
 {  yy_destructor(yypParser,280,&yymsp[0].minor);
-#line 721 "lemon.html.yy"
+#line 712 "lemon.html.yy"
 {
 }
-#line 4836 "lemon.html.c"
+#line 4816 "lemon.html.c"
 }
         break;
       case 322: /* htmlandspace ::= HTMLTEXT */
       case 324: /* htmltext ::= HTMLTEXT */ yytestcase(yyruleno==324);
 {  yy_destructor(yypParser,92,&yymsp[0].minor);
-#line 723 "lemon.html.yy"
+#line 714 "lemon.html.yy"
 {
 }
-#line 4845 "lemon.html.c"
+#line 4825 "lemon.html.c"
 }
         break;
       case 323: /* htmlandspace ::= SPACE */
       case 333: /* space ::= SPACE */ yytestcase(yyruleno==333);
 {  yy_destructor(yypParser,7,&yymsp[0].minor);
-#line 724 "lemon.html.yy"
+#line 715 "lemon.html.yy"
 {
 }
-#line 4854 "lemon.html.c"
+#line 4834 "lemon.html.c"
 }
         break;
       case 325: /* opt__spaces_enters ::= spaces_enters */
 {  yy_destructor(yypParser,99,&yymsp[0].minor);
-#line 733 "lemon.html.yy"
+#line 724 "lemon.html.yy"
 {
 }
-#line 4862 "lemon.html.c"
+#line 4842 "lemon.html.c"
 }
         break;
       case 327: /* spaces_enters ::= spaces_enters spaces_enter */
 {  yy_destructor(yypParser,99,&yymsp[-1].minor);
-#line 736 "lemon.html.yy"
+#line 727 "lemon.html.yy"
 {
 }
-#line 4870 "lemon.html.c"
+#line 4850 "lemon.html.c"
   yy_destructor(yypParser,281,&yymsp[0].minor);
 }
         break;
       case 328: /* spaces_enters ::= spaces_enter */
 {  yy_destructor(yypParser,281,&yymsp[0].minor);
-#line 737 "lemon.html.yy"
+#line 728 "lemon.html.yy"
 {
 }
-#line 4879 "lemon.html.c"
+#line 4859 "lemon.html.c"
 }
         break;
       case 331: /* spaces ::= spaces space */
 {  yy_destructor(yypParser,125,&yymsp[-1].minor);
-#line 743 "lemon.html.yy"
+#line 734 "lemon.html.yy"
 {
 }
-#line 4887 "lemon.html.c"
+#line 4867 "lemon.html.c"
   yy_destructor(yypParser,102,&yymsp[0].minor);
 }
         break;
       case 334: /* enter ::= ENTER */
 {  yy_destructor(yypParser,93,&yymsp[0].minor);
-#line 750 "lemon.html.yy"
+#line 741 "lemon.html.yy"
 {
 }
-#line 4896 "lemon.html.c"
+#line 4876 "lemon.html.c"
 }
         break;
       default:
@@ -4957,7 +4937,7 @@ static void yy_syntax_error(
 
     printf("--SYNTAX ERROR--");
     exit(100);
-#line 4961 "lemon.html.c"
+#line 4941 "lemon.html.c"
 /************ End %syntax_error code ******************************************/
   htmlParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }

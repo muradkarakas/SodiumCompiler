@@ -9,8 +9,8 @@ State 0:
                    expressions shift        37     
                     expression shift        37       /* because expression==expressions */
                     tagdoctype shift        57     
-                         space shift-reduce 1      expression ::= space
-                         enter shift-reduce 2      expression ::= enter
+                         space shift        37       /* because space==expression */
+                         enter shift        37       /* because enter==expression */
 
 State 1:
           taginputfullopen ::= taginputopen taginputproperties * tagclosechar
@@ -718,18 +718,18 @@ State 36:
                      {default} reduce       326    opt__spaces_enters ::=
 
 State 37:
-      (3) start ::= expressions *
+      (0) start ::= expressions *
           expressions ::= expressions * expression
 
-                             $ reduce       3      start ::= expressions
+                             $ reduce       0      start ::= expressions
          TAG_DOCTYPE_HTSQL_DTD shift-reduce 25     tagdoctype ::= TAG_DOCTYPE_HTSQL_DTD
               TAG_DOCTYPE_HTML shift-reduce 26     tagdoctype ::= TAG_DOCTYPE_HTML
                          SPACE shift-reduce 333    space ::= SPACE
                          ENTER shift-reduce 334    enter ::= ENTER
-                    expression shift-reduce 4      expressions ::= expressions expression
+                    expression shift-reduce 1      expressions ::= expressions expression
                     tagdoctype shift        57     
-                         space shift-reduce 1      expression ::= space
-                         enter shift-reduce 2      expression ::= enter
+                         space shift-reduce 1      expressions ::= expressions expression  /* because space==expression */
+                         enter shift-reduce 1      expressions ::= expressions expression  /* because enter==expression */
 
 State 38:
           tagscript ::= tagscriptfullopen * tagscriptblockclosefull
@@ -2249,7 +2249,7 @@ State 232:
 State 233:
           expression ::= tagdoctype spaces_enters taghtml opt__spaces_enters * END_OF_FILE
 
-                   END_OF_FILE shift-reduce 0      expression ::= tagdoctype spaces_enters taghtml opt__spaces_enters END_OF_FILE
+                   END_OF_FILE shift-reduce 3      expression ::= tagdoctype spaces_enters taghtml opt__spaces_enters END_OF_FILE
 
 ----------------------------------------------------
 Symbols:

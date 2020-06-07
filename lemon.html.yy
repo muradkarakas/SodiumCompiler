@@ -56,20 +56,11 @@ expressions ::= expressions expression.
 expressions ::= expression.
 
 expression  ::= tagdoctype spaces_enters taghtml opt__spaces_enters END_OF_FILE.
-{
-    int a = 111;
-    a = 111;
-}
+
 expression  ::= space.
-{
-    int a = 111;
-    a = 111;
-}
+
 expression  ::= enter.
-{
-    int a = 111;
-    a = 111;
-}
+
 
 tagheadcontents ::= tagheadcontents tagheadcontent.
 tagheadcontents ::= tagheadcontent.

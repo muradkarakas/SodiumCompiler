@@ -45,22 +45,9 @@ SodiumCompiler::ParseFRMXFile(
             token = (Token *) mkMalloc(this->heapHandle, sizeof(Token), __FILE__, __LINE__);
             token->tokenCode = htmllex(scanner);
             token->tokenStrLength = htmlget_leng(scanner);
-            token->tokenStr = htmlget_text(scanner);
-            if (token->tokenCode != END_OF_FILE)
-                htmlParse(pParser, token->tokenCode, token, this);
+            token->tokenStr = mkStrdup(this->heapHandle, htmlget_text(scanner), __FILE__, __LINE__);
+            htmlParse(pParser, token->tokenCode, token, this);
         } while (token->tokenCode != END_OF_FILE);
-
-        token = (Token*)mkMalloc(this->heapHandle, sizeof(Token), __FILE__, __LINE__);
-        
-        token->tokenCode = END_OF_FILE;
-        token->tokenStrLength = 1;
-        token->tokenStr = "";
-        htmlParse(pParser, token->tokenCode, token, this);
-        
-        token->tokenCode = ENTER;
-        token->tokenStrLength = 1;
-        token->tokenStr = "\n";
-        htmlParse(pParser, token->tokenCode, token, this);
 
         htmlParse(pParser, 0, 0, this);
 

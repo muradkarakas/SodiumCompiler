@@ -21,8 +21,8 @@
 
 %top{
 #include <stdint.h>
+#define YYSTYPE (Token*)
 }
-
 
 
 %option extra-type="SodiumCompiler *"

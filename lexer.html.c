@@ -1,7 +1,8 @@
 #line 1 "lexer.html.c"
 #include <stdint.h>
+#define YYSTYPE (Token*)
 
-#line 4 "lexer.html.c"
+#line 5 "lexer.html.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -1149,12 +1150,12 @@ static const flex_int16_t yy_chk[1522] =
 #include "lemon.html.h"
 #include "html.parser.imp.h"
 
-#line 1152 "lexer.html.c"
+#line 1153 "lexer.html.c"
 
 #define YY_NO_UNISTD_H 1
 #define YY_NO_INPUT 1
 
-#line 1157 "lexer.html.c"
+#line 1158 "lexer.html.c"
 
 #define INITIAL 0
 #define SC_TAGPROPERTY 1
@@ -1438,7 +1439,7 @@ YY_DECL
     ############################################################################################
  */
 
-#line 1441 "lexer.html.c"
+#line 1442 "lexer.html.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -2615,7 +2616,7 @@ YY_RULE_SETUP
 #line 642 "lexer.html.ll"
 ECHO;
 	YY_BREAK
-#line 2618 "lexer.html.c"
+#line 2619 "lexer.html.c"
 
 	case YY_END_OF_BUFFER:
 		{
