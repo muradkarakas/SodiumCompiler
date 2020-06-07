@@ -98,7 +98,7 @@ BEGIN(INITIAL);
 "<"{SPACE}"!DOCTYPE"{SPACE}"HTML"{SPACE}"SYSTEM"{SPACE}"\"ht-sql.dtd\""{SPACE}">"                   {
                                                                                                         return TAG_DOCTYPE_HTSQL_DTD;
                                                                                                      }
-{SPACE}"<"{SPACE}"!DOCTYPE"{SPACE}"html"{SPACE}">"{SPACE}											 {
+"<"{SPACE}"!DOCTYPE"{SPACE}"html"{SPACE}">"											                {
 																										return TAG_DOCTYPE_HTML;
 																									 }
 "<"{SPACE}"html"	                                {

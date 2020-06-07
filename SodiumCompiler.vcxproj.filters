@@ -72,6 +72,9 @@
     <ClCompile Include="html.parser.imp.c">
       <Filter>Source Files\sqlx\htmlParser</Filter>
     </ClCompile>
+    <ClCompile Include="CompileUnit.cpp">
+      <Filter>Source Files\sqlx\Compiler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lemon.pre.yy">
@@ -106,20 +109,26 @@
     <ClInclude Include="pre.parser.imp.h">
       <Filter>Source Files\sqlx\preParser</Filter>
     </ClInclude>
-    <ClInclude Include="SodiumCompiler.h">
-      <Filter>Source Files\sqlx\Compiler</Filter>
-    </ClInclude>
-    <ClInclude Include="SymbolTable.h">
-      <Filter>Source Files\sqlx\Compiler</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Source Files\sqlx\Compiler</Filter>
-    </ClInclude>
     <ClInclude Include="lemon.html.h">
       <Filter>Source Files\sqlx\htmlParser\lemon</Filter>
     </ClInclude>
     <ClInclude Include="html.parser.imp.h">
       <Filter>Source Files\sqlx\htmlParser</Filter>
+    </ClInclude>
+    <ClInclude Include="SodiumCompiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CompileUnit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SymbolTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Token.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

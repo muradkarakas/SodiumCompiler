@@ -28,7 +28,10 @@ main(
 
     SodiumCompiler *compiler = new SodiumCompiler();
 
-    compiler->ParseFRMXFile(argv[1]);
+    if (compiler->ParseFRMXFile(argv[1])) {
+        compiler->PrintParsedFRMXFile();
+    }
+
 
     compiler->DumpDllFile();
 

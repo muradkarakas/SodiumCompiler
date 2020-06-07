@@ -17,6 +17,16 @@
 #include "lemon.html.h"
 #include "lemon.pre.h"
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+    #include "..\SodiumShared\SodiumShared.h"
+#ifdef __cplusplus
+}
+#endif
+
+
 HANDLE gHeapHandle = NULL;
 
 BOOL
@@ -34,20 +44,32 @@ SodiumCompiler::ParseFRMXFile(
         return false;
     }
     else {
-        //htmllex_init(&scanner);
+        strcpy(this->frmxFile->filePath, filePath);
+        
         htmllex_init_extra(this, &scanner);
         htmlset_in(mkSourceFile, scanner);
 
         void* pParser = htmlParseAlloc(malloc);
-        Token* token = NULL;
+        
+        Token* curToken = NULL;
 
         do {
-            token = (Token *) mkMalloc(this->heapHandle, sizeof(Token), __FILE__, __LINE__);
-            token->tokenCode = htmllex(scanner);
-            token->tokenStrLength = htmlget_leng(scanner);
-            token->tokenStr = mkStrdup(this->heapHandle, htmlget_text(scanner), __FILE__, __LINE__);
-            htmlParse(pParser, token->tokenCode, token, this);
-        } while (token->tokenCode != END_OF_FILE);
+            curToken = (Token *) mkMalloc(this->heapHandle, sizeof(Token), __FILE__, __LINE__);
+            curToken->tokenCode = htmllex(scanner);
+            curToken->tokenStrLength = htmlget_leng(scanner);
+            curToken->line = this->lineNumberOuter;
+            curToken->tokenStr = mkStrdup(this->heapHandle, htmlget_text(scanner), __FILE__, __LINE__);
+            if (this->frmxFile->frmxRootToken == NULL) {
+                this->frmxFile->frmxRootToken = curToken;
+                curToken->tokenId = this->frmxFile->frmxRootToken->tokenId + 1;
+            }
+            else {
+                curToken->tokenId = this->frmxFile->frmxCurrentToken->tokenId + 1;
+                this->frmxFile->frmxCurrentToken->next = curToken;
+            }            
+            this->frmxFile->frmxCurrentToken = curToken;
+            htmlParse(pParser, curToken->tokenCode, curToken, this);
+        } while (curToken->tokenCode != END_OF_FILE);
 
         htmlParse(pParser, 0, 0, this);
 
@@ -57,6 +79,28 @@ SodiumCompiler::ParseFRMXFile(
 
         return true;
     }
+}
+
+void
+SodiumCompiler::PrintParsedFRMXFile() {
+    printf("\n%s, (Token count: %d)", this->frmxFile->filePath, this->frmxFile->frmxCurrentToken->tokenId);
+    printf("\n--------------------------------------------------------------------------------\n");
+    Token* token = this->frmxFile->frmxRootToken;
+    while (token) {
+        if (token->tokenId == 1 && token->tokenCode != ENTER) {
+            printf("\n%4d:", token->line);
+        }
+        if (token) {
+            if (token->tokenCode == ENTER) {
+                printf("\n%4d:", token->line);
+            }
+            else {
+                printf("%.*s", token->tokenStrLength, token->tokenStr);
+            }
+        }
+        token = token->next;
+    }
+    printf("\n---------------------------------------------------\n");
 }
 
 BOOL
@@ -111,6 +155,7 @@ SodiumCompiler::ParseSQLXFile(
 
 SodiumCompiler::SodiumCompiler()
 {
+    this->frmxFile = new CompilerUnit();
     this->lineNumberOuter = 1;
     this->rootSymbol = NULL;
     this->heapHandle = HeapCreate(HEAP_ZERO_MEMORY, 2048, 0);
@@ -122,6 +167,8 @@ SodiumCompiler::~SodiumCompiler()
         HeapDestroy(this->heapHandle);
         this->heapHandle = NULL;
     }
+    if (this->frmxFile)
+        delete this->frmxFile;
 }
 
 void
@@ -129,3 +176,5 @@ SodiumCompiler::DumpDllFile()
 {
 
 }
+
+

@@ -181,6 +181,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CompileUnit.cpp" />
     <ClCompile Include="html.parser.imp.c" />
     <ClCompile Include="lemon.html.c" />
     <ClCompile Include="lemon.pre.c" />
@@ -205,6 +206,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     <None Include="lexer.pre.ll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CompileUnit.h" />
     <ClInclude Include="html.parser.imp.h" />
     <ClInclude Include="lemon.html.h" />
     <ClInclude Include="lemon.pre.h" />
@@ -214,6 +216,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     <ClInclude Include="resource.h" />
     <ClInclude Include="SodiumCompiler.h" />
     <ClInclude Include="SymbolTable.h" />
+    <ClInclude Include="Token.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SodiumCompiler.rc" />

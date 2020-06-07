@@ -13,30 +13,18 @@
 
 #pragma once
 
+using namespace std;
 
+#include "CompileUnit.h"
 #include "SymbolTable.h"
 
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-	#include "..\SodiumShared\SodiumShared.h"
-
-#ifdef __cplusplus
-}
-#endif
-
-typedef struct Token {
-	int			tokenCode;
-	const char	* tokenStr;
-	DWORD		tokenStrLength;
-} Token;
-
 class SodiumCompiler {
+	
+	CompilerUnit	* frmxFile;
 
-	SymbolTable	  * rootSymbol;
+	SymbolTable		* rootSymbol;
 
 public:
 	HANDLE			heapHandle;
@@ -49,6 +37,7 @@ public:
 	BOOL	ParseFRMXFile(char * filePath);
 	BOOL	ParseSQLXFile(char * filePath);
 	void	DumpDllFile();
+	void	PrintParsedFRMXFile();
 };
 
 

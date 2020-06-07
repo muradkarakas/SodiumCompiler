@@ -15,6 +15,7 @@
 
 #include <stdint.h>
 #include "html.parser.imp.h"
+#include "lemon.html.h" //  must be removed for the first time compile since this file will not be exists
 
 #include <assert.h>
 
@@ -34,15 +35,17 @@
 %token_destructor {
     Token *token = $$;
     if (token) {
-        if (token->tokenStr != NULL) {
-            if (token->tokenStr[0] == '\n') {
-                printf("\n%4d: ", session->lineNumberOuter);
-            } else {
+        if (token->tokenId == 1 && token->tokenCode != ENTER) {
+            printf("\n%4d:", token->line);
+        }
+        if (token) {
+            if (token->tokenCode == ENTER) {
+                printf("\n%4d:", token->line);
+            }
+            else {
                 printf("%.*s", token->tokenStrLength, token->tokenStr);
             }
         }
-        // TODO: make a linked list then free it
-        //mkFree(session->heapHandle, token);
     }
 }
 
@@ -186,6 +189,7 @@ tagdatablockcontents ::= tagdatablockcontent.
 
 tagdatablockcontent  ::= tagtable.
 tagdatablockcontent  ::= space.
+tagdatablockcontent  ::= enter.
 tagdatablockcontent  ::= htmltext.
 
 tagdatablockproperties   ::= tagdatablockproperties tagdatablockproperty.
@@ -368,14 +372,12 @@ taginputproperty              ::= spaces PROPERTYID ASSIGMENT PROPERTYDATA.
     ############################################################################################
 */
 tagtable         ::= tagtablefullopen tagtableblockclosefull.
-tagtable         ::= tagtablefullopen tablecontent tagtableblockclosefull.
+tagtable         ::= tagtablefullopen opt__spaces_enters tablecontent opt__spaces_enters tagtableblockclosefull.
 
 tagtablefullopen ::= tagtableopen tagclosechar.
-tagtablefullopen ::= tagtableopen tagclosechar spaces.
 tagtablefullopen ::= tagtableopen tagproperties tagclosechar.
-tagtablefullopen ::= tagtableopen tagproperties tagclosechar spaces.
 
-tagtableopen        ::= TAG_TABLE_OPEN.
+tagtableopen        ::= TAG_TABLE_OPEN opt__spaces_enters.
 
 tagtableblockclosefull ::= tagtableblockclose.
 
@@ -385,10 +387,10 @@ tagtableblockclose  ::= TAG_TABLE_BLOCK_CLOSE.
 
 
 
-tablecontent  ::= tagthead tagtbody tagtfoot.
-tablecontent  ::= tagthead tagtfoot tagtbody.
-tablecontent  ::= tagthead tagtbody.
-tablecontent  ::= tagtbody tagtfoot.
+tablecontent  ::= tagthead opt__spaces_enters tagtbody opt__spaces_enters tagtfoot.
+tablecontent  ::= tagthead opt__spaces_enters tagtfoot opt__spaces_enters tagtbody.
+tablecontent  ::= tagthead opt__spaces_enters tagtbody.
+tablecontent  ::= tagtbody opt__spaces_enters tagtfoot.
 tablecontent  ::= tagtbody.
 
 
