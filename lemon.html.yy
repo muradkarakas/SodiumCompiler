@@ -33,24 +33,21 @@
 
 %token_destructor {
     Token *token = $$;
-    if (token->tokenStr != NULL) {
-        if (token->tokenStr[0] == '\n') {
-            printf("\n%4d: ", session->lineNumberOuter);
-        } else {
-            printf("%.*s", token->tokenStrLength, token->tokenStr);
+    if (token) {
+        if (token->tokenStr != NULL) {
+            if (token->tokenStr[0] == '\n') {
+                printf("\n%4d: ", session->lineNumberOuter);
+            } else {
+                printf("%.*s", token->tokenStrLength, token->tokenStr);
+            }
         }
+        // TODO: make a linked list then free it
+        //mkFree(session->heapHandle, token);
     }
 }
 
 %default_destructor {
-    /*Token *token = $$;
-    if (token->tokenStr != NULL) {
-        if (token->tokenStr[0] == '\n') {
-            printf("\n%4d: ", session->lineNumberOuter);
-        } else {
-            printf("%.*s", token->tokenStrLength, token->tokenStr);
-        }
-    }*/
+
 }
 
 start ::= expressions.
@@ -58,10 +55,21 @@ start ::= expressions.
 expressions ::= expressions expression.
 expressions ::= expression.
 
-expression  ::= tagdoctype spaces_enters taghtml END_OF_FILE.
-expression  ::= tagdoctype spaces_enters taghtml spaces_enters END_OF_FILE.
+expression  ::= tagdoctype spaces_enters taghtml opt__spaces_enters END_OF_FILE.
+{
+    int a = 111;
+    a = 111;
+}
 expression  ::= space.
+{
+    int a = 111;
+    a = 111;
+}
 expression  ::= enter.
+{
+    int a = 111;
+    a = 111;
+}
 
 tagheadcontents ::= tagheadcontents tagheadcontent.
 tagheadcontents ::= tagheadcontent.
@@ -625,11 +633,9 @@ taghtml         ::= taghtmlfullopen taghtmlcontents taghtmlblockclosefull.
 taghtmlfullopen ::= taghtmlopen tagclosechar.
 taghtmlfullopen ::= taghtmlopen tagproperties tagclosechar.
 
-taghtmlblockclosefull ::= taghtmlblockclose.
+taghtmlblockclosefull ::= TAG_HTML_BLOCK_CLOSE.
 
 taghtmlopen       ::= TAG_HTML_OPEN.
-
-taghtmlblockclose ::= TAG_HTML_BLOCK_CLOSE.
 
 taghtmlcontents ::= taghtmlcontents taghtmlcontent.
 taghtmlcontents ::= taghtmlcontent.

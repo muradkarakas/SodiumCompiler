@@ -82,8 +82,8 @@
 #define PROPERTYID_SCRIPT_TYPE          82
 #define TAG_SCRIPT_OPEN                 83
 #define TAG_SCRIPT_BLOCK_CLOSE          84
-#define TAG_HTML_OPEN                   85
-#define TAG_HTML_BLOCK_CLOSE            86
+#define TAG_HTML_BLOCK_CLOSE            85
+#define TAG_HTML_OPEN                   86
 #define TAG_BODY_OPEN                   87
 #define TAG_BODY_BLOCK_CLOSE            88
 #define TAG_HEAD_OPEN                   89

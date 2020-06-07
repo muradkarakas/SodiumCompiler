@@ -39,23 +39,30 @@ SodiumCompiler::ParseFRMXFile(
         htmlset_in(mkSourceFile, scanner);
 
         void* pParser = htmlParseAlloc(malloc);
-        Token _token = { 0 };
-        Token *token = &_token;
+        Token* token = NULL;
 
-        token->tokenCode = htmllex(scanner);
-        while (token->tokenCode != END_OF_FILE) {
+        do {
+            token = (Token *) mkMalloc(this->heapHandle, sizeof(Token), __FILE__, __LINE__);
+            token->tokenCode = htmllex(scanner);
             token->tokenStrLength = htmlget_leng(scanner);
             token->tokenStr = htmlget_text(scanner);
-            htmlParse(pParser, token->tokenCode, token, this);
-            token->tokenCode = htmllex(scanner);
-        }
+            if (token->tokenCode != END_OF_FILE)
+                htmlParse(pParser, token->tokenCode, token, this);
+        } while (token->tokenCode != END_OF_FILE);
 
-        /*token->tokenCode = SPACE;
-        token->tokenStr = " ";
+        token = (Token*)mkMalloc(this->heapHandle, sizeof(Token), __FILE__, __LINE__);
+        
+        token->tokenCode = END_OF_FILE;
         token->tokenStrLength = 1;
+        token->tokenStr = "";
+        htmlParse(pParser, token->tokenCode, token, this);
+        
+        token->tokenCode = ENTER;
+        token->tokenStrLength = 1;
+        token->tokenStr = "\n";
         htmlParse(pParser, token->tokenCode, token, this);
 
-        htmlParse(pParser, 0, 0, this);*/
+        htmlParse(pParser, 0, 0, this);
 
         htmlParseFree(pParser, free);
         htmllex_destroy(scanner);
@@ -71,8 +78,7 @@ SodiumCompiler::ParseSQLXFile(
 )
 {
     bool retVal;
-    yyscan_t scanner;
-
+    
     FILE* mkSourceFile = fopen(filePath, "r");
 
     if (mkSourceFile == NULL) {
@@ -81,6 +87,8 @@ SodiumCompiler::ParseSQLXFile(
         retVal = false;
     }
     else {
+        /*
+        yyscan_t scanner;
 
         prelex_init_extra(this, &scanner);
         preset_in(mkSourceFile, scanner);
@@ -96,10 +104,17 @@ SodiumCompiler::ParseSQLXFile(
             preParse(pParser, token.tokenCode, token, this);
         } while (token.tokenCode != PRE_END_OF_FILE);
 
+        token.tokenCode = ENTER;
+        token.tokenStrLength = 1;
+        token.tokenStr = "\n";
+        preParse(pParser, token.tokenCode, token, this);
+
+        preParse(pParser, 0, NULL, this);
+
         preParseFree(pParser, free);
         prelex_destroy(scanner);
         fclose(mkSourceFile);
-
+        */
         retVal = true;
     }
 
@@ -109,7 +124,7 @@ SodiumCompiler::ParseSQLXFile(
 
 SodiumCompiler::SodiumCompiler()
 {
-    this->lineNumberOuter = 0;
+    this->lineNumberOuter = 1;
     this->rootSymbol = NULL;
     this->heapHandle = HeapCreate(HEAP_ZERO_MEMORY, 2048, 0);
 }
