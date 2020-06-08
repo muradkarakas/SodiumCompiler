@@ -36,7 +36,7 @@ public:
 	//	returns FALSE if file does not exists or not accessble
 	BOOL	ParseFRMXFile(char * filePath);
 	BOOL	ParseSQLXFile(char * filePath);
-	void	DumpDllFile();
+	BOOL	DumpDllFile();
 	void	PrintParsedFRMXFile();
 };
 

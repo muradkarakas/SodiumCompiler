@@ -11,6 +11,8 @@
  *	https://choosealicense.com/licenses/gpl-3.0/
  */
 
+#include "pch.h"
+
 #include "SodiumCompiler.h"
 #include "pre.parser.imp.h"
 
@@ -30,60 +32,11 @@ main(
 
     if (compiler->ParseFRMXFile(argv[1])) {
         //compiler->PrintParsedFRMXFile();
+        compiler->DumpDllFile();
     }
-
-
-    compiler->DumpDllFile();
 
     delete compiler;
 
     return 0;
-    /*
-    int n = argc > 1 ? atol(argv[1]) : 24;
-
-    InitializeNativeTarget();
-    InitializeNativeTargetAsmPrinter();
-    LLVMContext Context;
-
-    // Create some module to put our function into it.
-    std::unique_ptr<Module> Owner(new Module("test", Context));
-    Module* M = Owner.get();
-
-    // We are about to create the "fib" function:
-    Function* FibF = CreateFibFunction(M, Context);
-
-    // Now we going to create JIT
-    std::string errStr;
-    ExecutionEngine* EE =
-        EngineBuilder(std::move(Owner))
-        .setErrorStr(&errStr)
-        .create();
-
-    if (!EE) {
-        errs() << argv[0] << ": Failed to construct ExecutionEngine: " << errStr
-            << "\n";
-        return 1;
-    }
-
-    errs() << "verifying... ";
-    if (verifyModule(*M)) {
-        errs() << argv[0] << ": Error constructing function!\n";
-        return 1;
-    }
-
-    errs() << "OK\n";
-    errs() << "We just constructed this LLVM module:\n\n---------\n" << *M;
-    errs() << "---------\nstarting fibonacci(" << n << ") with JIT...\n";
-
-    // Call the Fibonacci function with argument n:
-    std::vector<GenericValue> Args(1);
-    Args[0].IntVal = APInt(32, n);
-    GenericValue GV = EE->runFunction(FibF, Args);
-
-    // import result of execution
-    outs() << "Result: " << GV.IntVal << "\n";
-
-    return 0;
-    */
 }
 

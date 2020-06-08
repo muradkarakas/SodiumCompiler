@@ -12,18 +12,14 @@
   *	https://choosealicense.com/licenses/gpl-3.0/
   */
 
-#include "pch.h"
-
-#include "lemon.html.h"
-#include "html.parser.imp.h"
-
+    #include "lemon.html.h"
+    #include "html.parser.imp.h"
 %}
 
 %top{
-#include <stdint.h>
-#define YYSTYPE (Token*)
+    #include "pch.h"
+    #include <stdint.h>
 }
-
 
 %option extra-type="SodiumCompiler *"
 %option never-interactive

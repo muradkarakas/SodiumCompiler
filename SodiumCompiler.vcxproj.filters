@@ -39,19 +39,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lexer.pre.c">
-      <Filter>Source Files\sqlx\preParser\lexer</Filter>
-    </ClCompile>
-    <ClCompile Include="lemon.pre.c">
-      <Filter>Source Files\sqlx\preParser\lemon</Filter>
-    </ClCompile>
     <ClCompile Include="pre.parser.imp.c">
       <Filter>Source Files\sqlx\preParser</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SodiumLLVM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SodiumCompiler.cpp">
@@ -63,17 +54,26 @@
     <ClCompile Include="Node.cpp">
       <Filter>Source Files\sqlx\Compiler</Filter>
     </ClCompile>
-    <ClCompile Include="lemon.html.c">
-      <Filter>Source Files\sqlx\htmlParser\lemon</Filter>
-    </ClCompile>
-    <ClCompile Include="lexer.html.c">
-      <Filter>Source Files\sqlx\htmlParser\lexer</Filter>
-    </ClCompile>
     <ClCompile Include="html.parser.imp.c">
       <Filter>Source Files\sqlx\htmlParser</Filter>
     </ClCompile>
     <ClCompile Include="CompileUnit.cpp">
       <Filter>Source Files\sqlx\Compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lexer.pre.cpp">
+      <Filter>Source Files\sqlx\preParser\lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="lexer.html.cpp">
+      <Filter>Source Files\sqlx\htmlParser\lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="lemon.html.cpp">
+      <Filter>Source Files\sqlx\htmlParser\lemon</Filter>
+    </ClCompile>
+    <ClCompile Include="lemon.pre.cpp">
+      <Filter>Source Files\sqlx\preParser\lemon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

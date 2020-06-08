@@ -13,6 +13,8 @@
 	 *	https://choosealicense.com/licenses/gpl-3.0/
 	 */
 
+#include "pch.h"
+
 #include <stdint.h>
 #include "html.parser.imp.h"
 #include "lemon.html.h" //  must be removed for the first time compile since this file will not be exists

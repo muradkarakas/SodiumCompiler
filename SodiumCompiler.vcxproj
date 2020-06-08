@@ -130,7 +130,7 @@
       <UseFullPaths>false</UseFullPaths>
       <TreatSpecificWarningsAsErrors>4238</TreatSpecificWarningsAsErrors>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,7 +157,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -181,15 +181,18 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
   <ItemGroup>
     <ClCompile Include="CompileUnit.cpp" />
     <ClCompile Include="html.parser.imp.c" />
-    <ClCompile Include="lemon.html.c" />
-    <ClCompile Include="lemon.pre.c" />
-    <ClCompile Include="lexer.html.c" />
-    <ClCompile Include="lexer.pre.c" />
+    <ClCompile Include="lemon.html.cpp" />
+    <ClCompile Include="lemon.pre.cpp" />
+    <ClCompile Include="lexer.html.cpp" />
+    <ClCompile Include="lexer.pre.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="pre.parser.imp.c" />
     <ClCompile Include="SodiumCompiler.cpp" />
-    <ClCompile Include="SodiumLLVM.cpp" />
     <ClCompile Include="SymbolTable.cpp" />
   </ItemGroup>
   <ItemGroup>
