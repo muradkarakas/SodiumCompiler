@@ -26,7 +26,7 @@ Sodium::SodiumCompiler::DumpLLVMIR2File()
     LLVMContext Context;
 
     // Create some module to put our function into it.
-    std::unique_ptr<Module> Owner(new Module("test", Context));
+    std::unique_ptr<Module> Owner(new Module("Sodium", Context));
     Module* M = Owner.get();
 
     // We are about to create a spesific function for a frmx file to return its context:
@@ -53,12 +53,18 @@ Sodium::SodiumCompiler::CreatePageFunction(
     LLVMContext& Context
 ) 
 {
+    // getting file name part from full path
+    string __functionName = this->frmxFile->filePath;
+    string _functionName = __functionName.substr(__functionName.find_last_of('\\') + sizeof(char), __functionName.length() - 5);
+    string functionName = _functionName.substr(0, _functionName.find_last_of('.'));
+
+
     // Create the page function and insert it into module M. This function is said
     // to return a char * and takes no parameter.
     FunctionType* FibFTy = FunctionType::get(Type::getInt32Ty(Context),
         { Type::getInt32Ty(Context) }, false);
     Function* FibF =
-        Function::Create(FibFTy, Function::ExternalLinkage, "fib", M);
+        Function::Create(FibFTy, Function::ExternalLinkage, functionName, M);
 
     FibF->setVisibility(llvm::GlobalValue::VisibilityTypes::DefaultVisibility);
     FibF->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
