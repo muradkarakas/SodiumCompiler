@@ -1,12 +1,6 @@
 #pragma once
 
-#ifndef NOMINMAX
-	#define NOMINMAX
-#endif
 
-#include <windows.h>
-
-#include <iostream>
 
 #include "llvm/ADT/APInt.h"
 #include "llvm/IR/Verifier.h"
