@@ -19,21 +19,29 @@
 
 using namespace std;
 
-const int MAX = 100;
+namespace Sodium {
 
-class SymbolTable {
-    Node* head[MAX];
+    const int MAX = 100;
 
-public:
-    SymbolTable();
+    class SymbolTable {
+        Node* head[MAX];
 
-    int hashf(string id); // hash function 
-    bool insert(string id, string scope, string Type, int lineno);
+    public:
+        SymbolTable();
 
-    string find(string id);
+        int hashf(string id); // hash function 
+        bool insert(string id, string scope, string Type, int lineno);
 
-    bool deleteRecord(string id);
+        string find(string id);
 
-    bool modify(string id, string scope, string Type, int lineno);
-};
+        bool deleteRecord(string id);
+
+        bool modify(string id, string scope, string Type, int lineno);
+    };
+
+}
+
+
+
+
 

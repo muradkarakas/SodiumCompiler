@@ -13,32 +13,45 @@
 
 #pragma once
 
-using namespace std;
-
-#include "CompileUnit.h"
 #include "SymbolTable.h"
 
-
-
-class SodiumCompiler {
-	
-	CompilerUnit	* frmxFile;
-
-	SymbolTable		* rootSymbol;
-
-public:
-	HANDLE			heapHandle;
-	int				lineNumberOuter;
-
-	SodiumCompiler();
-	~SodiumCompiler();
-
-	//	returns FALSE if file does not exists or not accessble
-	BOOL	ParseFRMXFile(char * filePath);
-	BOOL	ParseSQLXFile(char * filePath);
-	BOOL	DumpDllFile();
-	void	PrintParsedFRMXFile();
-};
-
+typedef void* HANDLE;
 
 extern HANDLE gHeapHandle;
+
+using namespace std;
+
+namespace Sodium {
+
+	class SodiumCompiler {
+
+		CompilerUnit* frmxFile;
+
+		SymbolTable* rootSymbol;
+
+	public:
+		HANDLE			heapHandle;
+		int				lineNumberOuter;
+
+		SodiumCompiler();
+		~SodiumCompiler();
+
+		//	returns FALSE if file does not exists or not accessble
+		BOOL	ParseFRMXFile(char* filePath);
+		BOOL	ParseSQLXFile(char* filePath);
+
+		BOOL	ExecuteLLVMIR();
+		BOOL	DumpIR2Screen();
+		BOOL	DumpLLVMIR2File();
+
+		llvm::Function* CreatePageFunction(llvm::Module* M, llvm::LLVMContext& Context);
+
+		void	PrintParsedFRMXFile();
+	};
+
+}
+
+
+
+
+

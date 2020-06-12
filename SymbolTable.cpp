@@ -13,24 +13,22 @@
 
 #include "pch.h"
 
-#include <iostream>
-
-#include "SymbolTable.h"
-#include "Node.h"
-
 using namespace std;
 
-SymbolTable::SymbolTable()
+
+
+
+Sodium::SymbolTable::SymbolTable()
 {
     for (int i = 0; i < MAX; i++)
         head[i] = NULL;
 }
 
 // Function to modify an identifier 
-bool 
-    SymbolTable::modify(
-        string id, 
-        string s, 
+bool
+Sodium::SymbolTable::modify(
+        string id,
+        string s,
         string t,
         int l
     )
@@ -55,8 +53,8 @@ bool
 }
 
 // Function to delete an identifier 
-bool 
-    SymbolTable::deleteRecord(
+bool
+Sodium::SymbolTable::deleteRecord(
         string id
     )
 {
@@ -97,8 +95,8 @@ bool
 }
 
 // Function to find an identifier 
-string 
-    SymbolTable::find(
+string
+Sodium::SymbolTable::find(
         string id
     )
 {
@@ -122,11 +120,11 @@ string
 }
 
 // Function to insert an identifier 
-bool 
-    SymbolTable::insert(
-        string id, 
+bool
+Sodium::SymbolTable::insert(
+        string id,
         string scope,
-        string Type, 
+        string Type,
         int lineno
     )
 {
@@ -156,10 +154,10 @@ bool
     return false;
 }
 
-int 
-SymbolTable::hashf(
-    string id
-)
+int
+Sodium::SymbolTable::hashf(
+        string id
+    )
 {
     int asciiSum = 0;
 

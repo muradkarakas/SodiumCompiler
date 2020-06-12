@@ -18,7 +18,7 @@
 typedef void* yyscan_t;
 
 #ifndef YY_EXTRA_TYPE
-#define YY_EXTRA_TYPE SodiumCompiler *
+#define YY_EXTRA_TYPE Sodium::SodiumCompiler *
 #endif
 
 int				prelex(yyscan_t yyscanner);
@@ -32,7 +32,7 @@ void preParse(
 	void* yyp,           // The parser 
 	int yymajor,         // The major token code number 
 	Token *yyminor,       // The value for the token 
-	SodiumCompiler *     //	Optional %extra_argument parameter 
+	Sodium::SodiumCompiler *     //	Optional %extra_argument parameter 
 );
 
 void				  * preParseAlloc(void* (*allocProc)(size_t));

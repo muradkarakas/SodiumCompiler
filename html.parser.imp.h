@@ -33,7 +33,7 @@ void htmlParse(
 	void* yyp,           // The parser 
 	int yymajor,         // The major token code number 
 	Token * yyminor,       // The value for the token 
-	SodiumCompiler*     //	Optional %extra_argument parameter 
+	Sodium::SodiumCompiler*     //	Optional %extra_argument parameter 
 );
 
 void		  * htmlParseAlloc(void* (*allocProc)(size_t));

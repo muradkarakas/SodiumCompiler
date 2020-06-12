@@ -1,7 +1,5 @@
 #pragma once
 
-
-
 #include "llvm/ADT/APInt.h"
 #include "llvm/IR/Verifier.h"
 #include "llvm/ExecutionEngine/ExecutionEngine.h"
@@ -25,3 +23,29 @@
 #include <memory>
 #include <string>
 #include <vector>
+
+#include <stdio.h>
+#include <iostream>
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+	#include "..\SodiumShared\SodiumShared.h"
+
+#ifdef __cplusplus
+}
+#endif
+
+#include "CompileUnit.h"
+
+#include "pre.parser.imp.h"
+#include "html.parser.imp.h"
+#include "lemon.html.h"
+#include "lemon.pre.h"
+
+#include "SymbolTable.h"
+#include "Node.h"
+
+#include "SodiumCompiler.h"

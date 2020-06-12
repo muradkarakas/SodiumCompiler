@@ -13,30 +13,14 @@
 
 #include "pch.h"
 
-#include <stdio.h>
 
-#include "CompileUnit.h"
-
-#include "pre.parser.imp.h"
-#include "html.parser.imp.h"
-#include "lemon.html.h"
-#include "lemon.pre.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-    #include "..\SodiumShared\SodiumShared.h"
-#ifdef __cplusplus
-}
-#endif
-
-CompilerUnit::CompilerUnit(SodiumCompiler * compiler) {
+Sodium::CompilerUnit::CompilerUnit(SodiumCompiler * compiler) {
     this->compiler = compiler;
     this->frmxRootToken = NULL;
     this->frmxCurrentToken = NULL;
 }
 
-CompilerUnit::~CompilerUnit() {
+Sodium::CompilerUnit::~CompilerUnit() {
     Token* token = this->frmxRootToken;
     while (token) {
         if (token->tokenStr) {
@@ -50,7 +34,7 @@ CompilerUnit::~CompilerUnit() {
 }
 
 BOOL
-CompilerUnit::ParseFRMXFile(
+Sodium::CompilerUnit::ParseFRMXFile(
     char* filePath
 )
 {
@@ -64,7 +48,7 @@ CompilerUnit::ParseFRMXFile(
         return false;
     }
     else {
-        strcpy(this->filePath, filePath);
+        this->filePath = filePath;
 
         htmllex_init_extra(this->compiler, &scanner);
         htmlset_in(mkSourceFile, scanner);
@@ -102,8 +86,8 @@ CompilerUnit::ParseFRMXFile(
 }
 
 void
-CompilerUnit::PrintParsedFileContent() {
-    printf("\n%s, (Token count: %d)", this->filePath, this->frmxCurrentToken->tokenId);
+Sodium::CompilerUnit::PrintParsedFileContent() {
+    printf("\n%s, (Token count: %d)", this->filePath.c_str(), this->frmxCurrentToken->tokenId);
     printf("\n--------------------------------------------------------------------------------\n");
     Token* token = this->frmxRootToken;
     while (token) {

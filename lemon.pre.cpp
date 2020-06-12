@@ -118,9 +118,9 @@ typedef union {
 #ifndef YYSTACKDEPTH
 #define YYSTACKDEPTH 100
 #endif
-#define preParseARG_SDECL  SodiumCompiler *session ;
-#define preParseARG_PDECL , SodiumCompiler *session 
-#define preParseARG_FETCH  SodiumCompiler *session  = yypParser->session 
+#define preParseARG_SDECL  Sodium::SodiumCompiler *session ;
+#define preParseARG_PDECL , Sodium::SodiumCompiler *session 
+#define preParseARG_FETCH  Sodium::SodiumCompiler *session  = yypParser->session 
 #define preParseARG_STORE yypParser->session  = session 
 #define YYNSTATE             24
 #define YYNRULE              35

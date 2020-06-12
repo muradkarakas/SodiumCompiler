@@ -2,26 +2,29 @@
 
 #include "Token.h"
 
-extern class SodiumCompiler;
 
 using namespace std;
 
-class CompilerUnit {
+namespace Sodium {
 
-	char			filePath[MAX_PATH];
-	Token			* frmxCurrentToken;
-	Token			* frmxRootToken;
-	SodiumCompiler	* compiler;
+	extern class SodiumCompiler;
+	
+	class CompilerUnit {
 
-public:
-	CompilerUnit(SodiumCompiler * compiler);
+		string			filePath;
+		Token* frmxCurrentToken;
+		Token* frmxRootToken;
+		SodiumCompiler* compiler;
 
-	~CompilerUnit();
+	public:
+		CompilerUnit(SodiumCompiler* compiler);
 
-	BOOL ParseFRMXFile(char * filePath);
-	void PrintParsedFileContent();
+		~CompilerUnit();
 
-	friend class SodiumCompiler;
-};
+		BOOL ParseFRMXFile(char* filePath);
+		void PrintParsedFileContent();
 
+		friend class SodiumCompiler;
+	};
 
+}

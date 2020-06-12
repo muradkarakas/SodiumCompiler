@@ -17,15 +17,19 @@
 
 using namespace std;
 
-class Node {
+namespace Sodium {
 
-    string identifier, scope, type;
-    int lineNo;
-    Node* next;
+    class Node {
 
-public:
-    Node();
-    Node(string key, string value, string type, int lineNo);
-    void print();
-    friend class SymbolTable;
-};
+        string identifier, scope, type;
+        int lineNo;
+        Node* next;
+
+    public:
+        Node();
+        Node(string key, string value, string type, int lineNo);
+        void print();
+        friend class SymbolTable;
+    };
+
+}

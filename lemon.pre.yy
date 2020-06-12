@@ -24,7 +24,7 @@
 
 %name preParse
 
-%extra_argument { SodiumCompiler *session }
+%extra_argument { Sodium::SodiumCompiler *session }
 
 %type function_body_line    { const char * }
 %type function_body_lines   { const char * }

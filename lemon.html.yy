@@ -25,7 +25,7 @@
 
 %name htmlParse
 
-%extra_argument { SodiumCompiler *session }
+%extra_argument { Sodium::SodiumCompiler *session }
 
 %token_type { Token * }
 

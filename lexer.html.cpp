@@ -1164,7 +1164,7 @@ static const flex_int16_t yy_chk[1490] =
 #include <unistd.h>
 #endif
     
-#define YY_EXTRA_TYPE SodiumCompiler *
+#define YY_EXTRA_TYPE Sodium::SodiumCompiler *
 
 /* Holds the entire state of the reentrant scanner. */
 struct yyguts_t
@@ -1632,7 +1632,7 @@ case 21:
 YY_RULE_SETUP
 #line 156 "lexer.html.ll"
 {
-														SodiumCompiler *session = yyextra;
+														Sodium::SodiumCompiler *session = yyextra;
                                                         session->lineNumberOuter++;
                                                         return ENTER;
 													}
@@ -1759,7 +1759,7 @@ case 34:
 YY_RULE_SETUP
 #line 213 "lexer.html.ll"
 {
-														SodiumCompiler * session = yyextra;
+														Sodium::SodiumCompiler * session = yyextra;
                                                         session->lineNumberOuter++;
                                                         return ENTER;
 													}
@@ -1952,7 +1952,7 @@ case 57:
 YY_RULE_SETUP
 #line 315 "lexer.html.ll"
 {
-                            SodiumCompiler * session = yyextra;
+                            Sodium::SodiumCompiler * session = yyextra;
                             session->lineNumberOuter++;
 							return ENTER;
 						}
@@ -1994,7 +1994,7 @@ case 62:
 YY_RULE_SETUP
 #line 337 "lexer.html.ll"
 {
-														SodiumCompiler *session = yyextra;
+														Sodium::SodiumCompiler *session = yyextra;
                                                         session->lineNumberOuter++;
 														return ENTER;
 													}
@@ -2160,7 +2160,7 @@ case 84:
 YY_RULE_SETUP
 #line 416 "lexer.html.ll"
 {
-							SodiumCompiler * session = yyextra;
+							Sodium::SodiumCompiler * session = yyextra;
                             session->lineNumberOuter++;
 							return ENTER;
 						}
@@ -2346,7 +2346,7 @@ case 107:
 YY_RULE_SETUP
 #line 517 "lexer.html.ll"
 {
-														SodiumCompiler * session = yyextra;
+														Sodium::SodiumCompiler * session = yyextra;
                                                         session->lineNumberOuter++;
                                                         return ENTER;
 													}
@@ -2579,7 +2579,7 @@ case 138:
 YY_RULE_SETUP
 #line 627 "lexer.html.ll"
 {
-												SodiumCompiler * session = yyextra;
+												Sodium::SodiumCompiler * session = yyextra;
 												session->lineNumberOuter++;
                                                 return ENTER;
 											}

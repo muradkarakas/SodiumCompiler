@@ -13,17 +13,14 @@
 
 #include "pch.h"
 
-#include <iostream> 
-#include "Node.h"
-
 using namespace std;
 
-Node::Node()
+Sodium::Node::Node()
 {
     next = NULL;
 }
 
-Node::Node(string key, string value, string type, int lineNo)
+Sodium::Node::Node(string key, string value, string type, int lineNo)
 {
     this->identifier = key;
     this->scope = value;
@@ -32,7 +29,8 @@ Node::Node(string key, string value, string type, int lineNo)
     next = NULL;
 }
 
-void Node::print()
+void 
+Sodium::Node::print()
 {
     cout << "Identifier's Name:" << identifier
         << "\nType:" << type

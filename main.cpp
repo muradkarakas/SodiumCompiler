@@ -13,9 +13,6 @@
 
 #include "pch.h"
 
-#include "SodiumCompiler.h"
-#include "pre.parser.imp.h"
-
 
 int 
 main(
@@ -28,11 +25,11 @@ main(
         return 1;
     }
 
-    SodiumCompiler *compiler = new SodiumCompiler();
+    Sodium::SodiumCompiler *compiler = new Sodium::SodiumCompiler();
 
     if (compiler->ParseFRMXFile(argv[1])) {
         //compiler->PrintParsedFRMXFile();
-        compiler->DumpDllFile();
+        compiler->DumpLLVMIR2File();
     }
 
     delete compiler;

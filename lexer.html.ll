@@ -21,7 +21,7 @@
     #include <stdint.h>
 }
 
-%option extra-type="SodiumCompiler *"
+%option extra-type="Sodium::SodiumCompiler *"
 %option never-interactive
 %option nounistd
 %option reentrant
@@ -153,7 +153,7 @@ BEGIN(INITIAL);
 														return TAG_STYLE_BLOCK_CLOSE;
 													}
 {ENTER}                                             {
-														SodiumCompiler *session = yyextra;
+														Sodium::SodiumCompiler *session = yyextra;
                                                         session->lineNumberOuter++;
                                                         return ENTER;
 													}
@@ -210,7 +210,7 @@ BEGIN(INITIAL);
 
                                                     }
 {ENTER}                                             {
-														SodiumCompiler * session = yyextra;
+														Sodium::SodiumCompiler * session = yyextra;
                                                         session->lineNumberOuter++;
                                                         return ENTER;
 													}
@@ -312,7 +312,7 @@ BEGIN(INITIAL);
                             return PROPERTYDATA;
                         }
 {ENTER}                 {
-                            SodiumCompiler * session = yyextra;
+                            Sodium::SodiumCompiler * session = yyextra;
                             session->lineNumberOuter++;
 							return ENTER;
 						}
@@ -334,7 +334,7 @@ BEGIN(INITIAL);
                                                             return TAG_CONTROLBLOCK_CLOSE;
                                                         }
 {ENTER}                                             {
-														SodiumCompiler *session = yyextra;
+														Sodium::SodiumCompiler *session = yyextra;
                                                         session->lineNumberOuter++;
 														return ENTER;
 													}
@@ -413,7 +413,7 @@ BEGIN(INITIAL);
                             return TAG_CLOSE;
 						}
 {ENTER}                 {
-							SodiumCompiler * session = yyextra;
+							Sodium::SodiumCompiler * session = yyextra;
                             session->lineNumberOuter++;
 							return ENTER;
 						}
@@ -514,7 +514,7 @@ BEGIN(INITIAL);
 																return TAG_SELECT_BLOCK_CLOSE;
 															}
 {ENTER}                                             {
-														SodiumCompiler * session = yyextra;
+														Sodium::SodiumCompiler * session = yyextra;
                                                         session->lineNumberOuter++;
                                                         return ENTER;
 													}
@@ -624,7 +624,7 @@ BEGIN(INITIAL);
                                                 return TAG_CLOSE;
                                             }
 {ENTER}                                     {
-												SodiumCompiler * session = yyextra;
+												Sodium::SodiumCompiler * session = yyextra;
 												session->lineNumberOuter++;
                                                 return ENTER;
 											}

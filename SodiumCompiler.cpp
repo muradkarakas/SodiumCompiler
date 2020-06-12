@@ -13,32 +13,56 @@
 
 #include "pch.h"
 
-#include "SodiumCompiler.h"
-
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-    #include "..\SodiumShared\SodiumShared.h"
-#ifdef __cplusplus
-}
-#endif
-
 
 HANDLE gHeapHandle = NULL;
 
-
-
 using namespace llvm;
 
-static Function* CreateFibFunction(Module* M, LLVMContext& Context) {
+BOOL
+Sodium::SodiumCompiler::DumpLLVMIR2File()
+{
+    InitializeNativeTarget();
+    InitializeNativeTargetAsmPrinter();
+    LLVMContext Context;
+
+    // Create some module to put our function into it.
+    std::unique_ptr<Module> Owner(new Module("test", Context));
+    Module* M = Owner.get();
+
+    // We are about to create a spesific function for a frmx file to return its context:
+    /*Function* FibF = */ CreatePageFunction(M, Context);
+
+    // replacing file name extension ".frmx" with ".ll"
+    string irFileName = this->frmxFile->filePath;
+    irFileName.replace(irFileName.end() - 5, irFileName.end(), ".ll");
+
+    // writing LLCM IR file to disk
+    StringRef irfileNameRef(irFileName);
+    std::error_code error;
+    raw_fd_ostream file(irfileNameRef, error);
+    file << *M;
+    file.close();
     
-    // Create the fib function and insert it into module M. This function is said
-    // to return an int and take an int parameter.
+    return TRUE;
+}
+
+
+Function* 
+Sodium::SodiumCompiler::CreatePageFunction(
+    Module* M, 
+    LLVMContext& Context
+) 
+{
+    // Create the page function and insert it into module M. This function is said
+    // to return a char * and takes no parameter.
     FunctionType* FibFTy = FunctionType::get(Type::getInt32Ty(Context),
         { Type::getInt32Ty(Context) }, false);
     Function* FibF =
         Function::Create(FibFTy, Function::ExternalLinkage, "fib", M);
+
+    FibF->setVisibility(llvm::GlobalValue::VisibilityTypes::DefaultVisibility);
+    FibF->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
+    FibF->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
 
     // Add a basic block to the function.
     BasicBlock* BB = BasicBlock::Create(Context, "EntryBlock", FibF);
@@ -85,7 +109,56 @@ static Function* CreateFibFunction(Module* M, LLVMContext& Context) {
 
 
 BOOL
-SodiumCompiler::DumpDllFile()
+Sodium::SodiumCompiler::ExecuteLLVMIR()
+{
+    int n = 10;
+    InitializeNativeTarget();
+    InitializeNativeTargetAsmPrinter();
+    LLVMContext Context;
+
+    // Create some module to put our function into it.
+    std::unique_ptr<Module> Owner(new Module("test", Context));
+    Module* M = Owner.get();
+
+    // We are about to create the "page" function:
+    Function* FibF = this->CreatePageFunction(M, Context);
+
+    // Now we going to create JIT
+    std::string errStr;
+    ExecutionEngine* EE =
+        EngineBuilder(std::move(Owner))
+        .setErrorStr(&errStr)
+        .create();
+
+    if (!EE) {
+        errs() << this->frmxFile->filePath.c_str() << ": Failed to construct ExecutionEngine: " << errStr
+            << "\n";
+        return FALSE;
+    }
+
+    errs() << "verifying... ";
+    if (verifyModule(*M)) {
+        errs() << this->frmxFile->filePath.c_str() << ": Error constructing function!\n";
+        return FALSE;
+    }
+
+    outs() << "OK\n";
+    outs() << "We just constructed this LLVM module:\n\n---------\n" << *M;
+    outs() << "---------\nstarting fibonacci(" << n << ") with JIT...\n";
+
+    // Call the Fibonacci function with argument n:
+    std::vector<GenericValue> Args(1);
+    Args[0].IntVal = APInt(32, n);
+    GenericValue GV = EE->runFunction(FibF, Args);
+
+    // import result of execution
+    outs() << "Result: " << GV.IntVal << "\n";
+        
+    return TRUE;
+}
+
+BOOL
+Sodium::SodiumCompiler::DumpIR2Screen()
 {
     int n = 10;
     InitializeNativeTarget();
@@ -97,7 +170,7 @@ SodiumCompiler::DumpDllFile()
     Module* M = Owner.get();
 
     // We are about to create the "fib" function:
-    Function* FibF = CreateFibFunction(M, Context);
+    Function* FibF = CreatePageFunction(M, Context);
 
     // Now we going to create JIT
     std::string errStr;
@@ -118,9 +191,9 @@ SodiumCompiler::DumpDllFile()
         return FALSE;
     }
 
-    errs() << "OK\n";
-    errs() << "We just constructed this LLVM module:\n\n---------\n" << *M;
-    errs() << "---------\nstarting fibonacci(" << n << ") with JIT...\n";
+    outs() << "OK\n";
+    outs() << "We just constructed this LLVM module:\n\n---------\n" << *M;
+    outs() << "---------\nstarting fibonacci(" << n << ") with JIT...\n";
 
     // Call the Fibonacci function with argument n:
     std::vector<GenericValue> Args(1);
@@ -129,14 +202,13 @@ SodiumCompiler::DumpDllFile()
 
     // import result of execution
     outs() << "Result: " << GV.IntVal << "\n";
-
+        
     return TRUE;
 }
 
 
-
 BOOL
-SodiumCompiler::ParseFRMXFile(
+Sodium::SodiumCompiler::ParseFRMXFile(
     char* filePath
 )
 {
@@ -144,14 +216,14 @@ SodiumCompiler::ParseFRMXFile(
 }
 
 void
-SodiumCompiler::PrintParsedFRMXFile() {
+Sodium::SodiumCompiler::PrintParsedFRMXFile() {
     if (this->frmxFile) {
         this->frmxFile->PrintParsedFileContent();
     }
 }
 
 BOOL
-SodiumCompiler::ParseSQLXFile(
+Sodium::SodiumCompiler::ParseSQLXFile(
     char* filePath
 )
 {
@@ -200,7 +272,7 @@ SodiumCompiler::ParseSQLXFile(
 }
 
 
-SodiumCompiler::SodiumCompiler()
+Sodium::SodiumCompiler::SodiumCompiler()
 {
     this->frmxFile = new CompilerUnit(this);
     this->lineNumberOuter = 1;
@@ -208,7 +280,7 @@ SodiumCompiler::SodiumCompiler()
     this->heapHandle = HeapCreate(HEAP_ZERO_MEMORY, 2048, 0);
 }
 
-SodiumCompiler::~SodiumCompiler()
+Sodium::SodiumCompiler::~SodiumCompiler()
 {
     if (this->frmxFile)
         delete this->frmxFile;
@@ -219,3 +291,63 @@ SodiumCompiler::~SodiumCompiler()
     }
 }
 
+
+
+/*
+Function* 
+Sodium::CreateFibFunction(Module* M, LLVMContext& Context) {
+
+    // Create the fib function and insert it into module M. This function is said
+    // to return an int and take an int parameter.
+    FunctionType* FibFTy = FunctionType::get(Type::getInt32Ty(Context),
+        { Type::getInt32Ty(Context) }, false);
+    Function* FibF =
+        Function::Create(FibFTy, Function::ExternalLinkage, "fib", M);
+
+    FibF->setVisibility(llvm::GlobalValue::VisibilityTypes::DefaultVisibility);
+    FibF->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
+    FibF->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
+
+    // Add a basic block to the function.
+    BasicBlock* BB = BasicBlock::Create(Context, "EntryBlock", FibF);
+
+    // Get pointers to the constants.
+    Value* One = ConstantInt::get(Type::getInt32Ty(Context), 1);
+    Value* Two = ConstantInt::get(Type::getInt32Ty(Context), 2);
+
+    // Get pointer to the integer argument of the add1 function...
+    Argument* ArgX = &*FibF->arg_begin(); // Get the arg.
+    ArgX->setName("AnArg");            // Give it a nice symbolic name for fun.
+
+    // Create the true_block.
+    BasicBlock* RetBB = BasicBlock::Create(Context, "return", FibF);
+    // Create an exit block.
+    BasicBlock* RecurseBB = BasicBlock::Create(Context, "recurse", FibF);
+
+    // Create the "if (arg <= 2) goto exitbb"
+    Value* CondInst = new ICmpInst(*BB, ICmpInst::ICMP_SLE, ArgX, Two, "cond");
+    BranchInst::Create(RetBB, RecurseBB, CondInst, BB);
+
+    // Create: ret int 1
+    ReturnInst::Create(Context, One, RetBB);
+
+    // create fib(x-1)
+    Value* Sub = BinaryOperator::CreateSub(ArgX, One, "arg", RecurseBB);
+    CallInst* CallFibX1 = CallInst::Create(FibF, Sub, "fibx1", RecurseBB);
+    CallFibX1->setTailCall();
+
+    // create fib(x-2)
+    Sub = BinaryOperator::CreateSub(ArgX, Two, "arg", RecurseBB);
+    CallInst* CallFibX2 = CallInst::Create(FibF, Sub, "fibx2", RecurseBB);
+    CallFibX2->setTailCall();
+
+    // fib(x-1)+fib(x-2)
+    Value* Sum = BinaryOperator::CreateAdd(CallFibX1, CallFibX2,
+        "addresult", RecurseBB);
+
+    // Create the return instruction and add it to the basic block
+    ReturnInst::Create(Context, Sum, RecurseBB);
+
+    return FibF;
+}
+*/

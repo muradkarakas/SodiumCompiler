@@ -22,7 +22,7 @@
 }
 
 
-%option extra-type="SodiumCompiler *"
+%option extra-type="Sodium::SodiumCompiler *"
 %option reentrant
 %option noyywrap noinput nounput
 %option never-interactive
@@ -71,7 +71,7 @@ BEGIN(INITIAL);
                                     return PRE_COMMENT_START;
                                 }
 {CRLF}							{
-									SodiumCompiler *session = yyextra;
+									Sodium::SodiumCompiler *session = yyextra;
 									session->lineNumberOuter++;
 								}
 [ \t]*							{
@@ -90,7 +90,7 @@ BEGIN(INITIAL);
 
 <SC_COMMENT>{
 {CRLF}							{
-									SodiumCompiler *session = yyextra;
+									Sodium::SodiumCompiler *session = yyextra;
 									session->lineNumberOuter++;
 								}
 "*/"                            {
@@ -147,7 +147,7 @@ BEGIN(INITIAL);
                                 return PRE_FUNCTION_END;
                             }
 {CRLF}						{
-								SodiumCompiler *session = yyextra;
+								Sodium::SodiumCompiler *session = yyextra;
 								session->lineNumberOuter++;
 								return PRE_FUNCTION_BODY_LINE;
 							}

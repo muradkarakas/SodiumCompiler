@@ -647,7 +647,7 @@ static const flex_int16_t yy_chk[362] =
 #include <unistd.h>
 #endif
     
-#define YY_EXTRA_TYPE SodiumCompiler *
+#define YY_EXTRA_TYPE Sodium::SodiumCompiler *
 
 /* Holds the entire state of the reentrant scanner. */
 struct yyguts_t
@@ -1017,7 +1017,7 @@ case 10:
 YY_RULE_SETUP
 #line 73 "lexer.pre.ll"
 {
-									SodiumCompiler *session = yyextra;
+									Sodium::SodiumCompiler *session = yyextra;
 									session->lineNumberOuter++;
 								}
 	YY_BREAK
@@ -1058,7 +1058,7 @@ case 14:
 YY_RULE_SETUP
 #line 92 "lexer.pre.ll"
 {
-									SodiumCompiler *session = yyextra;
+									Sodium::SodiumCompiler *session = yyextra;
 									session->lineNumberOuter++;
 								}
 	YY_BREAK
@@ -1172,7 +1172,7 @@ case 29:
 YY_RULE_SETUP
 #line 149 "lexer.pre.ll"
 {
-								SodiumCompiler *session = yyextra;
+								Sodium::SodiumCompiler *session = yyextra;
 								session->lineNumberOuter++;
 								return PRE_FUNCTION_BODY_LINE;
 							}
