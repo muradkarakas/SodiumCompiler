@@ -29,9 +29,9 @@
 %type function_body_line    { const char * }
 %type function_body_lines   { const char * }
 
-%token_type { Token }
+%token_type { Sodium::Token }
 
-%default_type { Token }
+%default_type { Sodium::Token }
 
 %token_destructor {
     if ($$.tokenStr != NULL) {
@@ -175,7 +175,7 @@ parameter       ::= .
 */
 identifier(RET) ::= PRE_IDENTIFIER(A).
 {
-	Token a = A;
+	Sodium::Token a = A;
 	RET = a;
 }
 

@@ -13,11 +13,25 @@
 
 #include "pch.h"
 
+using namespace Sodium;
 
 Sodium::CompilerUnit::CompilerUnit(SodiumCompiler * compiler) {
     this->compiler = compiler;
     this->frmxRootToken = NULL;
     this->frmxCurrentToken = NULL;
+}
+
+string
+Sodium::CompilerUnit::GetFrmxFileContent() {
+    string html = "";
+    Token* token = this->frmxRootToken;
+    while (token) {
+        if (token->tokenStr) {
+            html.append(token->tokenStr);
+        }
+        token = token->next;
+    }
+    return html;
 }
 
 Sodium::CompilerUnit::~CompilerUnit() {
@@ -34,7 +48,7 @@ Sodium::CompilerUnit::~CompilerUnit() {
 }
 
 BOOL
-Sodium::CompilerUnit::ParseFRMXFile(
+Sodium::CompilerUnit::ParseFrmx(
     char* filePath
 )
 {

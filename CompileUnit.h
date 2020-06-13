@@ -21,7 +21,9 @@ namespace Sodium {
 
 		~CompilerUnit();
 
-		BOOL ParseFRMXFile(char* filePath);
+		BOOL	ParseFrmx(char* filePath);
+		string	GetFrmxFileContent();
+
 		void PrintParsedFileContent();
 
 		friend class SodiumCompiler;

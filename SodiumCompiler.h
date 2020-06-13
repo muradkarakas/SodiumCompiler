@@ -25,9 +25,9 @@ namespace Sodium {
 
 	class SodiumCompiler {
 
-		CompilerUnit* frmxFile;
+		CompilerUnit	* frmxParser;
 
-		SymbolTable* rootSymbol;
+		SymbolTable		* rootSymbol;
 
 	public:
 		HANDLE			heapHandle;
@@ -37,12 +37,13 @@ namespace Sodium {
 		~SodiumCompiler();
 
 		//	returns FALSE if file does not exists or not accessble
-		BOOL	ParseFRMXFile(char* filePath);
+		BOOL	ParseFrmx(char* filePath);
+		BOOL	DumpFrmx();
+
 		BOOL	ParseSQLXFile(char* filePath);
 
 		BOOL	ExecuteLLVMIR();
 		BOOL	DumpIR2Screen();
-		BOOL	DumpLLVMIR2File();
 
 		llvm::Function* CreatePageFunction(llvm::Module* M, llvm::LLVMContext& Context);
 

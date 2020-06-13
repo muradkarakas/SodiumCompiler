@@ -19,7 +19,7 @@ HANDLE gHeapHandle = NULL;
 using namespace llvm;
 
 BOOL
-Sodium::SodiumCompiler::DumpLLVMIR2File()
+Sodium::SodiumCompiler::DumpFrmx()
 {
     InitializeNativeTarget();
     InitializeNativeTargetAsmPrinter();
@@ -33,7 +33,7 @@ Sodium::SodiumCompiler::DumpLLVMIR2File()
     /*Function* FibF = */ CreatePageFunction(M, Context);
 
     // replacing file name extension ".frmx" with ".ll"
-    string irFileName = this->frmxFile->filePath;
+    string irFileName = this->frmxParser->filePath;
     irFileName.replace(irFileName.end() - 5, irFileName.end(), ".ll");
 
     // writing LLCM IR file to disk
@@ -45,29 +45,17 @@ Sodium::SodiumCompiler::DumpLLVMIR2File()
     
     return TRUE;
 }
-/*
-LLVMValueRef 
-Sodium::SodiumCompiler::llvmGenLocalStringVar(const char* data, int len)
-{
-    LLVMValueRef glob = LLVMAddGlobal(mod, LLVMArrayType(LLVMInt8Type(), len), "string");
-
-    // set as internal linkage and constant
-    LLVMSetLinkage(glob, LLVMInternalLinkage);
-    LLVMSetGlobalConstant(glob, TRUE);
-
-    // Initialize with string:
-    LLVMSetInitializer(glob, LLVMConstString(data, len, TRUE));
-
-    return glob;
-}*/
 
 Function* 
 Sodium::SodiumCompiler::CreatePageFunction(
     Module* M, 
     LLVMContext& Context) 
 {
-    // extracting file name from full path. it will be used as function name
-    string __functionName = this->frmxFile->filePath;
+    //  
+    //  calculating function name
+    //  converting "c:\....\core.frmx" to "core_html".
+    //
+    string __functionName = this->frmxParser->filePath;
     string _functionName = __functionName.substr(__functionName.find_last_of('\\') + sizeof(char), __functionName.length() - 5);
     string functionName = _functionName.substr(0, _functionName.find_last_of('.'));
     functionName.append("_html");
@@ -85,10 +73,13 @@ Sodium::SodiumCompiler::CreatePageFunction(
     // Add a basic block to the function.
     BasicBlock* BB = BasicBlock::Create(Context, "EntryBlock", FibF);
 
+    //  getting html file content as string
+    string html = this->frmxParser->GetFrmxFileContent();
+
     // creating global variable holding page html content
     llvm::IRBuilder<> builder(Context);
     builder.SetInsertPoint(BB);
-    llvm::Value* htmlContent = builder.CreateGlobalStringPtr("hello world!\n", "g_" + functionName);
+    llvm::Value* htmlContent = builder.CreateGlobalStringPtr(html, "g_" + functionName);
 
     // Create the return instruction and add it to the basic block
     ReturnInst::Create(Context, htmlContent, BB);
@@ -120,14 +111,14 @@ Sodium::SodiumCompiler::ExecuteLLVMIR()
         .create();
 
     if (!EE) {
-        errs() << this->frmxFile->filePath.c_str() << ": Failed to construct ExecutionEngine: " << errStr
+        errs() << this->frmxParser->filePath.c_str() << ": Failed to construct ExecutionEngine: " << errStr
             << "\n";
         return FALSE;
     }
 
     errs() << "verifying... ";
     if (verifyModule(*M)) {
-        errs() << this->frmxFile->filePath.c_str() << ": Error constructing function!\n";
+        errs() << this->frmxParser->filePath.c_str() << ": Error constructing function!\n";
         return FALSE;
     }
 
@@ -169,14 +160,14 @@ Sodium::SodiumCompiler::DumpIR2Screen()
         .create();
 
     if (!EE) {
-        errs() << this->frmxFile->filePath << ": Failed to construct ExecutionEngine: " << errStr
+        errs() << this->frmxParser->filePath << ": Failed to construct ExecutionEngine: " << errStr
             << "\n";
         return FALSE;
     }
 
     errs() << "verifying... ";
     if (verifyModule(*M)) {
-        errs() << this->frmxFile->filePath << ": Error constructing function!\n";
+        errs() << this->frmxParser->filePath << ": Error constructing function!\n";
         return FALSE;
     }
 
@@ -197,17 +188,17 @@ Sodium::SodiumCompiler::DumpIR2Screen()
 
 
 BOOL
-Sodium::SodiumCompiler::ParseFRMXFile(
+Sodium::SodiumCompiler::ParseFrmx(
     char* filePath
 )
 {
-    return this->frmxFile->ParseFRMXFile(filePath);
+    return this->frmxParser->ParseFrmx(filePath);
 }
 
 void
 Sodium::SodiumCompiler::PrintParsedFRMXFile() {
-    if (this->frmxFile) {
-        this->frmxFile->PrintParsedFileContent();
+    if (this->frmxParser) {
+        this->frmxParser->PrintParsedFileContent();
     }
 }
 
@@ -263,7 +254,7 @@ Sodium::SodiumCompiler::ParseSQLXFile(
 
 Sodium::SodiumCompiler::SodiumCompiler()
 {
-    this->frmxFile = new CompilerUnit(this);
+    this->frmxParser = new CompilerUnit(this);
     this->lineNumberOuter = 1;
     this->rootSymbol = NULL;
     this->heapHandle = HeapCreate(HEAP_ZERO_MEMORY, 2048, 0);
@@ -271,8 +262,8 @@ Sodium::SodiumCompiler::SodiumCompiler()
 
 Sodium::SodiumCompiler::~SodiumCompiler()
 {
-    if (this->frmxFile)
-        delete this->frmxFile;
+    if (this->frmxParser)
+        delete this->frmxParser;
 
     if (this->heapHandle != NULL) {
         HeapDestroy(this->heapHandle);

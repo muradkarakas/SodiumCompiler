@@ -108,11 +108,11 @@
 #define YYCODETYPE unsigned char
 #define YYNOCODE 37
 #define YYACTIONTYPE unsigned char
-#define preParseTOKENTYPE  Token 
+#define preParseTOKENTYPE  Sodium::Token 
 typedef union {
   int yyinit;
   preParseTOKENTYPE yy0;
-  Token yy18;
+  Sodium::Token yy3;
   const char * yy20;
 } YYMINORTYPE;
 #ifndef YYSTACKDEPTH
@@ -880,7 +880,7 @@ static void yy_reduce(
 #line 61 "lemon.pre.yy"
 {
    
-    // preTokenDestructor(session, yymsp[-1].minor.yy18);
+    // preTokenDestructor(session, yymsp[-1].minor.yy3);
 }
 #line 886 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
@@ -891,7 +891,7 @@ static void yy_reduce(
 #line 66 "lemon.pre.yy"
 {
     
-    // preTokenDestructor(session, yymsp[-1].minor.yy18);
+    // preTokenDestructor(session, yymsp[-1].minor.yy3);
 }
 #line 897 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
@@ -902,7 +902,7 @@ static void yy_reduce(
 #line 71 "lemon.pre.yy"
 {
     
-    // preTokenDestructor(session, yymsp[-1].minor.yy18);
+    // preTokenDestructor(session, yymsp[-1].minor.yy3);
 }
 #line 908 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
@@ -913,7 +913,7 @@ static void yy_reduce(
 #line 76 "lemon.pre.yy"
 {
     
-    // preTokenDestructor(session, yymsp[-1].minor.yy18);
+    // preTokenDestructor(session, yymsp[-1].minor.yy3);
 }
 #line 919 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
@@ -924,7 +924,7 @@ static void yy_reduce(
 #line 81 "lemon.pre.yy"
 {
 	
-	// preTokenDestructor(session, yymsp[-1].minor.yy18);
+	// preTokenDestructor(session, yymsp[-1].minor.yy3);
 }
 #line 930 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
@@ -986,7 +986,7 @@ static void yy_reduce(
 #line 114 "lemon.pre.yy"
 {
     
-    // preTokenDestructor(session, yymsp[0].minor.yy18);
+    // preTokenDestructor(session, yymsp[0].minor.yy3);
 }
 #line 992 "lemon.pre.c"
         break;
@@ -1013,7 +1013,7 @@ static void yy_reduce(
 #line 155 "lemon.pre.yy"
 {
     
-	// preTokenDestructor(session, yymsp[0].minor.yy18);
+	// preTokenDestructor(session, yymsp[0].minor.yy3);
 }
 #line 1019 "lemon.pre.c"
 }
@@ -1023,7 +1023,7 @@ static void yy_reduce(
 #line 160 "lemon.pre.yy"
 {
     
-	// preTokenDestructor(session, yymsp[0].minor.yy18);
+	// preTokenDestructor(session, yymsp[0].minor.yy3);
 }
 #line 1029 "lemon.pre.c"
 }
@@ -1033,7 +1033,7 @@ static void yy_reduce(
 #line 165 "lemon.pre.yy"
 {
     
-	// preTokenDestructor(session, yymsp[0].minor.yy18);
+	// preTokenDestructor(session, yymsp[0].minor.yy3);
 }
 #line 1039 "lemon.pre.c"
 }
@@ -1041,11 +1041,11 @@ static void yy_reduce(
       case 17: /* identifier ::= PRE_IDENTIFIER */
 #line 177 "lemon.pre.yy"
 {
-	Token a = yymsp[0].minor.yy0;
-	yylhsminor.yy18 = a;
+	Sodium::Token a = yymsp[0].minor.yy0;
+	yylhsminor.yy3 = a;
 }
 #line 1048 "lemon.pre.c"
-  yymsp[0].minor.yy18 = yylhsminor.yy18;
+  yymsp[0].minor.yy3 = yylhsminor.yy3;
         break;
       case 23: /* expression ::= PRE_END_OF_FILE */
 {  yy_destructor(yypParser,1,&yymsp[0].minor);

@@ -109,7 +109,7 @@
 #define YYCODETYPE unsigned char
 #define YYNOCODE 247
 #define YYACTIONTYPE unsigned short int
-#define htmlParseTOKENTYPE  Token * 
+#define htmlParseTOKENTYPE  Sodium::Token * 
 typedef union {
   int yyinit;
   htmlParseTOKENTYPE yy0;
@@ -1119,7 +1119,7 @@ static void yy_destructor(
 {
 #line 37 "lemon.html.yy"
 
-    Token *token = (yypminor->yy0);
+    Sodium::Token *token = (yypminor->yy0);
     if (token) {
         if (token->tokenId == 1 && token->tokenCode != ENTER) {
             printf("\n%4d:", token->line);

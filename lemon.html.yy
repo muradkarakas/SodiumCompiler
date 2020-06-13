@@ -27,7 +27,7 @@
 
 %extra_argument { Sodium::SodiumCompiler *session }
 
-%token_type { Token * }
+%token_type { Sodium::Token * }
 
 %syntax_error {
     printf("--SYNTAX ERROR--");
@@ -35,7 +35,7 @@
 }
 
 %token_destructor {
-    Token *token = $$;
+    Sodium::Token *token = $$;
     if (token) {
         if (token->tokenId == 1 && token->tokenCode != ENTER) {
             printf("\n%4d:", token->line);

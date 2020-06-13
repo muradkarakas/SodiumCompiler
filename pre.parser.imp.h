@@ -31,7 +31,7 @@ int             prelex_destroy(yyscan_t yyscanner);
 void preParse(
 	void* yyp,           // The parser 
 	int yymajor,         // The major token code number 
-	Token *yyminor,       // The value for the token 
+	Sodium::Token *yyminor,       // The value for the token 
 	Sodium::SodiumCompiler *     //	Optional %extra_argument parameter 
 );
 

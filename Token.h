@@ -4,13 +4,17 @@
 
 using namespace std;
 
-typedef struct Token {
-	int				tokenId;
-	int				tokenCode;
-	int				line;
-	const char		* tokenStr;
-	DWORD			tokenStrLength;
-	struct Token	* next;
-} Token;
+namespace Sodium {
+
+	typedef struct Token {
+		int				tokenId;
+		int				tokenCode;
+		int				line;
+		const char		* tokenStr;
+		DWORD			tokenStrLength;
+		struct Token	* next;
+	} Token;
+
+}
 
 

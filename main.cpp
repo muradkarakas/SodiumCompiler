@@ -13,6 +13,7 @@
 
 #include "pch.h"
 
+using namespace Sodium;
 
 int 
 main(
@@ -25,14 +26,11 @@ main(
         return 1;
     }
 
-    Sodium::SodiumCompiler *compiler = new Sodium::SodiumCompiler();
+    SodiumCompiler compiler;
 
-    if (compiler->ParseFRMXFile(argv[1])) {
-        //compiler->PrintParsedFRMXFile();
-        compiler->DumpLLVMIR2File();
+    if (compiler.ParseFrmx(argv[1])) {
+        compiler.DumpFrmx();
     }
-
-    delete compiler;
 
     return 0;
 }
