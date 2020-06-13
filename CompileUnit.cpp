@@ -48,22 +48,38 @@ Sodium::CompilerUnit::~CompilerUnit() {
 }
 
 BOOL
-Sodium::CompilerUnit::ParseFrmx(
+Sodium::CompilerUnit::SetSourceFile(
     char* filePath
 )
 {
+    this->fileFullPath = filePath;
+    string _functionName = this->fileFullPath.substr(this->fileFullPath.find_last_of('\\') + sizeof(char), this->fileFullPath.length() - 5);
+    std::size_t lastIndexOf  = this->fileFullPath.find_last_of("\\");
+    //  check filePath contains path or not
+    if (string::npos != lastIndexOf) {
+        this->filePath = this->fileFullPath.substr(0, lastIndexOf);
+    }
+    else {
+        this->filePath = "";
+    }    
+    this->fileName = _functionName.substr(0, _functionName.find_last_of('.'));
+    this->fileFullIR = this->filePath + ((this->filePath.empty()) ? "" : "\\") + this->fileName + ".ll";
+    return TRUE;
+}
+
+BOOL
+Sodium::CompilerUnit::ParseFrmx()
+{
     yyscan_t scanner;
 
-    FILE* mkSourceFile = fopen(filePath, "r");
+    FILE* mkSourceFile = fopen(this->fileFullPath.c_str(), "r");
 
     if (mkSourceFile == NULL) {
         /** File does not exists */
-        printf("\nFile not found: %s", filePath);
+        printf("\nFile not found: %s", this->fileFullPath.c_str());
         return false;
     }
-    else {
-        this->filePath = filePath;
-
+    else {       
         htmllex_init_extra(this->compiler, &scanner);
         htmlset_in(mkSourceFile, scanner);
 

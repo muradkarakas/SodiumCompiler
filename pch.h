@@ -25,8 +25,9 @@
 #include <string>
 #include <vector>
 
-#include <stdio.h>
-#include <iostream>
+#include <iostream>       // std::cout
+#include <string>         // std::string
+#include <cstddef>         // std::size_t
 
 
 #ifdef __cplusplus

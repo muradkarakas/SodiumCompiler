@@ -32,12 +32,8 @@ Sodium::SodiumCompiler::DumpFrmx()
     // We are about to create a spesific function for a frmx file to return its context:
     /*Function* FibF = */ CreatePageFunction(M, Context);
 
-    // replacing file name extension ".frmx" with ".ll"
-    string irFileName = this->frmxParser->filePath;
-    irFileName.replace(irFileName.end() - 5, irFileName.end(), ".ll");
-
     // writing LLCM IR file to disk
-    StringRef irfileNameRef(irFileName);
+    StringRef irfileNameRef(this->frmxParser->fileFullIR);
     std::error_code error;
     raw_fd_ostream file(irfileNameRef, error);
     file << *M;
@@ -55,15 +51,12 @@ Sodium::SodiumCompiler::CreatePageFunction(
     //  calculating function name
     //  converting "c:\....\core.frmx" to "core_html".
     //
-    string __functionName = this->frmxParser->filePath;
-    string _functionName = __functionName.substr(__functionName.find_last_of('\\') + sizeof(char), __functionName.length() - 5);
-    string functionName = _functionName.substr(0, _functionName.find_last_of('.'));
-    functionName.append("_html");
+    string pageFunctionName = this->frmxParser->fileName + "_html";
 
     // Create the page function and insert it into module M. This function is said
     // to return a char * and takes no parameter.
     FunctionType* FibFTy = FunctionType::get(Type::getInt8PtrTy(Context), {  }, false);
-    Function* FibF = Function::Create(FibFTy, Function::ExternalLinkage, functionName, M);
+    Function* FibF = Function::Create(FibFTy, Function::ExternalLinkage, pageFunctionName, M);
 
     // visibility settings
     FibF->setVisibility(llvm::GlobalValue::VisibilityTypes::DefaultVisibility);
@@ -79,7 +72,7 @@ Sodium::SodiumCompiler::CreatePageFunction(
     // creating global variable holding page html content
     llvm::IRBuilder<> builder(Context);
     builder.SetInsertPoint(BB);
-    llvm::Value* htmlContent = builder.CreateGlobalStringPtr(html, "g_" + functionName);
+    llvm::Value* htmlContent = builder.CreateGlobalStringPtr(html, "g_" + pageFunctionName);
 
     // Create the return instruction and add it to the basic block
     ReturnInst::Create(Context, htmlContent, BB);
@@ -192,7 +185,10 @@ Sodium::SodiumCompiler::ParseFrmx(
     char* filePath
 )
 {
-    return this->frmxParser->ParseFrmx(filePath);
+    if (this->frmxParser->SetSourceFile(filePath)) {
+        return this->frmxParser->ParseFrmx();
+    }
+    return FALSE;
 }
 
 void

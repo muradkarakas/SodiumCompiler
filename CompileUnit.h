@@ -11,17 +11,23 @@ namespace Sodium {
 	
 	class CompilerUnit {
 
+		//	file path parts 
+		string			fileFullPath;
+		string			fileName;
 		string			filePath;
-		Token* frmxCurrentToken;
-		Token* frmxRootToken;
-		SodiumCompiler* compiler;
+		string			fileFullIR;
+
+		Token			* frmxCurrentToken;
+		Token			* frmxRootToken;
+		SodiumCompiler	* compiler;
 
 	public:
 		CompilerUnit(SodiumCompiler* compiler);
 
 		~CompilerUnit();
 
-		BOOL	ParseFrmx(char* filePath);
+		BOOL	ParseFrmx();
+		BOOL	SetSourceFile(char* filePath);
 		string	GetFrmxFileContent();
 
 		void PrintParsedFileContent();
