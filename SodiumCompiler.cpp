@@ -45,27 +45,39 @@ Sodium::SodiumCompiler::DumpLLVMIR2File()
     
     return TRUE;
 }
+/*
+LLVMValueRef 
+Sodium::SodiumCompiler::llvmGenLocalStringVar(const char* data, int len)
+{
+    LLVMValueRef glob = LLVMAddGlobal(mod, LLVMArrayType(LLVMInt8Type(), len), "string");
 
+    // set as internal linkage and constant
+    LLVMSetLinkage(glob, LLVMInternalLinkage);
+    LLVMSetGlobalConstant(glob, TRUE);
+
+    // Initialize with string:
+    LLVMSetInitializer(glob, LLVMConstString(data, len, TRUE));
+
+    return glob;
+}*/
 
 Function* 
 Sodium::SodiumCompiler::CreatePageFunction(
     Module* M, 
-    LLVMContext& Context
-) 
+    LLVMContext& Context) 
 {
-    // getting file name part from full path
+    // extracting file name from full path. it will be used as function name
     string __functionName = this->frmxFile->filePath;
     string _functionName = __functionName.substr(__functionName.find_last_of('\\') + sizeof(char), __functionName.length() - 5);
     string functionName = _functionName.substr(0, _functionName.find_last_of('.'));
-
+    functionName.append("_html");
 
     // Create the page function and insert it into module M. This function is said
     // to return a char * and takes no parameter.
-    FunctionType* FibFTy = FunctionType::get(Type::getInt32Ty(Context),
-        { Type::getInt32Ty(Context) }, false);
-    Function* FibF =
-        Function::Create(FibFTy, Function::ExternalLinkage, functionName, M);
+    FunctionType* FibFTy = FunctionType::get(Type::getInt8PtrTy(Context), {  }, false);
+    Function* FibF = Function::Create(FibFTy, Function::ExternalLinkage, functionName, M);
 
+    // visibility settings
     FibF->setVisibility(llvm::GlobalValue::VisibilityTypes::DefaultVisibility);
     FibF->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
     FibF->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
@@ -73,42 +85,13 @@ Sodium::SodiumCompiler::CreatePageFunction(
     // Add a basic block to the function.
     BasicBlock* BB = BasicBlock::Create(Context, "EntryBlock", FibF);
 
-    // Get pointers to the constants.
-    Value* One = ConstantInt::get(Type::getInt32Ty(Context), 1);
-    Value* Two = ConstantInt::get(Type::getInt32Ty(Context), 2);
-
-    // Get pointer to the integer argument of the add1 function...
-    Argument* ArgX = &*FibF->arg_begin(); // Get the arg.
-    ArgX->setName("AnArg");            // Give it a nice symbolic name for fun.
-
-    // Create the true_block.
-    BasicBlock* RetBB = BasicBlock::Create(Context, "return", FibF);
-    // Create an exit block.
-    BasicBlock* RecurseBB = BasicBlock::Create(Context, "recurse", FibF);
-
-    // Create the "if (arg <= 2) goto exitbb"
-    Value* CondInst = new ICmpInst(*BB, ICmpInst::ICMP_SLE, ArgX, Two, "cond");
-    BranchInst::Create(RetBB, RecurseBB, CondInst, BB);
-
-    // Create: ret int 1
-    ReturnInst::Create(Context, One, RetBB);
-
-    // create fib(x-1)
-    Value* Sub = BinaryOperator::CreateSub(ArgX, One, "arg", RecurseBB);
-    CallInst* CallFibX1 = CallInst::Create(FibF, Sub, "fibx1", RecurseBB);
-    CallFibX1->setTailCall();
-
-    // create fib(x-2)
-    Sub = BinaryOperator::CreateSub(ArgX, Two, "arg", RecurseBB);
-    CallInst* CallFibX2 = CallInst::Create(FibF, Sub, "fibx2", RecurseBB);
-    CallFibX2->setTailCall();
-
-    // fib(x-1)+fib(x-2)
-    Value* Sum = BinaryOperator::CreateAdd(CallFibX1, CallFibX2,
-        "addresult", RecurseBB);
+    // creating global variable holding page html content
+    llvm::IRBuilder<> builder(Context);
+    builder.SetInsertPoint(BB);
+    llvm::Value* htmlContent = builder.CreateGlobalStringPtr("hello world!\n", "g_" + functionName);
 
     // Create the return instruction and add it to the basic block
-    ReturnInst::Create(Context, Sum, RecurseBB);
+    ReturnInst::Create(Context, htmlContent, BB);
 
     return FibF;
 }

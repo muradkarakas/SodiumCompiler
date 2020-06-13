@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SodiumCompiler", "SodiumCompiler.vcxproj", "{16A92C17-869B-4339-B83D-630282668AC2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SodiumShared", "..\SodiumShared\htsql_shared.vcxproj", "{674247E6-BAFB-4C13-9CE0-681A495BA84A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -35,22 +33,6 @@ Global
 		{16A92C17-869B-4339-B83D-630282668AC2}.ReleaseForMe|x64.Build.0 = Release|x64
 		{16A92C17-869B-4339-B83D-630282668AC2}.ReleaseForMe|x86.ActiveCfg = Release|Win32
 		{16A92C17-869B-4339-B83D-630282668AC2}.ReleaseForMe|x86.Build.0 = Release|Win32
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.Debug|x64.ActiveCfg = Debug|x64
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.Debug|x64.Build.0 = Debug|x64
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.Debug|x86.ActiveCfg = Debug|Win32
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.Debug|x86.Build.0 = Debug|Win32
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.Release For Me|x64.ActiveCfg = Release For Me|x64
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.Release For Me|x64.Build.0 = Release For Me|x64
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.Release For Me|x86.ActiveCfg = Release For Me|Win32
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.Release For Me|x86.Build.0 = Release For Me|Win32
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.Release|x64.ActiveCfg = Release|x64
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.Release|x64.Build.0 = Release|x64
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.Release|x86.ActiveCfg = Release|Win32
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.Release|x86.Build.0 = Release|Win32
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.ReleaseForMe|x64.ActiveCfg = ReleaseForMe|x64
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.ReleaseForMe|x64.Build.0 = ReleaseForMe|x64
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.ReleaseForMe|x86.ActiveCfg = ReleaseForMe|Win32
-		{674247E6-BAFB-4C13-9CE0-681A495BA84A}.ReleaseForMe|x86.Build.0 = ReleaseForMe|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

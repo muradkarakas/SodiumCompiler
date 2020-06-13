@@ -18,6 +18,7 @@
 #include "llvm/Support/Casting.h"
 #include "llvm/Support/TargetSelect.h"
 #include "llvm/Support/raw_ostream.h"
+#include "IRBuilder.h"
 #include <algorithm>
 #include <cstdlib>
 #include <memory>
