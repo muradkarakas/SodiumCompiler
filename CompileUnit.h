@@ -20,6 +20,8 @@ namespace Sodium {
 		Token			* frmxCurrentToken;
 		Token			* frmxRootToken;
 		SodiumCompiler	* compiler;
+		
+		Token* CreateToken(int tokenCode, int tokenStrLength, int line, const char* tokenStr);
 
 	public:
 		CompilerUnit(SodiumCompiler* compiler);
@@ -29,7 +31,7 @@ namespace Sodium {
 		BOOL	ParseFrmx();
 		BOOL	SetSourceFile(char* filePath);
 		string	GetFrmxFileContent();
-
+		
 		void PrintParsedFileContent();
 
 		friend class SodiumCompiler;

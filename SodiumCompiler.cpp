@@ -18,6 +18,16 @@ HANDLE gHeapHandle = NULL;
 
 using namespace llvm;
 
+Sodium::Token *
+Sodium::SodiumCompiler::CreateFrmxToken(
+    int tokenCode, 
+    int tokenStrLength, 
+    int line, 
+    const char * tokenStr)
+{
+    return this->frmxParser->CreateToken(tokenCode, tokenStrLength, line, tokenStr);
+}
+
 BOOL
 Sodium::SodiumCompiler::DumpFrmx()
 {
@@ -30,7 +40,8 @@ Sodium::SodiumCompiler::DumpFrmx()
     Module* M = Owner.get();
 
     // We are about to create a spesific function for a frmx file to return its context:
-    /*Function* FibF = */ CreatePageFunction(M, Context);
+    /*Function* FibF = */ CreateHtmlFunction(M, Context);
+    /*Function* FibF = */ CreatePageLoadFunction(M, Context);
 
     // writing LLCM IR file to disk
     StringRef irfileNameRef(this->frmxParser->fileFullIR);
@@ -43,7 +54,7 @@ Sodium::SodiumCompiler::DumpFrmx()
 }
 
 Function* 
-Sodium::SodiumCompiler::CreatePageFunction(
+Sodium::SodiumCompiler::CreateHtmlFunction(
     Module* M, 
     LLVMContext& Context) 
 {
@@ -80,104 +91,38 @@ Sodium::SodiumCompiler::CreatePageFunction(
     return FibF;
 }
 
-
-BOOL
-Sodium::SodiumCompiler::ExecuteLLVMIR()
+Function* 
+Sodium::SodiumCompiler::CreatePageLoadFunction(
+    Module* M, 
+    LLVMContext& Context) 
 {
-    int n = 10;
-    InitializeNativeTarget();
-    InitializeNativeTargetAsmPrinter();
-    LLVMContext Context;
+    //  
+    //  calculating function name
+    //  converting "c:\....\core.frmx" to "core_html".
+    //
+    string pageFunctionName = this->frmxParser->fileName + "_page_load";
 
-    // Create some module to put our function into it.
-    std::unique_ptr<Module> Owner(new Module("test", Context));
-    Module* M = Owner.get();
+    // Create the page function and insert it into module M. No return value
+    FunctionType* FibFTy = FunctionType::get(Type::getVoidTy(Context), {  }, false);
+    Function* FibF = Function::Create(FibFTy, Function::ExternalLinkage, pageFunctionName, M);
 
-    // We are about to create the "page" function:
-    Function* FibF = this->CreatePageFunction(M, Context);
+    // visibility settings
+    FibF->setVisibility(llvm::GlobalValue::VisibilityTypes::DefaultVisibility);
+    FibF->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
+    FibF->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
 
-    // Now we going to create JIT
-    std::string errStr;
-    ExecutionEngine* EE =
-        EngineBuilder(std::move(Owner))
-        .setErrorStr(&errStr)
-        .create();
+    // Add a basic block to the function.
+    BasicBlock* BB = BasicBlock::Create(Context, "EntryBlock", FibF);
 
-    if (!EE) {
-        errs() << this->frmxParser->filePath.c_str() << ": Failed to construct ExecutionEngine: " << errStr
-            << "\n";
-        return FALSE;
-    }
+    //  getting html file content as string
+    string html = this->frmxParser->GetFrmxFileContent();
 
-    errs() << "verifying... ";
-    if (verifyModule(*M)) {
-        errs() << this->frmxParser->filePath.c_str() << ": Error constructing function!\n";
-        return FALSE;
-    }
+    // Create the return instruction and add it to the basic block
+    ReturnInst::Create(Context, (llvm::Value*) nullptr, BB);
 
-    outs() << "OK\n";
-    outs() << "We just constructed this LLVM module:\n\n---------\n" << *M;
-    outs() << "---------\nstarting fibonacci(" << n << ") with JIT...\n";
-
-    // Call the Fibonacci function with argument n:
-    std::vector<GenericValue> Args(1);
-    Args[0].IntVal = APInt(32, n);
-    GenericValue GV = EE->runFunction(FibF, Args);
-
-    // import result of execution
-    outs() << "Result: " << GV.IntVal << "\n";
-        
-    return TRUE;
+    return FibF;
 }
 
-BOOL
-Sodium::SodiumCompiler::DumpIR2Screen()
-{
-    int n = 10;
-    InitializeNativeTarget();
-    InitializeNativeTargetAsmPrinter();
-    LLVMContext Context;
-
-    // Create some module to put our function into it.
-    std::unique_ptr<Module> Owner(new Module("test", Context));
-    Module* M = Owner.get();
-
-    // We are about to create the "fib" function:
-    Function* FibF = CreatePageFunction(M, Context);
-
-    // Now we going to create JIT
-    std::string errStr;
-    ExecutionEngine* EE =
-        EngineBuilder(std::move(Owner))
-        .setErrorStr(&errStr)
-        .create();
-
-    if (!EE) {
-        errs() << this->frmxParser->filePath << ": Failed to construct ExecutionEngine: " << errStr
-            << "\n";
-        return FALSE;
-    }
-
-    errs() << "verifying... ";
-    if (verifyModule(*M)) {
-        errs() << this->frmxParser->filePath << ": Error constructing function!\n";
-        return FALSE;
-    }
-
-    outs() << "OK\n";
-    outs() << "We just constructed this LLVM module:\n\n---------\n" << *M;
-    outs() << "---------\nstarting fibonacci(" << n << ") with JIT...\n";
-
-    // Call the Fibonacci function with argument n:
-    std::vector<GenericValue> Args(1);
-    Args[0].IntVal = APInt(32, n);
-    GenericValue GV = EE->runFunction(FibF, Args);
-
-    // import result of execution
-    outs() << "Result: " << GV.IntVal << "\n";
-        
-    return TRUE;
-}
 
 
 BOOL

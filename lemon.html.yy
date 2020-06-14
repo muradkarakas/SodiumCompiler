@@ -25,7 +25,7 @@
 
 %name htmlParse
 
-%extra_argument { Sodium::SodiumCompiler *session }
+%extra_argument { Sodium::SodiumCompiler * compiler }
 
 %token_type { Sodium::Token * }
 
@@ -35,7 +35,7 @@
 }
 
 %token_destructor {
-    Sodium::Token *token = $$;
+    /*Sodium::Token *token = $$;
     if (token) {
         if (token->tokenId == 1 && token->tokenCode != ENTER) {
             printf("\n%4d:", token->line);
@@ -48,7 +48,7 @@
                 printf("%.*s", token->tokenStrLength, token->tokenStr);
             }
         }
-    }
+    }*/
 }
 
 %default_destructor {
@@ -579,6 +579,15 @@ tagbodyfullopen ::= tagbodyopen tagclosechar.
 tagbodyfullopen ::= tagbodyopen tagproperties tagclosechar.
 
 tagbodyblockclosefull ::= tagbodyblockclose.
+{
+    char* headContent = "<script type=\"text/javascript\"> window.onload = initResponse(); </script>\n";
+
+    compiler->CreateFrmxToken(
+        HTMLTEXT,
+        strlen(headContent),
+        compiler->lineNumberOuter,
+        headContent);
+}
 
 tagbodyopen         ::= TAG_BODY_OPEN.
 
@@ -598,6 +607,31 @@ tagheadfullopen ::= tagheadopen.
 tagheadblockclosefull ::= tagheadblockclose.
 
 tagheadopen         ::= TAG_HEAD_OPEN.
+{
+    char * headContent = "\n"
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">                                                           \n"
+        "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>                                                           \n"
+        "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">                                                                          \n"
+        "<script type=\"text/javascript\" src=\"/Sodium-Site/resources/js/jquery-3.1.1.min.js\"></script>                                   \n"
+        "<script type=\"text/javascript\" src=\"/Sodium-Site/resources/pnotify/dist/iife/PNotify.js\"></script>                             \n"
+        "<script type=\"text/javascript\" src=\"/Sodium-Site/resources/pnotify/dist/iife/PNotifyConfirm.js\"></script>                      \n"
+        "<script type=\"text/javascript\" src=\"/Sodium-Site/resources/js/next-level-init.js?_=1\"></script>                                \n"
+        "<script type=\"text/javascript\" src=\"/Sodium-Site/resources/js/next-level-response.js?_=1\"></script>                            \n"
+        "<script type=\"text/javascript\" src=\"/Sodium-Site/resources/js/next-level-request.js\"></script>                                 \n"
+        "<script type=\"text/javascript\" src=\"/Sodium-Site/resources/js/next-level-selection.js\"></script>                               \n"
+        "<script type=\"text/javascript\" src=\"/Sodium-Site/resources/js/next-level-jstree.js\"></script>                                  \n"
+        "<script type=\"text/javascript\" src=\"/Sodium-Site/resources/jsTree/jstree.min.js\"></script>                                     \n"
+        "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Sodium-Site/resources/pnotify/dist/PNotifyBrightTheme.css\"/>                   \n"
+        "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Sodium-Site/resources/jsTree/themes/default/style.min.css\"/>                   \n"
+        "<link id=\"bootstrap-css\" rel=\"stylesheet\" href=\"/Sodium-Site/resources/css/bootstrap.min.css\" crossorigin=\"anonymous\" />   \n"
+        "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Sodium-Site/resources/css/next-level-default.css\"/>                            \n";
+
+    compiler->CreateFrmxToken(
+        HTMLTEXT,
+        strlen(headContent),
+        compiler->lineNumberOuter,
+            headContent);
+}
 
 tagheadblockclose   ::= TAG_HEAD_BLOCK_CLOSE.
 

@@ -52,11 +52,12 @@ Sodium::CompilerUnit::SetSourceFile(
     char* filePath
 )
 {
+    string _functionName = filePath;
     this->fileFullPath = filePath;
-    string _functionName = this->fileFullPath.substr(this->fileFullPath.find_last_of('\\') + sizeof(char), this->fileFullPath.length() - 5);
     std::size_t lastIndexOf  = this->fileFullPath.find_last_of("\\");
     //  check filePath contains path or not
     if (string::npos != lastIndexOf) {
+        _functionName = this->fileFullPath.substr(this->fileFullPath.find_last_of('\\') + sizeof(char), this->fileFullPath.length() - 5);
         this->filePath = this->fileFullPath.substr(0, lastIndexOf);
     }
     else {
@@ -67,12 +68,36 @@ Sodium::CompilerUnit::SetSourceFile(
     return TRUE;
 }
 
+Token *
+Sodium::CompilerUnit::CreateToken(
+    int tokenCode, 
+    int tokenStrLength,
+    int line,
+    const char * tokenStr) 
+{
+    Token * token = (Token*)mkMalloc(this->compiler->heapHandle, sizeof(Token), __FILE__, __LINE__);
+    token->tokenCode = tokenCode;
+    token->tokenStrLength = tokenStrLength;
+    token->line = line;
+    token->tokenStr = mkStrdup(this->compiler->heapHandle, tokenStr, __FILE__, __LINE__);
+    if (this->frmxRootToken == NULL) {
+        this->frmxRootToken = token;
+        token->tokenId = this->frmxRootToken->tokenId + 1;
+    }
+    else {
+        token->tokenId = this->frmxCurrentToken->tokenId + 1;
+        this->frmxCurrentToken->next = token;
+    }
+    this->frmxCurrentToken = token;
+    return token;
+}
+
 BOOL
 Sodium::CompilerUnit::ParseFrmx()
 {
     yyscan_t scanner;
-
-    FILE* mkSourceFile = fopen(this->fileFullPath.c_str(), "r");
+    string frmxFilePath = this->fileFullPath.append(".frmx");
+    FILE* mkSourceFile = fopen(frmxFilePath.c_str(), "r");
 
     if (mkSourceFile == NULL) {
         /** File does not exists */
@@ -85,23 +110,17 @@ Sodium::CompilerUnit::ParseFrmx()
 
         void* pParser = htmlParseAlloc(malloc);
 
-        Token* curToken = NULL;
+        Sodium::Token * curToken = NULL;
 
         do {
-            curToken = (Token*)mkMalloc(this->compiler->heapHandle, sizeof(Token), __FILE__, __LINE__);
-            curToken->tokenCode = htmllex(scanner);
-            curToken->tokenStrLength = htmlget_leng(scanner);
-            curToken->line = this->compiler->lineNumberOuter;
-            curToken->tokenStr = mkStrdup(this->compiler->heapHandle, htmlget_text(scanner), __FILE__, __LINE__);
-            if (this->frmxRootToken == NULL) {
-                this->frmxRootToken = curToken;
-                curToken->tokenId = this->frmxRootToken->tokenId + 1;
-            }
-            else {
-                curToken->tokenId = this->frmxCurrentToken->tokenId + 1;
-                this->frmxCurrentToken->next = curToken;
-            }
-            this->frmxCurrentToken = curToken;
+            int tokenCode = htmllex(scanner);
+            int tokenLength = htmlget_leng(scanner);
+            const char* tokenStr = htmlget_text(scanner);
+            curToken = this->CreateToken(
+                tokenCode,
+                tokenLength, 
+                this->compiler->lineNumberOuter,
+                tokenStr);
             htmlParse(pParser, curToken->tokenCode, curToken, this->compiler);
         } while (curToken->tokenCode != END_OF_FILE);
 

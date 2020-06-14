@@ -25,17 +25,20 @@
     <Filter Include="Source Files\sqlx\preParser\lexer">
       <UniqueIdentifier>{84c9a184-5330-4f75-ba4e-ce932b9a1849}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\sqlx\Compiler">
-      <UniqueIdentifier>{145def49-86ea-4d88-b907-7e73c3443990}</UniqueIdentifier>
+    <Filter Include="Source Files\frmx">
+      <UniqueIdentifier>{3e858ae9-8850-4c36-a3f5-ebcce04e750a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\sqlx\htmlParser">
+    <Filter Include="Source Files\frmx\htmlParser">
       <UniqueIdentifier>{c98e4817-f437-4610-883e-bb1ded8fee06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\sqlx\htmlParser\lemon">
+    <Filter Include="Source Files\frmx\htmlParser\lemon">
       <UniqueIdentifier>{2853b6f9-13c3-4fb0-80a4-99dac95f68db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\sqlx\htmlParser\lexer">
+    <Filter Include="Source Files\frmx\htmlParser\lexer">
       <UniqueIdentifier>{ce0df7e0-0152-41fe-abb9-9579d5d484d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Compiler">
+      <UniqueIdentifier>{145def49-86ea-4d88-b907-7e73c3443990}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,19 +49,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SodiumCompiler.cpp">
-      <Filter>Source Files\sqlx\Compiler</Filter>
+      <Filter>Source Files\Compiler</Filter>
     </ClCompile>
     <ClCompile Include="SymbolTable.cpp">
-      <Filter>Source Files\sqlx\Compiler</Filter>
+      <Filter>Source Files\Compiler</Filter>
     </ClCompile>
     <ClCompile Include="Node.cpp">
-      <Filter>Source Files\sqlx\Compiler</Filter>
+      <Filter>Source Files\Compiler</Filter>
     </ClCompile>
     <ClCompile Include="html.parser.imp.c">
-      <Filter>Source Files\sqlx\htmlParser</Filter>
+      <Filter>Source Files\frmx\htmlParser</Filter>
     </ClCompile>
     <ClCompile Include="CompileUnit.cpp">
-      <Filter>Source Files\sqlx\Compiler</Filter>
+      <Filter>Source Files\Compiler</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
@@ -67,10 +70,10 @@
       <Filter>Source Files\sqlx\preParser\lexer</Filter>
     </ClCompile>
     <ClCompile Include="lexer.html.cpp">
-      <Filter>Source Files\sqlx\htmlParser\lexer</Filter>
+      <Filter>Source Files\frmx\htmlParser\lexer</Filter>
     </ClCompile>
     <ClCompile Include="lemon.html.cpp">
-      <Filter>Source Files\sqlx\htmlParser\lemon</Filter>
+      <Filter>Source Files\frmx\htmlParser\lemon</Filter>
     </ClCompile>
     <ClCompile Include="lemon.pre.cpp">
       <Filter>Source Files\sqlx\preParser\lemon</Filter>
@@ -87,13 +90,13 @@
       <Filter>Source Files\sqlx\preParser\lexer</Filter>
     </None>
     <None Include="lemon.html.yy">
-      <Filter>Source Files\sqlx\htmlParser\lemon</Filter>
+      <Filter>Source Files\frmx\htmlParser\lemon</Filter>
     </None>
     <None Include="lexer.html.ll">
-      <Filter>Source Files\sqlx\htmlParser\lexer</Filter>
+      <Filter>Source Files\frmx\htmlParser\lexer</Filter>
     </None>
     <None Include="lemon.html.out">
-      <Filter>Source Files\sqlx\htmlParser\lemon</Filter>
+      <Filter>Source Files\frmx\htmlParser\lemon</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -110,10 +113,10 @@
       <Filter>Source Files\sqlx\preParser</Filter>
     </ClInclude>
     <ClInclude Include="lemon.html.h">
-      <Filter>Source Files\sqlx\htmlParser\lemon</Filter>
+      <Filter>Source Files\frmx\htmlParser\lemon</Filter>
     </ClInclude>
     <ClInclude Include="html.parser.imp.h">
-      <Filter>Source Files\sqlx\htmlParser</Filter>
+      <Filter>Source Files\frmx\htmlParser</Filter>
     </ClInclude>
     <ClInclude Include="SodiumCompiler.h">
       <Filter>Header Files</Filter>

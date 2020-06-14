@@ -39,13 +39,12 @@ namespace Sodium {
 		//	returns FALSE if file does not exists or not accessble
 		BOOL	ParseFrmx(char* filePath);
 		BOOL	DumpFrmx();
+		Token	* CreateFrmxToken(int tokenCode, int tokenStrLength, int line, const char* tokenStr);
 
 		BOOL	ParseSQLXFile(char* filePath);
 
-		BOOL	ExecuteLLVMIR();
-		BOOL	DumpIR2Screen();
-
-		llvm::Function* CreatePageFunction(llvm::Module* M, llvm::LLVMContext& Context);
+		llvm::Function* CreateHtmlFunction(llvm::Module* M, llvm::LLVMContext& Context);
+		llvm::Function* CreatePageLoadFunction(llvm::Module* M, llvm::LLVMContext& Context);
 
 		void	PrintParsedFRMXFile();
 	};
