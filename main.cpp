@@ -28,7 +28,7 @@ main(
 
     SodiumCompiler compiler;
 
-    if (compiler.ParseFrmx(argv[1])) {
+    if (compiler.ParsePage(argv[1])) {
         //compiler.PrintParsedFRMXFile();
         compiler.DumpFrmx();
     }

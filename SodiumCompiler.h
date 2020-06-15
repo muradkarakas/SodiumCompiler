@@ -25,7 +25,8 @@ namespace Sodium {
 
 	class SodiumCompiler {
 
-		CompilerUnit	* frmxParser;
+		CompileUnitFrmx		* frmxParser;
+		CompileUnitSqlx		* sqlxParser;
 
 		SymbolTable		* rootSymbol;
 
@@ -37,7 +38,7 @@ namespace Sodium {
 		~SodiumCompiler();
 
 		//	returns FALSE if file does not exists or not accessble
-		BOOL	ParseFrmx(char* filePath);
+		BOOL	ParsePage(char* filePath);
 		BOOL	DumpFrmx();
 		Token	* CreateFrmxToken(int tokenCode, int tokenStrLength, int line, const char* tokenStr);
 

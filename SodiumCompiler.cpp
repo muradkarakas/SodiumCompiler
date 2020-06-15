@@ -78,7 +78,7 @@ Sodium::SodiumCompiler::CreateHtmlFunction(
     BasicBlock* BB = BasicBlock::Create(Context, "EntryBlock", FibF);
 
     //  getting html file content as string
-    string html = this->frmxParser->GetFrmxFileContent();
+    string html = this->frmxParser->GetFileContent();
 
     // creating global variable holding page html content
     llvm::IRBuilder<> builder(Context);
@@ -115,7 +115,7 @@ Sodium::SodiumCompiler::CreatePageLoadFunction(
     BasicBlock* BB = BasicBlock::Create(Context, "EntryBlock", FibF);
 
     //  getting html file content as string
-    string html = this->frmxParser->GetFrmxFileContent();
+    string html = this->frmxParser->GetFileContent();
 
     // Create the return instruction and add it to the basic block
     ReturnInst::Create(Context, (llvm::Value*) nullptr, BB);
@@ -126,12 +126,16 @@ Sodium::SodiumCompiler::CreatePageLoadFunction(
 
 
 BOOL
-Sodium::SodiumCompiler::ParseFrmx(
+Sodium::SodiumCompiler::ParsePage(
     char* filePath
 )
 {
     if (this->frmxParser->SetSourceFile(filePath)) {
-        return this->frmxParser->ParseFrmx();
+        if (this->frmxParser->Parse()) {
+            if (this->sqlxParser->Parse()) {
+
+            }
+        }
     }
     return FALSE;
 }
@@ -195,7 +199,9 @@ Sodium::SodiumCompiler::ParseSQLXFile(
 
 Sodium::SodiumCompiler::SodiumCompiler()
 {
-    this->frmxParser = new CompilerUnit(this);
+    this->frmxParser = new CompileUnitFrmx(this);
+    this->sqlxParser = new CompileUnitSqlx(this);
+    
     this->lineNumberOuter = 1;
     this->rootSymbol = NULL;
     this->heapHandle = HeapCreate(HEAP_ZERO_MEMORY, 2048, 0);
@@ -205,6 +211,9 @@ Sodium::SodiumCompiler::~SodiumCompiler()
 {
     if (this->frmxParser)
         delete this->frmxParser;
+    
+    if (this->sqlxParser)
+        delete this->sqlxParser;
 
     if (this->heapHandle != NULL) {
         HeapDestroy(this->heapHandle);

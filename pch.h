@@ -40,7 +40,9 @@ extern "C" {
 }
 #endif
 
-#include "CompileUnit.h"
+#include "CompileUnitBase.h"
+#include "CompileUnitFrmx.h"
+#include "CompileUnitSqlx.h"
 
 #include "pre.parser.imp.h"
 #include "html.parser.imp.h"
