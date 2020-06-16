@@ -23,31 +23,47 @@ using namespace std;
 
 namespace Sodium {
 
+	enum ParsingPhase {
+		PARSING_PHASE_NOTSET,
+		PARSING_PHASE_FRMX,
+		PARSING_PHASE_FRMX_DONE,
+		PARSING_PHASE_SQLX_PRE,
+		PARSING_PHASE_SQLX_PRE_DONE,
+		PARSING_PHASE_SQLX_POST,
+		PARSING_PHASE_SQLX_POST_DONE,
+	};
+
 	class SodiumCompiler {
 
 		CompileUnitFrmx		* frmxParser;
 		CompileUnitSqlx		* sqlxParser;
 
-		SymbolTable		* rootSymbol;
+		SymbolTable			* rootSymbol;
+		
+		/// <summary>
+		/// Parsing phase can be get from this variable. 
+		///	Initialy it is set to PARSING_PHASE_NOTSET enum value.
+		///	Variable is set before to "XXXX" enum value and then after to "XXXX_DONE" enum value if parsing is successfully for this phase. 
+		/// </summary>
+		ParsingPhase		parsingPhase;
 
 	public:
-		HANDLE			heapHandle;
-		int				lineNumberOuter;
-
+		HANDLE				heapHandle;
+		
 		SodiumCompiler();
 		~SodiumCompiler();
 
 		//	returns FALSE if file does not exists or not accessble
 		BOOL	ParsePage(char* filePath);
-		BOOL	DumpFrmx();
-		Token	* CreateFrmxToken(int tokenCode, int tokenStrLength, int line, const char* tokenStr);
+		BOOL	DumpIR();
+		void	IncreseLineNumberOuter();
 
-		BOOL	ParseSQLXFile(char* filePath);
+		Token	* CreateToken(int tokenCode, int tokenStrLength, const char* tokenStr);
 
 		llvm::Function* CreateHtmlFunction(llvm::Module* M, llvm::LLVMContext& Context);
 		llvm::Function* CreatePageLoadFunction(llvm::Module* M, llvm::LLVMContext& Context);
 
-		void	PrintParsedFRMXFile();
+		friend class CompileUnitBase;
 	};
 
 }

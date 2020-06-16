@@ -21,7 +21,6 @@
     #include <stdint.h>
 }
 
-
 %option extra-type="Sodium::SodiumCompiler *"
 %option reentrant
 %option noyywrap noinput nounput
@@ -32,7 +31,7 @@
 %x SC_FUNCTION_BODY
 %x SC_COMMENT
 
-CRLF			"\n"
+PRE_ENTER		"\n"
 SPACE           [ \t]*
 NUMBER          [0-9]*
 IDENTIFIER      [a-zA-Z_][a-zA-Z0-9_]*(\.?[a-zA-Z0-9_])*
@@ -70,9 +69,10 @@ BEGIN(INITIAL);
                                     BEGIN(SC_COMMENT);
                                     return PRE_COMMENT_START;
                                 }
-{CRLF}							{
+{PRE_ENTER}						{
 									Sodium::SodiumCompiler *session = yyextra;
-									session->lineNumberOuter++;
+									session->IncreseLineNumberOuter();
+                                    return PRE_ENTER;
 								}
 [ \t]*							{
 									
@@ -89,9 +89,10 @@ BEGIN(INITIAL);
                                 }
 
 <SC_COMMENT>{
-{CRLF}							{
+{PRE_ENTER}						{
 									Sodium::SodiumCompiler *session = yyextra;
-									session->lineNumberOuter++;
+									session->IncreseLineNumberOuter();
+                                    return PRE_ENTER;
 								}
 "*/"                            {
                                     BEGIN(INITIAL);
@@ -146,9 +147,9 @@ BEGIN(INITIAL);
                                 BEGIN(INITIAL);
                                 return PRE_FUNCTION_END;
                             }
-{CRLF}						{
+{PRE_ENTER}					{
 								Sodium::SodiumCompiler *session = yyextra;
-								session->lineNumberOuter++;
+								session->IncreseLineNumberOuter();
 								return PRE_FUNCTION_BODY_LINE;
 							}
 .*                          {

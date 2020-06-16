@@ -18,6 +18,7 @@ using namespace Sodium;
 Sodium::CompileUnitFrmx::CompileUnitFrmx(SodiumCompiler * compiler) : CompileUnitBase(compiler)
 {
     this->compiler = compiler;
+    this->compileUnitType = COMPILE_UNIT_TYPE_FRMX;
 }
 
 Sodium::CompileUnitFrmx::~CompileUnitFrmx() {
@@ -34,7 +35,7 @@ Sodium::CompileUnitFrmx::Parse()
 
     if (mkSourceFile == NULL) {
         /** File does not exists */
-        printf("\nFile not found: %s", this->fileFullPath.c_str());
+        printf("\nFile not found: %s", fileFullPath.c_str());
         return false;
     }
     else {       
@@ -52,7 +53,7 @@ Sodium::CompileUnitFrmx::Parse()
             curToken = this->CreateToken(
                 tokenCode,
                 tokenLength, 
-                this->compiler->lineNumberOuter,
+                this->lineNumberOuter,
                 tokenStr);
             htmlParse(pParser, curToken->tokenCode, curToken, this->compiler);
         } while (curToken->tokenCode != END_OF_FILE);

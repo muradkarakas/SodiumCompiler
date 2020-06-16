@@ -190,7 +190,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     <ClCompile Include="CompileUnitBase.cpp" />
     <ClCompile Include="CompileUnitFrmx.cpp" />
     <ClCompile Include="CompileUnitSqlx.cpp" />
-    <ClCompile Include="html.parser.imp.c" />
+    <ClCompile Include="html.parser.imp.cpp" />
     <ClCompile Include="lemon.html.cpp" />
     <ClCompile Include="lemon.pre.cpp" />
     <ClCompile Include="lexer.html.cpp" />
@@ -201,7 +201,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="pre.parser.imp.c" />
+    <ClCompile Include="pre.parser.imp.cpp" />
     <ClCompile Include="SodiumCompiler.cpp" />
     <ClCompile Include="SymbolTable.cpp" />
   </ItemGroup>

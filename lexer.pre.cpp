@@ -891,7 +891,7 @@ YY_DECL
 		}
 
 	{
-#line 42 "lexer.pre.ll"
+#line 41 "lexer.pre.ll"
 
 
 #line 897 "lexer.pre.cpp"
@@ -949,56 +949,56 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 44 "lexer.pre.ll"
+#line 43 "lexer.pre.ll"
 {
                                     return PRE_VARIABLE_TYPE_VARCHAR;
                                 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 47 "lexer.pre.ll"
+#line 46 "lexer.pre.ll"
 {
                                     return PRE_VARIABLE_TYPE_NUMBER;
                                 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 50 "lexer.pre.ll"
+#line 49 "lexer.pre.ll"
 {
 									return PRE_VARIABLE_TYPE_REDIS;
 								}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 53 "lexer.pre.ll"
+#line 52 "lexer.pre.ll"
 {
                                     return PRE_VARIABLE_TYPE_DATE;
                                 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 56 "lexer.pre.ll"
+#line 55 "lexer.pre.ll"
 {
                                     return PRE_VARIABLE_TYPE_VOID;
                                 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 59 "lexer.pre.ll"
+#line 58 "lexer.pre.ll"
 {
                                     return PRE_VARIABLE_TYPE_BOOL;
                                 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 62 "lexer.pre.ll"
+#line 61 "lexer.pre.ll"
 {
                                     return PRE_SEMICOLON;
                                 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 65 "lexer.pre.ll"
+#line 64 "lexer.pre.ll"
 {
                                     BEGIN(SC_COMMENT);
                                     return PRE_COMMENT_START;
@@ -1006,7 +1006,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 69 "lexer.pre.ll"
+#line 68 "lexer.pre.ll"
 {
                                     BEGIN(SC_COMMENT);
                                     return PRE_COMMENT_START;
@@ -1015,10 +1015,11 @@ YY_RULE_SETUP
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 73 "lexer.pre.ll"
+#line 72 "lexer.pre.ll"
 {
 									Sodium::SodiumCompiler *session = yyextra;
-									session->lineNumberOuter++;
+									session->IncreseLineNumberOuter();
+                                    return PRE_ENTER;
 								}
 	YY_BREAK
 case 11:
@@ -1059,12 +1060,13 @@ YY_RULE_SETUP
 #line 92 "lexer.pre.ll"
 {
 									Sodium::SodiumCompiler *session = yyextra;
-									session->lineNumberOuter++;
+									session->IncreseLineNumberOuter();
+                                    return PRE_ENTER;
 								}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 96 "lexer.pre.ll"
+#line 97 "lexer.pre.ll"
 {
                                     BEGIN(INITIAL);
                                     return PRE_COMMENT_END;
@@ -1072,7 +1074,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 100 "lexer.pre.ll"
+#line 101 "lexer.pre.ll"
 {
 
                                 }
@@ -1081,42 +1083,42 @@ YY_RULE_SETUP
 
 case 17:
 YY_RULE_SETUP
-#line 107 "lexer.pre.ll"
+#line 108 "lexer.pre.ll"
 {
                                 return PRE_VARIABLE_TYPE_VARCHAR;
                             }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 110 "lexer.pre.ll"
+#line 111 "lexer.pre.ll"
 {
                                 return PRE_VARIABLE_TYPE_NUMBER;
                             }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 113 "lexer.pre.ll"
+#line 114 "lexer.pre.ll"
 {
                                 return PRE_VARIABLE_TYPE_DATE;
                             }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 116 "lexer.pre.ll"
+#line 117 "lexer.pre.ll"
 {
                                 return PRE_COMMA;
                             }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 119 "lexer.pre.ll"
+#line 120 "lexer.pre.ll"
 {
                                 return PRE_IDENTIFIER;
                             }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 122 "lexer.pre.ll"
+#line 123 "lexer.pre.ll"
 {
                                 BEGIN(SC_FUNCTION_BODY);
                                 return PRE_CLOSE_PARAN;
@@ -1126,42 +1128,42 @@ YY_RULE_SETUP
 
 case 23:
 YY_RULE_SETUP
-#line 130 "lexer.pre.ll"
+#line 131 "lexer.pre.ll"
 {
                                 return PRE_FUNCTION_BEGIN;
                             }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 133 "lexer.pre.ll"
+#line 134 "lexer.pre.ll"
 {
                                 return PRE_FUNCTION_BODY_LINE;
                             }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 136 "lexer.pre.ll"
+#line 137 "lexer.pre.ll"
 {
                                 return PRE_FUNCTION_BODY_LINE;
                             }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 139 "lexer.pre.ll"
+#line 140 "lexer.pre.ll"
 {
                                 return PRE_FUNCTION_BODY_LINE;
                             }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 142 "lexer.pre.ll"
+#line 143 "lexer.pre.ll"
 {
                                 return PRE_FUNCTION_BODY_LINE;
                             }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 145 "lexer.pre.ll"
+#line 146 "lexer.pre.ll"
 {
                                 BEGIN(INITIAL);
                                 return PRE_FUNCTION_END;
@@ -1170,16 +1172,16 @@ YY_RULE_SETUP
 case 29:
 /* rule 29 can match eol */
 YY_RULE_SETUP
-#line 149 "lexer.pre.ll"
+#line 150 "lexer.pre.ll"
 {
 								Sodium::SodiumCompiler *session = yyextra;
-								session->lineNumberOuter++;
+								session->IncreseLineNumberOuter();
 								return PRE_FUNCTION_BODY_LINE;
 							}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 154 "lexer.pre.ll"
+#line 155 "lexer.pre.ll"
 {
                                 return PRE_FUNCTION_BODY_LINE;
                             }
@@ -1187,17 +1189,17 @@ YY_RULE_SETUP
 
 case 31:
 YY_RULE_SETUP
-#line 159 "lexer.pre.ll"
+#line 160 "lexer.pre.ll"
 {
                                 printf("Unrecognized character: %s\n", yytext);
                             }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 163 "lexer.pre.ll"
+#line 164 "lexer.pre.ll"
 ECHO;
 	YY_BREAK
-#line 1200 "lexer.pre.cpp"
+#line 1202 "lexer.pre.cpp"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2323,7 +2325,7 @@ void prefree (void * ptr , yyscan_t yyscanner)
 
 #define YYTABLES_NAME "yytables"
 
-#line 163 "lexer.pre.ll"
+#line 164 "lexer.pre.ll"
 
 
 

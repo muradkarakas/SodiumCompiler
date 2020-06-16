@@ -21,22 +21,28 @@ typedef void* yyscan_t;
 #define YY_EXTRA_TYPE Sodium::SodiumCompiler *
 #endif
 
-int				prelex(yyscan_t yyscanner);
-int				prelex_init_extra(YY_EXTRA_TYPE user_defined, yyscan_t* scanner);
-int             preget_leng(yyscan_t yyscanner);
-int				prelex_init(yyscan_t* scanner);
-char		  * preget_text(yyscan_t yyscanner);
-int             prelex_destroy(yyscan_t yyscanner);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-void preParse(
-	void* yyp,           // The parser 
-	int yymajor,         // The major token code number 
-	Sodium::Token *yyminor,       // The value for the token 
-	Sodium::SodiumCompiler *     //	Optional %extra_argument parameter 
-);
+	int				prelex(yyscan_t yyscanner);
+	int				prelex_init_extra(YY_EXTRA_TYPE user_defined, yyscan_t* scanner);
+	int             preget_leng(yyscan_t yyscanner);
+	int				prelex_init(yyscan_t* scanner);
+	char			* preget_text(yyscan_t yyscanner);
+	int             prelex_destroy(yyscan_t yyscanner);
 
-void				  * preParseAlloc(void* (*allocProc)(size_t));
-void					preset_in(FILE* _in_str, yyscan_t yyscanner);
-void					preParseFree(void* p, void (*freeProc)(void*));
+	void preParse(
+		void* yyp,           // The parser 
+		int yymajor,         // The major token code number 
+		Sodium::Token* yyminor,       // The value for the token 
+		Sodium::SodiumCompiler*     //	Optional %extra_argument parameter 
+	);
 
+	void* preParseAlloc(void* (*allocProc)(size_t));
+	void					preset_in(FILE* _in_str, yyscan_t yyscanner);
+	void					preParseFree(void* p, void (*freeProc)(void*));
 
+#ifdef __cplusplus
+}
+#endif

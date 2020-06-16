@@ -19,18 +19,34 @@ HANDLE gHeapHandle = NULL;
 using namespace llvm;
 
 Sodium::Token *
-Sodium::SodiumCompiler::CreateFrmxToken(
+Sodium::SodiumCompiler::CreateToken(
     int tokenCode, 
     int tokenStrLength, 
-    int line, 
     const char * tokenStr)
 {
-    return this->frmxParser->CreateToken(tokenCode, tokenStrLength, line, tokenStr);
+    if (this->parsingPhase = PARSING_PHASE_FRMX)
+        return this->frmxParser->CreateToken(tokenCode, tokenStrLength, this->frmxParser->lineNumberOuter, tokenStr);
+    else if (this->parsingPhase = PARSING_PHASE_SQLX_PRE)
+        return this->sqlxParser->CreateToken(tokenCode, tokenStrLength, this->sqlxParser->lineNumberOuter, tokenStr);
+    
+    return NULL;
+}
+
+void
+Sodium::SodiumCompiler::IncreseLineNumberOuter() {
+    if (this->parsingPhase == PARSING_PHASE_FRMX) {
+        frmxParser->lineNumberOuter++;
+    } else if (this->parsingPhase = PARSING_PHASE_SQLX_PRE) {
+        sqlxParser->lineNumberOuter++;
+    }
 }
 
 BOOL
-Sodium::SodiumCompiler::DumpFrmx()
+Sodium::SodiumCompiler::DumpIR()
 {
+    if (this->parsingPhase < PARSING_PHASE_SQLX_PRE_DONE)
+        return FALSE;
+
     InitializeNativeTarget();
     InitializeNativeTargetAsmPrinter();
     LLVMContext Context;
@@ -44,7 +60,9 @@ Sodium::SodiumCompiler::DumpFrmx()
     /*Function* FibF = */ CreatePageLoadFunction(M, Context);
 
     // writing LLCM IR file to disk
-    StringRef irfileNameRef(this->frmxParser->fileFullIR);
+    string irFileName = this->frmxParser->fileName;
+    irFileName.append(".ll");
+    StringRef irfileNameRef(irFileName);
     std::error_code error;
     raw_fd_ostream file(irfileNameRef, error);
     file << *M;
@@ -114,9 +132,6 @@ Sodium::SodiumCompiler::CreatePageLoadFunction(
     // Add a basic block to the function.
     BasicBlock* BB = BasicBlock::Create(Context, "EntryBlock", FibF);
 
-    //  getting html file content as string
-    string html = this->frmxParser->GetFileContent();
-
     // Create the return instruction and add it to the basic block
     ReturnInst::Create(Context, (llvm::Value*) nullptr, BB);
 
@@ -130,79 +145,37 @@ Sodium::SodiumCompiler::ParsePage(
     char* filePath
 )
 {
-    if (this->frmxParser->SetSourceFile(filePath)) {
-        if (this->frmxParser->Parse()) {
-            if (this->sqlxParser->Parse()) {
-
-            }
+    // FRMX PARSING
+    this->parsingPhase = PARSING_PHASE_FRMX;
+    this->frmxParser = new CompileUnitFrmx(this);
+    
+    if (this->frmxParser->SetSourceFile(filePath) && this->frmxParser->Parse()) {
+        //  FRMX PARSING DONE
+        this->parsingPhase = PARSING_PHASE_FRMX_DONE;
+        
+        // SQL PRE PARSING
+        this->parsingPhase = PARSING_PHASE_SQLX_PRE;
+        this->sqlxParser = new CompileUnitSqlx(this);
+        
+        if (this->sqlxParser->SetSourceFile(filePath) && this->sqlxParser->Parse()) {
+            // SQL PRE PARSING DONE
+            this->parsingPhase = PARSING_PHASE_SQLX_PRE_DONE;
+            
+            //this->frmxParser->PrintParsedFileContent();
+            this->sqlxParser->PrintParsedFileContent();
+            
+            return TRUE;
         }
     }
     return FALSE;
 }
 
-void
-Sodium::SodiumCompiler::PrintParsedFRMXFile() {
-    if (this->frmxParser) {
-        this->frmxParser->PrintParsedFileContent();
-    }
-}
-
-BOOL
-Sodium::SodiumCompiler::ParseSQLXFile(
-    char* filePath
-)
-{
-    bool retVal;
-    
-    FILE* mkSourceFile = fopen(filePath, "r");
-
-    if (mkSourceFile == NULL) {
-        /** File does not exists */
-        printf("\nFile not found: %s", filePath);
-        retVal = false;
-    }
-    else {
-        /*
-        yyscan_t scanner;
-
-        prelex_init_extra(this, &scanner);
-        preset_in(mkSourceFile, scanner);
-
-        void* pParser = preParseAlloc(malloc);
-
-        Token token;
-
-        do {
-            token.tokenCode = prelex(scanner);
-            token.tokenStrLength = preget_leng(scanner);
-            token.tokenStr = preget_text(scanner);
-            preParse(pParser, token.tokenCode, token, this);
-        } while (token.tokenCode != PRE_END_OF_FILE);
-
-        token.tokenCode = ENTER;
-        token.tokenStrLength = 1;
-        token.tokenStr = "\n";
-        preParse(pParser, token.tokenCode, token, this);
-
-        preParse(pParser, 0, NULL, this);
-
-        preParseFree(pParser, free);
-        prelex_destroy(scanner);
-        fclose(mkSourceFile);
-        */
-        retVal = true;
-    }
-
-    return retVal;
-}
-
 
 Sodium::SodiumCompiler::SodiumCompiler()
 {
-    this->frmxParser = new CompileUnitFrmx(this);
-    this->sqlxParser = new CompileUnitSqlx(this);
-    
-    this->lineNumberOuter = 1;
+    this->parsingPhase = PARSING_PHASE_NOTSET;
+    this->frmxParser = NULL;
+    this->sqlxParser = NULL;
     this->rootSymbol = NULL;
     this->heapHandle = HeapCreate(HEAP_ZERO_MEMORY, 2048, 0);
 }
@@ -222,62 +195,3 @@ Sodium::SodiumCompiler::~SodiumCompiler()
 }
 
 
-
-/*
-Function* 
-Sodium::CreateFibFunction(Module* M, LLVMContext& Context) {
-
-    // Create the fib function and insert it into module M. This function is said
-    // to return an int and take an int parameter.
-    FunctionType* FibFTy = FunctionType::get(Type::getInt32Ty(Context),
-        { Type::getInt32Ty(Context) }, false);
-    Function* FibF =
-        Function::Create(FibFTy, Function::ExternalLinkage, "fib", M);
-
-    FibF->setVisibility(llvm::GlobalValue::VisibilityTypes::DefaultVisibility);
-    FibF->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
-    FibF->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
-
-    // Add a basic block to the function.
-    BasicBlock* BB = BasicBlock::Create(Context, "EntryBlock", FibF);
-
-    // Get pointers to the constants.
-    Value* One = ConstantInt::get(Type::getInt32Ty(Context), 1);
-    Value* Two = ConstantInt::get(Type::getInt32Ty(Context), 2);
-
-    // Get pointer to the integer argument of the add1 function...
-    Argument* ArgX = &*FibF->arg_begin(); // Get the arg.
-    ArgX->setName("AnArg");            // Give it a nice symbolic name for fun.
-
-    // Create the true_block.
-    BasicBlock* RetBB = BasicBlock::Create(Context, "return", FibF);
-    // Create an exit block.
-    BasicBlock* RecurseBB = BasicBlock::Create(Context, "recurse", FibF);
-
-    // Create the "if (arg <= 2) goto exitbb"
-    Value* CondInst = new ICmpInst(*BB, ICmpInst::ICMP_SLE, ArgX, Two, "cond");
-    BranchInst::Create(RetBB, RecurseBB, CondInst, BB);
-
-    // Create: ret int 1
-    ReturnInst::Create(Context, One, RetBB);
-
-    // create fib(x-1)
-    Value* Sub = BinaryOperator::CreateSub(ArgX, One, "arg", RecurseBB);
-    CallInst* CallFibX1 = CallInst::Create(FibF, Sub, "fibx1", RecurseBB);
-    CallFibX1->setTailCall();
-
-    // create fib(x-2)
-    Sub = BinaryOperator::CreateSub(ArgX, Two, "arg", RecurseBB);
-    CallInst* CallFibX2 = CallInst::Create(FibF, Sub, "fibx2", RecurseBB);
-    CallFibX2->setTailCall();
-
-    // fib(x-1)+fib(x-2)
-    Value* Sum = BinaryOperator::CreateAdd(CallFibX1, CallFibX2,
-        "addresult", RecurseBB);
-
-    // Create the return instruction and add it to the basic block
-    ReturnInst::Create(Context, Sum, RecurseBB);
-
-    return FibF;
-}
-*/

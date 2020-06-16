@@ -37,11 +37,11 @@
 %token_destructor {
     /*Sodium::Token *token = $$;
     if (token) {
-        if (token->tokenId == 1 && token->tokenCode != ENTER) {
+        if (token->tokenId == 1 && token->tokenCode != HTML_ENTER) {
             printf("\n%4d:", token->line);
         }
         if (token) {
-            if (token->tokenCode == ENTER) {
+            if (token->tokenCode == HTML_ENTER) {
                 printf("\n%4d:", token->line);
             }
             else {
@@ -150,7 +150,8 @@ tagcontrolblock          ::= tagcontrolblockfullopen tagcontrolblockcontents tag
 
 tagcontrolblockfullopen  ::= tagcontrolblockopen spaces_enters tagcontrolblockproperties tagclosechar.
 
-tagcontrolblockopen      ::= TAG_CONTROLBLOCK_OPEN.
+tagcontrolblockopen      ::= tagcontrolblockopen_.
+tagcontrolblockopen_      ::= TAG_CONTROLBLOCK_OPEN.
 
 tagcontrolblockclosefull ::= tagcontrolblockblockclose.
 tagcontrolblockblockclose::= TAG_CONTROLBLOCK_CLOSE.
@@ -582,10 +583,9 @@ tagbodyblockclosefull ::= tagbodyblockclose.
 {
     char* headContent = "<script type=\"text/javascript\"> window.onload = initResponse(); </script>\n";
 
-    compiler->CreateFrmxToken(
+    compiler->CreateToken(
         HTMLTEXT,
         strlen(headContent),
-        compiler->lineNumberOuter,
         headContent);
 }
 
@@ -626,11 +626,10 @@ tagheadopen         ::= TAG_HEAD_OPEN.
         "<link id=\"bootstrap-css\" rel=\"stylesheet\" href=\"/Sodium-Site/resources/css/bootstrap.min.css\" crossorigin=\"anonymous\" />   \n"
         "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Sodium-Site/resources/css/next-level-default.css\"/>                            \n";
 
-    compiler->CreateFrmxToken(
+    compiler->CreateToken(
         HTMLTEXT,
         strlen(headContent),
-        compiler->lineNumberOuter,
-            headContent);
+        headContent);
 }
 
 tagheadblockclose   ::= TAG_HEAD_BLOCK_CLOSE.
@@ -701,4 +700,4 @@ spaces  ::= space.
 
 space       ::= SPACE.
 
-enter       ::= ENTER.
+enter       ::= HTML_ENTER.

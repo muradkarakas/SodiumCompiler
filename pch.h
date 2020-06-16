@@ -44,10 +44,11 @@ extern "C" {
 #include "CompileUnitFrmx.h"
 #include "CompileUnitSqlx.h"
 
-#include "pre.parser.imp.h"
-#include "html.parser.imp.h"
 #include "lemon.html.h"
 #include "lemon.pre.h"
+
+#include "pre.parser.imp.h"
+#include "html.parser.imp.h"
 
 #include "SymbolTable.h"
 #include "Node.h"

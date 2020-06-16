@@ -24,19 +24,29 @@
 
 %name preParse
 
-%extra_argument { Sodium::SodiumCompiler *session }
+%extra_argument { Sodium::SodiumCompiler * compiler }
 
 %type function_body_line    { const char * }
 %type function_body_lines   { const char * }
 
-%token_type { Sodium::Token }
+%token_type { Sodium::Token * }
 
-%default_type { Sodium::Token }
 
 %token_destructor {
-    if ($$.tokenStr != NULL) {
-        printf("%.*s", $$.tokenStrLength, $$.tokenStr);
-    }
+    /*Sodium::Token *token = $$;
+    if (token) {
+        if (token->tokenId == 1 && token->tokenCode != ENTER) {
+            printf("\n%4d:", token->line);
+        }
+        if (token) {
+            if (token->tokenCode == ENTER) {
+                printf("\n%4d:", token->line);
+            }
+            else {
+                printf("%.*s", token->tokenStrLength, token->tokenStr);
+            }
+        }
+    }*/
 }
 
 
@@ -52,84 +62,45 @@ expressions ::= expression.
 
 expression  ::= comment.
 expression  ::= globals.
+expression  ::= enters.
 expression  ::= PRE_END_OF_FILE.
 
 comment     ::= PRE_COMMENT_START   PRE_COMMENT_END.
 
 /**  GLOBALS VARIABLES */
-globals      ::= PRE_VARIABLE_TYPE_VARCHAR   identifier(AAA) PRE_SEMICOLON.
-{
-   
-    // preTokenDestructor(session, AAA);
-}
-globals      ::= PRE_VARIABLE_TYPE_BOOL   identifier(AAA) PRE_SEMICOLON.
-{
-    
-    // preTokenDestructor(session, AAA);
-}
-globals      ::= PRE_VARIABLE_TYPE_NUMBER    identifier(AAA) PRE_SEMICOLON.
-{
-    
-    // preTokenDestructor(session, AAA);
-}
-globals      ::= PRE_VARIABLE_TYPE_DATE      identifier(AAA) PRE_SEMICOLON.
-{
-    
-    // preTokenDestructor(session, AAA);
-}
-globals      ::= PRE_VARIABLE_TYPE_REDIS	identifier(AAA) PRE_SEMICOLON.
-{
-	
-	// preTokenDestructor(session, AAA);
-}
+globals      ::= PRE_VARIABLE_TYPE_VARCHAR  identifier PRE_SEMICOLON.
+
+globals      ::= PRE_VARIABLE_TYPE_BOOL     identifier PRE_SEMICOLON.
+
+globals      ::= PRE_VARIABLE_TYPE_NUMBER   identifier PRE_SEMICOLON.
+
+globals      ::= PRE_VARIABLE_TYPE_DATE     identifier PRE_SEMICOLON.
+
+globals      ::= PRE_VARIABLE_TYPE_REDIS	identifier PRE_SEMICOLON.
 
 
 /**  GLOBALS FUNCTIONS */
 globals      ::= PRE_VARIABLE_TYPE_VARCHAR funcdechead.
-{
-    
-}
+
 globals      ::= PRE_VARIABLE_TYPE_NUMBER  funcdechead.
-{
-    
-}
+
 globals      ::= PRE_VARIABLE_TYPE_DATE    funcdechead.
-{
-    
-}
+
 globals      ::= PRE_VARIABLE_TYPE_VOID    funcdechead.
-{
-    
-}
+
 globals      ::= PRE_VARIABLE_TYPE_BOOL    funcdechead.
-{
-    
-}
+
 
 funcdechead ::= funcdecid parameterlist htsqlfunctionbody.
-{
-	
-}
-funcdecid   ::= identifier(BBB).
-{
-    
-    // preTokenDestructor(session, BBB);
-}
+
+funcdecid   ::= identifier.
 
 
 
-htsqlfunctionbody   ::= PRE_FUNCTION_BEGIN(AAA) function_body_lines(BBB) PRE_FUNCTION_END(CCC).
-{
-    printf("\n%s\n%s\n%s", AAA.tokenStr, BBB, CCC.tokenStr); 
-    // preTokenDestructor(session, AAA);
-    //mkFree(session->heapHandle, BBB);
-    // preTokenDestructor(session, CCC);
-}
-htsqlfunctionbody   ::= PRE_FUNCTION_BEGIN(AAA) PRE_FUNCTION_END(CCC).
-{
-    // preTokenDestructor(session, AAA);
-    // preTokenDestructor(session, CCC);
-}
+htsqlfunctionbody   ::= PRE_FUNCTION_BEGIN function_body_lines PRE_FUNCTION_END.
+
+htsqlfunctionbody   ::= PRE_FUNCTION_BEGIN PRE_FUNCTION_END.
+
 
 
 function_body_lines ::= function_body_lines function_body_line.
@@ -151,33 +122,25 @@ parameters      ::= parameters comma parameter.
 parameters      ::= parameter.
 
 
-parameter       ::= PRE_VARIABLE_TYPE_VARCHAR identifier(AAA).
-{
-    
-	// preTokenDestructor(session, AAA);
-}
-parameter       ::= PRE_VARIABLE_TYPE_NUMBER  identifier(AAA).
-{
-    
-	// preTokenDestructor(session, AAA);
-}
-parameter       ::= PRE_VARIABLE_TYPE_DATE    identifier(AAA).
-{
-    
-	// preTokenDestructor(session, AAA);
-}
+parameter       ::= PRE_VARIABLE_TYPE_VARCHAR identifier.
+
+parameter       ::= PRE_VARIABLE_TYPE_NUMBER  identifier.
+
+parameter       ::= PRE_VARIABLE_TYPE_DATE    identifier.
+
 parameter       ::= .
 
 
+/**  enter
+*/
+enters ::= enters enter.
+enters ::= enter.
 
+enter ::= PRE_ENTER.
 
 /**  identifier
 */
-identifier(RET) ::= PRE_IDENTIFIER(A).
-{
-	Sodium::Token a = A;
-	RET = a;
-}
+identifier ::= PRE_IDENTIFIER.
 
 
 /**  parenthesis

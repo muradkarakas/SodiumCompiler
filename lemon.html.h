@@ -90,4 +90,4 @@
 #define TAG_HEAD_BLOCK_CLOSE            90
 #define TAG_CLOSE                       91
 #define HTMLTEXT                        92
-#define ENTER                           93
+#define HTML_ENTER                      93

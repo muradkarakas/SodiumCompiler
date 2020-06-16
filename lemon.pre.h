@@ -11,7 +11,8 @@
 #define PRE_FUNCTION_BEGIN              11
 #define PRE_FUNCTION_END                12
 #define PRE_FUNCTION_BODY_LINE          13
-#define PRE_IDENTIFIER                  14
-#define PRE_OPEN_PARAN                  15
-#define PRE_CLOSE_PARAN                 16
-#define PRE_COMMA                       17
+#define PRE_ENTER                       14
+#define PRE_IDENTIFIER                  15
+#define PRE_OPEN_PARAN                  16
+#define PRE_CLOSE_PARAN                 17
+#define PRE_COMMA                       18

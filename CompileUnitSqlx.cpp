@@ -18,6 +18,7 @@ using namespace Sodium;
 Sodium::CompileUnitSqlx::CompileUnitSqlx(SodiumCompiler* compiler) : CompileUnitBase(compiler)
 {
     this->compiler = compiler;
+    this->compileUnitType = COMPILE_UNIT_TYPE_PRE;
 }
 
 Sodium::CompileUnitSqlx::~CompileUnitSqlx() {
@@ -27,41 +28,45 @@ Sodium::CompileUnitSqlx::~CompileUnitSqlx() {
 BOOL
 Sodium::CompileUnitSqlx::Parse()
 {
+    bool retVal;
     yyscan_t scanner;
     string filePath = fileFullPath.append(".sqlx");
     FILE* mkSourceFile = fopen(filePath.c_str(), "r");
 
     if (mkSourceFile == NULL) {
         /** File does not exists */
-        printf("\nFile not found: %s", this->fileFullPath.c_str());
+        printf("\nFile not found: %s", fileFullPath.c_str());
         return false;
     }
     else {
-        htmllex_init_extra(this->compiler, &scanner);
-        htmlset_in(mkSourceFile, scanner);
 
-        void* pParser = htmlParseAlloc(malloc);
+        prelex_init_extra(this->compiler, &scanner);
+        preset_in(mkSourceFile, scanner);
+
+        void* pParser = preParseAlloc(malloc);
 
         Sodium::Token* curToken = NULL;
 
         do {
-            int tokenCode = htmllex(scanner);
-            int tokenLength = htmlget_leng(scanner);
-            const char* tokenStr = htmlget_text(scanner);
+            int tokenCode = prelex(scanner);
+            int tokenLength = preget_leng(scanner);
+            const char* tokenStr = preget_text(scanner);
             curToken = this->CreateToken(
                 tokenCode,
                 tokenLength,
-                this->compiler->lineNumberOuter,
+                this->lineNumberOuter,
                 tokenStr);
-            htmlParse(pParser, curToken->tokenCode, curToken, this->compiler);
-        } while (curToken->tokenCode != END_OF_FILE);
+            preParse(pParser, curToken->tokenCode, curToken, this->compiler);
+        } while (curToken->tokenCode != PRE_END_OF_FILE);
 
-        htmlParse(pParser, 0, 0, this->compiler);
+        preParse(pParser, 0, 0, this->compiler);
 
-        htmlParseFree(pParser, free);
-        htmllex_destroy(scanner);
+        preParseFree(pParser, free);
+        prelex_destroy(scanner);
         fclose(mkSourceFile);
 
-        return true;
+        retVal = true;
     }
+
+    return retVal;
 }

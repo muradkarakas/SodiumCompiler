@@ -1633,8 +1633,8 @@ YY_RULE_SETUP
 #line 156 "lexer.html.ll"
 {
 														Sodium::SodiumCompiler *session = yyextra;
-                                                        session->lineNumberOuter++;
-                                                        return ENTER;
+                                                        session->IncreseLineNumberOuter();
+                                                        return HTML_ENTER;
 													}
 	YY_BREAK
 case 22:
@@ -1760,8 +1760,8 @@ YY_RULE_SETUP
 #line 213 "lexer.html.ll"
 {
 														Sodium::SodiumCompiler * session = yyextra;
-                                                        session->lineNumberOuter++;
-                                                        return ENTER;
+                                                        session->IncreseLineNumberOuter();
+                                                        return HTML_ENTER;
 													}
 	YY_BREAK
 case 35:
@@ -1953,8 +1953,8 @@ YY_RULE_SETUP
 #line 315 "lexer.html.ll"
 {
                             Sodium::SodiumCompiler * session = yyextra;
-                            session->lineNumberOuter++;
-							return ENTER;
+                            session->IncreseLineNumberOuter();
+							return HTML_ENTER;
 						}
 	YY_BREAK
 case 58:
@@ -1995,8 +1995,8 @@ YY_RULE_SETUP
 #line 337 "lexer.html.ll"
 {
 														Sodium::SodiumCompiler *session = yyextra;
-                                                        session->lineNumberOuter++;
-														return ENTER;
+                                                        session->IncreseLineNumberOuter();
+														return HTML_ENTER;
 													}
 	YY_BREAK
 case 63:
@@ -2161,8 +2161,8 @@ YY_RULE_SETUP
 #line 416 "lexer.html.ll"
 {
 							Sodium::SodiumCompiler * session = yyextra;
-                            session->lineNumberOuter++;
-							return ENTER;
+                            session->IncreseLineNumberOuter();
+							return HTML_ENTER;
 						}
 	YY_BREAK
 case 85:
@@ -2347,8 +2347,8 @@ YY_RULE_SETUP
 #line 517 "lexer.html.ll"
 {
 														Sodium::SodiumCompiler * session = yyextra;
-                                                        session->lineNumberOuter++;
-                                                        return ENTER;
+                                                        session->IncreseLineNumberOuter();
+                                                        return HTML_ENTER;
 													}
 	YY_BREAK
 case 108:
@@ -2580,8 +2580,8 @@ YY_RULE_SETUP
 #line 627 "lexer.html.ll"
 {
 												Sodium::SodiumCompiler * session = yyextra;
-												session->lineNumberOuter++;
-                                                return ENTER;
+												session->IncreseLineNumberOuter();
+                                                return HTML_ENTER;
 											}
 	YY_BREAK
 case 139:

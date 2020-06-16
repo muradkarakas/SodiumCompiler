@@ -21,23 +21,28 @@ typedef void* yyscan_t;
 #define YY_EXTRA_TYPE SodiumCompiler *
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-int				htmllex(yyscan_t yyscanner);
-int				htmllex_init_extra(YY_EXTRA_TYPE user_defined, yyscan_t* scanner);
-int             htmlget_leng(yyscan_t yyscanner);
-int				htmllex_init(yyscan_t* scanner);
-char		  * htmlget_text(yyscan_t yyscanner);
-int             htmllex_destroy(yyscan_t yyscanner);
+	int				htmllex(yyscan_t yyscanner);
+	int				htmllex_init_extra(YY_EXTRA_TYPE user_defined, yyscan_t* scanner);
+	int             htmlget_leng(yyscan_t yyscanner);
+	int				htmllex_init(yyscan_t* scanner);
+	char* htmlget_text(yyscan_t yyscanner);
+	int             htmllex_destroy(yyscan_t yyscanner);
 
-void htmlParse(
-	void* yyp,           // The parser 
-	int yymajor,         // The major token code number 
-	Sodium::Token * yyminor,       // The value for the token 
-	Sodium::SodiumCompiler*     //	Optional %extra_argument parameter 
-);
+	void htmlParse(
+		void* yyp,           // The parser 
+		int yymajor,         // The major token code number 
+		Sodium::Token* yyminor,       // The value for the token 
+		Sodium::SodiumCompiler*     //	Optional %extra_argument parameter 
+	);
 
-void		  * htmlParseAlloc(void* (*allocProc)(size_t));
-void			htmlset_in(FILE* _in_str, yyscan_t yyscanner);
-void			htmlParseFree(void* p, void (*freeProc)(void*));
+	void* htmlParseAlloc(void* (*allocProc)(size_t));
+	void			htmlset_in(FILE* _in_str, yyscan_t yyscanner);
+	void			htmlParseFree(void* p, void (*freeProc)(void*));
 
-
+#ifdef __cplusplus
+}
+#endif

@@ -42,9 +42,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pre.parser.imp.c">
-      <Filter>Source Files\sqlx\preParser</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -56,9 +53,6 @@
     </ClCompile>
     <ClCompile Include="Node.cpp">
       <Filter>Source Files\Compiler</Filter>
-    </ClCompile>
-    <ClCompile Include="html.parser.imp.c">
-      <Filter>Source Files\frmx\htmlParser</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
@@ -83,6 +77,12 @@
     </ClCompile>
     <ClCompile Include="CompileUnitSqlx.cpp">
       <Filter>Source Files\Compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="pre.parser.imp.cpp">
+      <Filter>Source Files\sqlx\preParser</Filter>
+    </ClCompile>
+    <ClCompile Include="html.parser.imp.cpp">
+      <Filter>Source Files\frmx\htmlParser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

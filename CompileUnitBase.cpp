@@ -17,6 +17,10 @@ using namespace Sodium;
 
 Sodium::CompileUnitBase::CompileUnitBase(SodiumCompiler* compiler) {
     this->compiler = compiler;
+    this->RootToken = NULL;
+    this->CurrentToken = NULL;
+    this->lineNumberOuter = 1;
+    this->compileUnitType = COMPILE_UNIT_TYPE_BASE;
 }
 
 Sodium::CompileUnitBase::~CompileUnitBase() {
@@ -71,16 +75,22 @@ Sodium::CompileUnitBase::SetSourceFile(
 
 
 void
-Sodium::CompileUnitBase::PrintParsedFileContent() {
-    printf("\n%s, (Token count: %d)", this->filePath.c_str(), this->CurrentToken->tokenId);
+Sodium::CompileUnitBase::PrintParsedFileContent() 
+{
+    printf("\n%s, (Token count: %d)", this->fileFullPath.c_str(), this->CurrentToken->tokenId);
     printf("\n--------------------------------------------------------------------------------\n");
     Token* token = this->RootToken;
     while (token) {
-        if (token->tokenId == 1 && token->tokenCode != ENTER) {
+        if (token->tokenId == 1 && token->tokenCode != HTML_ENTER && token->tokenCode != PRE_ENTER) {
             printf("\n%4d:", token->line);
         }
         if (token) {
-            if (token->tokenCode == ENTER) {
+            if (    
+                    (this->compileUnitType == COMPILE_UNIT_TYPE_FRMX && token->tokenCode == HTML_ENTER)
+                    ||  
+                    (this->compileUnitType == COMPILE_UNIT_TYPE_PRE && token->tokenCode == PRE_ENTER)
+                ) 
+            {
                 printf("\n%4d:", token->line);
             }
             else {

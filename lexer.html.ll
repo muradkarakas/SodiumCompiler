@@ -30,7 +30,7 @@
 PARAOPEN		"{"*
 PARACLOSE		"}"*
 SPACE			[ \t]*
-ENTER			\n
+HTML_ENTER		\n
 TAGCLOSECHAR	"\/"
 HTMLTEXT        [.a-zA-Z#(),:;!=?'"0-9\t\n\{\}\]\-\\[/@$*+_\.]
 
@@ -152,10 +152,10 @@ BEGIN(INITIAL);
 "<"{SPACE}{TAGCLOSECHAR}{SPACE}"style"{SPACE}">"	{
 														return TAG_STYLE_BLOCK_CLOSE;
 													}
-{ENTER}                                             {
+{HTML_ENTER}                                             {
 														Sodium::SodiumCompiler *session = yyextra;
-                                                        session->lineNumberOuter++;
-                                                        return ENTER;
+                                                        session->IncreseLineNumberOuter();
+                                                        return HTML_ENTER;
 													}
 {SPACE}                                             {
                                                         return SPACE;
@@ -209,10 +209,10 @@ BEGIN(INITIAL);
                                                         return PROPERTYDATA;
 
                                                     }
-{ENTER}                                             {
+{HTML_ENTER}                                             {
 														Sodium::SodiumCompiler * session = yyextra;
-                                                        session->lineNumberOuter++;
-                                                        return ENTER;
+                                                        session->IncreseLineNumberOuter();
+                                                        return HTML_ENTER;
 													}
 {SPACE}                                             {
                                                         return SPACE;
@@ -311,10 +311,10 @@ BEGIN(INITIAL);
 \"([^\"])*\"	        {
                             return PROPERTYDATA;
                         }
-{ENTER}                 {
+{HTML_ENTER}                 {
                             Sodium::SodiumCompiler * session = yyextra;
-                            session->lineNumberOuter++;
-							return ENTER;
+                            session->IncreseLineNumberOuter();
+							return HTML_ENTER;
 						}
 {SPACE}                 {
                             return SPACE;
@@ -333,10 +333,10 @@ BEGIN(INITIAL);
                                                             BEGIN(INITIAL);
                                                             return TAG_CONTROLBLOCK_CLOSE;
                                                         }
-{ENTER}                                             {
+{HTML_ENTER}                                             {
 														Sodium::SodiumCompiler *session = yyextra;
-                                                        session->lineNumberOuter++;
-														return ENTER;
+                                                        session->IncreseLineNumberOuter();
+														return HTML_ENTER;
 													}
 {SPACE}                                             {
                                                         return SPACE;
@@ -412,10 +412,10 @@ BEGIN(INITIAL);
 							BEGIN(SC_TAG_DATABLOCK_CONTENT);
                             return TAG_CLOSE;
 						}
-{ENTER}                 {
+{HTML_ENTER}                 {
 							Sodium::SodiumCompiler * session = yyextra;
-                            session->lineNumberOuter++;
-							return ENTER;
+                            session->IncreseLineNumberOuter();
+							return HTML_ENTER;
 						}
 {SPACE}                 {
                             return SPACE;
@@ -513,10 +513,10 @@ BEGIN(INITIAL);
 "<"{SPACE}{TAGCLOSECHAR}{SPACE}"select"{SPACE}">"	        {
 																return TAG_SELECT_BLOCK_CLOSE;
 															}
-{ENTER}                                             {
+{HTML_ENTER}                                             {
 														Sodium::SodiumCompiler * session = yyextra;
-                                                        session->lineNumberOuter++;
-                                                        return ENTER;
+                                                        session->IncreseLineNumberOuter();
+                                                        return HTML_ENTER;
 													}
 {SPACE}                                             {
                                                         return SPACE;
@@ -623,10 +623,10 @@ BEGIN(INITIAL);
                                                 BEGIN(SC_TAG_DATABLOCK_CONTENT);
                                                 return TAG_CLOSE;
                                             }
-{ENTER}                                     {
+{HTML_ENTER}                                     {
 												Sodium::SodiumCompiler * session = yyextra;
-												session->lineNumberOuter++;
-                                                return ENTER;
+												session->IncreseLineNumberOuter();
+                                                return HTML_ENTER;
 											}
 {SPACE}                                     {
                                                 return SPACE;
