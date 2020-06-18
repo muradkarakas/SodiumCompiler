@@ -176,7 +176,6 @@ Sodium::SodiumCompiler::SodiumCompiler()
     this->parsingPhase = PARSING_PHASE_NOTSET;
     this->frmxParser = NULL;
     this->sqlxParser = NULL;
-    this->rootSymbol = NULL;
     this->heapHandle = HeapCreate(HEAP_ZERO_MEMORY, 2048, 0);
 }
 

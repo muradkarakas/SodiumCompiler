@@ -40,17 +40,20 @@ extern "C" {
 }
 #endif
 
-#include "CompileUnitBase.h"
-#include "CompileUnitFrmx.h"
-#include "CompileUnitSqlx.h"
+#include "Token.h"
 
 #include "lemon.html.h"
 #include "lemon.pre.h"
 
-#include "pre.parser.imp.h"
+#include "pre.parser.imp.hpp"
 #include "html.parser.imp.h"
 
-#include "SymbolTable.h"
-#include "Node.h"
+#include "ASTNode.hpp"
+
+#include "CompileUnitBase.h"
+
+#include "CompileUnitFrmx.h"
+#include "CompileUnitSqlx.h"
+
 
 #include "SodiumCompiler.h"

@@ -40,18 +40,15 @@
     <Filter Include="Source Files\Compiler">
       <UniqueIdentifier>{145def49-86ea-4d88-b907-7e73c3443990}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Ast">
+      <UniqueIdentifier>{fdf1bd83-4389-4f46-a1c7-c2e12a2fa718}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SodiumCompiler.cpp">
-      <Filter>Source Files\Compiler</Filter>
-    </ClCompile>
-    <ClCompile Include="SymbolTable.cpp">
-      <Filter>Source Files\Compiler</Filter>
-    </ClCompile>
-    <ClCompile Include="Node.cpp">
       <Filter>Source Files\Compiler</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -84,6 +81,27 @@
     <ClCompile Include="html.parser.imp.cpp">
       <Filter>Source Files\frmx\htmlParser</Filter>
     </ClCompile>
+    <ClCompile Include="ASTNode.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Function.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Statement.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Statement_If.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Statement_While.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Statement_Condition.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Statement_Assigment.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lemon.pre.yy">
@@ -115,20 +133,11 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="pre.parser.imp.h">
-      <Filter>Source Files\sqlx\preParser</Filter>
-    </ClInclude>
     <ClInclude Include="lemon.html.h">
       <Filter>Source Files\frmx\htmlParser\lemon</Filter>
     </ClInclude>
     <ClInclude Include="html.parser.imp.h">
       <Filter>Source Files\frmx\htmlParser</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SymbolTable.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Token.h">
       <Filter>Header Files</Filter>
@@ -144,6 +153,30 @@
     </ClInclude>
     <ClInclude Include="CompileUnitSqlx.h">
       <Filter>Source Files\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="pre.parser.imp.hpp">
+      <Filter>Source Files\sqlx\preParser</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Function.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Statement.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Statement_If.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Statement_While.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Statement_Condition.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Statement_Assigment.hpp">
+      <Filter>Source Files\Ast</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

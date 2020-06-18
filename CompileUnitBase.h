@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Token.h"
+#include "pch.h"
+
+#include "ASTNode.hpp"
 
 
 using namespace std;
@@ -37,6 +39,7 @@ namespace Sodium {
 
 		Token			* CreateToken(int tokenCode, int tokenStrLength, int line, const char* tokenStr);
 
+		ASTNode			* astRootNode;
 	public:
 		CompileUnitBase(SodiumCompiler * compiler);
 

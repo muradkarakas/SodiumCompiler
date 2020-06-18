@@ -187,6 +187,13 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ASTNode.cpp" />
+    <ClCompile Include="ASTNode_Statement_Assigment.cpp" />
+    <ClCompile Include="ASTNode_Statement_Condition.cpp" />
+    <ClCompile Include="ASTNode_Function.cpp" />
+    <ClCompile Include="ASTNode_Statement_If.cpp" />
+    <ClCompile Include="ASTNode_Statement.cpp" />
+    <ClCompile Include="ASTNode_Statement_While.cpp" />
     <ClCompile Include="CompileUnitBase.cpp" />
     <ClCompile Include="CompileUnitFrmx.cpp" />
     <ClCompile Include="CompileUnitSqlx.cpp" />
@@ -196,14 +203,12 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     <ClCompile Include="lexer.html.cpp" />
     <ClCompile Include="lexer.pre.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Node.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="pre.parser.imp.cpp" />
     <ClCompile Include="SodiumCompiler.cpp" />
-    <ClCompile Include="SymbolTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lemon.html.out" />
@@ -217,18 +222,23 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     <None Include="lexer.pre.ll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ASTNode.hpp" />
+    <ClInclude Include="ASTNode_Statement_Assigment.hpp" />
+    <ClInclude Include="ASTNode_Statement_Condition.hpp" />
+    <ClInclude Include="ASTNode_Function.hpp" />
+    <ClInclude Include="ASTNode_Statement_If.hpp" />
+    <ClInclude Include="ASTNode_Statement.hpp" />
+    <ClInclude Include="ASTNode_Statement_While.hpp" />
     <ClInclude Include="CompileUnitBase.h" />
     <ClInclude Include="CompileUnitFrmx.h" />
     <ClInclude Include="CompileUnitSqlx.h" />
     <ClInclude Include="html.parser.imp.h" />
     <ClInclude Include="lemon.html.h" />
     <ClInclude Include="lemon.pre.h" />
-    <ClInclude Include="Node.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="pre.parser.imp.h" />
+    <ClInclude Include="pre.parser.imp.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SodiumCompiler.h" />
-    <ClInclude Include="SymbolTable.h" />
     <ClInclude Include="Token.h" />
   </ItemGroup>
   <ItemGroup>

@@ -13,7 +13,12 @@
 
 #pragma once
 
-#include "SymbolTable.h"
+#include "pch.h"
+
+#include "CompileUnitBase.h"
+
+#include "CompileUnitFrmx.h"
+#include "CompileUnitSqlx.h"
 
 typedef void* HANDLE;
 
@@ -38,8 +43,6 @@ namespace Sodium {
 		CompileUnitFrmx		* frmxParser;
 		CompileUnitSqlx		* sqlxParser;
 
-		SymbolTable			* rootSymbol;
-		
 		/// <summary>
 		/// Parsing phase can be get from this variable. 
 		///	Initialy it is set to PARSING_PHASE_NOTSET enum value.

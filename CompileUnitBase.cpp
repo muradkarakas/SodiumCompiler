@@ -19,6 +19,7 @@ Sodium::CompileUnitBase::CompileUnitBase(SodiumCompiler* compiler) {
     this->compiler = compiler;
     this->RootToken = NULL;
     this->CurrentToken = NULL;
+    this->astRootNode = NULL;
     this->lineNumberOuter = 1;
     this->compileUnitType = COMPILE_UNIT_TYPE_BASE;
 }

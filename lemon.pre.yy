@@ -16,9 +16,12 @@
 #include "pch.h"
 
 #include <stdint.h>
-#include "pre.parser.imp.h"
-
 #include <assert.h>
+
+#include "pre.parser.imp.hpp"
+
+#include "ASTNode.hpp"
+#include "ASTNode_Function.hpp"
 
 }
 
