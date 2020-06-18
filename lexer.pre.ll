@@ -13,7 +13,7 @@
      */
 
     #include "lemon.pre.h"
-    #include "SodiumCompiler.h"
+    #include "SodiumCompiler.hpp"
 %}
 
 %top{

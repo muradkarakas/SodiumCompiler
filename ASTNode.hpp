@@ -17,13 +17,25 @@ namespace Sodium {
 		ASTCompareOperatorType_GreaterThanOrEqual,
 	};
 	
+	enum ASTNodePrimitiveDataType {
+		Number,
+		DateTime,
+		String
+	};
+	
 	enum ASTNodeType {
+		ASTNodeType_Identifier,
+		ASTNodeType_Literal,
+		ASTNodeType_Data_Type,
 		ASTNodeType_Function,
+		ASTNodeType_Block_Statement,
 		ASTNodeType_Statement,
 		ASTNodeType_Statement_Condition,
 		ASTNodeType_Statement_If,
 		ASTNodeType_Statement_While,
 		ASTNodeType_Statement_Assigment,
+		ASTNodeType_Statement_Declaration,
+		ASTNodeType_Statement_Call,
 	};
 
 	class ASTNode

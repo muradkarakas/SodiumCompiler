@@ -13,7 +13,7 @@
 
 #pragma once
 
-#include "SodiumCompiler.h"
+#include "SodiumCompiler.hpp"
 
 typedef void* yyscan_t;
 

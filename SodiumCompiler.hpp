@@ -15,10 +15,14 @@
 
 #include "pch.h"
 
-#include "CompileUnitBase.h"
+#include "Token.h"
 
-#include "CompileUnitFrmx.h"
-#include "CompileUnitSqlx.h"
+#include "ASTNode_Code_Block.hpp"
+
+#include "CompileUnitBase.hpp"
+
+#include "CompileUnitFrmx.hpp"
+#include "CompileUnitSqlx.hpp"
 
 typedef void* HANDLE;
 
@@ -50,6 +54,12 @@ namespace Sodium {
 		/// </summary>
 		ParsingPhase		parsingPhase;
 
+	protected:
+		
+		ASTNode_Code_Block	* astNodeCodeBlock;
+
+		void	SetCodeBlock(ASTNode_Code_Block* codeBlock);
+
 	public:
 		HANDLE				heapHandle;
 		
@@ -67,6 +77,7 @@ namespace Sodium {
 		llvm::Function* CreatePageLoadFunction(llvm::Module* M, llvm::LLVMContext& Context);
 
 		friend class CompileUnitBase;
+		friend class CompileUnitBaseSqlx;
 	};
 
 }

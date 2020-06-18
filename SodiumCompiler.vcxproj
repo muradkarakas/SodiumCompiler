@@ -188,9 +188,15 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ASTNode.cpp" />
+    <ClCompile Include="ASTNode_Code_Block.cpp" />
+    <ClCompile Include="ASTNode_Data_Type.cpp" />
+    <ClCompile Include="ASTNode_Identifier.cpp" />
+    <ClCompile Include="ASTNode_Literal.cpp" />
     <ClCompile Include="ASTNode_Statement_Assigment.cpp" />
+    <ClCompile Include="ASTNode_Statement_Call.cpp" />
     <ClCompile Include="ASTNode_Statement_Condition.cpp" />
-    <ClCompile Include="ASTNode_Function.cpp" />
+    <ClCompile Include="ASTNode_Function_Declaration.cpp" />
+    <ClCompile Include="ASTNode_Statement_Variable_Declaration.cpp" />
     <ClCompile Include="ASTNode_Statement_If.cpp" />
     <ClCompile Include="ASTNode_Statement.cpp" />
     <ClCompile Include="ASTNode_Statement_While.cpp" />
@@ -223,22 +229,28 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ASTNode.hpp" />
+    <ClInclude Include="ASTNode_Code_Block.hpp" />
+    <ClInclude Include="ASTNode_Data_Type.hpp" />
+    <ClInclude Include="ASTNode_Identifier.hpp" />
+    <ClInclude Include="ASTNode_Literal.hpp" />
     <ClInclude Include="ASTNode_Statement_Assigment.hpp" />
+    <ClInclude Include="ASTNode_Statement_Call.hpp" />
     <ClInclude Include="ASTNode_Statement_Condition.hpp" />
-    <ClInclude Include="ASTNode_Function.hpp" />
+    <ClInclude Include="ASTNode_Function_Declaration.hpp" />
+    <ClInclude Include="ASTNode_Statement_Variable_Declaration.hpp" />
     <ClInclude Include="ASTNode_Statement_If.hpp" />
     <ClInclude Include="ASTNode_Statement.hpp" />
     <ClInclude Include="ASTNode_Statement_While.hpp" />
-    <ClInclude Include="CompileUnitBase.h" />
-    <ClInclude Include="CompileUnitFrmx.h" />
-    <ClInclude Include="CompileUnitSqlx.h" />
+    <ClInclude Include="CompileUnitBase.hpp" />
+    <ClInclude Include="CompileUnitFrmx.hpp" />
+    <ClInclude Include="CompileUnitSqlx.hpp" />
     <ClInclude Include="html.parser.imp.h" />
     <ClInclude Include="lemon.html.h" />
     <ClInclude Include="lemon.pre.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="pre.parser.imp.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="SodiumCompiler.h" />
+    <ClInclude Include="SodiumCompiler.hpp" />
     <ClInclude Include="Token.h" />
   </ItemGroup>
   <ItemGroup>

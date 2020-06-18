@@ -50,10 +50,10 @@ extern "C" {
 
 #include "ASTNode.hpp"
 
-#include "CompileUnitBase.h"
+#include "CompileUnitBase.hpp"
 
-#include "CompileUnitFrmx.h"
-#include "CompileUnitSqlx.h"
+#include "CompileUnitFrmx.hpp"
+#include "CompileUnitSqlx.hpp"
 
 
-#include "SodiumCompiler.h"
+#include "SodiumCompiler.hpp"

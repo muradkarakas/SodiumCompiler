@@ -47,7 +47,7 @@
 #include "pre.parser.imp.hpp"
 
 #include "ASTNode.hpp"
-#include "ASTNode_Function.hpp"
+#include "ASTNode_Function_Declaration.hpp"
 
 #line 53 "lemon.pre.c"
 /**************** End of %include directives **********************************/

@@ -39,13 +39,12 @@ namespace Sodium {
 
 		Token			* CreateToken(int tokenCode, int tokenStrLength, int line, const char* tokenStr);
 
-		ASTNode			* astRootNode;
 	public:
 		CompileUnitBase(SodiumCompiler * compiler);
 
 		~CompileUnitBase();
 
-		BOOL	SetSourceFile(char* filePath);
+		BOOL			SetSourceFile(char* filePath);
 
 		string			GetFileContent();
 		void			PrintParsedFileContent();

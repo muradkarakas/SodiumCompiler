@@ -45,6 +45,7 @@ Sodium::CompileUnitSqlx::Parse()
 
         void* pParser = preParseAlloc(malloc);
 
+        //  Custom token to initialize Abstract Parse Tree
         Sodium::Token* curToken = NULL;
 
         do {

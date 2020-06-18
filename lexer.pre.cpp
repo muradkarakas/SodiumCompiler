@@ -626,7 +626,7 @@ static const flex_int16_t yy_chk[362] =
      */
 
     #include "lemon.pre.h"
-    #include "SodiumCompiler.h"
+    #include "SodiumCompiler.hpp"
 #line 630 "lexer.pre.cpp"
 
 #define YY_NO_INPUT 1

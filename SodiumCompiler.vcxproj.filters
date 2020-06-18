@@ -84,9 +84,6 @@
     <ClCompile Include="ASTNode.cpp">
       <Filter>Source Files\Ast</Filter>
     </ClCompile>
-    <ClCompile Include="ASTNode_Function.cpp">
-      <Filter>Source Files\Ast</Filter>
-    </ClCompile>
     <ClCompile Include="ASTNode_Statement.cpp">
       <Filter>Source Files\Ast</Filter>
     </ClCompile>
@@ -100,6 +97,27 @@
       <Filter>Source Files\Ast</Filter>
     </ClCompile>
     <ClCompile Include="ASTNode_Statement_Assigment.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Function_Declaration.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Code_Block.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Statement_Variable_Declaration.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Identifier.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Data_Type.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Literal.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Statement_Call.cpp">
       <Filter>Source Files\Ast</Filter>
     </ClCompile>
   </ItemGroup>
@@ -142,25 +160,10 @@
     <ClInclude Include="Token.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SodiumCompiler.h">
-      <Filter>Source Files\Compiler</Filter>
-    </ClInclude>
-    <ClInclude Include="CompileUnitBase.h">
-      <Filter>Source Files\Compiler</Filter>
-    </ClInclude>
-    <ClInclude Include="CompileUnitFrmx.h">
-      <Filter>Source Files\Compiler</Filter>
-    </ClInclude>
-    <ClInclude Include="CompileUnitSqlx.h">
-      <Filter>Source Files\Compiler</Filter>
-    </ClInclude>
     <ClInclude Include="pre.parser.imp.hpp">
       <Filter>Source Files\sqlx\preParser</Filter>
     </ClInclude>
     <ClInclude Include="ASTNode.hpp">
-      <Filter>Source Files\Ast</Filter>
-    </ClInclude>
-    <ClInclude Include="ASTNode_Function.hpp">
       <Filter>Source Files\Ast</Filter>
     </ClInclude>
     <ClInclude Include="ASTNode_Statement.hpp">
@@ -176,6 +179,39 @@
       <Filter>Source Files\Ast</Filter>
     </ClInclude>
     <ClInclude Include="ASTNode_Statement_Assigment.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Function_Declaration.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Code_Block.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Statement_Variable_Declaration.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="SodiumCompiler.hpp">
+      <Filter>Source Files\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="CompileUnitBase.hpp">
+      <Filter>Source Files\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="CompileUnitFrmx.hpp">
+      <Filter>Source Files\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="CompileUnitSqlx.hpp">
+      <Filter>Source Files\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Identifier.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Data_Type.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Literal.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Statement_Call.hpp">
       <Filter>Source Files\Ast</Filter>
     </ClInclude>
   </ItemGroup>

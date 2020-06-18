@@ -21,7 +21,7 @@
 #include "pre.parser.imp.hpp"
 
 #include "ASTNode.hpp"
-#include "ASTNode_Function.hpp"
+#include "ASTNode_Function_Declaration.hpp"
 
 }
 

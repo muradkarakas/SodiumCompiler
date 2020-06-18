@@ -33,6 +33,13 @@ Sodium::SodiumCompiler::CreateToken(
 }
 
 void
+Sodium::SodiumCompiler::SetCodeBlock(ASTNode_Code_Block* codeBlock) {
+    this->astNodeCodeBlock = codeBlock;
+}
+
+
+
+void
 Sodium::SodiumCompiler::IncreseLineNumberOuter() {
     if (this->parsingPhase == PARSING_PHASE_FRMX) {
         frmxParser->lineNumberOuter++;
@@ -145,6 +152,9 @@ Sodium::SodiumCompiler::ParsePage(
     char* filePath
 )
 {
+    //  Init Abstract Parse Tree
+    this->SetCodeBlock(new ASTNode_Code_Block(NULL, "Global"));
+
     // FRMX PARSING
     this->parsingPhase = PARSING_PHASE_FRMX;
     this->frmxParser = new CompileUnitFrmx(this);
@@ -167,6 +177,8 @@ Sodium::SodiumCompiler::ParsePage(
             return TRUE;
         }
     }
+
+    
     return FALSE;
 }
 
@@ -181,11 +193,20 @@ Sodium::SodiumCompiler::SodiumCompiler()
 
 Sodium::SodiumCompiler::~SodiumCompiler()
 {
-    if (this->frmxParser)
+    if (this->frmxParser) {
         delete this->frmxParser;
+        this->frmxParser = NULL;
+    }
     
-    if (this->sqlxParser)
+    if (this->sqlxParser) {
         delete this->sqlxParser;
+        this->sqlxParser = NULL;
+    }
+
+    if (this->astNodeCodeBlock) {
+        delete this->astNodeCodeBlock;
+        this->astNodeCodeBlock = NULL;
+    }
 
     if (this->heapHandle != NULL) {
         HeapDestroy(this->heapHandle);
