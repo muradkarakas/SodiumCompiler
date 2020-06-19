@@ -16,6 +16,9 @@ namespace Sodium {
     {
 
     public:
+        //  if identifier is a name of variable or function parameter, this property will hold the type of variable/parameter.
+        //  if it is not, it will be set to TYPELESS_IDENTIFIER
+        ASTNodePrimitiveDataType    primitiveDataType;
 
         string ToString();
         ASTNode_Identifier(Token* _token, string scope);

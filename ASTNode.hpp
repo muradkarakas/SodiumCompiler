@@ -23,6 +23,7 @@ namespace Sodium {
 	};
 	
 	enum ASTNodePrimitiveDataType {
+		ASTNodePrimitiveDataType_Typeless,
 		ASTNodePrimitiveDataType_Void,
 		ASTNodePrimitiveDataType_Number,
 		ASTNodePrimitiveDataType_DateTime,

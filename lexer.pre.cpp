@@ -1061,7 +1061,7 @@ YY_RULE_SETUP
 {
 									Sodium::SodiumCompiler *session = yyextra;
 									session->IncreseLineNumberOuter();
-                                    return PRE_ENTER;
+                                    //return PRE_ENTER;
 								}
 	YY_BREAK
 case 15:

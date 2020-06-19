@@ -16,6 +16,7 @@ Sodium::ASTNode_Data_Type::ToString()
 {
 	char *buf;
 	switch (primitiveDataType) {
+		case ASTNodePrimitiveDataType_Typeless: { buf = "No data type"; break; }
 		case ASTNodePrimitiveDataType_Void: { buf = "void"; break; }
 		case ASTNodePrimitiveDataType_Number: { buf = "number"; break; }
 		case ASTNodePrimitiveDataType_String: { buf = "string"; break; }

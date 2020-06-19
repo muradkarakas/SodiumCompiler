@@ -92,7 +92,7 @@ BEGIN(INITIAL);
 {PRE_ENTER}						{
 									Sodium::SodiumCompiler *session = yyextra;
 									session->IncreseLineNumberOuter();
-                                    return PRE_ENTER;
+                                    //return PRE_ENTER;
 								}
 "*/"                            {
                                     BEGIN(INITIAL);

@@ -199,6 +199,8 @@ Sodium::SodiumCompiler::ParsePage(
         //  FRMX PARSING DONE
         this->parsingPhase = PARSING_PHASE_FRMX_DONE;
         
+        //this->frmxParser->PrintParsedFileContent();
+
         // SQL PRE PARSING
         this->parsingPhase = PARSING_PHASE_SQLX_PRE;
         this->sqlxParser = new CompileUnitSqlx(this);
@@ -207,8 +209,7 @@ Sodium::SodiumCompiler::ParsePage(
             // SQL PRE PARSING DONE
             this->parsingPhase = PARSING_PHASE_SQLX_PRE_DONE;
             
-            //this->frmxParser->PrintParsedFileContent();
-            //this->sqlxParser->PrintParsedFileContent();
+            this->sqlxParser->PrintParsedFileContent();
             
             return TRUE;
         }

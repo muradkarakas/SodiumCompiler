@@ -8,6 +8,7 @@
 Sodium::ASTNode_Identifier::ASTNode_Identifier(Token* _token, string scope)
 	: ASTNode(ASTNodeType_Identifier, _token, scope)
 {
+	this->primitiveDataType = ASTNodePrimitiveDataType_Typeless;
 }
 
 string

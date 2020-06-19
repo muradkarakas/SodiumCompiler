@@ -42,20 +42,8 @@
 
 
 %token_destructor {
-    /*Token *token = $$;
-    if (token) {
-        if (token->tokenId == 1 && token->tokenCode != ENTER) {
-            printf("\n%4d:", token->line);
-        }
-        if (token) {
-            if (token->tokenCode == ENTER) {
-                printf("\n%4d:", token->line);
-            }
-            else {
-                printf("%.*s", token->tokenStrLength, token->tokenStr);
-            }
-        }
-    }*/
+    Token *token = $$;
+    preTokenDestructor(token);
 }
 
 
@@ -85,7 +73,7 @@ globals      ::= PRE_VARIABLE_TYPE_NUMBER   identifier PRE_SEMICOLON.
 
 globals      ::= PRE_VARIABLE_TYPE_DATE     identifier PRE_SEMICOLON.
 
-globals      ::= PRE_VARIABLE_TYPE_REDIS	identifier(A) PRE_SEMICOLON.
+globals      ::= PRE_VARIABLE_TYPE_REDIS(A)	identifier(B) PRE_SEMICOLON(C).
 {
     ASTNode_Statement_Variable_Declaration* stmVarDeclaration = 
         new ASTNode_Statement_Variable_Declaration(A, ASTNodePrimitiveDataType_Redis, "global");
@@ -94,6 +82,10 @@ globals      ::= PRE_VARIABLE_TYPE_REDIS	identifier(A) PRE_SEMICOLON.
 
     //  adding variable declaration to the AST
     compiler->InsertASTNode(stmVarDeclaration);
+
+    preTokenDestructor(A);
+    preTokenDestructor(B);
+    preTokenDestructor(C);
 }
 
 
@@ -104,14 +96,17 @@ globals      ::= PRE_VARIABLE_TYPE_NUMBER  funcdechead.
 
 globals      ::= PRE_VARIABLE_TYPE_DATE    funcdechead.
 
-globals      ::= PRE_VARIABLE_TYPE_VOID    funcdechead(A).
+globals      ::= PRE_VARIABLE_TYPE_VOID(A) funcdechead(B).
 {
-    ASTNode_Statement_Function_Declaration* funcDecl = (ASTNode_Statement_Function_Declaration*)A->ASTNodeInstance;
+    ASTNode_Statement_Function_Declaration* funcDecl = (ASTNode_Statement_Function_Declaration*) B->ASTNodeInstance;
     
     ASTNode_Data_Type* returnDataType =
-        new ASTNode_Data_Type(A, "global", ASTNodePrimitiveDataType_Void);
+        new ASTNode_Data_Type(B, "global", ASTNodePrimitiveDataType_Void);
     
     funcDecl->returnType = returnDataType;
+
+    preTokenDestructor(A);
+    preTokenDestructor(B);
 }
 
 globals      ::= PRE_VARIABLE_TYPE_BOOL    funcdechead.
@@ -125,6 +120,8 @@ funcdechead(RET) ::= funcdecid(A) parameterlist htsqlfunctionbody.
     //  adding variable declaration to the AST
     compiler->InsertASTNode(functionDeclaration);
     RET = functionDeclaration->_token;
+
+    preTokenDestructor(A);
 }
 
 
@@ -178,7 +175,7 @@ enter ::= PRE_ENTER.
 identifier(RET) ::= PRE_IDENTIFIER(A).
 {
     ASTNode_Identifier * identifier = new ASTNode_Identifier(A, "global");
-    //A->ASTNodeInstance = identifier;
+    preTokenDestructor(A);
     RET = A;
 }
 

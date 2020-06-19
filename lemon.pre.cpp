@@ -546,22 +546,10 @@ static void yy_destructor(
 {
 #line 44 "lemon.pre.yy"
 
-    /*Token *token = (yypminor->yy0);
-    if (token) {
-        if (token->tokenId == 1 && token->tokenCode != ENTER) {
-            printf("\n%4d:", token->line);
-        }
-        if (token) {
-            if (token->tokenCode == ENTER) {
-                printf("\n%4d:", token->line);
-            }
-            else {
-                printf("%.*s", token->tokenStrLength, token->tokenStr);
-            }
-        }
-    }*/
+    Token *token = (yypminor->yy0);
+    preTokenDestructor(token);
 
-#line 565 "lemon.pre.c"
+#line 553 "lemon.pre.c"
 }
       break;
 /********* End destructor definitions *****************************************/
@@ -907,37 +895,39 @@ static void yy_reduce(
 /********** Begin reduce actions **********************************************/
         YYMINORTYPE yylhsminor;
       case 0: /* globals ::= PRE_VARIABLE_TYPE_REDIS identifier PRE_SEMICOLON */
-{  yy_destructor(yypParser,9,&yymsp[-2].minor);
-#line 89 "lemon.pre.yy"
+#line 77 "lemon.pre.yy"
 {
     ASTNode_Statement_Variable_Declaration* stmVarDeclaration = 
-        new ASTNode_Statement_Variable_Declaration(yymsp[-1].minor.yy0, ASTNodePrimitiveDataType_Redis, "global");
+        new ASTNode_Statement_Variable_Declaration(yymsp[-2].minor.yy0, ASTNodePrimitiveDataType_Redis, "global");
 
-    yymsp[-1].minor.yy0->ASTNodeInstance = stmVarDeclaration;
+    yymsp[-2].minor.yy0->ASTNodeInstance = stmVarDeclaration;
 
     //  adding variable declaration to the AST
     compiler->InsertASTNode(stmVarDeclaration);
+
+    preTokenDestructor(yymsp[-2].minor.yy0);
+    preTokenDestructor(yymsp[-1].minor.yy0);
+    preTokenDestructor(yymsp[0].minor.yy0);
 }
-#line 922 "lemon.pre.c"
-  yy_destructor(yypParser,5,&yymsp[0].minor);
-}
+#line 913 "lemon.pre.c"
         break;
       case 1: /* globals ::= PRE_VARIABLE_TYPE_VOID funcdechead */
-{  yy_destructor(yypParser,10,&yymsp[-1].minor);
-#line 108 "lemon.pre.yy"
+#line 100 "lemon.pre.yy"
 {
-    ASTNode_Statement_Function_Declaration* funcDecl = (ASTNode_Statement_Function_Declaration*)yymsp[0].minor.yy0->ASTNodeInstance;
+    ASTNode_Statement_Function_Declaration* funcDecl = (ASTNode_Statement_Function_Declaration*) yymsp[0].minor.yy0->ASTNodeInstance;
     
     ASTNode_Data_Type* returnDataType =
         new ASTNode_Data_Type(yymsp[0].minor.yy0, "global", ASTNodePrimitiveDataType_Void);
     
     funcDecl->returnType = returnDataType;
+
+    preTokenDestructor(yymsp[-1].minor.yy0);
+    preTokenDestructor(yymsp[0].minor.yy0);
 }
-#line 937 "lemon.pre.c"
-}
+#line 928 "lemon.pre.c"
         break;
       case 2: /* funcdechead ::= funcdecid parameterlist htsqlfunctionbody */
-#line 121 "lemon.pre.yy"
+#line 116 "lemon.pre.yy"
 {
     ASTNode_Statement_Function_Declaration* functionDeclaration =
         new ASTNode_Statement_Function_Declaration(yymsp[-2].minor.yy0, "global", (ASTNode_Identifier*) yymsp[-2].minor.yy0->ASTNodeInstance);
@@ -945,164 +935,166 @@ static void yy_reduce(
     //  adding variable declaration to the AST
     compiler->InsertASTNode(functionDeclaration);
     yylhsminor.yy0 = functionDeclaration->_token;
+
+    preTokenDestructor(yymsp[-2].minor.yy0);
 }
-#line 950 "lemon.pre.c"
+#line 942 "lemon.pre.c"
   yymsp[-2].minor.yy0 = yylhsminor.yy0;
         break;
       case 3: /* identifier ::= PRE_IDENTIFIER */
-#line 179 "lemon.pre.yy"
+#line 176 "lemon.pre.yy"
 {
     ASTNode_Identifier * identifier = new ASTNode_Identifier(yymsp[0].minor.yy0, "global");
-    //yymsp[0].minor.yy0->ASTNodeInstance = identifier;
+    preTokenDestructor(yymsp[0].minor.yy0);
     yylhsminor.yy0 = yymsp[0].minor.yy0;
 }
-#line 960 "lemon.pre.c"
+#line 952 "lemon.pre.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
       case 10: /* expression ::= PRE_END_OF_FILE */
 {  yy_destructor(yypParser,1,&yymsp[0].minor);
-#line 75 "lemon.pre.yy"
+#line 63 "lemon.pre.yy"
 {
 }
-#line 968 "lemon.pre.c"
+#line 960 "lemon.pre.c"
 }
         break;
       case 11: /* comment ::= PRE_COMMENT_START PRE_COMMENT_END */
 {  yy_destructor(yypParser,2,&yymsp[-1].minor);
-#line 77 "lemon.pre.yy"
+#line 65 "lemon.pre.yy"
 {
 }
-#line 976 "lemon.pre.c"
+#line 968 "lemon.pre.c"
   yy_destructor(yypParser,3,&yymsp[0].minor);
 }
         break;
       case 12: /* globals ::= PRE_VARIABLE_TYPE_VARCHAR identifier PRE_SEMICOLON */
 {  yy_destructor(yypParser,4,&yymsp[-2].minor);
-#line 80 "lemon.pre.yy"
+#line 68 "lemon.pre.yy"
 {
 }
-#line 985 "lemon.pre.c"
+#line 977 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
 }
         break;
       case 13: /* globals ::= PRE_VARIABLE_TYPE_BOOL identifier PRE_SEMICOLON */
 {  yy_destructor(yypParser,6,&yymsp[-2].minor);
-#line 82 "lemon.pre.yy"
+#line 70 "lemon.pre.yy"
 {
 }
-#line 994 "lemon.pre.c"
+#line 986 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
 }
         break;
       case 14: /* globals ::= PRE_VARIABLE_TYPE_NUMBER identifier PRE_SEMICOLON */
 {  yy_destructor(yypParser,7,&yymsp[-2].minor);
-#line 84 "lemon.pre.yy"
+#line 72 "lemon.pre.yy"
 {
 }
-#line 1003 "lemon.pre.c"
+#line 995 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
 }
         break;
       case 15: /* globals ::= PRE_VARIABLE_TYPE_DATE identifier PRE_SEMICOLON */
 {  yy_destructor(yypParser,8,&yymsp[-2].minor);
-#line 86 "lemon.pre.yy"
+#line 74 "lemon.pre.yy"
 {
 }
-#line 1012 "lemon.pre.c"
+#line 1004 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
 }
         break;
       case 16: /* globals ::= PRE_VARIABLE_TYPE_VARCHAR funcdechead */
       case 29: /* parameter ::= PRE_VARIABLE_TYPE_VARCHAR identifier */ yytestcase(yyruleno==29);
 {  yy_destructor(yypParser,4,&yymsp[-1].minor);
-#line 101 "lemon.pre.yy"
+#line 93 "lemon.pre.yy"
 {
 }
-#line 1022 "lemon.pre.c"
+#line 1014 "lemon.pre.c"
 }
         break;
       case 17: /* globals ::= PRE_VARIABLE_TYPE_NUMBER funcdechead */
       case 30: /* parameter ::= PRE_VARIABLE_TYPE_NUMBER identifier */ yytestcase(yyruleno==30);
 {  yy_destructor(yypParser,7,&yymsp[-1].minor);
-#line 103 "lemon.pre.yy"
+#line 95 "lemon.pre.yy"
 {
 }
-#line 1031 "lemon.pre.c"
+#line 1023 "lemon.pre.c"
 }
         break;
       case 18: /* globals ::= PRE_VARIABLE_TYPE_DATE funcdechead */
       case 31: /* parameter ::= PRE_VARIABLE_TYPE_DATE identifier */ yytestcase(yyruleno==31);
 {  yy_destructor(yypParser,8,&yymsp[-1].minor);
-#line 105 "lemon.pre.yy"
+#line 97 "lemon.pre.yy"
+{
+}
+#line 1032 "lemon.pre.c"
+}
+        break;
+      case 19: /* globals ::= PRE_VARIABLE_TYPE_BOOL funcdechead */
+{  yy_destructor(yypParser,6,&yymsp[-1].minor);
+#line 112 "lemon.pre.yy"
 {
 }
 #line 1040 "lemon.pre.c"
 }
         break;
-      case 19: /* globals ::= PRE_VARIABLE_TYPE_BOOL funcdechead */
-{  yy_destructor(yypParser,6,&yymsp[-1].minor);
-#line 117 "lemon.pre.yy"
+      case 21: /* htsqlfunctionbody ::= PRE_FUNCTION_BEGIN function_body_lines PRE_FUNCTION_END */
+{  yy_destructor(yypParser,11,&yymsp[-2].minor);
+#line 132 "lemon.pre.yy"
 {
 }
 #line 1048 "lemon.pre.c"
-}
-        break;
-      case 21: /* htsqlfunctionbody ::= PRE_FUNCTION_BEGIN function_body_lines PRE_FUNCTION_END */
-{  yy_destructor(yypParser,11,&yymsp[-2].minor);
-#line 135 "lemon.pre.yy"
-{
-}
-#line 1056 "lemon.pre.c"
   yy_destructor(yypParser,12,&yymsp[0].minor);
 }
         break;
       case 22: /* htsqlfunctionbody ::= PRE_FUNCTION_BEGIN PRE_FUNCTION_END */
 {  yy_destructor(yypParser,11,&yymsp[-1].minor);
-#line 137 "lemon.pre.yy"
+#line 134 "lemon.pre.yy"
 {
 }
-#line 1065 "lemon.pre.c"
+#line 1057 "lemon.pre.c"
   yy_destructor(yypParser,12,&yymsp[0].minor);
 }
         break;
       case 25: /* function_body_line ::= PRE_FUNCTION_BODY_LINE */
 {  yy_destructor(yypParser,13,&yymsp[0].minor);
-#line 145 "lemon.pre.yy"
+#line 142 "lemon.pre.yy"
+{
+}
+#line 1066 "lemon.pre.c"
+}
+        break;
+      case 35: /* enter ::= PRE_ENTER */
+{  yy_destructor(yypParser,14,&yymsp[0].minor);
+#line 171 "lemon.pre.yy"
 {
 }
 #line 1074 "lemon.pre.c"
 }
         break;
-      case 35: /* enter ::= PRE_ENTER */
-{  yy_destructor(yypParser,14,&yymsp[0].minor);
-#line 174 "lemon.pre.yy"
+      case 36: /* openparenthesis ::= PRE_OPEN_PARAN */
+{  yy_destructor(yypParser,16,&yymsp[0].minor);
+#line 185 "lemon.pre.yy"
 {
 }
 #line 1082 "lemon.pre.c"
 }
         break;
-      case 36: /* openparenthesis ::= PRE_OPEN_PARAN */
-{  yy_destructor(yypParser,16,&yymsp[0].minor);
-#line 188 "lemon.pre.yy"
+      case 37: /* closeparenthesis ::= PRE_CLOSE_PARAN */
+{  yy_destructor(yypParser,17,&yymsp[0].minor);
+#line 186 "lemon.pre.yy"
 {
 }
 #line 1090 "lemon.pre.c"
 }
         break;
-      case 37: /* closeparenthesis ::= PRE_CLOSE_PARAN */
-{  yy_destructor(yypParser,17,&yymsp[0].minor);
-#line 189 "lemon.pre.yy"
+      case 38: /* comma ::= PRE_COMMA */
+{  yy_destructor(yypParser,18,&yymsp[0].minor);
+#line 188 "lemon.pre.yy"
 {
 }
 #line 1098 "lemon.pre.c"
-}
-        break;
-      case 38: /* comma ::= PRE_COMMA */
-{  yy_destructor(yypParser,18,&yymsp[0].minor);
-#line 191 "lemon.pre.yy"
-{
-}
-#line 1106 "lemon.pre.c"
 }
         break;
       default:
@@ -1177,10 +1169,10 @@ static void yy_syntax_error(
   preParseARG_FETCH;
 #define TOKEN yyminor
 /************ Begin %syntax_error code ****************************************/
-#line 62 "lemon.pre.yy"
+#line 50 "lemon.pre.yy"
 
     printf("\nsyntax error");
-#line 1184 "lemon.pre.c"
+#line 1176 "lemon.pre.c"
 /************ End %syntax_error code ******************************************/
   preParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }

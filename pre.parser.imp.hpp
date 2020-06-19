@@ -43,6 +43,8 @@ extern "C" {
 	void					preset_in(FILE* _in_str, yyscan_t yyscanner);
 	void					preParseFree(void* p, void (*freeProc)(void*));
 
+	void preTokenDestructor(Sodium::Token* token);
+
 #ifdef __cplusplus
 }
 #endif
