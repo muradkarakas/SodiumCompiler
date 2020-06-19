@@ -8,3 +8,9 @@ Sodium::ASTNode_Statement_Assigment::ASTNode_Statement_Assigment(Token* _token, 
 {
 
 }
+
+string
+Sodium::ASTNode_Statement_Assigment::ToString()
+{
+	return string("Not implemented yet");
+}

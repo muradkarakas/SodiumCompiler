@@ -14,6 +14,8 @@ namespace Sodium {
         ASTNode* right;
 
     public:
+
+        string ToString();
         ASTNode_Statement_Assigment(Token* _token, string scope);
     };
 

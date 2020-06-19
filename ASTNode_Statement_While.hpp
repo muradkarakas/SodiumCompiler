@@ -18,6 +18,8 @@ namespace Sodium {
         ASTNode_Statement* block;
 
     public:
+
+        string ToString();
         ASTNode_Statement_While(Token* _token, string scope);
     };
 

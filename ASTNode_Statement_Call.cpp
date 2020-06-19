@@ -10,3 +10,9 @@ Sodium::ASTNode_Statement_Call::ASTNode_Statement_Call(Token* _token, string sco
 {
 
 }
+
+string
+Sodium::ASTNode_Statement_Call::ToString()
+{
+	return string("Not implemented yet");
+}

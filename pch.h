@@ -40,7 +40,7 @@ extern "C" {
 }
 #endif
 
-#include "Token.h"
+#include "Token.hpp"
 
 #include "lemon.html.h"
 #include "lemon.pre.h"

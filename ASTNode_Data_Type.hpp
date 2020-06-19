@@ -4,7 +4,7 @@
 
 #include "ASTNode.hpp"
 
-#include "Token.h"
+#include "Token.hpp"
 
 using namespace std;
 
@@ -12,10 +12,11 @@ namespace Sodium {
 
     class ASTNode_Data_Type : public ASTNode
     {
-        ASTNodePrimitiveDataType    primitiveDataType;
     public:
+        ASTNodePrimitiveDataType    primitiveDataType;
 
-        ASTNode_Data_Type(Token* _token, string scope);
+        string ToString();
+        ASTNode_Data_Type(Token* _token, string scope, ASTNodePrimitiveDataType primitiveDataType);
     };
 
 }

@@ -12,12 +12,13 @@ namespace Sodium {
 
 	class ASTNode_Code_Block : public ASTNode
 	{
-		vector<ASTNode_Statement> statements;
 	public:
+		vector<ASTNode_Statement*> statements;
 
 		ASTNode_Code_Block(Token* _token, string scope);
 		
-		void InsertStatement(ASTNode_Statement statement);
+		string ToString();
+		void InsertStatement(ASTNode_Statement * statement);
 	};
 
 }

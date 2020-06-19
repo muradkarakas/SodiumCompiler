@@ -21,22 +21,28 @@
 #include "pre.parser.imp.hpp"
 
 #include "ASTNode.hpp"
-#include "ASTNode_Function_Declaration.hpp"
+#include "ASTNode_Data_Type.hpp"
+#include "ASTNode_Identifier.hpp"
+#include "ASTNode_Statement_Function_Declaration.hpp"
+#include "ASTNode_Statement_Variable_Declaration.hpp"
 
+#include "ASTNode_Identifier.hpp"
+
+    using namespace Sodium;
 }
 
 %name preParse
 
-%extra_argument { Sodium::SodiumCompiler * compiler }
+%extra_argument { SodiumCompiler * compiler }
 
 %type function_body_line    { const char * }
 %type function_body_lines   { const char * }
 
-%token_type { Sodium::Token * }
+%token_type { Token * }
 
 
 %token_destructor {
-    /*Sodium::Token *token = $$;
+    /*Token *token = $$;
     if (token) {
         if (token->tokenId == 1 && token->tokenCode != ENTER) {
             printf("\n%4d:", token->line);
@@ -79,7 +85,16 @@ globals      ::= PRE_VARIABLE_TYPE_NUMBER   identifier PRE_SEMICOLON.
 
 globals      ::= PRE_VARIABLE_TYPE_DATE     identifier PRE_SEMICOLON.
 
-globals      ::= PRE_VARIABLE_TYPE_REDIS	identifier PRE_SEMICOLON.
+globals      ::= PRE_VARIABLE_TYPE_REDIS	identifier(A) PRE_SEMICOLON.
+{
+    ASTNode_Statement_Variable_Declaration* stmVarDeclaration = 
+        new ASTNode_Statement_Variable_Declaration(A, ASTNodePrimitiveDataType_Redis, "global");
+
+    A->ASTNodeInstance = stmVarDeclaration;
+
+    //  adding variable declaration to the AST
+    compiler->InsertASTNode(stmVarDeclaration);
+}
 
 
 /**  GLOBALS FUNCTIONS */
@@ -89,12 +104,29 @@ globals      ::= PRE_VARIABLE_TYPE_NUMBER  funcdechead.
 
 globals      ::= PRE_VARIABLE_TYPE_DATE    funcdechead.
 
-globals      ::= PRE_VARIABLE_TYPE_VOID    funcdechead.
+globals      ::= PRE_VARIABLE_TYPE_VOID    funcdechead(A).
+{
+    ASTNode_Statement_Function_Declaration* funcDecl = (ASTNode_Statement_Function_Declaration*)A->ASTNodeInstance;
+    
+    ASTNode_Data_Type* returnDataType =
+        new ASTNode_Data_Type(A, "global", ASTNodePrimitiveDataType_Void);
+    
+    funcDecl->returnType = returnDataType;
+}
 
 globals      ::= PRE_VARIABLE_TYPE_BOOL    funcdechead.
 
 
-funcdechead ::= funcdecid parameterlist htsqlfunctionbody.
+funcdechead(RET) ::= funcdecid(A) parameterlist htsqlfunctionbody.
+{
+    ASTNode_Statement_Function_Declaration* functionDeclaration =
+        new ASTNode_Statement_Function_Declaration(A, "global", (ASTNode_Identifier*) A->ASTNodeInstance);
+
+    //  adding variable declaration to the AST
+    compiler->InsertASTNode(functionDeclaration);
+    RET = functionDeclaration->_token;
+}
+
 
 funcdecid   ::= identifier.
 
@@ -143,7 +175,12 @@ enter ::= PRE_ENTER.
 
 /**  identifier
 */
-identifier ::= PRE_IDENTIFIER.
+identifier(RET) ::= PRE_IDENTIFIER(A).
+{
+    ASTNode_Identifier * identifier = new ASTNode_Identifier(A, "global");
+    //A->ASTNodeInstance = identifier;
+    RET = A;
+}
 
 
 /**  parenthesis

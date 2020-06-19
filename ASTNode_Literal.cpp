@@ -9,3 +9,9 @@ Sodium::ASTNode_Literal::ASTNode_Literal(Token* _token, string scope)
 {
 
 }
+
+string
+Sodium::ASTNode_Literal::ToString()
+{
+	return string("Not implemented yet");
+}

@@ -19,6 +19,8 @@ namespace Sodium {
         ASTNode_Statement* elseBlock;
 
     public:
+
+        string ToString();
         ASTNode_Statement_If(Token* _token, string scope);
     };
 

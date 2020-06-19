@@ -11,8 +11,9 @@ namespace Sodium {
     class ASTNode_Statement : public ASTNode
     {
     public:
-        ASTNode_Statement(ASTNodeType nodeType, Token* _token, string scope);
 
+        string ToString();
+        ASTNode_Statement(ASTNodeType nodeType, Token* _token, string scope);
     };
 }
 

@@ -8,3 +8,9 @@ Sodium::ASTNode_Statement_Condition::ASTNode_Statement_Condition(Token* _token, 
 {
 
 }
+
+string
+Sodium::ASTNode_Statement_Condition::ToString()
+{
+	return string("Not implemented yet");
+}

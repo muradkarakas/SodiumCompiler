@@ -195,7 +195,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     <ClCompile Include="ASTNode_Statement_Assigment.cpp" />
     <ClCompile Include="ASTNode_Statement_Call.cpp" />
     <ClCompile Include="ASTNode_Statement_Condition.cpp" />
-    <ClCompile Include="ASTNode_Function_Declaration.cpp" />
+    <ClCompile Include="ASTNode_Statement_Function_Declaration.cpp" />
     <ClCompile Include="ASTNode_Statement_Variable_Declaration.cpp" />
     <ClCompile Include="ASTNode_Statement_If.cpp" />
     <ClCompile Include="ASTNode_Statement.cpp" />
@@ -215,6 +215,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     </ClCompile>
     <ClCompile Include="pre.parser.imp.cpp" />
     <ClCompile Include="SodiumCompiler.cpp" />
+    <ClCompile Include="Token.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lemon.html.out" />
@@ -236,7 +237,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     <ClInclude Include="ASTNode_Statement_Assigment.hpp" />
     <ClInclude Include="ASTNode_Statement_Call.hpp" />
     <ClInclude Include="ASTNode_Statement_Condition.hpp" />
-    <ClInclude Include="ASTNode_Function_Declaration.hpp" />
+    <ClInclude Include="ASTNode_Statement_Function_Declaration.hpp" />
     <ClInclude Include="ASTNode_Statement_Variable_Declaration.hpp" />
     <ClInclude Include="ASTNode_Statement_If.hpp" />
     <ClInclude Include="ASTNode_Statement.hpp" />
@@ -251,7 +252,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     <ClInclude Include="pre.parser.imp.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SodiumCompiler.hpp" />
-    <ClInclude Include="Token.h" />
+    <ClInclude Include="Token.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SodiumCompiler.rc" />

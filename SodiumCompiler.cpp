@@ -13,10 +13,45 @@
 
 #include "pch.h"
 
+#include "ASTNode.hpp"
+#include "ASTNode_Code_Block.hpp"
+#include "ASTNode_Statement_Variable_Declaration.hpp"
+#include "ASTNode_Statement_Function_Declaration.hpp"
 
 HANDLE gHeapHandle = NULL;
 
 using namespace llvm;
+
+void
+Sodium::SodiumCompiler::IterateOverCodeBlock(
+    ASTNode_Code_Block* codeBlock)
+{
+    for (auto pos = codeBlock->statements.begin(); pos != codeBlock->statements.end(); ++pos) {
+
+        switch ( (*pos)->_nodeType ) {
+            case ASTNodeType_Statement_Declaration_Variable: {
+                ASTNode_Statement_Variable_Declaration* node = (ASTNode_Statement_Variable_Declaration*)(*pos);
+                printf("\n%s", node->ToString().c_str());
+                break;
+            }
+            case ASTNodeType_Statement_Declaration_Function: {
+                ASTNode_Statement_Function_Declaration* node = (ASTNode_Statement_Function_Declaration*)(*pos);
+                printf("\n%s", node->ToString().c_str());
+                break;
+            }
+        }
+    }
+}
+
+void
+Sodium::SodiumCompiler::InsertASTNode(
+    ASTNode_Statement* statement)
+{
+
+    this->astNodeCodeBlock->InsertStatement(statement);
+
+}
+
 
 Sodium::Token *
 Sodium::SodiumCompiler::CreateToken(
@@ -36,7 +71,6 @@ void
 Sodium::SodiumCompiler::SetCodeBlock(ASTNode_Code_Block* codeBlock) {
     this->astNodeCodeBlock = codeBlock;
 }
-
 
 
 void
@@ -65,6 +99,8 @@ Sodium::SodiumCompiler::DumpIR()
     // We are about to create a spesific function for a frmx file to return its context:
     /*Function* FibF = */ CreateHtmlFunction(M, Context);
     /*Function* FibF = */ CreatePageLoadFunction(M, Context);
+
+    IterateOverCodeBlock(this->astNodeCodeBlock);
 
     // writing LLCM IR file to disk
     string irFileName = this->frmxParser->fileName;
@@ -172,13 +208,12 @@ Sodium::SodiumCompiler::ParsePage(
             this->parsingPhase = PARSING_PHASE_SQLX_PRE_DONE;
             
             //this->frmxParser->PrintParsedFileContent();
-            this->sqlxParser->PrintParsedFileContent();
+            //this->sqlxParser->PrintParsedFileContent();
             
             return TRUE;
         }
     }
 
-    
     return FALSE;
 }
 

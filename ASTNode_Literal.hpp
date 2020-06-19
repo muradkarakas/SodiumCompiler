@@ -6,7 +6,7 @@
 
 #include "ASTNode_Data_Type.hpp"
 
-#include "Token.h"
+#include "Token.hpp"
 
 using namespace std;
 
@@ -18,6 +18,7 @@ namespace Sodium {
 
     public:
 
+        string ToString();
         ASTNode_Literal(Token* _token, string scope);
     };
 

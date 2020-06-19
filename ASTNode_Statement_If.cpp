@@ -8,3 +8,9 @@ Sodium::ASTNode_Statement_If::ASTNode_Statement_If(Token* _token, string scope)
 {
 
 }
+
+string
+Sodium::ASTNode_Statement_If::ToString()
+{
+	return string("Not implemented yet");
+}

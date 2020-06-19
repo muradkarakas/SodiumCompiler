@@ -15,7 +15,7 @@
 
 #include "pch.h"
 
-#include "Token.h"
+#include "Token.hpp"
 
 #include "ASTNode_Code_Block.hpp"
 
@@ -70,6 +70,9 @@ namespace Sodium {
 		BOOL	ParsePage(char* filePath);
 		BOOL	DumpIR();
 		void	IncreseLineNumberOuter();
+
+		void	InsertASTNode(ASTNode_Statement* statement);
+		void	IterateOverCodeBlock(ASTNode_Code_Block* codeBlock);
 
 		Token	* CreateToken(int tokenCode, int tokenStrLength, const char* tokenStr);
 

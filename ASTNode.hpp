@@ -2,12 +2,17 @@
 
 #include "pch.h"
 
-#include "Token.h"
+#include "Token.hpp"
 
 using namespace std;
 
 namespace Sodium {
 
+	typedef struct Token;
+
+	//
+	//	ENUMS
+	//
 	enum ASTCompareOperatorType {
 		ASTCompareOperatorType_Equal,
 		ASTCompareOperatorType_NotEqual,
@@ -18,26 +23,37 @@ namespace Sodium {
 	};
 	
 	enum ASTNodePrimitiveDataType {
-		Number,
-		DateTime,
-		String
+		ASTNodePrimitiveDataType_Void,
+		ASTNodePrimitiveDataType_Number,
+		ASTNodePrimitiveDataType_DateTime,
+		ASTNodePrimitiveDataType_String,
+		ASTNodePrimitiveDataType_Redis
 	};
 	
+
 	enum ASTNodeType {
 		ASTNodeType_Identifier,
 		ASTNodeType_Literal,
 		ASTNodeType_Data_Type,
-		ASTNodeType_Function,
 		ASTNodeType_Block_Statement,
 		ASTNodeType_Statement,
 		ASTNodeType_Statement_Condition,
 		ASTNodeType_Statement_If,
 		ASTNodeType_Statement_While,
 		ASTNodeType_Statement_Assigment,
-		ASTNodeType_Statement_Declaration,
+		ASTNodeType_Statement_Declaration_Function,
+		ASTNodeType_Statement_Declaration_Variable,
 		ASTNodeType_Statement_Call,
 	};
+	
+	//
+	//	FUNCTIONS
+	//
+	const char* ASTNode_Data_TypeName(ASTNodePrimitiveDataType primitiveDataType);
 
+	//
+	//	CLASSES
+	//	
 	class ASTNode
 	{
 
@@ -48,10 +64,8 @@ namespace Sodium {
 		string			_scope;
 		Token			* _token;
 
-
+		virtual string ToString() = 0;
 	};
-
-	
 
 }
 

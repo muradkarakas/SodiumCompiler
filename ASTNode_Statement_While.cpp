@@ -8,3 +8,9 @@ Sodium::ASTNode_Statement_While::ASTNode_Statement_While(Token* _token, string s
 {
 
 }
+
+string
+Sodium::ASTNode_Statement_While::ToString()
+{
+	return string("Not implemented yet");
+}

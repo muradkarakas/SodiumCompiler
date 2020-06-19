@@ -99,9 +99,6 @@
     <ClCompile Include="ASTNode_Statement_Assigment.cpp">
       <Filter>Source Files\Ast</Filter>
     </ClCompile>
-    <ClCompile Include="ASTNode_Function_Declaration.cpp">
-      <Filter>Source Files\Ast</Filter>
-    </ClCompile>
     <ClCompile Include="ASTNode_Code_Block.cpp">
       <Filter>Source Files\Ast</Filter>
     </ClCompile>
@@ -118,6 +115,12 @@
       <Filter>Source Files\Ast</Filter>
     </ClCompile>
     <ClCompile Include="ASTNode_Statement_Call.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="Token.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTNode_Statement_Function_Declaration.cpp">
       <Filter>Source Files\Ast</Filter>
     </ClCompile>
   </ItemGroup>
@@ -157,9 +160,6 @@
     <ClInclude Include="html.parser.imp.h">
       <Filter>Source Files\frmx\htmlParser</Filter>
     </ClInclude>
-    <ClInclude Include="Token.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="pre.parser.imp.hpp">
       <Filter>Source Files\sqlx\preParser</Filter>
     </ClInclude>
@@ -179,9 +179,6 @@
       <Filter>Source Files\Ast</Filter>
     </ClInclude>
     <ClInclude Include="ASTNode_Statement_Assigment.hpp">
-      <Filter>Source Files\Ast</Filter>
-    </ClInclude>
-    <ClInclude Include="ASTNode_Function_Declaration.hpp">
       <Filter>Source Files\Ast</Filter>
     </ClInclude>
     <ClInclude Include="ASTNode_Code_Block.hpp">
@@ -212,6 +209,12 @@
       <Filter>Source Files\Ast</Filter>
     </ClInclude>
     <ClInclude Include="ASTNode_Statement_Call.hpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="Token.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Statement_Function_Declaration.hpp">
       <Filter>Source Files\Ast</Filter>
     </ClInclude>
   </ItemGroup>

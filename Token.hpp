@@ -2,6 +2,8 @@
 
 #include <Windows.h>
 
+#include "ASTNode.hpp"
+
 using namespace std;
 
 namespace Sodium {
@@ -12,6 +14,9 @@ namespace Sodium {
 		int				line;
 		const char		* tokenStr;
 		DWORD			tokenStrLength;
+
+		ASTNode			* ASTNodeInstance;
+		
 		struct Token	* next;
 	} Token;
 
