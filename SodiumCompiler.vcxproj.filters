@@ -123,6 +123,9 @@
     <ClCompile Include="Token.cpp">
       <Filter>Source Files\Compiler</Filter>
     </ClCompile>
+    <ClCompile Include="ASTNode_Utils.cpp">
+      <Filter>Source Files\Ast</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lemon.pre.yy">
@@ -216,6 +219,9 @@
     </ClInclude>
     <ClInclude Include="Token.hpp">
       <Filter>Source Files\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTNode_Utils.hpp">
+      <Filter>Source Files\Ast</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

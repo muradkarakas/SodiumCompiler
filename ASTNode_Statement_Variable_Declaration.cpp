@@ -18,8 +18,8 @@ Sodium::ASTNode_Statement_Variable_Declaration::ToString()
 	char buff[1000];
 	const char* typeName = ASTNode_Data_TypeName(this->dataType);
 
-	sprintf(buff, "\nVariable:\n   In scope: '%s'\n    %s %.*s",
-		this->_scope.c_str(),
+	sprintf(buff, "%s %.*s",
+		//this->_scope.c_str(),
 		typeName,
 		this->_token->tokenStrLength,
 		this->_token->tokenStr);

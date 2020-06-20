@@ -215,6 +215,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     </ClCompile>
     <ClCompile Include="pre.parser.imp.cpp" />
     <ClCompile Include="SodiumCompiler.cpp" />
+    <ClCompile Include="ASTNode_Utils.cpp" />
     <ClCompile Include="Token.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +243,7 @@ $(ProjectDir)win_flex_bison-latest\win_flex -Phtml --outfile="lexer.html.c"  lex
     <ClInclude Include="ASTNode_Statement_If.hpp" />
     <ClInclude Include="ASTNode_Statement.hpp" />
     <ClInclude Include="ASTNode_Statement_While.hpp" />
+    <ClInclude Include="ASTNode_Utils.hpp" />
     <ClInclude Include="CompileUnitBase.hpp" />
     <ClInclude Include="CompileUnitFrmx.hpp" />
     <ClInclude Include="CompileUnitSqlx.hpp" />

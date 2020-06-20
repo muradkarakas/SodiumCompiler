@@ -17,13 +17,17 @@ namespace Sodium {
 	class ASTNode_Statement_Function_Declaration : public ASTNode_Statement
 	{
 
+		ASTNode_Data_Type			* returnType;
+
 	public:
 		ASTNode_Identifier			* nameIdentifier;
 		vector<ASTNode_Identifier>	parameters;
 		ASTNode_Code_Block			* codeblock;
-		ASTNode_Data_Type			* returnType;
 
-		string ToString();
+		void		SetFunctionReturnType(ASTNode_Data_Type* returnType);
+
+		string		ToString();
+
 		ASTNode_Statement_Function_Declaration(
 			Token* _token, 
 			string scope, 

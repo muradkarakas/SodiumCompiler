@@ -31,6 +31,7 @@ namespace Sodium {
 		ASTNodePrimitiveDataType_Number,
 		ASTNodePrimitiveDataType_DateTime,
 		ASTNodePrimitiveDataType_String,
+		ASTNodePrimitiveDataType_Bool,
 		ASTNodePrimitiveDataType_Redis
 	};
 	

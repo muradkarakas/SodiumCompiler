@@ -15,7 +15,9 @@ namespace Sodium {
     public:
         ASTNodePrimitiveDataType    primitiveDataType;
 
-        string ToString();
+        string          ToString();
+        static string   ToString(ASTNodePrimitiveDataType primitiveDataType);
+
         ASTNode_Data_Type(Token* _token, string scope, ASTNodePrimitiveDataType primitiveDataType);
     };
 

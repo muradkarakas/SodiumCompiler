@@ -90,26 +90,46 @@ globals      ::= PRE_VARIABLE_TYPE_REDIS(A)	identifier(B) PRE_SEMICOLON(C).
 
 
 /**  GLOBALS FUNCTIONS */
-globals      ::= PRE_VARIABLE_TYPE_VARCHAR funcdechead.
-
-globals      ::= PRE_VARIABLE_TYPE_NUMBER  funcdechead.
-
-globals      ::= PRE_VARIABLE_TYPE_DATE    funcdechead.
-
-globals      ::= PRE_VARIABLE_TYPE_VOID(A) funcdechead(B).
+globals      ::= PRE_VARIABLE_TYPE_VARCHAR funcdechead(A).
 {
-    ASTNode_Statement_Function_Declaration* funcDecl = (ASTNode_Statement_Function_Declaration*) B->ASTNodeInstance;
-    
-    ASTNode_Data_Type* returnDataType =
-        new ASTNode_Data_Type(B, ASTNODE_SCOPE_GLOBAL, ASTNodePrimitiveDataType_Void);
-    
-    funcDecl->returnType = returnDataType;
-
+    ASTNode_Statement_Function_Declaration* funcDecl = (ASTNode_Statement_Function_Declaration*)A->ASTNodeInstance;
+    ASTNode_Data_Type* returnDataType = new ASTNode_Data_Type(A, ASTNODE_SCOPE_GLOBAL, ASTNodePrimitiveDataType_String);
+    funcDecl->SetFunctionReturnType(returnDataType);
     preTokenDestructor(A);
-    preTokenDestructor(B);
 }
 
-globals      ::= PRE_VARIABLE_TYPE_BOOL    funcdechead.
+globals      ::= PRE_VARIABLE_TYPE_NUMBER  funcdechead(A).
+{
+    ASTNode_Statement_Function_Declaration* funcDecl = (ASTNode_Statement_Function_Declaration*)A->ASTNodeInstance;
+    ASTNode_Data_Type* returnDataType = new ASTNode_Data_Type(A, ASTNODE_SCOPE_GLOBAL, ASTNodePrimitiveDataType_Number);
+    funcDecl->SetFunctionReturnType(returnDataType);
+    preTokenDestructor(A);
+}
+
+globals      ::= PRE_VARIABLE_TYPE_DATE    funcdechead(A).
+{
+    ASTNode_Statement_Function_Declaration* funcDecl = (ASTNode_Statement_Function_Declaration*)A->ASTNodeInstance;
+    ASTNode_Data_Type* returnDataType = new ASTNode_Data_Type(A, ASTNODE_SCOPE_GLOBAL, ASTNodePrimitiveDataType_DateTime);
+    funcDecl->SetFunctionReturnType(returnDataType);
+    preTokenDestructor(A);
+}
+
+globals      ::= PRE_VARIABLE_TYPE_VOID funcdechead(A).
+{
+    ASTNode_Statement_Function_Declaration* funcDecl = (ASTNode_Statement_Function_Declaration*) A->ASTNodeInstance;    
+    ASTNode_Data_Type* returnDataType = new ASTNode_Data_Type(A, ASTNODE_SCOPE_GLOBAL, ASTNodePrimitiveDataType_Void);    
+    funcDecl->SetFunctionReturnType(returnDataType);
+    preTokenDestructor(A);
+}
+
+globals      ::= PRE_VARIABLE_TYPE_BOOL    funcdechead(A).
+{
+    ASTNode_Statement_Function_Declaration* funcDecl = (ASTNode_Statement_Function_Declaration*)A->ASTNodeInstance;
+    ASTNode_Data_Type* returnDataType = new ASTNode_Data_Type(A, ASTNODE_SCOPE_GLOBAL, ASTNodePrimitiveDataType_Bool);
+    funcDecl->SetFunctionReturnType(returnDataType);
+    preTokenDestructor(A);
+}
+
 
 
 funcdechead(RET) ::= funcdecid(A) parameterlist(B) htsqlfunctionbody.

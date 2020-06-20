@@ -1,6 +1,8 @@
 #include "pch.h"
 
 #include "ASTNode.hpp"
+#include "ASTNode_Utils.hpp"
+
 #include "ASTNode_Statement_Function_Declaration.hpp"
 
 
@@ -19,6 +21,12 @@ Sodium::ASTNode_Statement_Function_Declaration::ASTNode_Statement_Function_Decla
 }
 
 
+void
+Sodium::ASTNode_Statement_Function_Declaration::SetFunctionReturnType(ASTNode_Data_Type* returnType)
+{
+	this->returnType = returnType;
+}
+
 string
 Sodium::ASTNode_Statement_Function_Declaration::ToString()
 {
@@ -26,10 +34,11 @@ Sodium::ASTNode_Statement_Function_Declaration::ToString()
 	char buff[1000];
 	//const char* typeName = ASTNode_Data_TypeName(this->returnType->primitiveDataType);
 
-	sprintf(buff, "\nFunction:\n   In scope: '%s'\n    %s %s",
-		this->_scope.c_str(),
+	sprintf(buff, "%9s %-25s(%s)",
+		//this->_scope.c_str(),
 		((this->returnType) ? this->returnType->ToString().c_str() : ""),
-		((this->nameIdentifier) ? this->nameIdentifier->ToString().c_str() : ""));
+		((this->nameIdentifier) ? this->nameIdentifier->ToString().c_str() : ""),
+		Sodium::ASTNode_Utils::ConvertVectorOfASTNode_Identifier(this->parameters).c_str());
 
 	retval = buff;
 

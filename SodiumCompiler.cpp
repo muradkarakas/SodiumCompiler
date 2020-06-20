@@ -38,7 +38,7 @@ Sodium::SodiumCompiler::DumpIR()
 
     // We are about to create a spesific function for a frmx file to return its context:
     /*Function* FibF = */ CreateHtmlFunction(M, Context);
-    /*Function* FibF = */ CreatePageLoadFunction(M, Context);
+    /*Function* FibF =  CreatePageLoadFunction(M, Context);*/
 
     IterateOverCodeBlock(this->astNodeCodeBlock);
 
@@ -54,14 +54,13 @@ Sodium::SodiumCompiler::DumpIR()
     return TRUE;
 }
 
-
 void
 Sodium::SodiumCompiler::IterateOverCodeBlock(
     ASTNode_Code_Block* codeBlock)
 {
     for (auto pos = codeBlock->statements.begin(); pos != codeBlock->statements.end(); ++pos) {
 
-        switch ( (*pos)->_nodeType ) {
+        switch ((*pos)->_nodeType) {
             case ASTNodeType_Statement_Declaration_Variable: {
                 ASTNode_Statement_Variable_Declaration* node = (ASTNode_Statement_Variable_Declaration*)(*pos);
                 printf("\n%s", node->ToString().c_str());
