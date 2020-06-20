@@ -29,7 +29,7 @@ main(
     SodiumCompiler compiler;
 
     if (compiler.ParsePage(argv[1])) {
-        //compiler.DumpIR();
+        compiler.DumpIR();
     }
 
     return 0;

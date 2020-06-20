@@ -17,6 +17,8 @@
 
 #include "Token.hpp"
 
+#include "ASTNode_Identifier.hpp"
+
 #include "ASTNode_Code_Block.hpp"
 
 #include "CompileUnitBase.hpp"
@@ -61,8 +63,10 @@ namespace Sodium {
 		void	SetCodeBlock(ASTNode_Code_Block* codeBlock);
 
 	public:
-		HANDLE				heapHandle;
-		
+		HANDLE						heapHandle;
+		vector<ASTNode_Identifier>	tempVectorForASTNodeIdentifier;
+
+
 		SodiumCompiler();
 		~SodiumCompiler();
 

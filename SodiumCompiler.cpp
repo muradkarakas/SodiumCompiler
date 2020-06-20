@@ -22,6 +22,39 @@ HANDLE gHeapHandle = NULL;
 
 using namespace llvm;
 
+BOOL
+Sodium::SodiumCompiler::DumpIR()
+{
+    if (this->parsingPhase < PARSING_PHASE_SQLX_PRE_DONE)
+        return FALSE;
+
+    InitializeNativeTarget();
+    InitializeNativeTargetAsmPrinter();
+    LLVMContext Context;
+
+    // Create some module to put our function into it.
+    std::unique_ptr<Module> Owner(new Module("Sodium", Context));
+    Module* M = Owner.get();
+
+    // We are about to create a spesific function for a frmx file to return its context:
+    /*Function* FibF = */ CreateHtmlFunction(M, Context);
+    /*Function* FibF = */ CreatePageLoadFunction(M, Context);
+
+    IterateOverCodeBlock(this->astNodeCodeBlock);
+
+    // writing LLCM IR file to disk
+    string irFileName = this->frmxParser->fileName;
+    irFileName.append(".ll");
+    StringRef irfileNameRef(irFileName);
+    std::error_code error;
+    raw_fd_ostream file(irfileNameRef, error);
+    file << *M;
+    file.close();
+
+    return TRUE;
+}
+
+
 void
 Sodium::SodiumCompiler::IterateOverCodeBlock(
     ASTNode_Code_Block* codeBlock)
@@ -80,38 +113,6 @@ Sodium::SodiumCompiler::IncreseLineNumberOuter() {
     } else if (this->parsingPhase = PARSING_PHASE_SQLX_PRE) {
         sqlxParser->lineNumberOuter++;
     }
-}
-
-BOOL
-Sodium::SodiumCompiler::DumpIR()
-{
-    if (this->parsingPhase < PARSING_PHASE_SQLX_PRE_DONE)
-        return FALSE;
-
-    InitializeNativeTarget();
-    InitializeNativeTargetAsmPrinter();
-    LLVMContext Context;
-
-    // Create some module to put our function into it.
-    std::unique_ptr<Module> Owner(new Module("Sodium", Context));
-    Module* M = Owner.get();
-
-    // We are about to create a spesific function for a frmx file to return its context:
-    /*Function* FibF = */ CreateHtmlFunction(M, Context);
-    /*Function* FibF = */ CreatePageLoadFunction(M, Context);
-
-    IterateOverCodeBlock(this->astNodeCodeBlock);
-
-    // writing LLCM IR file to disk
-    string irFileName = this->frmxParser->fileName;
-    irFileName.append(".ll");
-    StringRef irfileNameRef(irFileName);
-    std::error_code error;
-    raw_fd_ostream file(irfileNameRef, error);
-    file << *M;
-    file.close();
-    
-    return TRUE;
 }
 
 Function* 
@@ -209,7 +210,7 @@ Sodium::SodiumCompiler::ParsePage(
             // SQL PRE PARSING DONE
             this->parsingPhase = PARSING_PHASE_SQLX_PRE_DONE;
             
-            this->sqlxParser->PrintParsedFileContent();
+            //this->sqlxParser->PrintParsedFileContent();
             
             return TRUE;
         }

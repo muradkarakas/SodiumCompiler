@@ -1,7 +1,7 @@
 State 0:
           start ::= * expressions
 
-               PRE_END_OF_FILE shift-reduce 10     expression ::= PRE_END_OF_FILE
+               PRE_END_OF_FILE shift-reduce 17     expression ::= PRE_END_OF_FILE
              PRE_COMMENT_START shift        24     
      PRE_VARIABLE_TYPE_VARCHAR shift        6      
         PRE_VARIABLE_TYPE_BOOL shift        5      
@@ -19,11 +19,11 @@ State 0:
                          enter shift        18       /* because enter==enters */
 
 State 1:
-      (4) start ::= expressions *
+     (11) start ::= expressions *
           expressions ::= expressions * expression
 
-                             $ reduce       4      start ::= expressions
-               PRE_END_OF_FILE shift-reduce 10     expression ::= PRE_END_OF_FILE
+                             $ reduce       11     start ::= expressions
+               PRE_END_OF_FILE shift-reduce 17     expression ::= PRE_END_OF_FILE
              PRE_COMMENT_START shift        24     
      PRE_VARIABLE_TYPE_VARCHAR shift        6      
         PRE_VARIABLE_TYPE_BOOL shift        5      
@@ -32,16 +32,16 @@ State 1:
        PRE_VARIABLE_TYPE_REDIS shift        13     
         PRE_VARIABLE_TYPE_VOID shift        2      
                      PRE_ENTER shift-reduce 35     enter ::= PRE_ENTER
-                    expression shift-reduce 5      expressions ::= expressions expression
-                       comment shift-reduce 5      expressions ::= expressions expression  /* because comment==expression */
-                       globals shift-reduce 5      expressions ::= expressions expression  /* because globals==expression */
+                    expression shift-reduce 12     expressions ::= expressions expression
+                       comment shift-reduce 12     expressions ::= expressions expression  /* because comment==expression */
+                       globals shift-reduce 12     expressions ::= expressions expression  /* because globals==expression */
                         enters shift        18     
                          enter shift        18       /* because enter==enters */
 
 State 2:
           globals ::= PRE_VARIABLE_TYPE_VOID * funcdechead
 
-                PRE_IDENTIFIER shift-reduce 3      identifier ::= PRE_IDENTIFIER
+                PRE_IDENTIFIER shift-reduce 10     identifier ::= PRE_IDENTIFIER
                     identifier shift        10       /* because identifier==funcdecid */
                    funcdechead shift-reduce 1      globals ::= PRE_VARIABLE_TYPE_VOID funcdechead
                      funcdecid shift        10     
@@ -50,36 +50,36 @@ State 3:
           globals ::= PRE_VARIABLE_TYPE_DATE * identifier PRE_SEMICOLON
           globals ::= PRE_VARIABLE_TYPE_DATE * funcdechead
 
-                PRE_IDENTIFIER shift-reduce 3      identifier ::= PRE_IDENTIFIER
+                PRE_IDENTIFIER shift-reduce 10     identifier ::= PRE_IDENTIFIER
                     identifier shift        20     
-                   funcdechead shift-reduce 18     globals ::= PRE_VARIABLE_TYPE_DATE funcdechead
+                   funcdechead shift-reduce 25     globals ::= PRE_VARIABLE_TYPE_DATE funcdechead
                      funcdecid shift        10     
 
 State 4:
           globals ::= PRE_VARIABLE_TYPE_NUMBER * identifier PRE_SEMICOLON
           globals ::= PRE_VARIABLE_TYPE_NUMBER * funcdechead
 
-                PRE_IDENTIFIER shift-reduce 3      identifier ::= PRE_IDENTIFIER
+                PRE_IDENTIFIER shift-reduce 10     identifier ::= PRE_IDENTIFIER
                     identifier shift        21     
-                   funcdechead shift-reduce 17     globals ::= PRE_VARIABLE_TYPE_NUMBER funcdechead
+                   funcdechead shift-reduce 24     globals ::= PRE_VARIABLE_TYPE_NUMBER funcdechead
                      funcdecid shift        10     
 
 State 5:
           globals ::= PRE_VARIABLE_TYPE_BOOL * identifier PRE_SEMICOLON
           globals ::= PRE_VARIABLE_TYPE_BOOL * funcdechead
 
-                PRE_IDENTIFIER shift-reduce 3      identifier ::= PRE_IDENTIFIER
+                PRE_IDENTIFIER shift-reduce 10     identifier ::= PRE_IDENTIFIER
                     identifier shift        22     
-                   funcdechead shift-reduce 19     globals ::= PRE_VARIABLE_TYPE_BOOL funcdechead
+                   funcdechead shift-reduce 26     globals ::= PRE_VARIABLE_TYPE_BOOL funcdechead
                      funcdecid shift        10     
 
 State 6:
           globals ::= PRE_VARIABLE_TYPE_VARCHAR * identifier PRE_SEMICOLON
           globals ::= PRE_VARIABLE_TYPE_VARCHAR * funcdechead
 
-                PRE_IDENTIFIER shift-reduce 3      identifier ::= PRE_IDENTIFIER
+                PRE_IDENTIFIER shift-reduce 10     identifier ::= PRE_IDENTIFIER
                     identifier shift        23     
-                   funcdechead shift-reduce 16     globals ::= PRE_VARIABLE_TYPE_VARCHAR funcdechead
+                   funcdechead shift-reduce 23     globals ::= PRE_VARIABLE_TYPE_VARCHAR funcdechead
                      funcdecid shift        10     
 
 State 7:
@@ -89,8 +89,8 @@ State 7:
       PRE_VARIABLE_TYPE_NUMBER shift        15     
         PRE_VARIABLE_TYPE_DATE shift        14     
                     parameters shift        8      
-                     parameter shift        8        /* because parameter==parameters */
-                     {default} reduce       32     parameter ::=
+                     parameter shift-reduce 5      parameters ::= parameter
+                     {default} reduce       9      parameter ::=
 
 State 8:
           parameterlist ::= openparenthesis parameters * closeparenthesis
@@ -98,15 +98,15 @@ State 8:
 
                PRE_CLOSE_PARAN shift-reduce 37     closeparenthesis ::= PRE_CLOSE_PARAN
                      PRE_COMMA shift-reduce 38     comma ::= PRE_COMMA
-              closeparenthesis shift-reduce 26     parameterlist ::= openparenthesis parameters closeparenthesis
+              closeparenthesis shift-reduce 3      parameterlist ::= openparenthesis parameters closeparenthesis
                          comma shift        11     
 
 State 9:
           htsqlfunctionbody ::= PRE_FUNCTION_BEGIN * function_body_lines PRE_FUNCTION_END
           htsqlfunctionbody ::= PRE_FUNCTION_BEGIN * PRE_FUNCTION_END
 
-              PRE_FUNCTION_END shift-reduce 22     htsqlfunctionbody ::= PRE_FUNCTION_BEGIN PRE_FUNCTION_END
-        PRE_FUNCTION_BODY_LINE shift-reduce 25     function_body_line ::= PRE_FUNCTION_BODY_LINE
+              PRE_FUNCTION_END shift-reduce 29     htsqlfunctionbody ::= PRE_FUNCTION_BEGIN PRE_FUNCTION_END
+        PRE_FUNCTION_BODY_LINE shift-reduce 32     function_body_line ::= PRE_FUNCTION_BODY_LINE
             function_body_line shift        12       /* because function_body_line==function_body_lines */
            function_body_lines shift        12     
 
@@ -123,40 +123,40 @@ State 11:
      PRE_VARIABLE_TYPE_VARCHAR shift        16     
       PRE_VARIABLE_TYPE_NUMBER shift        15     
         PRE_VARIABLE_TYPE_DATE shift        14     
-                     parameter shift-reduce 27     parameters ::= parameters comma parameter
-                     {default} reduce       32     parameter ::=
+                     parameter shift-reduce 4      parameters ::= parameters comma parameter
+                     {default} reduce       9      parameter ::=
 
 State 12:
           htsqlfunctionbody ::= PRE_FUNCTION_BEGIN function_body_lines * PRE_FUNCTION_END
           function_body_lines ::= function_body_lines * function_body_line
 
-              PRE_FUNCTION_END shift-reduce 21     htsqlfunctionbody ::= PRE_FUNCTION_BEGIN function_body_lines PRE_FUNCTION_END
-        PRE_FUNCTION_BODY_LINE shift-reduce 25     function_body_line ::= PRE_FUNCTION_BODY_LINE
-            function_body_line shift-reduce 23     function_body_lines ::= function_body_lines function_body_line
+              PRE_FUNCTION_END shift-reduce 28     htsqlfunctionbody ::= PRE_FUNCTION_BEGIN function_body_lines PRE_FUNCTION_END
+        PRE_FUNCTION_BODY_LINE shift-reduce 32     function_body_line ::= PRE_FUNCTION_BODY_LINE
+            function_body_line shift-reduce 30     function_body_lines ::= function_body_lines function_body_line
 
 State 13:
           globals ::= PRE_VARIABLE_TYPE_REDIS * identifier PRE_SEMICOLON
 
-                PRE_IDENTIFIER shift-reduce 3      identifier ::= PRE_IDENTIFIER
+                PRE_IDENTIFIER shift-reduce 10     identifier ::= PRE_IDENTIFIER
                     identifier shift        19     
 
 State 14:
           parameter ::= PRE_VARIABLE_TYPE_DATE * identifier
 
-                PRE_IDENTIFIER shift-reduce 3      identifier ::= PRE_IDENTIFIER
-                    identifier shift-reduce 31     parameter ::= PRE_VARIABLE_TYPE_DATE identifier
+                PRE_IDENTIFIER shift-reduce 10     identifier ::= PRE_IDENTIFIER
+                    identifier shift-reduce 8      parameter ::= PRE_VARIABLE_TYPE_DATE identifier
 
 State 15:
           parameter ::= PRE_VARIABLE_TYPE_NUMBER * identifier
 
-                PRE_IDENTIFIER shift-reduce 3      identifier ::= PRE_IDENTIFIER
-                    identifier shift-reduce 30     parameter ::= PRE_VARIABLE_TYPE_NUMBER identifier
+                PRE_IDENTIFIER shift-reduce 10     identifier ::= PRE_IDENTIFIER
+                    identifier shift-reduce 7      parameter ::= PRE_VARIABLE_TYPE_NUMBER identifier
 
 State 16:
           parameter ::= PRE_VARIABLE_TYPE_VARCHAR * identifier
 
-                PRE_IDENTIFIER shift-reduce 3      identifier ::= PRE_IDENTIFIER
-                    identifier shift-reduce 29     parameter ::= PRE_VARIABLE_TYPE_VARCHAR identifier
+                PRE_IDENTIFIER shift-reduce 10     identifier ::= PRE_IDENTIFIER
+                    identifier shift-reduce 6      parameter ::= PRE_VARIABLE_TYPE_VARCHAR identifier
 
 State 17:
           funcdechead ::= funcdecid parameterlist * htsqlfunctionbody
@@ -165,13 +165,13 @@ State 17:
              htsqlfunctionbody shift-reduce 2      funcdechead ::= funcdecid parameterlist htsqlfunctionbody
 
 State 18:
-      (9) expression ::= enters *
+     (16) expression ::= enters *
           enters ::= enters * enter
 
                      PRE_ENTER shift-reduce 35     enter ::= PRE_ENTER
-                     PRE_ENTER reduce       9       ** Parsing conflict **
+                     PRE_ENTER reduce       16      ** Parsing conflict **
                          enter shift-reduce 33     enters ::= enters enter
-                     {default} reduce       9      expression ::= enters
+                     {default} reduce       16     expression ::= enters
 
 State 19:
           globals ::= PRE_VARIABLE_TYPE_REDIS identifier * PRE_SEMICOLON
@@ -180,36 +180,36 @@ State 19:
 
 State 20:
           globals ::= PRE_VARIABLE_TYPE_DATE identifier * PRE_SEMICOLON
-     (20) funcdecid ::= identifier *
+     (27) funcdecid ::= identifier *
 
-                 PRE_SEMICOLON shift-reduce 15     globals ::= PRE_VARIABLE_TYPE_DATE identifier PRE_SEMICOLON
-                     {default} reduce       20     funcdecid ::= identifier
+                 PRE_SEMICOLON shift-reduce 22     globals ::= PRE_VARIABLE_TYPE_DATE identifier PRE_SEMICOLON
+                     {default} reduce       27     funcdecid ::= identifier
 
 State 21:
           globals ::= PRE_VARIABLE_TYPE_NUMBER identifier * PRE_SEMICOLON
-     (20) funcdecid ::= identifier *
+     (27) funcdecid ::= identifier *
 
-                 PRE_SEMICOLON shift-reduce 14     globals ::= PRE_VARIABLE_TYPE_NUMBER identifier PRE_SEMICOLON
-                     {default} reduce       20     funcdecid ::= identifier
+                 PRE_SEMICOLON shift-reduce 21     globals ::= PRE_VARIABLE_TYPE_NUMBER identifier PRE_SEMICOLON
+                     {default} reduce       27     funcdecid ::= identifier
 
 State 22:
           globals ::= PRE_VARIABLE_TYPE_BOOL identifier * PRE_SEMICOLON
-     (20) funcdecid ::= identifier *
+     (27) funcdecid ::= identifier *
 
-                 PRE_SEMICOLON shift-reduce 13     globals ::= PRE_VARIABLE_TYPE_BOOL identifier PRE_SEMICOLON
-                     {default} reduce       20     funcdecid ::= identifier
+                 PRE_SEMICOLON shift-reduce 20     globals ::= PRE_VARIABLE_TYPE_BOOL identifier PRE_SEMICOLON
+                     {default} reduce       27     funcdecid ::= identifier
 
 State 23:
           globals ::= PRE_VARIABLE_TYPE_VARCHAR identifier * PRE_SEMICOLON
-     (20) funcdecid ::= identifier *
+     (27) funcdecid ::= identifier *
 
-                 PRE_SEMICOLON shift-reduce 12     globals ::= PRE_VARIABLE_TYPE_VARCHAR identifier PRE_SEMICOLON
-                     {default} reduce       20     funcdecid ::= identifier
+                 PRE_SEMICOLON shift-reduce 19     globals ::= PRE_VARIABLE_TYPE_VARCHAR identifier PRE_SEMICOLON
+                     {default} reduce       27     funcdecid ::= identifier
 
 State 24:
           comment ::= PRE_COMMENT_START * PRE_COMMENT_END
 
-               PRE_COMMENT_END shift-reduce 11     comment ::= PRE_COMMENT_START PRE_COMMENT_END
+               PRE_COMMENT_END shift-reduce 18     comment ::= PRE_COMMENT_START PRE_COMMENT_END
 
 ----------------------------------------------------
 Symbols:
@@ -235,16 +235,16 @@ Symbols:
    19: error:
    20: function_body_line: PRE_FUNCTION_BODY_LINE
    21: function_body_lines: PRE_FUNCTION_BODY_LINE
-   22: start: PRE_END_OF_FILE PRE_COMMENT_START PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_BOOL PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_VARIABLE_TYPE_REDIS PRE_VARIABLE_TYPE_VOID PRE_ENTER
-   23: expressions: PRE_END_OF_FILE PRE_COMMENT_START PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_BOOL PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_VARIABLE_TYPE_REDIS PRE_VARIABLE_TYPE_VOID PRE_ENTER
-   24: expression: PRE_END_OF_FILE PRE_COMMENT_START PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_BOOL PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_VARIABLE_TYPE_REDIS PRE_VARIABLE_TYPE_VOID PRE_ENTER
-   25: comment: PRE_COMMENT_START
-   26: globals: PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_BOOL PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_VARIABLE_TYPE_REDIS PRE_VARIABLE_TYPE_VOID
-   27: enters: PRE_ENTER
-   28: identifier: PRE_IDENTIFIER
-   29: funcdechead: PRE_IDENTIFIER
-   30: funcdecid: PRE_IDENTIFIER
-   31: parameterlist: PRE_OPEN_PARAN
+   22: parameterlist: PRE_OPEN_PARAN
+   23: start: PRE_END_OF_FILE PRE_COMMENT_START PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_BOOL PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_VARIABLE_TYPE_REDIS PRE_VARIABLE_TYPE_VOID PRE_ENTER
+   24: expressions: PRE_END_OF_FILE PRE_COMMENT_START PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_BOOL PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_VARIABLE_TYPE_REDIS PRE_VARIABLE_TYPE_VOID PRE_ENTER
+   25: expression: PRE_END_OF_FILE PRE_COMMENT_START PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_BOOL PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_VARIABLE_TYPE_REDIS PRE_VARIABLE_TYPE_VOID PRE_ENTER
+   26: comment: PRE_COMMENT_START
+   27: globals: PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_BOOL PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_VARIABLE_TYPE_REDIS PRE_VARIABLE_TYPE_VOID
+   28: enters: PRE_ENTER
+   29: identifier: PRE_IDENTIFIER
+   30: funcdechead: PRE_IDENTIFIER
+   31: funcdecid: PRE_IDENTIFIER
    32: htsqlfunctionbody: PRE_FUNCTION_BEGIN
    33: openparenthesis: PRE_OPEN_PARAN
    34: parameters: <lambda> PRE_VARIABLE_TYPE_VARCHAR PRE_VARIABLE_TYPE_NUMBER PRE_VARIABLE_TYPE_DATE PRE_COMMA

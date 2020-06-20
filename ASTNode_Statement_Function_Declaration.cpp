@@ -4,13 +4,18 @@
 #include "ASTNode_Statement_Function_Declaration.hpp"
 
 
-Sodium::ASTNode_Statement_Function_Declaration::ASTNode_Statement_Function_Declaration(Token * _token, string scope, ASTNode_Identifier *nameIdentifier)
+Sodium::ASTNode_Statement_Function_Declaration::ASTNode_Statement_Function_Declaration(
+	Token * _token, 
+	string scope, 
+	ASTNode_Identifier * nameIdentifier,
+	vector<ASTNode_Identifier> parameters)
 	: ASTNode_Statement(ASTNodeType_Statement_Declaration_Function, _token, scope)
 {
 	this->nameIdentifier = nameIdentifier;
 	this->returnType = NULL;
 	this->codeblock = NULL;
 	this->returnType = NULL;
+	this->parameters = parameters;
 }
 
 

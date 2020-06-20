@@ -22,6 +22,7 @@ namespace Sodium {
 
         string ToString();
         ASTNode_Identifier(Token* _token, string scope);
+        ASTNode_Identifier(Token* _token, string scope, ASTNodePrimitiveDataType primitiveDataType);
     };
 
 }

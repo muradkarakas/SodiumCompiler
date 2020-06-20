@@ -22,6 +22,9 @@ namespace Sodium {
 		ASTCompareOperatorType_GreaterThanOrEqual,
 	};
 	
+	#define ASTNODE_SCOPE_GLOBAL			"GLOBAL"
+	#define ASTNODE_SCOPE_FUNCTION_PARAMETER "FUNCTION_PARAMETER"
+	
 	enum ASTNodePrimitiveDataType {
 		ASTNodePrimitiveDataType_Typeless,
 		ASTNodePrimitiveDataType_Void,

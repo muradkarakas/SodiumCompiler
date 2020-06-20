@@ -11,6 +11,12 @@ Sodium::ASTNode_Identifier::ASTNode_Identifier(Token* _token, string scope)
 	this->primitiveDataType = ASTNodePrimitiveDataType_Typeless;
 }
 
+Sodium::ASTNode_Identifier::ASTNode_Identifier(Token* _token, string scope, ASTNodePrimitiveDataType primitiveDataType)
+	: ASTNode(ASTNodeType_Identifier, _token, scope)
+{
+	this->primitiveDataType = primitiveDataType;
+}
+
 string
 Sodium::ASTNode_Identifier::ToString()
 {

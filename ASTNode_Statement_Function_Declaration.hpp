@@ -24,7 +24,11 @@ namespace Sodium {
 		ASTNode_Data_Type			* returnType;
 
 		string ToString();
-		ASTNode_Statement_Function_Declaration(Token* _token, string scope, ASTNode_Identifier* nameIdentifier);
+		ASTNode_Statement_Function_Declaration(
+			Token* _token, 
+			string scope, 
+			ASTNode_Identifier* nameIdentifier,
+			vector<ASTNode_Identifier> parameters);
 	};
 
 }

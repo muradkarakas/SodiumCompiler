@@ -117,11 +117,11 @@
     <ClCompile Include="ASTNode_Statement_Call.cpp">
       <Filter>Source Files\Ast</Filter>
     </ClCompile>
-    <ClCompile Include="Token.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ASTNode_Statement_Function_Declaration.cpp">
       <Filter>Source Files\Ast</Filter>
+    </ClCompile>
+    <ClCompile Include="Token.cpp">
+      <Filter>Source Files\Compiler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,11 +211,11 @@
     <ClInclude Include="ASTNode_Statement_Call.hpp">
       <Filter>Source Files\Ast</Filter>
     </ClInclude>
-    <ClInclude Include="Token.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ASTNode_Statement_Function_Declaration.hpp">
       <Filter>Source Files\Ast</Filter>
+    </ClInclude>
+    <ClInclude Include="Token.hpp">
+      <Filter>Source Files\Compiler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
