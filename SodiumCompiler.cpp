@@ -15,12 +15,117 @@
 
 #include "ASTNode.hpp"
 #include "ASTNode_Code_Block.hpp"
+#include "ASTNode_Data_Type.hpp"
 #include "ASTNode_Statement_Variable_Declaration.hpp"
 #include "ASTNode_Statement_Function_Declaration.hpp"
 
 HANDLE gHeapHandle = NULL;
 
 using namespace llvm;
+
+void
+Sodium::SodiumCompiler::IterateOverCodeBlock(
+    Module* M,
+    LLVMContext& Context,
+    ASTNode_Code_Block* codeBlock)
+{
+    for (auto pos = codeBlock->statements.begin(); pos != codeBlock->statements.end(); ++pos) {
+
+        switch ((*pos)->_nodeType) {
+            case ASTNodeType_Statement_Declaration_Variable: {
+                ASTNode_Statement_Variable_Declaration* node = (ASTNode_Statement_Variable_Declaration*)(*pos);
+                printf("\n%s", node->ToString().c_str());
+                break;
+            }
+            case ASTNodeType_Statement_Declaration_Function: {
+                ASTNode_Statement_Function_Declaration* funcDeclaration = (ASTNode_Statement_Function_Declaration*)(*pos);
+                printf("\n%s", funcDeclaration->ToString().c_str());
+                string funcName = this->sqlxParser->fileName + "_";
+                funcName.append(funcDeclaration->_token->tokenStr, funcDeclaration->_token->tokenStrLength);
+                CreateIRFunction(
+                    M, 
+                    Context,
+                    funcDeclaration->GetFunctionPrimitiveReturnType(),
+                    funcName,
+                    funcDeclaration->parameters);
+                break;
+            }
+        }
+    }
+}
+
+Function*
+Sodium::SodiumCompiler::CreateIRFunction(
+    Module* M,
+    LLVMContext& Context,
+    ASTNodePrimitiveDataType returnType,
+    string functionName,
+    vector<ASTNode_Identifier> parameters)
+{
+    //  Preparing paramater list as ArrayRef<Type*>
+    //  Loop in parameter list
+    Type* typeArray[25];
+    int index = 0;
+    for (auto pos = parameters.begin(); pos != parameters.end(); ++pos, index++) {
+        switch (pos->primitiveDataType) {
+            case ASTNodePrimitiveDataType_Typeless: { typeArray[index] = Type::getVoidTy(Context); break; }
+            case ASTNodePrimitiveDataType_Void: { typeArray[index] = Type::getVoidTy(Context); break; }
+            case ASTNodePrimitiveDataType_Number: { typeArray[index] = Type::getDoubleTy(Context); break; }
+            case ASTNodePrimitiveDataType_DateTime: { typeArray[index] = Type::getDoubleTy(Context); break; }
+            case ASTNodePrimitiveDataType_String: { typeArray[index] = Type::getInt8PtrTy(Context); break; }
+            case ASTNodePrimitiveDataType_Bool: { typeArray[index] = Type::getInt8Ty(Context); break; }
+            case ASTNodePrimitiveDataType_Redis: { typeArray[index] = Type::getVoidTy(Context); printf("\nRedis not supported"); break; }
+        }    
+    }
+    ArrayRef<Type*> llvmParameters = makeArrayRef<Type*>(typeArray, index);
+    
+    //  Function return type
+    Type* retType = NULL;
+    switch (returnType) {
+        case ASTNodePrimitiveDataType_Typeless: { retType = Type::getVoidTy(Context); break; }
+        case ASTNodePrimitiveDataType_Void: { retType = Type::getVoidTy(Context); break; }
+        case ASTNodePrimitiveDataType_Number: { retType = Type::getDoubleTy(Context); break; }
+        case ASTNodePrimitiveDataType_DateTime: { retType = Type::getInt64Ty(Context); break; }
+        case ASTNodePrimitiveDataType_String: { retType = Type::getInt8PtrTy(Context); break; }
+        case ASTNodePrimitiveDataType_Bool: { retType = Type::getInt1Ty(Context); break; }
+        case ASTNodePrimitiveDataType_Redis: { retType = Type::getVoidTy(Context); printf("\nRedis not supported"); break; }
+    }
+
+    // Create the page function and insert it into module M. No return value
+    FunctionType* FibFTy = FunctionType::get(retType, llvmParameters, false);
+    Function* FibF = Function::Create(FibFTy, Function::ExternalLinkage, functionName, M);
+
+    // visibility settings
+    FibF->setVisibility(llvm::GlobalValue::VisibilityTypes::DefaultVisibility);
+    FibF->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
+    FibF->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
+
+    // Add a basic block to the function.
+    BasicBlock* BB = BasicBlock::Create(Context, "EntryBlock", FibF);
+
+
+    // Create the return instruction and add it to the basic block
+    llvm::IRBuilder<> builder(Context);
+    builder.SetInsertPoint(BB);
+
+    string funcRetValGlobalStringName = functionName + "_retval";
+    Value *tempRetValForString = builder.CreateGlobalStringPtr("muradkarakas@gmail.com", funcRetValGlobalStringName);
+    Value * tempRetValForNumber = ConstantFP::get(Type::getDoubleTy(Context), 20.20);
+    Value *tempRetValForBool = builder.getTrue();
+
+    switch (returnType) {
+        case ASTNodePrimitiveDataType_Typeless: { ReturnInst::Create(Context, (llvm::Value*) nullptr, BB); break; }
+        case ASTNodePrimitiveDataType_Void: { ReturnInst::Create(Context, (llvm::Value*) nullptr, BB); break; }
+        case ASTNodePrimitiveDataType_Number: { ReturnInst::Create(Context, tempRetValForNumber, BB); break; }
+        case ASTNodePrimitiveDataType_DateTime: { ReturnInst::Create(Context, (llvm::Value*) nullptr, BB); break; }
+        case ASTNodePrimitiveDataType_String: { ReturnInst::Create(Context, tempRetValForString, BB); break; }
+        case ASTNodePrimitiveDataType_Bool: { ReturnInst::Create(Context, tempRetValForBool, BB); break; }
+        case ASTNodePrimitiveDataType_Redis: { ReturnInst::Create(Context, (llvm::Value*) nullptr, BB); break; }
+    }
+
+    return FibF;
+}
+
 
 BOOL
 Sodium::SodiumCompiler::DumpIR()
@@ -40,7 +145,7 @@ Sodium::SodiumCompiler::DumpIR()
     /*Function* FibF = */ CreateHtmlFunction(M, Context);
     /*Function* FibF =  CreatePageLoadFunction(M, Context);*/
 
-    IterateOverCodeBlock(this->astNodeCodeBlock);
+    IterateOverCodeBlock(M, Context, this->astNodeCodeBlock);
 
     // writing LLCM IR file to disk
     string irFileName = this->frmxParser->fileName;
@@ -55,33 +160,10 @@ Sodium::SodiumCompiler::DumpIR()
 }
 
 void
-Sodium::SodiumCompiler::IterateOverCodeBlock(
-    ASTNode_Code_Block* codeBlock)
-{
-    for (auto pos = codeBlock->statements.begin(); pos != codeBlock->statements.end(); ++pos) {
-
-        switch ((*pos)->_nodeType) {
-            case ASTNodeType_Statement_Declaration_Variable: {
-                ASTNode_Statement_Variable_Declaration* node = (ASTNode_Statement_Variable_Declaration*)(*pos);
-                printf("\n%s", node->ToString().c_str());
-                break;
-            }
-            case ASTNodeType_Statement_Declaration_Function: {
-                ASTNode_Statement_Function_Declaration* node = (ASTNode_Statement_Function_Declaration*)(*pos);
-                printf("\n%s", node->ToString().c_str());
-                break;
-            }
-        }
-    }
-}
-
-void
 Sodium::SodiumCompiler::InsertASTNode(
     ASTNode_Statement* statement)
 {
-
     this->astNodeCodeBlock->InsertStatement(statement);
-
 }
 
 
@@ -229,6 +311,8 @@ Sodium::SodiumCompiler::SodiumCompiler()
 
 Sodium::SodiumCompiler::~SodiumCompiler()
 {
+
+    //  TODO: Free all function parameter list defined as "vector<ASTNode_Identifier>	tempVectorForASTNodeIdentifier;" in SodiumCompiler.cpp 
     if (this->frmxParser) {
         delete this->frmxParser;
         this->frmxParser = NULL;

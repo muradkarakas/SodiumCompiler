@@ -27,6 +27,13 @@ Sodium::ASTNode_Statement_Function_Declaration::SetFunctionReturnType(ASTNode_Da
 	this->returnType = returnType;
 }
 
+
+Sodium::ASTNodePrimitiveDataType
+Sodium::ASTNode_Statement_Function_Declaration::GetFunctionPrimitiveReturnType()
+{
+	return this->returnType->primitiveDataType;
+}
+
 string
 Sodium::ASTNode_Statement_Function_Declaration::ToString()
 {

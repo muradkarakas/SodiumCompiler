@@ -990,13 +990,15 @@ static void yy_reduce(
       case 7: /* parameterlist ::= openparenthesis parameters closeparenthesis */
 #line 172 "lemon.pre.yy"
 {
-    yymsp[-2].minor.yy18 = &compiler->tempVectorForASTNodeIdentifier;
+    vector<ASTNode_Identifier> * paramList = new vector<ASTNode_Identifier>(compiler->tempVectorForASTNodeIdentifier);
+    yymsp[-2].minor.yy18 = paramList;
+    compiler->tempVectorForASTNodeIdentifier.clear();
 }
-#line 996 "lemon.pre.c"
+#line 998 "lemon.pre.c"
         break;
       case 8: /* parameters ::= parameters comma parameter */
       case 9: /* parameters ::= parameter */ yytestcase(yyruleno==9);
-#line 177 "lemon.pre.yy"
+#line 179 "lemon.pre.yy"
 {
     Token* parameter = yymsp[0].minor.yy0;
     //  check function has parameter
@@ -1004,58 +1006,58 @@ static void yy_reduce(
         compiler->tempVectorForASTNodeIdentifier.push_back(*((ASTNode_Identifier*)parameter->ASTNodeInstance));
     }
 }
-#line 1008 "lemon.pre.c"
+#line 1010 "lemon.pre.c"
         break;
       case 10: /* parameter ::= PRE_VARIABLE_TYPE_VARCHAR identifier */
 {  yy_destructor(yypParser,4,&yymsp[-1].minor);
-#line 196 "lemon.pre.yy"
+#line 198 "lemon.pre.yy"
 {
     ASTNode_Identifier* identifier = new ASTNode_Identifier(yymsp[0].minor.yy0, ASTNODE_SCOPE_FUNCTION_PARAMETER, ASTNodePrimitiveDataType_String);
     preTokenDestructor(yymsp[0].minor.yy0);
     yymsp[-1].minor.yy0 = yymsp[0].minor.yy0;
 }
-#line 1018 "lemon.pre.c"
+#line 1020 "lemon.pre.c"
 }
         break;
       case 11: /* parameter ::= PRE_VARIABLE_TYPE_NUMBER identifier */
 {  yy_destructor(yypParser,7,&yymsp[-1].minor);
-#line 203 "lemon.pre.yy"
+#line 205 "lemon.pre.yy"
 {
     ASTNode_Identifier* identifier = new ASTNode_Identifier(yymsp[0].minor.yy0, ASTNODE_SCOPE_FUNCTION_PARAMETER, ASTNodePrimitiveDataType_Number);
     preTokenDestructor(yymsp[0].minor.yy0);
     yymsp[-1].minor.yy0 = yymsp[0].minor.yy0;
 }
-#line 1029 "lemon.pre.c"
+#line 1031 "lemon.pre.c"
 }
         break;
       case 12: /* parameter ::= PRE_VARIABLE_TYPE_DATE identifier */
 {  yy_destructor(yypParser,8,&yymsp[-1].minor);
-#line 210 "lemon.pre.yy"
+#line 212 "lemon.pre.yy"
 {
     ASTNode_Identifier* identifier = new ASTNode_Identifier(yymsp[0].minor.yy0, ASTNODE_SCOPE_FUNCTION_PARAMETER, ASTNodePrimitiveDataType_DateTime);
     preTokenDestructor(yymsp[0].minor.yy0);
     yymsp[-1].minor.yy0 = yymsp[0].minor.yy0;
 }
-#line 1040 "lemon.pre.c"
+#line 1042 "lemon.pre.c"
 }
         break;
       case 13: /* parameter ::= */
-#line 217 "lemon.pre.yy"
+#line 219 "lemon.pre.yy"
 {
     //  function has no parameter
     yymsp[1].minor.yy0 = NULL;
     compiler->tempVectorForASTNodeIdentifier.clear();
 }
-#line 1050 "lemon.pre.c"
+#line 1052 "lemon.pre.c"
         break;
       case 14: /* identifier ::= PRE_IDENTIFIER */
-#line 233 "lemon.pre.yy"
+#line 235 "lemon.pre.yy"
 {
     ASTNode_Identifier * identifier = new ASTNode_Identifier(yymsp[0].minor.yy0, ASTNODE_SCOPE_GLOBAL);
     preTokenDestructor(yymsp[0].minor.yy0);
     yylhsminor.yy0 = yymsp[0].minor.yy0;
 }
-#line 1059 "lemon.pre.c"
+#line 1061 "lemon.pre.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
       case 21: /* expression ::= PRE_END_OF_FILE */
@@ -1063,7 +1065,7 @@ static void yy_reduce(
 #line 63 "lemon.pre.yy"
 {
 }
-#line 1067 "lemon.pre.c"
+#line 1069 "lemon.pre.c"
 }
         break;
       case 22: /* comment ::= PRE_COMMENT_START PRE_COMMENT_END */
@@ -1071,7 +1073,7 @@ static void yy_reduce(
 #line 65 "lemon.pre.yy"
 {
 }
-#line 1075 "lemon.pre.c"
+#line 1077 "lemon.pre.c"
   yy_destructor(yypParser,3,&yymsp[0].minor);
 }
         break;
@@ -1080,7 +1082,7 @@ static void yy_reduce(
 #line 68 "lemon.pre.yy"
 {
 }
-#line 1084 "lemon.pre.c"
+#line 1086 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
 }
         break;
@@ -1089,7 +1091,7 @@ static void yy_reduce(
 #line 70 "lemon.pre.yy"
 {
 }
-#line 1093 "lemon.pre.c"
+#line 1095 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
 }
         break;
@@ -1098,7 +1100,7 @@ static void yy_reduce(
 #line 72 "lemon.pre.yy"
 {
 }
-#line 1102 "lemon.pre.c"
+#line 1104 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
 }
         break;
@@ -1107,7 +1109,7 @@ static void yy_reduce(
 #line 74 "lemon.pre.yy"
 {
 }
-#line 1111 "lemon.pre.c"
+#line 1113 "lemon.pre.c"
   yy_destructor(yypParser,5,&yymsp[0].minor);
 }
         break;
@@ -1116,7 +1118,7 @@ static void yy_reduce(
 #line 152 "lemon.pre.yy"
 {
 }
-#line 1120 "lemon.pre.c"
+#line 1122 "lemon.pre.c"
   yy_destructor(yypParser,12,&yymsp[0].minor);
 }
         break;
@@ -1125,7 +1127,7 @@ static void yy_reduce(
 #line 154 "lemon.pre.yy"
 {
 }
-#line 1129 "lemon.pre.c"
+#line 1131 "lemon.pre.c"
   yy_destructor(yypParser,12,&yymsp[0].minor);
 }
         break;
@@ -1134,39 +1136,39 @@ static void yy_reduce(
 #line 162 "lemon.pre.yy"
 {
 }
-#line 1138 "lemon.pre.c"
+#line 1140 "lemon.pre.c"
 }
         break;
       case 35: /* enter ::= PRE_ENTER */
 {  yy_destructor(yypParser,14,&yymsp[0].minor);
-#line 228 "lemon.pre.yy"
+#line 230 "lemon.pre.yy"
 {
 }
-#line 1146 "lemon.pre.c"
+#line 1148 "lemon.pre.c"
 }
         break;
       case 36: /* openparenthesis ::= PRE_OPEN_PARAN */
 {  yy_destructor(yypParser,16,&yymsp[0].minor);
-#line 242 "lemon.pre.yy"
+#line 244 "lemon.pre.yy"
 {
 }
-#line 1154 "lemon.pre.c"
+#line 1156 "lemon.pre.c"
 }
         break;
       case 37: /* closeparenthesis ::= PRE_CLOSE_PARAN */
 {  yy_destructor(yypParser,17,&yymsp[0].minor);
-#line 243 "lemon.pre.yy"
+#line 245 "lemon.pre.yy"
 {
 }
-#line 1162 "lemon.pre.c"
+#line 1164 "lemon.pre.c"
 }
         break;
       case 38: /* comma ::= PRE_COMMA */
 {  yy_destructor(yypParser,18,&yymsp[0].minor);
-#line 245 "lemon.pre.yy"
+#line 247 "lemon.pre.yy"
 {
 }
-#line 1170 "lemon.pre.c"
+#line 1172 "lemon.pre.c"
 }
         break;
       default:
@@ -1240,7 +1242,7 @@ static void yy_syntax_error(
 #line 50 "lemon.pre.yy"
 
     printf("\nsyntax error");
-#line 1244 "lemon.pre.c"
+#line 1246 "lemon.pre.c"
 /************ End %syntax_error code ******************************************/
   preParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }

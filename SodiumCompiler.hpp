@@ -18,11 +18,10 @@
 #include "Token.hpp"
 
 #include "ASTNode_Identifier.hpp"
-
 #include "ASTNode_Code_Block.hpp"
+#include "ASTNode_Data_Type.hpp"
 
 #include "CompileUnitBase.hpp"
-
 #include "CompileUnitFrmx.hpp"
 #include "CompileUnitSqlx.hpp"
 
@@ -31,6 +30,7 @@ typedef void* HANDLE;
 extern HANDLE gHeapHandle;
 
 using namespace std;
+using namespace llvm;
 
 namespace Sodium {
 
@@ -76,12 +76,15 @@ namespace Sodium {
 		void	IncreseLineNumberOuter();
 
 		void	InsertASTNode(ASTNode_Statement* statement);
-		void	IterateOverCodeBlock(ASTNode_Code_Block* codeBlock);
+		void	IterateOverCodeBlock(Module* M, LLVMContext& Context, ASTNode_Code_Block* codeBlock);
 
 		Token	* CreateToken(int tokenCode, int tokenStrLength, const char* tokenStr);
 
-		llvm::Function* CreateHtmlFunction(llvm::Module* M, llvm::LLVMContext& Context);
-		llvm::Function* CreatePageLoadFunction(llvm::Module* M, llvm::LLVMContext& Context);
+		Function* CreateHtmlFunction(Module* M, LLVMContext& Context);
+		Function* CreatePageLoadFunction(Module* M, LLVMContext& Context);
+
+		Function* CreateIRFunction(Module* M, LLVMContext& Context, 
+			ASTNodePrimitiveDataType returnType, string functionName, vector<ASTNode_Identifier> parameters);
 
 		friend class CompileUnitBase;
 		friend class CompileUnitBaseSqlx;

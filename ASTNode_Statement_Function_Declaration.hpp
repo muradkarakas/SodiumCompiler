@@ -28,6 +28,8 @@ namespace Sodium {
 
 		string		ToString();
 
+		ASTNodePrimitiveDataType GetFunctionPrimitiveReturnType();
+
 		ASTNode_Statement_Function_Declaration(
 			Token* _token, 
 			string scope, 

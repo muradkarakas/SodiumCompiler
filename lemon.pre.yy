@@ -170,7 +170,9 @@ function_body_line  ::= PRE_FUNCTION_BODY_LINE.
 */
 parameterlist(RET)   ::= openparenthesis parameters closeparenthesis.
 {
-    RET = &compiler->tempVectorForASTNodeIdentifier;
+    vector<ASTNode_Identifier> * paramList = new vector<ASTNode_Identifier>(compiler->tempVectorForASTNodeIdentifier);
+    RET = paramList;
+    compiler->tempVectorForASTNodeIdentifier.clear();
 }
 
 parameters      ::= parameters comma parameter(A).
