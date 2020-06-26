@@ -33,8 +33,12 @@ Sodium::SodiumCompiler::IterateOverCodeBlock(
 
         switch ((*pos)->_nodeType) {
             case ASTNodeType_Statement_Declaration_Variable: {
-                ASTNode_Statement_Variable_Declaration* node = (ASTNode_Statement_Variable_Declaration*)(*pos);
-                printf("\n%s", node->ToString().c_str());
+                ASTNode_Statement_Variable_Declaration* varDeclaration = (ASTNode_Statement_Variable_Declaration*)(*pos);
+                printf("\n%s", varDeclaration->ToString().c_str());
+                CreateIRGlobalVariable(
+                    M,
+                    Context,
+                    varDeclaration);
                 break;
             }
             case ASTNodeType_Statement_Declaration_Function: {
@@ -42,7 +46,7 @@ Sodium::SodiumCompiler::IterateOverCodeBlock(
                 printf("\n%s", funcDeclaration->ToString().c_str());
                 string funcName = this->sqlxParser->fileName + "_";
                 funcName.append(funcDeclaration->_token->tokenStr, funcDeclaration->_token->tokenStrLength);
-                CreateIRFunction(
+                CreateIRGloabalFunction(
                     M, 
                     Context,
                     funcDeclaration->GetFunctionPrimitiveReturnType(),
@@ -54,8 +58,77 @@ Sodium::SodiumCompiler::IterateOverCodeBlock(
     }
 }
 
+void
+Sodium::SodiumCompiler::CreateIRGlobalVariable(
+    Module* M,
+    LLVMContext& Context,
+    ASTNode_Statement_Variable_Declaration* varDeclaration)
+{
+    string varName = "";
+    varName.append(varDeclaration->_token->tokenStr, varDeclaration->_token->tokenStrLength);
+
+    switch (varDeclaration->dataType) {
+        case ASTNodePrimitiveDataType_Typeless: { 
+            Type* varType = Type::getVoidTy(Context);
+            break; 
+        }
+        case ASTNodePrimitiveDataType_Void: { 
+            Type* varType = Type::getVoidTy(Context);
+            break; 
+        }
+        case ASTNodePrimitiveDataType_Number: { 
+            Type* varType = Type::getDoubleTy(Context);
+            M->getOrInsertGlobal(varName, varType);
+            GlobalVariable* gVar = M->getNamedGlobal(varName);
+            gVar->setVisibility(GlobalValue::VisibilityTypes::DefaultVisibility);
+            gVar->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
+            gVar->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
+            gVar->setInitializer(ConstantFP::get(varType, "20.20"));
+            break; 
+        }
+        case ASTNodePrimitiveDataType_DateTime: { 
+            Type* varType = Type::getDoubleTy(Context);
+            break; 
+        }
+        case ASTNodePrimitiveDataType_String: { 
+            PointerType *varType = Type::getInt8PtrTy(Context);
+
+            GlobalVariable* strGlobalVariable = new GlobalVariable(
+                *M,
+                varType,
+                FALSE,
+                GlobalValue::LinkageTypes::ExternalLinkage,
+                0,
+                varName);
+
+            strGlobalVariable->setVisibility(GlobalValue::VisibilityTypes::DefaultVisibility);
+            strGlobalVariable->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
+            strGlobalVariable->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
+            strGlobalVariable->setAlignment(MaybeAlign(1));
+
+            ConstantPointerNull* const_ptr_2_null = ConstantPointerNull::get(varType);
+            // Global Variable Definitions
+            strGlobalVariable->setInitializer(const_ptr_2_null);
+
+            break; 
+        }
+        case ASTNodePrimitiveDataType_Bool: { 
+            Type* varType = Type::getInt8Ty(Context); 
+            break; 
+        }
+        case ASTNodePrimitiveDataType_Redis: { 
+            Type* varType = Type::getVoidTy(Context);
+            printf("\nRedis not supported"); 
+            break; 
+        }
+    }
+    
+    /**/
+}
+
+
 Function*
-Sodium::SodiumCompiler::CreateIRFunction(
+Sodium::SodiumCompiler::CreateIRGloabalFunction(
     Module* M,
     LLVMContext& Context,
     ASTNodePrimitiveDataType returnType,
@@ -95,14 +168,14 @@ Sodium::SodiumCompiler::CreateIRFunction(
     FunctionType* FibFTy = FunctionType::get(retType, llvmParameters, false);
     Function* FibF = Function::Create(FibFTy, Function::ExternalLinkage, functionName, M);
 
+
     // visibility settings
     FibF->setVisibility(llvm::GlobalValue::VisibilityTypes::DefaultVisibility);
     FibF->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
     FibF->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
-
+    
     // Add a basic block to the function.
     BasicBlock* BB = BasicBlock::Create(Context, "EntryBlock", FibF);
-
 
     // Create the return instruction and add it to the basic block
     llvm::IRBuilder<> builder(Context);
@@ -250,9 +323,9 @@ Sodium::SodiumCompiler::CreatePageLoadFunction(
     Function* FibF = Function::Create(FibFTy, Function::ExternalLinkage, pageFunctionName, M);
 
     // visibility settings
-    FibF->setVisibility(llvm::GlobalValue::VisibilityTypes::DefaultVisibility);
-    FibF->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
-    FibF->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
+    FibF->setVisibility(GlobalValue::VisibilityTypes::DefaultVisibility);
+    FibF->setLinkage(GlobalValue::LinkageTypes::ExternalLinkage);
+    FibF->setDLLStorageClass(GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
 
     // Add a basic block to the function.
     BasicBlock* BB = BasicBlock::Create(Context, "EntryBlock", FibF);

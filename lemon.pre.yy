@@ -65,15 +65,59 @@ expression  ::= PRE_END_OF_FILE.
 comment     ::= PRE_COMMENT_START   PRE_COMMENT_END.
 
 /**  GLOBALS VARIABLES */
-globals      ::= PRE_VARIABLE_TYPE_VARCHAR  identifier PRE_SEMICOLON.
+globals      ::= PRE_VARIABLE_TYPE_VARCHAR  identifier(A)   PRE_SEMICOLON.
+{
+    ASTNode_Statement_Variable_Declaration* stmVarDeclaration =
+        new ASTNode_Statement_Variable_Declaration(A, ASTNodePrimitiveDataType_String, ASTNODE_SCOPE_GLOBAL);
 
-globals      ::= PRE_VARIABLE_TYPE_BOOL     identifier PRE_SEMICOLON.
+    A->ASTNodeInstance = stmVarDeclaration;
 
-globals      ::= PRE_VARIABLE_TYPE_NUMBER   identifier PRE_SEMICOLON.
+    //  adding variable declaration to the AST
+    compiler->InsertASTNode(stmVarDeclaration);
 
-globals      ::= PRE_VARIABLE_TYPE_DATE     identifier PRE_SEMICOLON.
+    preTokenDestructor(A);
+}
 
-globals      ::= PRE_VARIABLE_TYPE_REDIS(A)	identifier(B) PRE_SEMICOLON(C).
+globals      ::= PRE_VARIABLE_TYPE_BOOL     identifier(A)   PRE_SEMICOLON.
+{
+    ASTNode_Statement_Variable_Declaration* stmVarDeclaration =
+        new ASTNode_Statement_Variable_Declaration(A, ASTNodePrimitiveDataType_Bool, ASTNODE_SCOPE_GLOBAL);
+
+    A->ASTNodeInstance = stmVarDeclaration;
+
+    //  adding variable declaration to the AST
+    compiler->InsertASTNode(stmVarDeclaration);
+
+    preTokenDestructor(A);
+}
+
+globals      ::= PRE_VARIABLE_TYPE_NUMBER   identifier(A)   PRE_SEMICOLON.
+{
+    ASTNode_Statement_Variable_Declaration* stmVarDeclaration =
+        new ASTNode_Statement_Variable_Declaration(A, ASTNodePrimitiveDataType_Number, ASTNODE_SCOPE_GLOBAL);
+
+    A->ASTNodeInstance = stmVarDeclaration;
+
+    //  adding variable declaration to the AST
+    compiler->InsertASTNode(stmVarDeclaration);
+
+    preTokenDestructor(A);
+}
+
+globals      ::= PRE_VARIABLE_TYPE_DATE     identifier(A)   PRE_SEMICOLON.
+{
+    ASTNode_Statement_Variable_Declaration* stmVarDeclaration =
+        new ASTNode_Statement_Variable_Declaration(A, ASTNodePrimitiveDataType_DateTime, ASTNODE_SCOPE_GLOBAL);
+
+    A->ASTNodeInstance = stmVarDeclaration;
+
+    //  adding variable declaration to the AST
+    compiler->InsertASTNode(stmVarDeclaration);
+
+    preTokenDestructor(A);
+}
+
+globals      ::= PRE_VARIABLE_TYPE_REDIS	identifier(A)   PRE_SEMICOLON.
 {
     ASTNode_Statement_Variable_Declaration* stmVarDeclaration = 
         new ASTNode_Statement_Variable_Declaration(A, ASTNodePrimitiveDataType_Redis, ASTNODE_SCOPE_GLOBAL);
@@ -84,8 +128,6 @@ globals      ::= PRE_VARIABLE_TYPE_REDIS(A)	identifier(B) PRE_SEMICOLON(C).
     compiler->InsertASTNode(stmVarDeclaration);
 
     preTokenDestructor(A);
-    preTokenDestructor(B);
-    preTokenDestructor(C);
 }
 
 

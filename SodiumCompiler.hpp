@@ -21,6 +21,8 @@
 #include "ASTNode_Code_Block.hpp"
 #include "ASTNode_Data_Type.hpp"
 
+#include "ASTNode_Statement_Variable_Declaration.hpp"
+
 #include "CompileUnitBase.hpp"
 #include "CompileUnitFrmx.hpp"
 #include "CompileUnitSqlx.hpp"
@@ -83,8 +85,10 @@ namespace Sodium {
 		Function* CreateHtmlFunction(Module* M, LLVMContext& Context);
 		Function* CreatePageLoadFunction(Module* M, LLVMContext& Context);
 
-		Function* CreateIRFunction(Module* M, LLVMContext& Context, 
+		Function* CreateIRGloabalFunction(Module* M, LLVMContext& Context, 
 			ASTNodePrimitiveDataType returnType, string functionName, vector<ASTNode_Identifier> parameters);
+
+		void CreateIRGlobalVariable(Module* M, LLVMContext& Context, ASTNode_Statement_Variable_Declaration* varDeclaration);
 
 		friend class CompileUnitBase;
 		friend class CompileUnitBaseSqlx;
