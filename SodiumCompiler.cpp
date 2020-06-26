@@ -58,6 +58,50 @@ Sodium::SodiumCompiler::IterateOverCodeBlock(
     }
 }
 
+Value* Sodium::SodiumCompiler::CreateConstantGlobalNamedDoubleValue(Module* M, LLVMContext& Context, string varName, double value) {
+    Type* varType = Type::getDoubleTy(Context);
+    M->getOrInsertGlobal(varName, varType);
+    GlobalVariable* globalDeclaration = M->getNamedGlobal(varName);
+    globalDeclaration->setVisibility(GlobalValue::VisibilityTypes::DefaultVisibility);
+    globalDeclaration->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
+    globalDeclaration->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
+    globalDeclaration->setInitializer(ConstantFP::get(varType, value));
+    globalDeclaration->setUnnamedAddr(GlobalValue::UnnamedAddr::Global);
+    return ConstantExpr::getBitCast(globalDeclaration, varType->getPointerTo());
+}
+
+Value* Sodium::SodiumCompiler::CreateConstantGlobalNamedStringValue(Module* M, LLVMContext& Context, string varName, string value) {
+    //0. Defs
+    auto charType = llvm::IntegerType::get(Context, 8);
+
+    size_t strLength = value.length();
+
+    //1. Initialize chars vector
+    std::vector<llvm::Constant*> chars(strLength);
+    for (unsigned int i = 0; i < strLength; i++) {
+        chars[i] = ConstantInt::get(charType, value[i]);
+    }
+
+    //1b. add a zero terminator too
+    chars.push_back(ConstantInt::get(charType, 0));
+
+    //2. Initialize the string from the characters
+    auto stringType = ArrayType::get(charType, chars.size());
+
+    //3. Create the declaration statement
+    auto globalDeclaration = (GlobalVariable*) M->getOrInsertGlobal(varName, stringType);
+    globalDeclaration->setInitializer(ConstantArray::get(stringType, chars));
+    globalDeclaration->setConstant(true);
+    globalDeclaration->setVisibility(GlobalValue::VisibilityTypes::DefaultVisibility);
+    globalDeclaration->setLinkage(GlobalValue::LinkageTypes::ExternalLinkage);
+    globalDeclaration->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
+    globalDeclaration->setUnnamedAddr(GlobalValue::UnnamedAddr::Global);
+    globalDeclaration->setAlignment(MaybeAlign(1));
+
+    //4. Return a cast to an i8*
+    return ConstantExpr::getBitCast(globalDeclaration, charType->getPointerTo());
+}
+
 void
 Sodium::SodiumCompiler::CreateIRGlobalVariable(
     Module* M,
@@ -77,13 +121,7 @@ Sodium::SodiumCompiler::CreateIRGlobalVariable(
             break; 
         }
         case ASTNodePrimitiveDataType_Number: { 
-            Type* varType = Type::getDoubleTy(Context);
-            M->getOrInsertGlobal(varName, varType);
-            GlobalVariable* gVar = M->getNamedGlobal(varName);
-            gVar->setVisibility(GlobalValue::VisibilityTypes::DefaultVisibility);
-            gVar->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
-            gVar->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
-            gVar->setInitializer(ConstantFP::get(varType, "20.20"));
+            Value* value = CreateConstantGlobalNamedDoubleValue(M, Context, varName, 12.12);
             break; 
         }
         case ASTNodePrimitiveDataType_DateTime: { 
@@ -91,25 +129,7 @@ Sodium::SodiumCompiler::CreateIRGlobalVariable(
             break; 
         }
         case ASTNodePrimitiveDataType_String: { 
-            PointerType *varType = Type::getInt8PtrTy(Context);
-
-            GlobalVariable* strGlobalVariable = new GlobalVariable(
-                *M,
-                varType,
-                FALSE,
-                GlobalValue::LinkageTypes::ExternalLinkage,
-                0,
-                varName);
-
-            strGlobalVariable->setVisibility(GlobalValue::VisibilityTypes::DefaultVisibility);
-            strGlobalVariable->setLinkage(llvm::GlobalValue::LinkageTypes::ExternalLinkage);
-            strGlobalVariable->setDLLStorageClass(llvm::GlobalValue::DLLStorageClassTypes::DLLExportStorageClass);
-            strGlobalVariable->setAlignment(MaybeAlign(1));
-
-            ConstantPointerNull* const_ptr_2_null = ConstantPointerNull::get(varType);
-            // Global Variable Definitions
-            strGlobalVariable->setInitializer(const_ptr_2_null);
-
+            Value* value = CreateConstantGlobalNamedStringValue(M, Context, varName, "deneme");
             break; 
         }
         case ASTNodePrimitiveDataType_Bool: { 

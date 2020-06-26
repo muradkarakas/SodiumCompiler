@@ -80,6 +80,9 @@ namespace Sodium {
 		void	InsertASTNode(ASTNode_Statement* statement);
 		void	IterateOverCodeBlock(Module* M, LLVMContext& Context, ASTNode_Code_Block* codeBlock);
 
+		Value	* CreateConstantGlobalNamedStringValue(Module* M, LLVMContext& Context, string varName, string value);
+		Value	* CreateConstantGlobalNamedDoubleValue(Module* M, LLVMContext& Context, string varName, double value);
+
 		Token	* CreateToken(int tokenCode, int tokenStrLength, const char* tokenStr);
 
 		Function* CreateHtmlFunction(Module* M, LLVMContext& Context);
